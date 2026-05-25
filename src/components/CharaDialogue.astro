@@ -6,59 +6,55 @@
  * 使い方:
  *   <CharaDialogue chara="mikeru" text="工事台帳をつけると確定申告がラクになるにゃ！" />
  *   <CharaDialogue chara="kuroe"  text="一緒に確認してみようにゃ！" direction="right" />
+ *   <CharaDialogue chara="mikeru" expression="yorokobi" text="やったにゃ！" />
+ *   <CharaDialogue chara="kuroe"  expression="kanngaetyuu" text="うーん、考え中にゃ…" />
  *
  * direction="left"  → キャラが左、吹き出しが右（デフォルト）
  * direction="right" → キャラが右、吹き出しが左
+ *
+ * expression（ミケル）: 'warai'(デフォルト) | 'yorokobi' | 'tati'
+ * expression（クロエ）: 'kanngaetyuu'(デフォルト) | 'no-maru' | 'tati'
  */
 
 interface Props {
   chara: 'mikeru' | 'kuroe';
   text: string;
   direction?: 'left' | 'right';
+  expression?: string;
 }
 
-const { chara, text, direction = 'left' } = Astro.props;
+const { chara, text, direction = 'left', expression } = Astro.props;
 
-// mikeru.png / kuroe.png: 512x1476px（個別透過PNG）
-// キャラ本体はPNG上部に位置。displayW=100px → scale≈0.195
 const charData = {
   mikeru: {
     name: 'ミケル',
-    role: '工具マイスター',
-    src: '/images/characters/mikeru.png',
-    displayW: 100,
-    cropH: 140,
+    defaultExpr: 'warai',
     bubbleColor: 'bg-amber-50 border-amber-200',
     nameColor: 'text-amber-700',
   },
   kuroe: {
     name: 'クロエ',
-    role: '現場監督サポーター',
-    src: '/images/characters/kuroe.png',
-    displayW: 100,
-    cropH: 140,
+    defaultExpr: 'kanngaetyuu',
     bubbleColor: 'bg-slate-50 border-slate-200',
     nameColor: 'text-slate-600',
   },
 } as const;
 
 const c = charData[chara];
+const expr = expression ?? c.defaultExpr;
+const imgSrc = `/images/characters/${chara}_${expr}.png`;
 const isRight = direction === 'right';
 ---
 
 <div class:list={['flex gap-4 my-6 items-end', isRight ? 'flex-row-reverse' : '']}>
   <!-- キャラクター -->
   <div class="flex-shrink-0 flex flex-col items-center gap-1">
-    <div
-      style={`width:${c.displayW}px; height:${c.cropH}px; overflow:hidden; border-radius:8px;`}
-    >
-      <img
-        src={c.src}
-        alt={c.name}
-        loading="lazy"
-        style={`width:${c.displayW}px;`}
-      />
-    </div>
+    <img
+      src={imgSrc}
+      alt={c.name}
+      loading="lazy"
+      style="width:90px;"
+    />
     <p class:list={['text-xs font-semibold', c.nameColor]}>{c.name}</p>
   </div>
 
