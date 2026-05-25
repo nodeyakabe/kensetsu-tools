@@ -19,27 +19,29 @@ interface Props {
 
 const { chara, text, direction = 'left' } = Astro.props;
 
+// sheet-v2.jpg: 1024x1536px、左=ミケル・右=クロエ
+// imgW=280 → scale≈0.273、キャラ本体y開始(原寸70px)→scaled=-19px
+// 各キャラ水平中心: ミケル≈left:-17, クロエ≈left:-158
 const charData = {
   mikeru: {
     name: 'ミケル',
     role: '工具マイスター',
-    // デザインシートから主要立ちポーズを切り取るための値
-    cropW: 110,
-    cropH: 160,
-    imgW: 520,
-    offsetTop: -8,
-    offsetLeft: -8,
+    cropW: 100,
+    cropH: 148,
+    imgW: 280,
+    offsetTop: -19,
+    offsetLeft: -17,
     bubbleColor: 'bg-amber-50 border-amber-200',
     nameColor: 'text-amber-700',
   },
   kuroe: {
     name: 'クロエ',
     role: '現場監督サポーター',
-    cropW: 110,
-    cropH: 160,
-    imgW: 540,
-    offsetTop: -10,
-    offsetLeft: -10,
+    cropW: 100,
+    cropH: 148,
+    imgW: 280,
+    offsetTop: -19,
+    offsetLeft: -158,
     bubbleColor: 'bg-slate-50 border-slate-200',
     nameColor: 'text-slate-600',
   },
@@ -56,7 +58,7 @@ const isRight = direction === 'right';
       style={`width:${c.cropW}px; height:${c.cropH}px; overflow:hidden; position:relative; border-radius:8px;`}
     >
       <img
-        src={`/images/characters/${chara}.jpg`}
+        src="/images/characters/sheet-v2.jpg"
         alt={c.name}
         loading="lazy"
         style={`position:absolute; width:${c.imgW}px; top:${c.offsetTop}px; left:${c.offsetLeft}px;`}
