@@ -19,29 +19,24 @@ interface Props {
 
 const { chara, text, direction = 'left' } = Astro.props;
 
-// sheet-v2.jpg: 1024x1536px、左=ミケル・右=クロエ
-// imgW=280 → scale≈0.273、キャラ本体y開始(原寸70px)→scaled=-19px
-// 各キャラ水平中心: ミケル≈left:-17, クロエ≈left:-158
+// mikeru.png / kuroe.png: 512x1476px（個別透過PNG）
+// キャラ本体はPNG上部に位置。displayW=100px → scale≈0.195
 const charData = {
   mikeru: {
     name: 'ミケル',
     role: '工具マイスター',
-    cropW: 100,
-    cropH: 148,
-    imgW: 280,
-    offsetTop: -19,
-    offsetLeft: -17,
+    src: '/images/characters/mikeru.png',
+    displayW: 100,
+    cropH: 140,
     bubbleColor: 'bg-amber-50 border-amber-200',
     nameColor: 'text-amber-700',
   },
   kuroe: {
     name: 'クロエ',
     role: '現場監督サポーター',
-    cropW: 100,
-    cropH: 148,
-    imgW: 280,
-    offsetTop: -19,
-    offsetLeft: -158,
+    src: '/images/characters/kuroe.png',
+    displayW: 100,
+    cropH: 140,
     bubbleColor: 'bg-slate-50 border-slate-200',
     nameColor: 'text-slate-600',
   },
@@ -55,13 +50,13 @@ const isRight = direction === 'right';
   <!-- キャラクター -->
   <div class="flex-shrink-0 flex flex-col items-center gap-1">
     <div
-      style={`width:${c.cropW}px; height:${c.cropH}px; overflow:hidden; position:relative; border-radius:8px;`}
+      style={`width:${c.displayW}px; height:${c.cropH}px; overflow:hidden; border-radius:8px;`}
     >
       <img
-        src="/images/characters/sheet-v2.jpg"
+        src={c.src}
         alt={c.name}
         loading="lazy"
-        style={`position:absolute; width:${c.imgW}px; top:${c.offsetTop}px; left:${c.offsetLeft}px;`}
+        style={`width:${c.displayW}px;`}
       />
     </div>
     <p class:list={['text-xs font-semibold', c.nameColor]}>{c.name}</p>
