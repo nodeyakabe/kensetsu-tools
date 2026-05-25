@@ -1,0 +1,60 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="特定商取引法に基づく表記"
+  description="建設業ツール工房の特定商取引法に基づく表記です。"
+>
+  <div class="container-base py-16">
+    <nav class="text-sm text-slate-500 mb-10" aria-label="パンくずリスト">
+      <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-700">特定商取引法に基づく表記</span>
+    </nav>
+
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-4xl font-bold text-primary-900 mb-3">特定商取引法に基づく表記</h1>
+      <p class="text-slate-400 text-sm mb-12 pb-12 border-b border-slate-200">
+        特定商取引に関する法律第11条に基づく表示
+      </p>
+
+      <div class="card overflow-hidden mb-8">
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-slate-100">
+            {[
+              ['販売業者名', '建設業ツール工房（屋号）'],
+              ['運営責任者', '（記載予定）'],
+              ['所在地', '請求があった場合は遅滞なく開示します'],
+              ['電話番号', '請求があった場合は遅滞なく開示します'],
+              ['メールアドレス', 'contact@kensetsu-tools.com'],
+              ['営業時間', 'メール対応のみ（営業日2〜3日以内に返信）'],
+              ['販売URL', 'https://kensetsu-tools.com/'],
+              ['商品・サービス', '建設業向けデジタルコンテンツ（テンプレート・ツール等）'],
+              ['販売価格', '各商品ページに表示（消費税込）'],
+              ['支払方法', 'クレジットカード決済（Stripe）'],
+              ['支払時期', '注文確定時にお支払いいただきます'],
+              ['商品引渡し時期', 'デジタルコンテンツのため、決済完了後すぐにダウンロード可能（または24時間以内にメール送付）'],
+              ['返品・キャンセル', 'デジタルコンテンツの性質上、商品到達後の返品はお受けできません。ただし、商品に重大な不具合がある場合は購入から14日以内にお問い合わせください。'],
+              ['動作環境', '各商品ページに記載（例：Microsoft Excel 2016以降、Windows 10/11またはmacOS）'],
+            ].map(([label, value]) => (
+              <tr>
+                <th class="py-4 px-6 text-left text-slate-500 font-medium bg-slate-50 w-44 align-top">{label}</th>
+                <td class="py-4 px-6 text-slate-800 leading-relaxed">{value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="p-6 bg-primary-50 rounded-xl text-sm text-slate-600 leading-relaxed">
+        <p class="mb-2">
+          ※ 現在、デジタルコンテンツの販売準備中です。販売開始時に改めて正式な表記を掲載します。
+        </p>
+        <p>
+          ※「請求があった場合は遅滞なく開示します」と記載している項目については、<a href="/contact/" class="text-primary-600 hover:underline">お問い合わせ</a>いただければ開示いたします。
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

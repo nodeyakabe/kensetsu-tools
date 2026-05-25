@@ -1,0 +1,158 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  publishedAt: Date;
+  updatedAt?: Date;
+  heroImage?: string;
+  tags?: string[];
+  category?: string;
+  slug: string;
+}
+
+const { title, description, publishedAt, updatedAt, heroImage, tags = [], category, slug } = Astro.props;
+
+const siteUrl = 'https://kensetsu-tools.com';
+const canonicalUrl = `${siteUrl}/blog/${slug}/`;
+
+const formattedDate = publishedAt.toLocaleDateString('ja-JP', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const updatedFormatted = updatedAt?.toLocaleDateString('ja-JP', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+// Article 構造化データ
+const articleSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description: description,
+  ...(heroImage ? { image: [new URL(heroImage, siteUrl).href] } : {}),
+  datePublished: publishedAt.toISOString(),
+  dateModified: (updatedAt ?? publishedAt).toISOString(),
+  author: {
+    '@type': 'Organization',
+    name: '建設業ツール工房',
+    url: siteUrl,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: '建設業ツール工房',
+    url: siteUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/favicon.svg`,
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalUrl,
+  },
+});
+
+// BreadcrumbList 構造化データ
+const breadcrumbSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'ホーム',
+      item: siteUrl,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'ブログ',
+      item: `${siteUrl}/blog/`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: title,
+      item: canonicalUrl,
+    },
+  ],
+});
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage={heroImage}
+  ogType="article"
+  canonicalUrl={canonicalUrl}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={articleSchema} />
+    <script type="application/ld+json" set:html={breadcrumbSchema} />
+  </Fragment>
+
+  <div class="container-base py-12">
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-slate-500 mb-8" aria-label="パンくずリスト">
+      <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <a href="/blog/" class="hover:text-primary-600 transition-colors">ブログ</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-700">{title}</span>
+    </nav>
+
+    <article class="max-w-3xl mx-auto">
+      <!-- Category & Tags -->
+      <div class="flex flex-wrap items-center gap-2 mb-4">
+        {category && (
+          <span class="text-xs font-bold bg-primary-600 text-white px-3 py-1 rounded-full">
+            {category}
+          </span>
+        )}
+        {tags.map(tag => (
+          <span class="text-xs font-medium bg-primary-50 text-primary-700 px-3 py-1 rounded-full">
+            #{tag}
+          </span>
+        ))}
+      </div>
+
+      <h1 class="text-3xl md:text-4xl font-bold text-primary-900 leading-tight mb-4">
+        {title}
+      </h1>
+
+      <div class="flex items-center gap-4 text-sm text-slate-500 mb-8 pb-8 border-b border-slate-200">
+        <time datetime={publishedAt.toISOString()}>公開: {formattedDate}</time>
+        {updatedAt && (
+          <time datetime={updatedAt.toISOString()}>更新: {updatedFormatted}</time>
+        )}
+      </div>
+
+      {heroImage && (
+        <img
+          src={heroImage}
+          alt={title}
+          class="w-full rounded-xl mb-10 shadow-sm"
+          loading="eager"
+        />
+      )}
+
+      <!-- Article body -->
+      <div class="prose prose-slate prose-lg max-w-none">
+        <slot />
+      </div>
+
+      <!-- Back link -->
+      <div class="mt-16 pt-8 border-t border-slate-200">
+        <a href="/blog/" class="text-primary-600 hover:text-primary-800 font-medium transition-colors">
+          ← ブログ一覧に戻る
+        </a>
+      </div>
+    </article>
+  </div>
+</BaseLayout>

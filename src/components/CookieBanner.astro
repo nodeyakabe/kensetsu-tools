@@ -1,0 +1,49 @@
+<!-- Cookie 同意バナー -->
+<div
+  id="cookie-banner"
+  class="fixed bottom-0 left-0 right-0 z-50 bg-slate-900 text-white shadow-lg hidden"
+  role="dialog"
+  aria-label="Cookie 使用についてのお知らせ"
+>
+  <div class="container-base py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p class="text-sm text-slate-200 leading-relaxed">
+      当サイトでは、利便性向上・アクセス解析のためCookieを使用しています。
+      詳しくは<a href="/privacy/" class="underline hover:text-white">プライバシーポリシー</a>をご覧ください。
+    </p>
+    <div class="flex gap-3 shrink-0">
+      <button
+        id="cookie-reject"
+        class="text-sm text-slate-400 hover:text-white px-4 py-2 rounded-lg border border-slate-600 hover:border-slate-400 transition-colors"
+      >
+        拒否
+      </button>
+      <button
+        id="cookie-accept"
+        class="text-sm bg-primary-600 hover:bg-primary-500 text-white px-5 py-2 rounded-lg font-medium transition-colors"
+      >
+        同意する
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const banner = document.getElementById('cookie-banner');
+  const consent = localStorage.getItem('cookie-consent');
+
+  if (!consent) {
+    banner?.classList.remove('hidden');
+  }
+
+  document.getElementById('cookie-accept')?.addEventListener('click', () => {
+    localStorage.setItem('cookie-consent', 'accepted');
+    banner?.classList.add('hidden');
+    // GA4 を有効化
+    window.dispatchEvent(new CustomEvent('cookie-accepted'));
+  });
+
+  document.getElementById('cookie-reject')?.addEventListener('click', () => {
+    localStorage.setItem('cookie-consent', 'rejected');
+    banner?.classList.add('hidden');
+  });
+</script>

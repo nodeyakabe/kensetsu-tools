@@ -1,0 +1,72 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+const allTags = [...new Set(allPosts.flatMap(p => p.data.tags))].sort();
+const categories = [...new Set(allPosts.map(p => p.data.category).filter(Boolean))];
+---
+
+<BaseLayout
+  title="ブログ"
+  description="建設業の業務効率化・法令対応・助成金・実務ノウハウなど、現場で役立つ情報を発信しています。"
+>
+  <div class="container-base py-16">
+    <nav class="text-sm text-slate-500 mb-10" aria-label="パンくずリスト">
+      <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-700">ブログ</span>
+    </nav>
+
+    <div class="mb-12">
+      <h1 class="text-4xl font-bold text-primary-900 mb-3">ブログ</h1>
+      <p class="text-slate-500 text-lg">建設業の現場で役立つ情報を発信しています。</p>
+    </div>
+
+    <!-- Categories -->
+    {categories.length > 0 && (
+      <div class="flex flex-wrap gap-2 mb-4">
+        {categories.map(cat => (
+          <span class="text-sm font-bold bg-primary-600 text-white px-3 py-1 rounded-full">
+            {cat}
+          </span>
+        ))}
+      </div>
+    )}
+
+    <!-- Tags -->
+    {allTags.length > 0 && (
+      <div class="flex flex-wrap gap-2 mb-10">
+        {allTags.map(tag => (
+          <span class="text-sm bg-primary-50 text-primary-700 border border-primary-200 px-3 py-1 rounded-full">
+            #{tag}
+          </span>
+        ))}
+      </div>
+    )}
+
+    {allPosts.length === 0 ? (
+      <div class="text-center py-24 text-slate-400">
+        <div class="text-6xl mb-4">📝</div>
+        <p class="text-xl">記事を準備中です。しばらくお待ちください。</p>
+      </div>
+    ) : (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {allPosts.map(post => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            slug={post.slug}
+            publishedAt={post.data.publishedAt}
+            category={post.data.category}
+            tags={post.data.tags}
+            heroImage={post.data.heroImage}
+          />
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

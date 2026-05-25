@@ -1,0 +1,110 @@
+---
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import CookieBanner from '@/components/CookieBanner.astro';
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  canonicalUrl?: string;
+}
+
+const {
+  title,
+  description,
+  ogImage = '/og-default.png',
+  ogType = 'website',
+  canonicalUrl,
+} = Astro.props;
+
+const siteUrl = 'https://kensetsu-tools.com';
+const siteName = '建設業ツール工房';
+const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
+const canonical = canonicalUrl ?? new URL(Astro.url.pathname, siteUrl).href;
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteUrl).href;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Fonts: Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- RSS -->
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={siteName}
+      href={`${siteUrl}/rss.xml`}
+    />
+
+    <!-- OG / Twitter -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Google Analytics 4 (Cookie同意後に有効化) -->
+    <!-- TODO: G-XXXXXXXXXX を実際のGA4測定IDに変更してください -->
+    <script is:inline>
+      (function() {
+        var GA_ID = 'G-XXXXXXXXXX';
+        function loadGA() {
+          if (window._gaLoaded) return;
+          window._gaLoaded = true;
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+          document.head.appendChild(s);
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', GA_ID);
+        }
+        if (typeof localStorage !== 'undefined' &&
+            localStorage.getItem('cookie-consent') === 'accepted') {
+          loadGA();
+        }
+        window.addEventListener('cookie-accepted', loadGA);
+      })();
+    </script>
+
+    <slot name="head" />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <CookieBanner />
+  </body>
+</html>

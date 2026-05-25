@@ -1,0 +1,45 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-primary-900 text-white mt-20">
+  <div class="container-base py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Brand -->
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <span class="bg-white text-primary-900 text-sm font-bold w-8 h-8 rounded-lg flex items-center justify-center">工</span>
+          <span class="font-bold text-lg">建設業ツール工房</span>
+        </div>
+        <p class="text-primary-200 text-sm leading-relaxed">
+          建設業の現場を、もっとスマートに。<br>
+          業務ツール・テンプレート・業界情報を提供します。
+        </p>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-primary-300 uppercase tracking-wider">コンテンツ</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/blog/" class="text-primary-200 hover:text-white transition-colors">ブログ</a></li>
+          <li><a href="/products/" class="text-primary-200 hover:text-white transition-colors">ツール・商品</a></li>
+          <li><a href="/about/" class="text-primary-200 hover:text-white transition-colors">このサイトについて</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-primary-300 uppercase tracking-wider">法的情報</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/privacy/" class="text-primary-200 hover:text-white transition-colors">プライバシーポリシー</a></li>
+          <li><a href="/terms/" class="text-primary-200 hover:text-white transition-colors">利用規約</a></li>
+          <li><a href="/sct/" class="text-primary-200 hover:text-white transition-colors">特定商取引法に基づく表記</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-primary-800 mt-10 pt-6 text-center text-primary-400 text-sm">
+      &copy; {year} 建設業ツール工房. All rights reserved.
+    </div>
+  </div>
+</footer>

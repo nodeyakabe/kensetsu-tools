@@ -1,0 +1,88 @@
+---
+const navLinks = [
+  { href: '/',          label: 'ホーム' },
+  { href: '/blog/',     label: 'ブログ' },
+  { href: '/products/', label: 'ツール・商品' },
+  { href: '/about/',    label: 'About' },
+  { href: '/contact/',  label: 'お問い合わせ' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+  <div class="container-base">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 group">
+        <span class="bg-primary-800 text-white text-sm font-bold w-8 h-8 rounded-lg flex items-center justify-center group-hover:bg-primary-700 transition-colors">工</span>
+        <span class="font-bold text-primary-900 text-lg leading-tight">
+          建設業ツール工房
+        </span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6">
+        {navLinks.map(link => (
+          <a
+            href={link.href}
+            class={`text-sm font-medium transition-colors ${
+              link.href === '/contact/'
+                ? 'bg-primary-600 hover:bg-primary-700 text-white px-4 py-1.5 rounded-lg'
+                : currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+                  ? 'text-primary-600 font-bold'
+                  : 'text-slate-600 hover:text-primary-600'
+            }`}
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Mobile menu button -->
+      <button
+        id="menu-btn"
+        class="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100"
+        aria-label="メニューを開く"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div id="mobile-menu" class="hidden md:hidden pb-4">
+      <nav class="flex flex-col gap-1">
+        {navLinks.map(link => (
+          <a
+            href={link.href}
+            class={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+              currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+                ? 'bg-primary-50 text-primary-700 font-bold'
+                : 'text-slate-600 hover:bg-slate-50'
+            }`}
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  btn?.addEventListener('click', () => {
+    const isOpen = !menu?.classList.contains('hidden');
+    menu?.classList.toggle('hidden', isOpen);
+    menuIcon?.classList.toggle('hidden', !isOpen);
+    closeIcon?.classList.toggle('hidden', isOpen);
+    btn?.setAttribute('aria-label', isOpen ? 'メニューを開く' : 'メニューを閉じる');
+  });
+</script>

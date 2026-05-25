@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a8a"/>
+      <stop offset="100%" style="stop-color:#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="1050" cy="100" r="200" fill="#2563eb" opacity="0.3"/>
+  <circle cx="150" cy="530" r="150" fill="#1e40af" opacity="0.3"/>
+
+  <!-- Logo box -->
+  <rect x="80" y="80" width="80" height="80" rx="16" fill="white" opacity="0.15"/>
+  <text x="120" y="138" font-size="48" text-anchor="middle" fill="white" font-family="sans-serif" font-weight="bold">工</text>
+
+  <!-- Site name -->
+  <text x="80" y="300" font-size="72" fill="white" font-family="sans-serif" font-weight="bold">建設業ツール工房</text>
+
+  <!-- Tagline -->
+  <text x="80" y="380" font-size="36" fill="#93c5fd" font-family="sans-serif">建設業の現場を、もっとシンプルに。</text>
+
+  <!-- Description -->
+  <text x="80" y="450" font-size="28" fill="#bfdbfe" font-family="sans-serif">法令対応・業務効率化のためのツールと知識を提供</text>
+
+  <!-- Domain -->
+  <rect x="80" y="510" width="360" height="50" rx="8" fill="white" opacity="0.1"/>
+  <text x="260" y="543" font-size="24" text-anchor="middle" fill="white" font-family="sans-serif" opacity="0.9">kensetsu-tools.com</text>
+
+  <!-- Accent bar -->
+  <rect x="80" y="240" width="120" height="6" rx="3" fill="#f97316"/>
+</svg>

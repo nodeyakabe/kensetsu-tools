@@ -1,0 +1,65 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="お問い合わせ"
+  description="建設業ツール工房へのお問い合わせページです。ご質問・ご要望はメールまたはフォームよりお気軽にどうぞ。"
+>
+  <div class="container-base py-16">
+    <nav class="text-sm text-slate-500 mb-10" aria-label="パンくずリスト">
+      <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-700">お問い合わせ</span>
+    </nav>
+
+    <div class="max-w-2xl mx-auto">
+      <h1 class="text-4xl font-bold text-primary-900 mb-4">お問い合わせ</h1>
+      <p class="text-slate-500 text-lg mb-12 pb-12 border-b border-slate-200">
+        ご質問・ご要望・ご意見をお気軽にお寄せください。<br>
+        営業日2〜3日以内にご返信いたします。
+      </p>
+
+      <!-- Contact info -->
+      <div class="card p-8 mb-10">
+        <h2 class="font-bold text-primary-800 text-lg mb-4">メールでのお問い合わせ</h2>
+        <p class="text-slate-600 mb-4">以下のメールアドレスに直接ご連絡いただくことも可能です。</p>
+        <a
+          href="mailto:contact@kensetsu-tools.com"
+          class="flex items-center gap-3 text-primary-600 hover:text-primary-800 font-medium transition-colors"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          contact@kensetsu-tools.com
+        </a>
+      </div>
+
+      <!-- Contact form (Coming Soon) -->
+      <div class="card p-8 opacity-60">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="font-bold text-primary-800 text-lg">お問い合わせフォーム</h2>
+          <span class="text-xs font-bold bg-slate-200 text-slate-600 px-3 py-1 rounded-full">準備中</span>
+        </div>
+        <div class="space-y-4 pointer-events-none select-none">
+          <div>
+            <div class="block text-sm font-medium text-slate-400 mb-1">お名前</div>
+            <div class="w-full h-10 bg-slate-100 rounded-lg border border-slate-200"></div>
+          </div>
+          <div>
+            <div class="block text-sm font-medium text-slate-400 mb-1">メールアドレス</div>
+            <div class="w-full h-10 bg-slate-100 rounded-lg border border-slate-200"></div>
+          </div>
+          <div>
+            <div class="block text-sm font-medium text-slate-400 mb-1">お問い合わせ内容</div>
+            <div class="w-full h-28 bg-slate-100 rounded-lg border border-slate-200"></div>
+          </div>
+          <div class="w-full h-11 bg-slate-300 rounded-lg"></div>
+        </div>
+        <p class="text-xs text-slate-400 mt-4 text-center">
+          ※ フォームは近日公開予定です。現在はメールにてお問い合わせください。
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

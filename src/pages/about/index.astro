@@ -1,0 +1,88 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="このサイトについて"
+  description="建設業ツール工房は、建設業に携わる一人親方・中小企業・新規開業者を対象とした、業務ツール・テンプレート・業界情報を提供するサイトです。"
+>
+  <div class="container-base py-16">
+    <nav class="text-sm text-slate-500 mb-10" aria-label="パンくずリスト">
+      <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-700">このサイトについて</span>
+    </nav>
+
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-4xl font-bold text-primary-900 mb-4">このサイトについて</h1>
+      <p class="text-slate-500 mb-12 pb-12 border-b border-slate-200 text-lg">
+        建設業ツール工房のコンセプトと運営方針をご紹介します。
+      </p>
+
+      <section class="mb-14">
+        <h2 class="text-2xl font-bold text-primary-800 mb-5">サイトのコンセプト</h2>
+        <div class="prose prose-slate prose-lg max-w-none">
+          <p>
+            <strong>建設業ツール工房</strong>は、建設業に携わるすべての方のために作られた情報・ツール提供サイトです。
+          </p>
+          <p>
+            一人親方として独立したばかりの方、建設業で新たに会社を立ち上げた方、または日々の業務効率化を考えている中小企業の方——そのような方々が「あと少しだけ楽になれる」ように、実用的な情報とツールを提供することを目指しています。
+          </p>
+          <p>
+            難しい専門用語をできるだけ使わず、「実際の現場でどう役立つか」という視点で情報を発信しています。
+          </p>
+        </div>
+      </section>
+
+      <section class="mb-14">
+        <h2 class="text-2xl font-bold text-primary-800 mb-5">提供するコンテンツ</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {[
+            { icon: '⚖️', title: '法令対応情報', desc: '改正建設業法・労働安全衛生法など、2025年の法改正をわかりやすく解説' },
+            { icon: '📝', title: 'テンプレート', desc: '見積書・日報・KY活動表など、すぐ使えるテンプレートを無料提供' },
+            { icon: '🔧', title: '業務ツール', desc: '計算補助・チェックリストなど、現場作業を効率化するツール' },
+            { icon: '💡', title: '実務ノウハウ', desc: '一人親方・新規開業者向けの実践的な業務改善のヒント' },
+          ].map(item => (
+            <div class="card p-5 flex gap-4">
+              <span class="text-3xl">{item.icon}</span>
+              <div>
+                <h3 class="font-bold text-slate-900 mb-1">{item.title}</h3>
+                <p class="text-slate-600 text-sm">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="mb-14">
+        <h2 class="text-2xl font-bold text-primary-800 mb-5">運営者情報</h2>
+        <div class="card p-8">
+          <table class="w-full text-sm">
+            <tbody class="divide-y divide-slate-100">
+              {[
+                ['サイト名', '建設業ツール工房'],
+                ['ドメイン', 'kensetsu-tools.com'],
+                ['運営者', '（記載予定）'],
+                ['所在地', '（記載予定）'],
+                ['お問い合わせ', 'contact@kensetsu-tools.com'],
+              ].map(([label, value]) => (
+                <tr>
+                  <th class="py-3 pr-6 text-left text-slate-500 font-medium w-32 align-top">{label}</th>
+                  <td class="py-3 text-slate-800">{value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-primary-800 mb-5">ご意見・お問い合わせ</h2>
+        <p class="text-slate-600 mb-6">
+          「こんなテンプレートが欲しい」「この情報を知りたい」など、ご要望はお気軽にご連絡ください。
+        </p>
+        <a href="/contact/" class="btn-primary">お問い合わせはこちら</a>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
