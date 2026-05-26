@@ -1,0 +1,21 @@
+{
+  "name": "建設業ツール工房",
+  "short_name": "建設業ツール工房",
+  "description": "確定申告がラクになる、Excelだけで動く工事管理",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#0F2557",
+  "background_color": "#0F2557",
+  "display": "standalone",
+  "start_url": "/"
+}

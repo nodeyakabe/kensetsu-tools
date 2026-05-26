@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Noto+Sans+JP:wght@500;700&amp;display=swap');
+      .title { font-family: 'Noto Sans JP', sans-serif; font-weight: 700; }
+      .text { font-family: 'Noto Sans JP', sans-serif; font-weight: 500; }
+      .en { font-family: 'Inter', sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0F2557" />
+
+  <polygon points="850,0 1200,0 1200,630 650,630" fill="#F59E0B" />
+  <polygon points="820,0 850,0 650,630 620,630" fill="#E2E8F0" opacity="0.1" />
+
+  <g transform="translate(750, 100) scale(0.8)" opacity="0.15">
+    <polygon points="256,56 436,206 76,206" fill="#FFFFFF"/>
+    <rect x="146" y="246" width="60" height="140" fill="#FFFFFF"/>
+    <rect x="306" y="246" width="60" height="140" fill="#FFFFFF"/>
+    <rect x="96" y="416" width="320" height="40" rx="8" fill="#FFFFFF"/>
+  </g>
+
+  <g transform="translate(80, 90)">
+    <g transform="scale(0.08)">
+      <polygon points="256,56 436,206 76,206" fill="#F59E0B"/>
+      <rect x="146" y="246" width="60" height="140" fill="#F59E0B"/>
+      <rect x="306" y="246" width="60" height="140" fill="#F59E0B"/>
+      <rect x="96" y="416" width="320" height="40" rx="8" fill="#F59E0B"/>
+    </g>
+    <text x="60" y="32" fill="#E2E8F0" font-size="24" class="title">建設業ツール工房</text>
+  </g>
+
+  <text x="80" y="260" fill="#FFFFFF" font-size="64" class="title">シンプル工事台帳</text>
+
+  <rect x="610" y="200" width="160" height="70" rx="8" fill="#FFFFFF"/>
+  <text x="690" y="248" fill="#0F2557" font-size="32" class="title" text-anchor="middle">ライト版</text>
+
+  <line x1="80" y1="330" x2="680" y2="330" stroke="#E2E8F0" stroke-width="2" opacity="0.3"/>
+
+  <text x="80" y="410" fill="#FFFFFF" font-size="32" class="text">確定申告がラクになる、</text>
+  <text x="80" y="470" fill="#FFFFFF" font-size="32" class="text">Excelだけで動く工事管理</text>
+
+  <text x="80" y="560" fill="#F59E0B" font-size="24" class="en" letter-spacing="1">kensetsu-tools.com</text>
+</svg>
