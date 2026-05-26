@@ -9,7 +9,7 @@ interface Props {
   heroImage?: string;
 }
 
-const { title, description, slug, publishedAt, category, tags = [], heroImage } = Astro.props;
+const { title, description, slug, publishedAt, category, tags = [] } = Astro.props;
 
 const formattedDate = publishedAt.toLocaleDateString('ja-JP', {
   year: 'numeric',
@@ -18,41 +18,29 @@ const formattedDate = publishedAt.toLocaleDateString('ja-JP', {
 });
 ---
 
-<article class="card overflow-hidden group">
-  {heroImage && (
-    <a href={`/blog/${slug}/`} tabindex="-1" aria-hidden="true">
-      <img
-        src={heroImage}
-        alt={title}
-        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-        loading="lazy"
-      />
-    </a>
-  )}
-  <div class="p-6">
-    <div class="flex flex-wrap items-center gap-2 mb-3">
-      {category && (
-        <span class="text-xs font-bold bg-primary-600 text-white px-2 py-0.5 rounded-full">
-          {category}
-        </span>
-      )}
+<article class="bg-white border border-slate-200 rounded-xl p-8 flex flex-col gap-4 hover:shadow-md transition-shadow duration-200 group">
+  <div class="flex items-center gap-3">
+    {category && (
+      <span class="text-xs font-bold bg-primary-50 text-primary-700 border border-primary-200 px-2 py-0.5 rounded-full">
+        {category}
+      </span>
+    )}
+    <time class="text-xs text-slate-400" datetime={publishedAt.toISOString()}>
+      {formattedDate}
+    </time>
+  </div>
+  <h2 class="font-bold text-slate-900 text-lg leading-snug group-hover:text-primary-700 transition-colors">
+    <a href={`/blog/${slug}/`}>{title}</a>
+  </h2>
+  <p class="text-slate-600 text-sm leading-relaxed line-clamp-3">{description}</p>
+  {tags.length > 0 && (
+    <div class="flex flex-wrap gap-2">
       {tags.slice(0, 2).map(tag => (
-        <span class="text-xs font-medium bg-primary-50 text-primary-700 px-2 py-0.5 rounded-full">
-          #{tag}
-        </span>
+        <span class="text-xs text-slate-500">#{tag}</span>
       ))}
     </div>
-    <h2 class="font-bold text-slate-900 text-lg mb-2 leading-snug group-hover:text-primary-700 transition-colors">
-      <a href={`/blog/${slug}/`}>{title}</a>
-    </h2>
-    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">{description}</p>
-    <div class="flex items-center justify-between">
-      <time class="text-xs text-slate-400" datetime={publishedAt.toISOString()}>
-        {formattedDate}
-      </time>
-      <a href={`/blog/${slug}/`} class="text-sm font-medium text-primary-600 hover:text-primary-800 transition-colors">
-        続きを読む →
-      </a>
-    </div>
-  </div>
+  )}
+  <a href={`/blog/${slug}/`} class="text-sm font-medium text-primary-600 hover:text-primary-800 transition-colors self-start">
+    続きを読む →
+  </a>
 </article>

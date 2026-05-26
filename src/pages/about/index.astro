@@ -4,7 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
 <BaseLayout
   title="このサイトについて"
-  description="建設業ツール工房は、建設業に携わる一人親方・中小企業・新規開業者を対象とした、業務ツール・テンプレート・業界情報を提供するサイトです。"
+  description="建設業の現場をシンプルにしたい——その思いから生まれた、建設業向け情報・ツールサイトです。"
 >
   <div class="container-base py-16">
     <nav class="text-sm text-slate-500 mb-10" aria-label="パンくずリスト">
@@ -16,70 +16,173 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     <div class="max-w-3xl mx-auto">
       <h1 class="text-4xl font-bold text-primary-900 mb-4">このサイトについて</h1>
       <p class="text-slate-500 mb-12 pb-12 border-b border-slate-200 text-lg">
-        建設業ツール工房のコンセプトと運営方針をご紹介します。
+        建設業の現場をシンプルにしたい——<br>
+        その思いから生まれたサイトです。
       </p>
 
+      <!-- サイトのコンセプト -->
       <section class="mb-14">
-        <h2 class="text-2xl font-bold text-primary-800 mb-5">サイトのコンセプト</h2>
-        <div class="prose prose-slate prose-lg max-w-none">
+        <h2 class="text-2xl font-bold text-primary-800 mb-6">サイトのコンセプト</h2>
+        <div class="space-y-5 text-slate-700 leading-relaxed">
           <p>
-            <strong>建設業ツール工房</strong>は、建設業に携わるすべての方のために作られた情報・ツール提供サイトです。
+            <strong>建設業ツール工房</strong>は、建設業に携わる方のための情報・ツール提供サイトです。
           </p>
           <p>
-            一人親方として独立したばかりの方、建設業で新たに会社を立ち上げた方、または日々の業務効率化を考えている中小企業の方——そのような方々が「あと少しだけ楽になれる」ように、実用的な情報とツールを提供することを目指しています。
+            一人親方として独立した方、新たに会社を立ち上げた方、日々の業務効率化を考えている方——「あと少しだけ楽になれる」ように、実用的な情報とツールをお届けします。
           </p>
           <p>
-            難しい専門用語をできるだけ使わず、「実際の現場でどう役立つか」という視点で情報を発信しています。
+            難しい専門用語はできるだけ使わず、「現場でどう役立つか」を重視して情報を発信しています。
           </p>
         </div>
       </section>
 
+      <!-- 提供するコンテンツ -->
       <section class="mb-14">
-        <h2 class="text-2xl font-bold text-primary-800 mb-5">提供するコンテンツ</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <h2 class="text-2xl font-bold text-primary-800 mb-6">提供するコンテンツ</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
-            { icon: '⚖️', title: '法令対応情報', desc: '改正建設業法・労働安全衛生法など、2025年の法改正をわかりやすく解説' },
-            { icon: '📝', title: 'テンプレート', desc: '見積書・日報・KY活動表など、すぐ使えるテンプレートを無料提供' },
-            { icon: '🔧', title: '業務ツール', desc: '計算補助・チェックリストなど、現場作業を効率化するツール' },
-            { icon: '💡', title: '実務ノウハウ', desc: '一人親方・新規開業者向けの実践的な業務改善のヒント' },
+            {
+              icon: '📋',
+              title: '法令対応情報',
+              desc: '改正建設業法・労働安全衛生法など、2025年の法改正をわかりやすく解説します。',
+            },
+            {
+              icon: '🔧',
+              title: '業務テンプレート',
+              desc: '見積書・日報・KY活動表など、現場で使えるテンプレートを順次提供予定です。',
+            },
+            {
+              icon: '💡',
+              title: '業界情報・実務ノウハウ',
+              desc: '助成金・確定申告・現場改善など、一人親方・新規開業者に役立つ情報を発信します。',
+            },
           ].map(item => (
-            <div class="card p-5 flex gap-4">
-              <span class="text-3xl">{item.icon}</span>
+            <div class="card p-5 flex flex-col gap-3">
+              <span class="text-3xl" aria-hidden="true">{item.icon}</span>
               <div>
                 <h3 class="font-bold text-slate-900 mb-1">{item.title}</h3>
-                <p class="text-slate-600 text-sm">{item.desc}</p>
+                <p class="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
+      <!-- 開発中の商品 -->
+      <section class="mb-14">
+        <div class="rounded-xl p-8 bg-slate-50 border border-slate-200">
+          <span class="inline-block bg-accent-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4">近日リリース</span>
+          <h2 class="text-xl font-bold text-primary-900 mb-2">開発中の商品</h2>
+          <h3 class="text-lg font-bold text-primary-700 mb-3">シンプル工事台帳 ライト版</h3>
+          <p class="text-slate-600 leading-relaxed mb-6">
+            確定申告がラクになる、Excelだけで動く工事管理ツールを開発中です。<br>
+            2026年内のリリースを予定しています。
+          </p>
+          <a href="/products/" class="inline-block text-primary-700 hover:text-primary-900 font-bold transition-colors">
+            商品の詳細を見る →
+          </a>
+        </div>
+      </section>
+
+      <!-- 運営しているのは -->
+      <section class="mb-14">
+        <h2 class="text-2xl font-bold text-primary-800 mb-6">運営しているのは</h2>
+        <div class="space-y-5 text-slate-700 leading-relaxed">
+          <p>
+            このサイトは、矢ヶ部が一人で運営しています。
+          </p>
+          <p>
+            福岡県北九州市を拠点に、個人で建設業向けツールの開発と情報発信をしています。
+          </p>
+          <p class="text-primary-800 font-medium">
+            「現場の人が、本当に使えるものを作りたい」——<br>
+            その思いで、業務ツールの開発と情報発信を続けています。
+          </p>
+        </div>
+      </section>
+
+      <!-- このサイトのなかまたち -->
+      <section class="mb-14">
+        <h2 class="text-2xl font-bold text-primary-800 mb-6">このサイトのなかまたち</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+          <!-- クロエ -->
+          <div class="card p-6 flex flex-col items-center text-center gap-4">
+            <img
+              src="/images/characters/kuroe_tati.png"
+              alt="クロエ"
+              width="140"
+              style="height:auto;"
+              class="drop-shadow"
+            />
+            <div>
+              <p class="font-bold text-primary-900 mb-1">クロエ（しろねこ）</p>
+              <p class="text-slate-600 text-sm italic mb-2">「複雑な作業は、不要です。」</p>
+              <p class="text-slate-500 text-xs">あなたの作業をシンプルにするお手伝いをします。</p>
+            </div>
+          </div>
+
+          <!-- ミケル -->
+          <div class="card p-6 flex flex-col items-center text-center gap-4">
+            <img
+              src="/images/characters/mikeru_tati.png"
+              alt="ミケル"
+              width="140"
+              style="height:auto;"
+              class="drop-shadow"
+            />
+            <div>
+              <p class="font-bold text-primary-900 mb-1">ミケル（みけねこ）</p>
+              <p class="text-slate-600 text-sm italic mb-2">「いいツールで、仕事はもっとはかどります。」</p>
+              <p class="text-slate-500 text-xs">便利なツールや情報をお届けします。</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 運営者情報 -->
       <section class="mb-14">
         <h2 class="text-2xl font-bold text-primary-800 mb-5">運営者情報</h2>
         <div class="card p-8">
           <table class="w-full text-sm">
             <tbody class="divide-y divide-slate-100">
-              {[
-                ['サイト名', '建設業ツール工房'],
-                ['ドメイン', 'kensetsu-tools.com'],
-                ['運営者', '（記載予定）'],
-                ['所在地', '（記載予定）'],
-                ['お問い合わせ', 'contact@kensetsu-tools.com'],
-              ].map(([label, value]) => (
-                <tr>
-                  <th class="py-3 pr-6 text-left text-slate-500 font-medium w-32 align-top">{label}</th>
-                  <td class="py-3 text-slate-800">{value}</td>
-                </tr>
-              ))}
+              <tr>
+                <th class="py-3 pr-6 text-left text-slate-500 font-medium w-36 align-top">サイト名</th>
+                <td class="py-3 text-slate-800">建設業ツール工房</td>
+              </tr>
+              <tr>
+                <th class="py-3 pr-6 text-left text-slate-500 font-medium align-top">屋号</th>
+                <td class="py-3 text-slate-800">建設業ツール工房（個人事業）</td>
+              </tr>
+              <tr>
+                <th class="py-3 pr-6 text-left text-slate-500 font-medium align-top">運営者</th>
+                <td class="py-3 text-slate-800">矢ヶ部</td>
+              </tr>
+              <tr>
+                <th class="py-3 pr-6 text-left text-slate-500 font-medium align-top">所在地</th>
+                <td class="py-3 text-slate-800">福岡県北九州市</td>
+              </tr>
+              <tr>
+                <th class="py-3 pr-6 text-left text-slate-500 font-medium align-top">お問い合わせ</th>
+                <td class="py-3 text-slate-800">contact@kensetsu-tools.com</td>
+              </tr>
+              <tr>
+                <th class="py-3 pr-6 text-left text-slate-500 font-medium align-top">詳細情報</th>
+                <td class="py-3 text-slate-800">
+                  <a href="/sct/" class="text-primary-600 hover:text-primary-800 underline">特定商取引法に基づく表記</a>をご覧ください
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
       </section>
 
+      <!-- お問い合わせ -->
       <section>
         <h2 class="text-2xl font-bold text-primary-800 mb-5">ご意見・お問い合わせ</h2>
         <p class="text-slate-600 mb-6">
-          「こんなテンプレートが欲しい」「この情報を知りたい」など、ご要望はお気軽にご連絡ください。
+          ご意見・ご要望・商品に関する質問など、お気軽にご連絡ください。
         </p>
         <a href="/contact/" class="btn-primary">お問い合わせはこちら</a>
       </section>

@@ -6,13 +6,12 @@ import { getCollection } from 'astro:content';
 const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 
-const allTags = [...new Set(allPosts.flatMap(p => p.data.tags))].sort();
 const categories = [...new Set(allPosts.map(p => p.data.category).filter(Boolean))];
 ---
 
 <BaseLayout
   title="ブログ"
-  description="建設業の業務効率化・法令対応・助成金・実務ノウハウなど、現場で役立つ情報を発信しています。"
+  description="法令対応・確定申告・実務ノウハウなど、建設業の現場で役立つ情報をお届けします。"
 >
   <div class="container-base py-16">
     <nav class="text-sm text-slate-500 mb-10" aria-label="パンくずリスト">
@@ -21,52 +20,81 @@ const categories = [...new Set(allPosts.map(p => p.data.category).filter(Boolean
       <span class="text-slate-700">ブログ</span>
     </nav>
 
-    <div class="mb-12">
+    <div class="mb-10">
       <h1 class="text-4xl font-bold text-primary-900 mb-3">ブログ</h1>
-      <p class="text-slate-500 text-lg">建設業の現場で役立つ情報を発信しています。</p>
+      <p class="text-slate-500 text-lg">法令対応・確定申告・実務ノウハウなど、現場で役立つ情報をお届けします。</p>
     </div>
 
-    <!-- Categories -->
-    {categories.length > 0 && (
-      <div class="flex flex-wrap gap-2 mb-4">
-        {categories.map(cat => (
-          <span class="text-sm font-bold bg-primary-600 text-white px-3 py-1 rounded-full">
-            {cat}
-          </span>
-        ))}
-      </div>
-    )}
-
-    <!-- Tags -->
-    {allTags.length > 0 && (
-      <div class="flex flex-wrap gap-2 mb-10">
-        {allTags.map(tag => (
-          <span class="text-sm bg-primary-50 text-primary-700 border border-primary-200 px-3 py-1 rounded-full">
-            #{tag}
-          </span>
-        ))}
-      </div>
-    )}
+    <!-- カテゴリフィルター -->
+    <div class="flex flex-wrap gap-3 mb-10" id="category-filter">
+      <button
+        class="filter-btn active h-11 px-5 rounded-lg text-sm font-bold border-2 transition-colors duration-150"
+        data-category=""
+      >全て</button>
+      {categories.map(cat => (
+        <button
+          class="filter-btn h-11 px-5 rounded-lg text-sm font-bold border-2 transition-colors duration-150"
+          data-category={cat}
+        >{cat}</button>
+      ))}
+    </div>
 
     {allPosts.length === 0 ? (
       <div class="text-center py-24 text-slate-400">
-        <div class="text-6xl mb-4">📝</div>
+        <div class="text-6xl mb-4" aria-hidden="true">📝</div>
         <p class="text-xl">記事を準備中です。しばらくお待ちください。</p>
       </div>
     ) : (
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="post-grid">
         {allPosts.map(post => (
-          <BlogCard
-            title={post.data.title}
-            description={post.data.description}
-            slug={post.slug}
-            publishedAt={post.data.publishedAt}
-            category={post.data.category}
-            tags={post.data.tags}
-            heroImage={post.data.heroImage}
-          />
+          <div data-category={post.data.category ?? ''}>
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              slug={post.slug}
+              publishedAt={post.data.publishedAt}
+              category={post.data.category}
+              tags={post.data.tags}
+              heroImage={post.data.heroImage}
+            />
+          </div>
         ))}
       </div>
     )}
   </div>
 </BaseLayout>
+
+<style>
+  .filter-btn {
+    background: white;
+    color: #0F2557;
+    border-color: #0F2557;
+  }
+  .filter-btn:hover {
+    background: #EEF2FF;
+  }
+  .filter-btn.active {
+    background: #F59E0B;
+    color: white;
+    border-color: #F59E0B;
+  }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLDivElement>('#post-grid > div');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const selected = btn.dataset.category ?? '';
+
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      cards.forEach(card => {
+        const cat = card.dataset.category ?? '';
+        card.style.display = (selected === '' || cat === selected) ? '' : 'none';
+      });
+    });
+  });
+</script>
