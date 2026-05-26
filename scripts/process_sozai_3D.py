@@ -17,16 +17,19 @@ DEST = "apps/HP/public/images/characters"
 
 def remove_checker_bg(img: Image.Image) -> Image.Image:
     """
-    Character Growing方式（逆アプローチ）で背景を除去。
+    背景フラッドフィル方式で背景を除去。
 
-    「背景を除去」する代わりに「キャラクターを育てる」。
-    - 種ピクセル: 明らかにキャラ（暗い or 彩度高い）
-    - そこから隣接ピクセルへ拡張（背景マスにぶつかったら止まる）
-    - 到達しなかったピクセル = 背景 → 透過
+    画像の四辺（エッジ）から背景をフラッドフィルで塗りつぶす。
+    - 背景ピクセル: near-grayscale (range<=12) かつ mean>=165
+    - 8方向接続でフラッドフィル → エッジから到達可能な背景を全て検出
+    - 到達しなかったピクセル = キャラクター → 不透明のまま
+    - 到達したピクセル = 背景 → 透過
 
-    背景ブロック条件（これ以上は拡張しない）:
-      - 暗灰色マス: near-gray かつ mean 175〜225
-      - 白マス:     near-gray かつ mean >= 249（キャラ白 238-248 は通過）
+    この方式のメリット:
+      - キャラ内部の白い部分（ヘルメット等）はキャラ輪郭で囲まれており
+        エッジから到達不可能なため正しく保持される
+      - チェッカーボード境界のアンチエイリアスピクセルも
+        エッジから連続しているため正しく背景として検出される
     """
     arr = np.array(img.convert("RGBA"), dtype=np.int32)
     h, w = arr.shape[:2]
@@ -34,38 +37,44 @@ def remove_checker_bg(img: Image.Image) -> Image.Image:
     means  = np.mean(arr[:, :, :3], axis=2)
     ranges = (np.max(arr[:, :, :3], axis=2) - np.min(arr[:, :, :3], axis=2)).astype(float)
 
-    # 種ピクセル: 暗い(mean<120) or 彩度高い(range>30) → 確実にキャラ
-    seeds = (means < 120) | (ranges > 30)
+    # 背景として通過可能なピクセル:
+    #   near-grayscale (range<=12) かつ mean>=165
+    # 背景の暗灰色マス: range=0-8, mean~195-205
+    # 背景の白マス: range=0-5, mean~250-255
+    # 背景のアンチエイリアス: range=1-8, mean~195-255
+    # キャラの色付きピクセル: range>12 → ブロック（フラッドフィル停止）
+    bg_passable = (ranges <= 12) & (means >= 165)
 
-    character = np.zeros((h, w), dtype=bool)
+    # 画像の四辺からフラッドフィル開始
+    background = np.zeros((h, w), dtype=bool)
     queue = deque()
-    for yx in np.argwhere(seeds):
-        y, x = int(yx[0]), int(yx[1])
-        if not character[y, x]:
-            character[y, x] = True
-            queue.append((y, x))
 
-    def can_grow(y, x):
-        m = float(means[y, x])
-        r = float(ranges[y, x])
-        # 背景暗灰色マス（range=0, mean~199） → ブロック
-        # キャラ影は range>=4 なので通過
-        if r < 4 and 185 <= m <= 220:
-            return False
-        # 背景白マス（range=0, mean~254） → ブロック
-        # キャラ白（ヘルメット等）は range=5-15 なので通過
-        if r < 4 and m >= 248:
-            return False
-        return True
+    # 上辺・下辺
+    for x in range(w):
+        for y in [0, h - 1]:
+            if bg_passable[y, x] and not background[y, x]:
+                background[y, x] = True
+                queue.append((y, x))
+    # 左辺・右辺
+    for y in range(h):
+        for x in [0, w - 1]:
+            if bg_passable[y, x] and not background[y, x]:
+                background[y, x] = True
+                queue.append((y, x))
 
+    # 8方向接続でフラッドフィル
+    dirs = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
     while queue:
         y, x = queue.popleft()
-        for dy, dx in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+        for dy, dx in dirs:
             ny, nx = y + dy, x + dx
-            if 0 <= ny < h and 0 <= nx < w and not character[ny, nx]:
-                if can_grow(ny, nx):
-                    character[ny, nx] = True
+            if 0 <= ny < h and 0 <= nx < w and not background[ny, nx]:
+                if bg_passable[ny, nx]:
+                    background[ny, nx] = True
                     queue.append((ny, nx))
+
+    # 背景でないピクセル = キャラクター
+    character = ~background
 
     result = arr.astype(np.uint8).copy()
     result[:, :, 3] = (character * 255).astype(np.uint8)
