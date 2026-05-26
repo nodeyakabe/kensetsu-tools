@@ -48,11 +48,13 @@ def remove_checker_bg(img: Image.Image) -> Image.Image:
     def can_grow(y, x):
         m = float(means[y, x])
         r = float(ranges[y, x])
-        # 背景暗灰色マス → ブロック
-        if r < 18 and 175 <= m <= 225:
+        # 背景暗灰色マス（range=0, mean~199） → ブロック
+        # キャラ影は range>=4 なので通過
+        if r < 4 and 185 <= m <= 220:
             return False
-        # 背景白マス → ブロック（キャラ白 238-248 は通過させる）
-        if r < 12 and m >= 249:
+        # 背景白マス（range=0, mean~254） → ブロック
+        # キャラ白（ヘルメット等）は range=5-15 なので通過
+        if r < 4 and m >= 248:
             return False
         return True
 
