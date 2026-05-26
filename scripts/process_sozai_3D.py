@@ -17,19 +17,10 @@ DEST = "apps/HP/public/images/characters"
 
 def remove_checker_bg(img: Image.Image) -> Image.Image:
     """
-    背景フラッドフィル方式で背景を除去。
-
-    画像の四辺（エッジ）から背景をフラッドフィルで塗りつぶす。
-    - 背景ピクセル: near-grayscale (range<=12) かつ mean>=165
-    - 8方向接続でフラッドフィル → エッジから到達可能な背景を全て検出
-    - 到達しなかったピクセル = キャラクター → 不透明のまま
-    - 到達したピクセル = 背景 → 透過
-
-    この方式のメリット:
-      - キャラ内部の白い部分（ヘルメット等）はキャラ輪郭で囲まれており
-        エッジから到達不可能なため正しく保持される
-      - チェッカーボード境界のアンチエイリアスピクセルも
-        エッジから連続しているため正しく背景として検出される
+    2段階背景除去:
+    1. エッジからフラッドフィル (range<=5 AND mean>150)
+       - キャラ輪郭の暗いピクセル(mean<=150)でブロック → ヘルメット内部を保護
+    2. 残存する孤立背景パッチを一括除去 (range<=5 AND mean>150の全ピクセル)
     """
     arr = np.array(img.convert("RGBA"), dtype=np.int32)
     h, w = arr.shape[:2]
@@ -37,32 +28,24 @@ def remove_checker_bg(img: Image.Image) -> Image.Image:
     means  = np.mean(arr[:, :, :3], axis=2)
     ranges = (np.max(arr[:, :, :3], axis=2) - np.min(arr[:, :, :3], axis=2)).astype(float)
 
-    # 背景として通過可能なピクセル:
-    #   near-grayscale (range<=12) かつ mean>=165
-    # 背景の暗灰色マス: range=0-8, mean~195-205
-    # 背景の白マス: range=0-5, mean~250-255
-    # 背景のアンチエイリアス: range=1-8, mean~195-255
-    # キャラの色付きピクセル: range>12 → ブロック（フラッドフィル停止）
-    bg_passable = (ranges <= 12) & (means >= 165)
+    # 背景ピクセル条件: near-grayscale(range<=5) かつ 明るい(mean>150)
+    # キャラ輪郭(mean<=150)でブロック → ヘルメット内部へのリークを防止
+    bg_passable = (ranges <= 5) & (means > 150)
 
-    # 画像の四辺からフラッドフィル開始
+    # Phase 1: 四辺からフラッドフィル
     background = np.zeros((h, w), dtype=bool)
     queue = deque()
-
-    # 上辺・下辺
     for x in range(w):
         for y in [0, h - 1]:
             if bg_passable[y, x] and not background[y, x]:
                 background[y, x] = True
                 queue.append((y, x))
-    # 左辺・右辺
     for y in range(h):
         for x in [0, w - 1]:
             if bg_passable[y, x] and not background[y, x]:
                 background[y, x] = True
                 queue.append((y, x))
 
-    # 8方向接続でフラッドフィル
     dirs = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
     while queue:
         y, x = queue.popleft()
@@ -73,11 +56,11 @@ def remove_checker_bg(img: Image.Image) -> Image.Image:
                     background[ny, nx] = True
                     queue.append((ny, nx))
 
-    # 背景でないピクセル = キャラクター
-    character = ~background
+    # Phase 2: 孤立背景パッチを一括除去
+    background |= bg_passable
 
     result = arr.astype(np.uint8).copy()
-    result[:, :, 3] = (character * 255).astype(np.uint8)
+    result[:, :, 3] = (~background * 255).astype(np.uint8)
     return Image.fromarray(result, "RGBA")
 
 
