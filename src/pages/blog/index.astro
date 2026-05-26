@@ -26,18 +26,22 @@ const categories = [...new Set(allPosts.map(p => p.data.category).filter(Boolean
     </div>
 
     <!-- カテゴリフィルター -->
-    <div class="flex flex-wrap gap-3 mb-10" id="category-filter">
-      <button
-        class="filter-btn active h-11 px-5 rounded-lg text-sm font-bold border-2 transition-colors duration-150"
-        data-category=""
-      >全て</button>
-      {categories.map(cat => (
+    {allPosts.length > 0 && (
+      <div class="flex flex-wrap gap-3 mb-10" id="category-filter">
         <button
-          class="filter-btn h-11 px-5 rounded-lg text-sm font-bold border-2 transition-colors duration-150"
-          data-category={cat}
-        >{cat}</button>
-      ))}
-    </div>
+          class="filter-btn active h-11 px-5 rounded-lg text-sm font-bold border-2 transition-colors duration-150"
+          data-category=""
+          aria-pressed="true"
+        >全て</button>
+        {categories.map(cat => (
+          <button
+            class="filter-btn h-11 px-5 rounded-lg text-sm font-bold border-2 transition-colors duration-150"
+            data-category={cat}
+            aria-pressed="false"
+          >{cat}</button>
+        ))}
+      </div>
+    )}
 
     {allPosts.length === 0 ? (
       <div class="text-center py-24 text-slate-400">
@@ -55,7 +59,6 @@ const categories = [...new Set(allPosts.map(p => p.data.category).filter(Boolean
               publishedAt={post.data.publishedAt}
               category={post.data.category}
               tags={post.data.tags}
-              heroImage={post.data.heroImage}
             />
           </div>
         ))}
@@ -88,8 +91,9 @@ const categories = [...new Set(allPosts.map(p => p.data.category).filter(Boolean
     btn.addEventListener('click', () => {
       const selected = btn.dataset.category ?? '';
 
-      buttons.forEach(b => b.classList.remove('active'));
+      buttons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
 
       cards.forEach(card => {
         const cat = card.dataset.category ?? '';
