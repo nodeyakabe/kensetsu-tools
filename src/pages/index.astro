@@ -16,7 +16,7 @@ const features = [
   {
     icon: '🔧',
     title: '業務テンプレート',
-    desc: '見積書・工程表・日報・KY活動表など、現場で使えるテンプレートを無料で提供。すぐにダウンロード可能。',
+    desc: '見積書・工程表・日報・KY活動表など、現場で使えるテンプレートを順次提供予定です。',
   },
   {
     icon: '📖',
@@ -66,13 +66,12 @@ const websiteSchema = JSON.stringify({
             <span class="text-accent-400">もっとシンプルに。</span>
           </h1>
           <p class="text-primary-200 text-xl leading-relaxed mb-10 max-w-2xl">
-            法令対応・業務効率化のためのツールと知識を提供。<br>
-            一人親方・中小建設業・新規開業者のための実務サポートサイトです。
+            法令対応の知識と業務ツールで、一人親方・小規模事業者を実務サポートします。
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
-            <a href="/blog/" class="btn-primary text-center">ブログを読む</a>
-            <a href="/products/" class="inline-block border-2 border-white hover:bg-white text-white hover:text-primary-800 font-bold py-3 px-8 rounded-lg transition-colors duration-200 text-center">
-              ツールを見る
+            <a href="/products/" class="btn-primary text-center">商品を見る</a>
+            <a href="/blog/" class="inline-block border-2 border-white hover:bg-white text-white hover:text-primary-800 font-bold py-3 px-8 rounded-lg transition-colors duration-200 text-center">
+              ブログを読む
             </a>
           </div>
         </div>
@@ -83,7 +82,7 @@ const websiteSchema = JSON.stringify({
           <!-- クロエ（左） -->
           <div class="flex flex-col items-center gap-2 self-end">
             <div class="relative bg-white text-primary-900 text-xs font-bold rounded-2xl rounded-bl-none px-4 py-2 shadow-lg max-w-[150px] text-center leading-snug">
-              複雑な作業は<br>不要だにゃ！
+              複雑な作業は、不要です。
               <span class="absolute -bottom-2 left-4 w-3 h-3 bg-white rotate-45"></span>
             </div>
             <img
@@ -98,7 +97,7 @@ const websiteSchema = JSON.stringify({
           <!-- ミケル（右・メイン） -->
           <div class="flex flex-col items-center gap-2 self-end">
             <div class="relative bg-accent-400 text-primary-900 text-xs font-bold rounded-2xl rounded-br-none px-4 py-2 shadow-lg max-w-[160px] text-center leading-snug">
-              良い工具で仕事は<br>もっとはかどるにゃ！
+              いいツールで、仕事はもっとはかどります。
               <span class="absolute -bottom-2 right-4 w-3 h-3 bg-accent-400 rotate-45"></span>
             </div>
             <img
@@ -114,6 +113,35 @@ const websiteSchema = JSON.stringify({
       </div>
     </div>
     <div class="h-12 bg-white" style="clip-path: ellipse(110% 100% at 50% 100%)"></div>
+  </section>
+
+  <!-- Coming Soon -->
+  <section class="py-16 bg-white">
+    <div class="container-base">
+      <div class="max-w-2xl mx-auto rounded-xl p-8 shadow-md" style="background:#F8FAFC; border:1px solid #E2E8F0;">
+        <div class="mb-4">
+          <span class="inline-block bg-accent-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">近日リリース</span>
+        </div>
+        <h2 class="text-2xl font-bold text-primary-900 mb-2">シンプル工事台帳 ライト版</h2>
+        <p class="text-slate-500 text-sm mb-6">2026年内リリース予定</p>
+        <ul class="space-y-3 mb-8">
+          {[
+            'Excelだけで動く。特別なソフト不要。',
+            '工事ごとの収支を自動集計。',
+            '確定申告に使える収支サマリーを出力。',
+            '一人親方・小規模事業者向けのシンプル設計。',
+          ].map(item => (
+            <li class="flex items-start gap-3">
+              <span class="text-accent-500 font-bold mt-0.5">✓</span>
+              <span class="text-slate-700">{item}</span>
+            </li>
+          ))}
+        </ul>
+        <a href="/products/koji-daicho/" class="inline-block text-primary-700 hover:text-primary-900 font-bold transition-colors">
+          商品の詳細を見る →
+        </a>
+      </div>
+    </div>
   </section>
 
   <!-- Features -->
