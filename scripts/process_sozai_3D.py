@@ -17,46 +17,56 @@ DEST = "apps/HP/public/images/characters"
 
 def remove_checker_bg(img: Image.Image) -> Image.Image:
     """
-    エッジからのflood fillでチェッカーボード背景を除去。
-    判定条件：
-      - グレースケールに近い（RGB各成分の差が15以内）
-      - 明るい（平均輝度 > 175）
-      - エッジから連続している
+    Character Growing方式（逆アプローチ）で背景を除去。
+
+    「背景を除去」する代わりに「キャラクターを育てる」。
+    - 種ピクセル: 明らかにキャラ（暗い or 彩度高い）
+    - そこから隣接ピクセルへ拡張（背景マスにぶつかったら止まる）
+    - 到達しなかったピクセル = 背景 → 透過
+
+    背景ブロック条件（これ以上は拡張しない）:
+      - 暗灰色マス: near-gray かつ mean 175〜225
+      - 白マス:     near-gray かつ mean >= 249（キャラ白 238-248 は通過）
     """
     arr = np.array(img.convert("RGBA"), dtype=np.int32)
     h, w = arr.shape[:2]
-    alpha = np.full((h, w), 255, dtype=np.uint8)
 
-    visited = np.zeros((h, w), dtype=bool)
+    means  = np.mean(arr[:, :, :3], axis=2)
+    ranges = (np.max(arr[:, :, :3], axis=2) - np.min(arr[:, :, :3], axis=2)).astype(float)
+
+    # 種ピクセル: 暗い(mean<120) or 彩度高い(range>30) → 確実にキャラ
+    seeds = (means < 120) | (ranges > 30)
+
+    character = np.zeros((h, w), dtype=bool)
     queue = deque()
-    for x in range(w):
-        queue.append((0, x))
-        queue.append((h - 1, x))
-    for y in range(h):
-        queue.append((y, 0))
-        queue.append((y, w - 1))
+    for yx in np.argwhere(seeds):
+        y, x = int(yx[0]), int(yx[1])
+        if not character[y, x]:
+            character[y, x] = True
+            queue.append((y, x))
 
-    def is_bg(y, x):
-        pix = arr[y, x, :3].astype(float)
-        is_gray = float(np.max(pix) - np.min(pix)) < 20   # ほぼグレースケール
-        is_bright = float(np.mean(pix)) > 170              # 明るい
-        return is_gray and is_bright
+    def can_grow(y, x):
+        m = float(means[y, x])
+        r = float(ranges[y, x])
+        # 背景暗灰色マス → ブロック
+        if r < 18 and 175 <= m <= 225:
+            return False
+        # 背景白マス → ブロック（キャラ白 238-248 は通過させる）
+        if r < 12 and m >= 249:
+            return False
+        return True
 
     while queue:
         y, x = queue.popleft()
-        if visited[y, x]:
-            continue
-        visited[y, x] = True
-        if not is_bg(y, x):
-            continue
-        alpha[y, x] = 0
         for dy, dx in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
             ny, nx = y + dy, x + dx
-            if 0 <= ny < h and 0 <= nx < w and not visited[ny, nx]:
-                queue.append((ny, nx))
+            if 0 <= ny < h and 0 <= nx < w and not character[ny, nx]:
+                if can_grow(ny, nx):
+                    character[ny, nx] = True
+                    queue.append((ny, nx))
 
     result = arr.astype(np.uint8).copy()
-    result[:, :, 3] = alpha
+    result[:, :, 3] = (character * 255).astype(np.uint8)
     return Image.fromarray(result, "RGBA")
 
 
