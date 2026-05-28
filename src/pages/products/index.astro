@@ -1,11 +1,24 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kensetsu-tools.com/" },
+    { "@type": "ListItem", "position": 2, "name": "ツール・商品", "item": "https://kensetsu-tools.com/products/" },
+  ],
+};
 ---
 
 <BaseLayout
-  title="ツール・商品 | 建設業ツール工房"
+  title="ツール・商品"
   description="建設業の現場で本当に使えるツールをお届けします。シンプル工事台帳ライト版を近日リリース予定。"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
   <div class="container-base py-16">
     <nav class="text-sm text-slate-500 mb-10" aria-label="パンくずリスト">
       <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
