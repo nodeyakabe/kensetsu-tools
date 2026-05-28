@@ -1,0 +1,150 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="事前登録"
+  description="シンプル工事台帳 ライト版のリリース通知を受け取る。ご登録特典として確定申告チェックリストPDFを無料でお届けします。"
+>
+  <div class="container-base py-16">
+    <nav class="text-sm text-slate-500 mb-10" aria-label="パンくずリスト">
+      <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <a href="/products/koji-daicho/" class="hover:text-primary-600 transition-colors">シンプル工事台帳</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-700">事前登録</span>
+    </nav>
+
+    <div class="max-w-lg mx-auto">
+      <!-- 特典バッジ -->
+      <div class="text-center mb-8">
+        <span class="inline-block bg-accent-500 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
+          登録特典あり
+        </span>
+      </div>
+
+      <h1 class="text-3xl font-bold text-primary-900 mb-3 text-center">
+        リリース通知を受け取る
+      </h1>
+      <p class="text-slate-500 text-center mb-10 leading-relaxed">
+        シンプル工事台帳 ライト版のリリース時に<br>
+        いち早くお知らせします。
+      </p>
+
+      <!-- 特典カード -->
+      <div class="bg-primary-50 border border-primary-100 rounded-xl p-6 mb-8">
+        <p class="text-sm font-bold text-primary-800 mb-3">ご登録特典</p>
+        <div class="flex items-start gap-3">
+          <span class="text-accent-500 font-black text-lg flex-shrink-0">✓</span>
+          <div>
+            <p class="font-bold text-slate-800">一人親方の確定申告チェックリスト（PDF）</p>
+            <p class="text-sm text-slate-500 mt-1">青色申告・経費整理・インボイス対応のポイントを1枚にまとめたPDFを、リリース時に無料でお届けします。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- フォーム -->
+      <form id="register-form" class="space-y-5" novalidate>
+        <div>
+          <label for="name" class="block text-sm font-medium text-slate-700 mb-1.5">
+            お名前 <span class="text-slate-400 font-normal">（任意）</span>
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="田中 太郎"
+            class="w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-slate-700 mb-1.5">
+            メールアドレス <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="example@email.com"
+            class="w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition"
+          />
+          <p id="email-error" class="text-red-500 text-sm mt-1.5 hidden">
+            正しいメールアドレスを入力してください。
+          </p>
+        </div>
+
+        <!-- エラーメッセージ -->
+        <div id="form-error" class="hidden bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3">
+          送信に失敗しました。しばらく時間をおいて再度お試しください。
+        </div>
+
+        <button
+          type="submit"
+          id="submit-btn"
+          class="w-full bg-accent-500 hover:bg-accent-600 text-white font-bold py-4 rounded-xl transition-colors text-lg shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          無料で登録する
+        </button>
+
+        <p class="text-xs text-slate-400 text-center leading-relaxed">
+          送信することで
+          <a href="/privacy/" class="underline hover:text-slate-600 transition-colors">プライバシーポリシー</a>
+          に同意したとみなします。<br>
+          メールは確認・リリース通知のみに使用します。
+        </p>
+      </form>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('register-form') as HTMLFormElement;
+  const emailInput = document.getElementById('email') as HTMLInputElement;
+  const nameInput = document.getElementById('name') as HTMLInputElement;
+  const emailError = document.getElementById('email-error')!;
+  const formError = document.getElementById('form-error')!;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    emailError.classList.add('hidden');
+    formError.classList.add('hidden');
+
+    const email = emailInput.value.trim();
+    const name = nameInput.value.trim();
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      emailError.classList.remove('hidden');
+      emailInput.focus();
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = '送信中...';
+
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name }),
+      });
+
+      const data = await res.json() as { ok: boolean; message?: string };
+
+      if (data.ok) {
+        window.location.href = '/register/thanks/';
+      } else {
+        formError.textContent = data.message ?? '送信に失敗しました。しばらく時間をおいて再度お試しください。';
+        formError.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.textContent = '無料で登録する';
+      }
+    } catch {
+      formError.classList.remove('hidden');
+      submitBtn.disabled = false;
+      submitBtn.textContent = '無料で登録する';
+    }
+  });
+</script>
