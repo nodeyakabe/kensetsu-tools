@@ -128,12 +128,17 @@ const websiteSchema = JSON.stringify({
           'サブスクの月額負担がしんどい',
         ].map(item => (
           <li class="flex items-center gap-4 text-lg text-slate-700">
-            <span class="text-accent-500 font-black text-xl flex-shrink-0">✓</span>
+            <span class="text-red-400 font-black text-xl flex-shrink-0" aria-hidden="true">!</span>
             <span>{item}</span>
           </li>
         ))}
       </ul>
-      <p class="text-slate-400 text-sm text-center">そんな悩みを解決するツール、開発中です。</p>
+      <p class="text-slate-500 text-sm text-center">
+        そんな悩みを解決するツールを開発中です。<br>
+        <a href="/products/koji-daicho/" class="text-primary-600 hover:text-primary-800 font-semibold transition-colors">
+          「シンプル工事台帳」の詳細を見る →
+        </a>
+      </p>
     </div>
   </section>
 

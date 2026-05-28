@@ -121,7 +121,7 @@ const notifyUrl = '/register/';
           'ITに詳しくないけど、何か始めたい',
         ].map(item => (
           <li class="flex items-start gap-4 text-lg text-slate-700">
-            <span class="text-accent-500 font-black text-xl flex-shrink-0 mt-0.5">✓</span>
+            <span class="text-red-400 font-black text-xl flex-shrink-0 mt-0.5" aria-hidden="true">!</span>
             <span>{item}</span>
           </li>
         ))}
@@ -182,22 +182,22 @@ const notifyUrl = '/register/';
   <!-- S5：実際の画面 -->
   <section class="py-20 bg-slate-50">
     <div class="container-base max-w-3xl mx-auto">
-      <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">実際の画面（開発中）</h2>
-      <p class="text-slate-500 text-center mb-14">リリース時には、こんな画面でお仕事できます。</p>
+      <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">画面イメージ</h2>
+      <p class="text-slate-500 text-center mb-14">リリース版では、このような画面でお仕事できます。</p>
 
       <div class="space-y-12">
         <!-- モック1：ホーム画面 -->
         <div>
-          <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden" style="box-shadow: 0 4px 24px rgba(0,0,0,0.10);">
+          <div role="img" aria-label="シンプル工事台帳 ホーム画面のイメージ。工事登録・原価入力・月次サマリーなど6つのメニューが並ぶ画面。" class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden" style="box-shadow: 0 4px 24px rgba(0,0,0,0.10);">
             <!-- ウィンドウバー -->
-            <div class="bg-slate-200 px-4 py-2 flex items-center gap-2">
+            <div class="bg-slate-200 px-4 py-2 flex items-center gap-2" aria-hidden="true">
               <span class="w-3 h-3 rounded-full bg-red-400"></span>
               <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
               <span class="w-3 h-3 rounded-full bg-green-400"></span>
               <span class="text-xs text-slate-500 ml-2">シンプル工事台帳 ライト版.xlsx</span>
             </div>
             <!-- Excelリボン風 -->
-            <div class="bg-primary-800 px-4 py-1.5 text-white text-xs flex gap-6">
+            <div class="bg-primary-800 px-4 py-1.5 text-white text-xs flex gap-6" aria-hidden="true">
               <span>ファイル</span><span>ホーム</span><span>挿入</span><span>ページレイアウト</span><span>数式</span>
             </div>
             <!-- コンテンツ -->
@@ -238,14 +238,14 @@ const notifyUrl = '/register/';
 
         <!-- モック2：工事登録画面 -->
         <div>
-          <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden" style="box-shadow: 0 4px 24px rgba(0,0,0,0.10);">
-            <div class="bg-slate-200 px-4 py-2 flex items-center gap-2">
+          <div role="img" aria-label="シンプル工事台帳 工事登録画面のイメージ。工事番号・工事名・施主・請負金額・開始日・完了日の列を持つテーブル形式。" class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden" style="box-shadow: 0 4px 24px rgba(0,0,0,0.10);">
+            <div class="bg-slate-200 px-4 py-2 flex items-center gap-2" aria-hidden="true">
               <span class="w-3 h-3 rounded-full bg-red-400"></span>
               <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
               <span class="w-3 h-3 rounded-full bg-green-400"></span>
               <span class="text-xs text-slate-500 ml-2">シンプル工事台帳 ライト版.xlsx</span>
             </div>
-            <div class="bg-primary-800 px-4 py-1.5 text-white text-xs flex gap-6">
+            <div class="bg-primary-800 px-4 py-1.5 text-white text-xs flex gap-6" aria-hidden="true">
               <span>ファイル</span><span>ホーム</span><span>挿入</span><span>ページレイアウト</span><span>数式</span>
             </div>
             <div class="p-6 bg-white overflow-x-auto">
@@ -256,12 +256,12 @@ const notifyUrl = '/register/';
               <table class="w-full text-xs border-collapse min-w-[500px]">
                 <thead>
                   <tr class="bg-primary-800 text-white">
-                    <th class="border border-primary-700 px-3 py-2 text-left font-medium">工事番号</th>
-                    <th class="border border-primary-700 px-3 py-2 text-left font-medium">工事名</th>
-                    <th class="border border-primary-700 px-3 py-2 text-left font-medium">施主</th>
-                    <th class="border border-primary-700 px-3 py-2 text-right font-medium">請負金額</th>
-                    <th class="border border-primary-700 px-3 py-2 text-left font-medium">開始日</th>
-                    <th class="border border-primary-700 px-3 py-2 text-left font-medium">完了日</th>
+                    <th scope="col" class="border border-primary-700 px-3 py-2 text-left font-medium">工事番号</th>
+                    <th scope="col" class="border border-primary-700 px-3 py-2 text-left font-medium">工事名</th>
+                    <th scope="col" class="border border-primary-700 px-3 py-2 text-left font-medium">施主</th>
+                    <th scope="col" class="border border-primary-700 px-3 py-2 text-right font-medium">請負金額</th>
+                    <th scope="col" class="border border-primary-700 px-3 py-2 text-left font-medium">開始日</th>
+                    <th scope="col" class="border border-primary-700 px-3 py-2 text-left font-medium">完了日</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -300,14 +300,14 @@ const notifyUrl = '/register/';
 
         <!-- モック3：月次サマリー画面 -->
         <div>
-          <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden" style="box-shadow: 0 4px 24px rgba(0,0,0,0.10);">
-            <div class="bg-slate-200 px-4 py-2 flex items-center gap-2">
+          <div role="img" aria-label="シンプル工事台帳 月次サマリー画面のイメージ。月ごとに売上・原価・粗利・粗利率が自動集計されるテーブル形式。" class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden" style="box-shadow: 0 4px 24px rgba(0,0,0,0.10);">
+            <div class="bg-slate-200 px-4 py-2 flex items-center gap-2" aria-hidden="true">
               <span class="w-3 h-3 rounded-full bg-red-400"></span>
               <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
               <span class="w-3 h-3 rounded-full bg-green-400"></span>
               <span class="text-xs text-slate-500 ml-2">シンプル工事台帳 ライト版.xlsx</span>
             </div>
-            <div class="bg-primary-800 px-4 py-1.5 text-white text-xs flex gap-6">
+            <div class="bg-primary-800 px-4 py-1.5 text-white text-xs flex gap-6" aria-hidden="true">
               <span>ファイル</span><span>ホーム</span><span>挿入</span><span>ページレイアウト</span><span>数式</span>
             </div>
             <div class="p-6 bg-white overflow-x-auto">
@@ -318,11 +318,11 @@ const notifyUrl = '/register/';
               <table class="w-full text-xs border-collapse min-w-[400px]">
                 <thead>
                   <tr class="bg-primary-800 text-white">
-                    <th class="border border-primary-700 px-3 py-2 text-left font-medium">月</th>
-                    <th class="border border-primary-700 px-3 py-2 text-right font-medium">売上</th>
-                    <th class="border border-primary-700 px-3 py-2 text-right font-medium">原価</th>
-                    <th class="border border-primary-700 px-3 py-2 text-right font-medium">粗利</th>
-                    <th class="border border-primary-700 px-3 py-2 text-right font-medium">粗利率</th>
+                    <th scope="col" class="border border-primary-700 px-3 py-2 text-left font-medium">月</th>
+                    <th scope="col" class="border border-primary-700 px-3 py-2 text-right font-medium">売上</th>
+                    <th scope="col" class="border border-primary-700 px-3 py-2 text-right font-medium">原価</th>
+                    <th scope="col" class="border border-primary-700 px-3 py-2 text-right font-medium">粗利</th>
+                    <th scope="col" class="border border-primary-700 px-3 py-2 text-right font-medium">粗利率</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -394,8 +394,8 @@ const notifyUrl = '/register/';
     </div>
   </section>
 
-  <!-- S6：価格 -->
-  <section class="py-20 bg-white">
+  <!-- S7：価格 -->
+  <section class="py-20 bg-slate-50">
     <div class="container-base">
       <h2 class="text-3xl font-bold text-primary-900 mb-12 text-center">価格</h2>
       <div class="max-w-md mx-auto border-2 border-accent-400 rounded-2xl p-10 shadow-lg text-center">
@@ -426,7 +426,7 @@ const notifyUrl = '/register/';
     </div>
   </section>
 
-  <!-- S7：動作環境 -->
+  <!-- S8：動作環境 -->
   <section class="py-20 bg-slate-50">
     <div class="container-base max-w-2xl mx-auto">
       <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">動作環境</h2>
@@ -447,7 +447,7 @@ const notifyUrl = '/register/';
     </div>
   </section>
 
-  <!-- S8：リリース通知CTA -->
+  <!-- S9：リリース通知CTA -->
   <section class="py-24 bg-primary-900">
     <div class="container-base text-center max-w-2xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
