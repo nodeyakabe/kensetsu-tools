@@ -1,0 +1,278 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "シンプル工事台帳 ライト版",
+  "description": "確定申告がラクになる、Excelだけで動く工事管理ツール。マクロ不使用、買い切り¥4,980。",
+  "brand": { "@type": "Brand", "name": "建設業ツール工房" },
+  "offers": {
+    "@type": "Offer",
+    "price": "4980",
+    "priceCurrency": "JPY",
+    "availability": "https://schema.org/PreOrder",
+    "url": "https://kensetsu-tools.com/products/koji-daicho/"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kensetsu-tools.com/" },
+    { "@type": "ListItem", "position": 2, "name": "ツール・商品", "item": "https://kensetsu-tools.com/products/" },
+    { "@type": "ListItem", "position": 3, "name": "シンプル工事台帳 ライト版", "item": "https://kensetsu-tools.com/products/koji-daicho/" },
+  ],
+};
+
+const features = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>`,
+    title: '工事登録',
+    desc: '工事名・施主・金額・開始日・完了日の5項目だけで、工事を登録できます。迷わず使える設計です。',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>`,
+    title: '原価入力',
+    desc: '日付・工事・種別・金額を入力するだけ。材料費・外注費・労務費を分類して管理できます。',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+    title: '月次・年次サマリー',
+    desc: '売上・原価・利益を自動集計。確定申告の準備にそのまま使えます。',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1z"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>`,
+    title: 'インボイス番号管理',
+    desc: '取引先のインボイス登録番号を一覧で管理。仕入税額控除の整理がラクになります。',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>`,
+    title: '改正建設業法 入力支援',
+    desc: '原価割れの参考表示や、労務費の入力支援を行います。※法令適合性を保証するものではありません',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="12" y2="18" x2="15" y2="15"/></svg>`,
+    title: 'CSV出力',
+    desc: '会計ソフトや税理士提出用にCSV形式でデータを書き出せます。',
+  },
+];
+
+const notifyUrl = 'mailto:contact@kensetsu-tools.com?subject=%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E5%B7%A5%E4%BA%8B%E5%8F%B0%E5%B8%B3%E3%81%AE%E9%80%9A%E7%9F%A5%E5%B8%8C%E6%9C%9B&body=%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E6%99%82%E3%81%AB%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%E3%80%82';
+---
+
+<BaseLayout
+  title="シンプル工事台帳 ライト版 | 建設業ツール工房"
+  description="確定申告がラクになる、Excelだけで動く工事管理ツール。買い切り¥4,980、マクロ不使用で安心。2026年内リリース予定。"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <link rel="canonical" href="https://kensetsu-tools.com/products/koji-daicho/" />
+    <meta property="og:type" content="product" />
+    <meta property="og:title" content="シンプル工事台帳 ライト版" />
+    <meta property="og:description" content="確定申告がラクになる、Excelだけで動く工事管理ツール。買い切り¥4,980。" />
+    <meta property="og:url" content="https://kensetsu-tools.com/products/koji-daicho/" />
+  </Fragment>
+
+  <!-- パンくず -->
+  <div class="container-base pt-8">
+    <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
+      <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <a href="/products/" class="hover:text-primary-600 transition-colors">ツール・商品</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-700">シンプル工事台帳 ライト版</span>
+    </nav>
+  </div>
+
+  <!-- S1：ヒーロー -->
+  <section class="bg-slate-50 py-20 md:py-28">
+    <div class="container-base text-center max-w-3xl mx-auto">
+      <div class="mb-6">
+        <span class="inline-block bg-accent-500 text-white text-sm font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">近日リリース</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-primary-900 mb-4">
+        シンプル工事台帳 ライト版
+      </h1>
+      <p class="text-xl md:text-2xl text-slate-600 mb-6 leading-relaxed">
+        確定申告がラクになる、<br>
+        Excelだけで動く工事管理ツール。
+      </p>
+      <p class="text-3xl font-semibold text-accent-500 mb-2">¥4,980</p>
+      <p class="text-slate-500 text-sm mb-10">税込・買い切り</p>
+      <p class="text-slate-500 mb-8">2026年内リリース予定</p>
+      <a
+        href={notifyUrl}
+        class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-md"
+      >
+        リリース通知を希望する →
+      </a>
+    </div>
+  </section>
+
+  <!-- S2：悩み -->
+  <section class="py-20 bg-white">
+    <div class="container-base max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">こんな悩みありませんか？</h2>
+      <ul class="space-y-5">
+        {[
+          '工事台帳の管理が、紙やExcel自作で面倒',
+          '確定申告の準備が、毎年大変',
+          '既存の業務ソフトはサブスクで毎月料金がかかる',
+          'インボイス制度や改正建設業法への対応が不安',
+          'ITに詳しくないけど、何か始めたい',
+        ].map(item => (
+          <li class="flex items-start gap-4 text-lg text-slate-700">
+            <span class="text-accent-500 font-black text-xl flex-shrink-0 mt-0.5">✓</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- S3：こう変わる -->
+  <section class="py-20 bg-slate-50">
+    <div class="container-base">
+      <h2 class="text-3xl font-bold text-primary-900 mb-12 text-center">シンプル工事台帳なら、こう変わる</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        {[
+          {
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
+            title: 'シンプル',
+            desc: '5項目を入力するだけで、工事台帳が完成します。迷わず使える設計です。',
+          },
+          {
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`,
+            title: '安心',
+            desc: 'マクロを使わないExcelファイル。怪しい警告が出ません。',
+          },
+          {
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`,
+            title: '経済的',
+            desc: '¥4,980の買い切り。月額料金は一切ありません。',
+          },
+        ].map(card => (
+          <div class="bg-white border border-slate-200 rounded-xl p-8 text-center">
+            <div class="text-accent-500 flex justify-center mb-4" set:html={card.icon} />
+            <h3 class="text-xl font-bold text-primary-900 mb-3">{card.title}</h3>
+            <p class="text-slate-600 leading-relaxed text-sm">{card.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S4：機能 -->
+  <section class="py-20 bg-white">
+    <div class="container-base max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold text-primary-900 mb-12 text-center">主な機能</h2>
+      <div class="space-y-4">
+        {features.map(f => (
+          <div class="flex items-start gap-6 bg-white border border-slate-200 rounded-xl p-6">
+            <div class="text-accent-500 flex-shrink-0" set:html={f.icon} />
+            <div>
+              <h3 class="text-lg font-bold text-primary-900 mb-1">{f.title}</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">{f.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S5：安心の特徴 -->
+  <section class="py-20 bg-slate-50">
+    <div class="container-base max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">安心の特徴</h2>
+      <ul class="space-y-5">
+        {[
+          'マクロ不使用で「マクロ警告」が出ない',
+          '買い切り価格、サブスクなし',
+          'データはあなたのPCだけに保存（クラウド不使用）',
+          '60日間のメールサポート付き',
+          'Excel 2016以降、Windows・Mac両対応',
+        ].map(item => (
+          <li class="flex items-center gap-4 text-lg text-slate-700">
+            <span class="text-accent-500 font-black text-xl flex-shrink-0">✓</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- S6：価格 -->
+  <section class="py-20 bg-white">
+    <div class="container-base">
+      <h2 class="text-3xl font-bold text-primary-900 mb-12 text-center">価格</h2>
+      <div class="max-w-md mx-auto border-2 border-accent-400 rounded-2xl p-10 shadow-lg text-center">
+        <p class="text-lg font-bold text-slate-700 mb-2">シンプル工事台帳 ライト版</p>
+        <p class="text-6xl font-bold text-accent-500 mb-1">¥4,980</p>
+        <p class="text-slate-400 text-sm mb-8">税込・買い切り</p>
+        <hr class="border-slate-200 mb-8" />
+        <ul class="space-y-3 text-left mb-10">
+          {[
+            '永続ライセンス',
+            '同一事業者内の複数PCで利用可',
+            '60日間メールサポート',
+            '不具合の無償対応（60日以内）',
+          ].map(item => (
+            <li class="flex items-center gap-3 text-slate-700">
+              <span class="text-accent-500 font-bold">✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+        <button
+          disabled
+          class="w-full bg-slate-100 text-slate-400 font-bold py-3 rounded-lg cursor-not-allowed text-sm"
+        >
+          リリース時に購入予定
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- S7：動作環境 -->
+  <section class="py-20 bg-slate-50">
+    <div class="container-base max-w-2xl mx-auto">
+      <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">動作環境</h2>
+      <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+        {[
+          { label: 'OS', value: 'Windows / Mac' },
+          { label: 'Excel', value: '2016 以降' },
+          { label: 'エディション', value: 'Office 365 / 買い切り版どちらも対応' },
+          { label: 'ファイル形式', value: '.xlsx（マクロなし）' },
+          { label: '推奨環境', value: 'メモリ 4GB以上' },
+        ].map((row, i) => (
+          <div class={`flex gap-4 px-6 py-4 ${i !== 0 ? 'border-t border-slate-100' : ''}`}>
+            <span class="text-slate-500 text-sm w-32 flex-shrink-0 pt-0.5">{row.label}</span>
+            <span class="text-slate-800 font-medium">{row.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S8：リリース通知CTA -->
+  <section class="py-24 bg-primary-900">
+    <div class="container-base text-center max-w-2xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        2026年内のリリースを予定しています
+      </h2>
+      <p class="text-primary-200 text-lg mb-10 leading-relaxed">
+        リリース時にお知らせを希望される方は、<br>
+        お問い合わせよりご連絡ください。
+      </p>
+      <a
+        href={notifyUrl}
+        class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-md"
+      >
+        リリース通知を希望する →
+      </a>
+    </div>
+  </section>
+</BaseLayout>

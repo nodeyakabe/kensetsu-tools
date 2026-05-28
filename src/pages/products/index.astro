@@ -3,61 +3,40 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
-  title="ツール・商品一覧"
-  description="建設業向けの業務ツール・テンプレート商品を提供予定です。現在準備中です。"
+  title="ツール・商品 | 建設業ツール工房"
+  description="建設業の現場で本当に使えるツールをお届けします。シンプル工事台帳ライト版を近日リリース予定。"
 >
   <div class="container-base py-16">
-    <!-- Breadcrumb -->
     <nav class="text-sm text-slate-500 mb-10" aria-label="パンくずリスト">
       <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
       <span class="mx-2">/</span>
-      <span class="text-slate-700">ツール・商品一覧</span>
+      <span class="text-slate-700">ツール・商品</span>
     </nav>
 
     <div class="mb-12">
-      <h1 class="text-4xl font-bold text-primary-900 mb-3">ツール・商品一覧</h1>
-      <p class="text-slate-500 text-lg">建設業向けのツール・テンプレートを提供予定です。</p>
+      <h1 class="text-4xl font-bold text-primary-900 mb-3">ツール・商品</h1>
+      <p class="text-slate-500 text-lg">建設業の現場で本当に使えるツールをお届けします。</p>
     </div>
 
-    <!-- Coming Soon -->
-    <div class="max-w-2xl mx-auto text-center py-20">
-      <div class="bg-primary-50 rounded-2xl p-12 border border-primary-100">
-        <div class="text-7xl mb-6">🔨</div>
-        <div class="inline-block bg-accent-500 text-white text-xs font-bold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider">
-          Coming Soon
-        </div>
-        <h2 class="text-2xl font-bold text-primary-900 mb-4">
-          ただいま準備中です
-        </h2>
-        <p class="text-slate-600 leading-relaxed mb-8">
-          建設業向けの業務ツール・テンプレート・チェックリストなどを<br class="hidden sm:inline">
-          順次公開予定です。まずはブログから最新情報をご確認ください。
-        </p>
-        <a href="/blog/" class="btn-primary">
-          ブログを読む
-        </a>
-      </div>
-    </div>
-
-    <!-- Preview cards -->
-    <div class="mt-20">
-      <h2 class="text-2xl font-bold text-primary-900 text-center mb-10">公開予定のコンテンツ</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {[
-          { icon: '📄', title: '見積書テンプレート', desc: 'Excelで使える建設業向け見積書テンプレート。消費税計算・明細入力対応。' },
-          { icon: '📅', title: '工程表テンプレート', desc: 'バーチャート形式の工程表。週次・月次に対応。工期管理に役立ちます。' },
-          { icon: '📋', title: '安全日報テンプレート', desc: '建設現場での安全管理に使える日報テンプレート。KY活動記録にも対応。' },
-        ].map(item => (
-          <div class="card p-6 opacity-60">
-            <div class="text-4xl mb-4">{item.icon}</div>
-            <h3 class="font-bold text-slate-900 mb-2">{item.title}</h3>
-            <p class="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
-            <div class="mt-4">
-              <span class="text-xs bg-slate-100 text-slate-500 px-3 py-1 rounded-full">準備中</span>
-            </div>
+    <div class="max-w-2xl">
+      <a href="/products/koji-daicho/" class="block group">
+        <div class="bg-white border border-slate-200 rounded-xl p-8 hover:shadow-md hover:border-slate-300 transition-all duration-200">
+          <div class="mb-4">
+            <span class="inline-block bg-accent-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">近日リリース</span>
           </div>
-        ))}
-      </div>
+          <h2 class="text-2xl font-bold text-primary-900 mb-2 group-hover:text-primary-700 transition-colors">
+            シンプル工事台帳 ライト版
+          </h2>
+          <p class="text-slate-600 text-lg mb-4">
+            確定申告がラクになる、Excelだけで動く工事管理ツール
+          </p>
+          <p class="text-accent-500 text-xl font-semibold mb-1">¥4,980（買い切り）</p>
+          <p class="text-slate-400 text-sm mb-6">2026年内リリース予定</p>
+          <span class="text-primary-600 font-bold group-hover:text-primary-800 transition-colors">
+            詳細を見る →
+          </span>
+        </div>
+      </a>
     </div>
   </div>
 </BaseLayout>
