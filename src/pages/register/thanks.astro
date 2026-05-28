@@ -4,7 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
 <BaseLayout
   title="登録完了"
-  description="シンプル工事台帳 ライト版の事前登録を受け付けました。リリース時にお知らせします。"
+  description="ご登録ありがとうございます。特典PDF「一人親方の確定申告チェックリスト」のダウンロードリンクをメールでお送りしました。"
 >
   <div class="container-base py-24">
     <div class="max-w-lg mx-auto text-center">
@@ -24,6 +24,17 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         ご登録ありがとうございます。<br>
         特典PDFのダウンロードリンクをメールでお送りしました。
       </p>
+
+      <!-- 特典PDF直接ダウンロード（メール未到達フォールバック） -->
+      <div class="mb-8">
+        <a
+          href="/pdf/kakutei-shinkoku-checklist.pdf"
+          download
+          class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl transition-colors shadow-md text-lg"
+        >
+          特典PDFをダウンロードする
+        </a>
+      </div>
 
       <!-- 特典説明 -->
       <div class="bg-primary-50 border border-primary-100 rounded-xl p-6 mb-10 text-left">
