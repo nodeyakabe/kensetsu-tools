@@ -104,7 +104,7 @@ export async function onRequestPost(context) {
     const emailPayload = {
       sender: { email: senderEmail, name: senderName },
       to: [{ email }],
-      subject: '【建設業ツール工房】事前登録を受け付けました',
+      subject: '【建設業ツール工房】特典PDFをお届けします',
       htmlContent: `
 <!DOCTYPE html>
 <html lang="ja">
@@ -115,15 +115,20 @@ export async function onRequestPost(context) {
   </div>
   <div style="border:1px solid #e2e8f0;border-top:none;border-radius:0 0 8px 8px;padding:32px 24px">
     <p>${safeGreeting}</p>
-    <p>シンプル工事台帳 ライト版の事前登録をいただき、ありがとうございます。</p>
-    <p>リリース時に、ご登録のメールアドレスへ最初にお知らせします。</p>
+    <p>ご登録ありがとうございます。</p>
+    <p>ご登録特典「一人親方の確定申告チェックリスト（PDF）」を下記からダウンロードいただけます。</p>
+    <div style="text-align:center;margin:28px 0">
+      <a href="https://kensetsu-tools.com/pdf/kakutei-shinkoku-checklist.pdf"
+         style="display:inline-block;background:#F59E0B;color:#fff;font-weight:bold;padding:14px 32px;border-radius:8px;text-decoration:none;font-size:16px">
+        PDFをダウンロードする
+      </a>
+    </div>
+    <p style="font-size:13px;color:#64748b">確定申告の準備に、ぜひお役立てください。</p>
     <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0">
-    <p style="font-weight:bold;color:#0F2557">特典について</p>
-    <p>ご登録特典として、<strong>「一人親方の確定申告チェックリスト（PDF）」</strong>をリリース時に無料でお届けします。</p>
-    <p style="font-size:13px;color:#64748b">※ PDFは商品リリースと同時にお届けします。しばらくお待ちください。</p>
+    <p style="font-size:13px;color:#64748b">なお、現在開発中の「シンプル工事台帳」がリリースされましたら、改めてお知らせいたします。</p>
     <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0">
     <p style="font-size:12px;color:#94a3b8">
-      このメールは <a href="https://kensetsu-tools.com" style="color:#0F2557">建設業ツール工房</a> への事前登録を受け付けたことをお知らせするものです。<br>
+      このメールは <a href="https://kensetsu-tools.com" style="color:#0F2557">建設業ツール工房</a> への登録を受け付けたことをお知らせするものです。<br>
       心当たりのない場合は、このメールを無視してください。<br>
       登録解除をご希望の場合は <a href="mailto:contact@kensetsu-tools.com" style="color:#0F2557">contact@kensetsu-tools.com</a> までご連絡ください。
     </p>
