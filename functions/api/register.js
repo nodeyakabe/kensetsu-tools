@@ -8,12 +8,36 @@
  *   BREVO_SENDER_EMAIL — 送信元メールアドレス（Brevo認証済み）
  *   BREVO_SENDER_NAME  — 送信元名
  */
+
+const ALLOWED_ORIGINS = [
+  'https://kensetsu-tools.com',
+  'https://www.kensetsu-tools.com',
+  'https://kensetsu-tools.pages.dev',
+];
+
+function isOriginAllowed(origin) {
+  if (!origin) return true; // 直接アクセス（curl等）は許可
+  if (ALLOWED_ORIGINS.includes(origin)) return true;
+  // preview deploy: *.kensetsu-tools.pages.dev
+  if (/^https:\/\/[a-z0-9-]+\.kensetsu-tools\.pages\.dev$/.test(origin)) return true;
+  return false;
+}
+
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 export async function onRequestPost(context) {
   const { request, env } = context;
 
-  // CORS対応（同一オリジンのみ）
+  // 外部からの直接呼び出し防止
   const origin = request.headers.get('Origin') ?? '';
-  if (origin && !origin.includes('kensetsu-tools.com') && !origin.includes('kensetsu-tools.pages.dev')) {
+  if (!isOriginAllowed(origin)) {
     return new Response('Forbidden', { status: 403 });
   }
 
@@ -32,14 +56,17 @@ export async function onRequestPost(context) {
   }
 
   const apiKey = env.BREVO_API_KEY;
-  const listId = Number(env.BREVO_LIST_ID);
+  const listId = Number(env.BREVO_LIST_ID) || 0;
   const senderEmail = env.BREVO_SENDER_EMAIL ?? 'contact@kensetsu-tools.com';
   const senderName = env.BREVO_SENDER_NAME ?? '建設業ツール工房';
 
   if (!apiKey) {
-    // 開発環境フォールバック（本番では必ず設定すること）
     console.error('BREVO_API_KEY が設定されていません');
     return jsonResponse({ ok: false, message: 'サーバー設定エラー。管理者にお問い合わせください。' }, 500);
+  }
+
+  if (!listId) {
+    console.warn('BREVO_LIST_ID が設定されていません。コンタクトはリストなしで登録されます。');
   }
 
   // 1. Brevo コンタクト登録
@@ -60,17 +87,20 @@ export async function onRequestPost(context) {
       body: JSON.stringify(contactPayload),
     });
 
+    // 201: 新規登録成功, 204: 既存コンタクト更新成功
     if (!contactRes.ok && contactRes.status !== 204) {
       const err = await contactRes.text();
       console.error('Brevo contact error:', contactRes.status, err);
+      return jsonResponse({ ok: false, message: '登録処理に失敗しました。しばらく時間をおいて再度お試しください。' }, 502);
     }
   } catch (e) {
     console.error('Brevo contact fetch failed:', e);
+    return jsonResponse({ ok: false, message: '登録処理に失敗しました。しばらく時間をおいて再度お試しください。' }, 502);
   }
 
-  // 2. 確認メールを送信
+  // 2. 確認メールを送信（失敗しても登録自体は成功なのでエラーを返さない）
   try {
-    const greeting = name ? `${name} 様` : 'ご登録者様';
+    const safeGreeting = name ? `${escapeHtml(name)} 様` : 'ご登録者様';
     const emailPayload = {
       sender: { email: senderEmail, name: senderName },
       to: [{ email }],
@@ -84,7 +114,7 @@ export async function onRequestPost(context) {
     <span style="color:#fff;font-weight:bold;font-size:18px">建設業ツール工房</span>
   </div>
   <div style="border:1px solid #e2e8f0;border-top:none;border-radius:0 0 8px 8px;padding:32px 24px">
-    <p>${greeting}</p>
+    <p>${safeGreeting}</p>
     <p>シンプル工事台帳 ライト版の事前登録をいただき、ありがとうございます。</p>
     <p>リリース時に、ご登録のメールアドレスへ最初にお知らせします。</p>
     <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0">

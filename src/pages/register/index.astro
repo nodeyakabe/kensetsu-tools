@@ -54,6 +54,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
             id="name"
             name="name"
             placeholder="田中 太郎"
+            autocomplete="name"
             class="w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition"
           />
         </div>
@@ -68,15 +69,17 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
             name="email"
             required
             placeholder="example@email.com"
+            autocomplete="email"
+            inputmode="email"
             class="w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition"
           />
-          <p id="email-error" class="text-red-500 text-sm mt-1.5 hidden">
+          <p id="email-error" class="text-red-500 text-sm mt-1.5 hidden" role="alert">
             正しいメールアドレスを入力してください。
           </p>
         </div>
 
         <!-- エラーメッセージ -->
-        <div id="form-error" class="hidden bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3">
+        <div id="form-error" class="hidden bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3" role="alert">
           送信に失敗しました。しばらく時間をおいて再度お試しください。
         </div>
 
@@ -107,8 +110,12 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   const formError = document.getElementById('form-error')!;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
 
+  let isSubmitting = false;
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     emailError.classList.add('hidden');
     formError.classList.add('hidden');
 
@@ -121,6 +128,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       return;
     }
 
+    isSubmitting = true;
     submitBtn.disabled = true;
     submitBtn.textContent = '送信中...';
 
@@ -138,11 +146,13 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       } else {
         formError.textContent = data.message ?? '送信に失敗しました。しばらく時間をおいて再度お試しください。';
         formError.classList.remove('hidden');
+        isSubmitting = false;
         submitBtn.disabled = false;
         submitBtn.textContent = '無料で登録する';
       }
     } catch {
       formError.classList.remove('hidden');
+      isSubmitting = false;
       submitBtn.disabled = false;
       submitBtn.textContent = '無料で登録する';
     }
