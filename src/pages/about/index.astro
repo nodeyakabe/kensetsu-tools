@@ -1,11 +1,42 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "建設業ツール工房",
+  "url": "https://kensetsu-tools.com",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://kensetsu-tools.com/favicon.svg"
+  },
+  "description": "建設業に携わる一人親方・中小事業者向けの業務ツール・テンプレート・業界情報を提供するサイトです。",
+  "founder": {
+    "@type": "Person",
+    "name": "矢ヶ部"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "福岡県",
+    "addressLocality": "北九州市",
+    "addressCountry": "JP"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "contact@kensetsu-tools.com",
+    "contactType": "customer support",
+    "availableLanguage": "Japanese"
+  }
+};
 ---
 
 <BaseLayout
   title="このサイトについて"
   description="建設業の現場をシンプルにしたい——その思いから生まれた、建設業向け情報・ツールサイトです。"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+  </Fragment>
   <div class="container-base py-16">
     <nav class="text-sm text-slate-500 mb-10" aria-label="パンくずリスト">
       <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
