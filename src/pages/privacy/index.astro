@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-const lastUpdated = '2026年5月22日';
+
+// ↓ HP公開日（商品リリース日）に変更してください
+const establishedDate = '2026年5月25日';
 ---
 
 <BaseLayout
@@ -16,85 +18,113 @@ const lastUpdated = '2026年5月22日';
 
     <div class="max-w-3xl mx-auto">
       <h1 class="text-4xl font-bold text-primary-900 mb-3">プライバシーポリシー</h1>
-      <p class="text-slate-400 text-sm mb-12 pb-12 border-b border-slate-200">制定日：{lastUpdated}</p>
+      <p class="text-slate-400 text-sm mb-12 pb-12 border-b border-slate-200">
+        制定日：{establishedDate}
+      </p>
 
       <div class="prose prose-slate prose-lg max-w-none">
         <p>
-          建設業ツール工房（以下「当サイト」）は、利用者の個人情報の重要性を認識し、その保護のため、本プライバシーポリシーを定め、これを遵守します。
+          建設業ツール工房（以下「当方」といいます）は、お客様の個人情報の保護を重要視し、以下のとおりプライバシーポリシーを定めます。
         </p>
 
-        <h2>1. 収集する情報</h2>
-        <p>当サイトでは、以下の情報を必要に応じて収集することがあります。</p>
+        <h2>1. 取得する個人情報</h2>
+        <p>当方は、ウェブサイトおよびサービス提供に関連して、以下の個人情報を取得することがあります：</p>
         <ul>
-          <li><strong>お問い合わせ時</strong>：お名前、メールアドレス、お問い合わせ内容</li>
-          <li><strong>商品購入時</strong>：お名前、メールアドレス、決済情報（決済はStripe社が管理し、当サイトはカード番号等の機微情報を保持しません）</li>
-          <li><strong>メールマガジン登録時</strong>：メールアドレス</li>
-          <li><strong>アクセス解析時</strong>：Cookie、IPアドレス、ブラウザ情報、閲覧ページ、滞在時間等</li>
+          <li>お名前</li>
+          <li>メールアドレス</li>
+          <li>決済情報（クレジットカード情報は決済代行サービスStripe社が保有し、当方は直接保有しません）</li>
+          <li>お問い合わせ内容</li>
+          <li>アクセス情報（IPアドレス、ブラウザ種別等、個人を特定しない範囲）</li>
         </ul>
 
         <h2>2. 利用目的</h2>
-        <p>収集した情報は、以下の目的でのみ利用します。</p>
+        <p>取得した個人情報は、以下の目的でのみ利用します：</p>
         <ul>
-          <li>お問い合わせへの回答および連絡</li>
-          <li>商品・サービスの提供およびサポート</li>
-          <li>商品の改善および新商品の開発</li>
-          <li>メールマガジン等の配信</li>
-          <li>サイトの改善および分析</li>
-          <li>法令に基づく義務の履行</li>
+          <li>商品の販売・配信</li>
+          <li>お客様サポート（問い合わせ対応、不具合対応）</li>
+          <li>重要なお知らせの送付（規約変更、重大な不具合のお知らせ等）</li>
+          <li>サービス改善のための統計分析（個人を特定しない形式）</li>
         </ul>
 
         <h2>3. 第三者提供</h2>
-        <p>
-          法令に基づく場合を除き、収集した個人情報を本人の同意なく第三者に提供することはありません。
-        </p>
-        <p>ただし、以下の業務委託先には、業務上必要な範囲で情報を共有することがあります。</p>
+        <p>当方は、以下の場合を除き、お客様の個人情報を第三者に提供しません：</p>
         <ul>
-          <li><strong>Stripe</strong>（決済処理）</li>
-          <li><strong>Google Analytics</strong>（アクセス解析）</li>
-          <li><strong>Cloudflare</strong>（サイト運営・配信）</li>
-          <li><strong>メール配信サービス</strong>（採用時）</li>
+          <li>お客様の同意がある場合</li>
+          <li>法令に基づく場合</li>
+          <li>人の生命、身体または財産の保護のために必要がある場合</li>
+          <li>業務委託先への提供（下記4項参照）</li>
         </ul>
 
-        <h2>4. Cookie の使用</h2>
+        <h2>4. 業務委託先</h2>
+        <p>当方は、サービスの提供にあたり、以下の業務委託先と必要な範囲で個人情報を共有することがあります：</p>
+        <div class="card overflow-hidden not-prose mb-6">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-slate-200">
+                <th class="py-3 px-6 text-left text-slate-500 font-medium bg-slate-50 w-56">委託先</th>
+                <th class="py-3 px-6 text-left text-slate-500 font-medium bg-slate-50">委託内容</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr>
+                <td class="py-3 px-6 text-slate-800">Stripe Payments Japan 株式会社</td>
+                <td class="py-3 px-6 text-slate-800">決済処理</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-6 text-slate-800">Sendinblue SAS（Brevo）</td>
+                <td class="py-3 px-6 text-slate-800">メール配信</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-6 text-slate-800">Cloudflare, Inc.</td>
+                <td class="py-3 px-6 text-slate-800">ウェブサイトホスティング、配信</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-6 text-slate-800">Google LLC</td>
+                <td class="py-3 px-6 text-slate-800">アクセス解析（Google Search Console）</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>これらの委託先は、各社のプライバシーポリシーに基づき情報を取り扱います。</p>
+
+        <h2>5. アクセス解析ツール</h2>
         <p>
-          当サイトでは、利便性向上およびアクセス解析のために Cookie を使用します。
-          Cookieの使用を希望されない場合、ブラウザの設定で無効化できます。ただし、一部機能が利用できなくなる場合があります。
+          本サイトでは、Google Search Console および Cloudflare Web Analytics を利用してアクセス情報を収集しています。これらの情報には、個人を特定できる情報は含まれません。
         </p>
 
-        <h2>5. アクセス解析ツールについて</h2>
+        <h2>6. Cookieの使用</h2>
         <p>
-          当サイトでは、Google Analytics を利用してアクセス情報を収集しています。Google Analytics は Cookie を使用しますが、個人を特定する情報は含まれません。
-        </p>
-        <ul>
-          <li>Google Analytics 利用規約：<a href="https://marketingplatform.google.com/about/analytics/terms/jp/" target="_blank" rel="noopener noreferrer">https://marketingplatform.google.com/about/analytics/terms/jp/</a></li>
-          <li>Google プライバシーポリシー：<a href="https://policies.google.com/privacy?hl=ja" target="_blank" rel="noopener noreferrer">https://policies.google.com/privacy?hl=ja</a></li>
-        </ul>
-        <p>
-          データ収集を希望されない場合、<a href="https://tools.google.com/dlpage/gaoptout?hl=ja" target="_blank" rel="noopener noreferrer">Google アナリティクス オプトアウト アドオン</a>から設定できます。
+          本サイトでは、サービス提供に必要な最小限のCookieのみを使用しています。広告配信目的のCookieは使用していません。
         </p>
 
-        <h2>6. アフィリエイトプログラム</h2>
+        <h2>7. 個人情報の安全管理</h2>
         <p>
-          当サイトでは、将来的に第三者配信の広告サービス（Amazonアソシエイト、Google AdSense等）を利用する場合があります。
-          これらを利用する場合、広告配信事業者が利用者の興味に応じた広告を表示するため、Cookie を使用することがあります（氏名、住所、メールアドレス、電話番号は含まれません）。
+          当方は、お客様の個人情報の漏えい、滅失、毀損を防止するため、適切な安全管理措置を講じます。
         </p>
 
-        <h2>7. 個人情報の開示・訂正・削除</h2>
+        <h2>8. 個人情報の開示・訂正・削除</h2>
         <p>
-          ご自身の個人情報について、開示・訂正・削除を希望される場合、下記窓口までご連絡ください。本人確認のうえ、合理的な期間内に対応いたします。
+          お客様ご本人からの個人情報の開示・訂正・追加・削除・利用停止のご請求があった場合、合理的な期間内に対応いたします。
         </p>
-
-        <h2>8. お問い合わせ窓口</h2>
-        <p>メール：<a href="mailto:contact@kensetsu-tools.com">contact@kensetsu-tools.com</a></p>
+        <p>
+          ご請求の際は、<a href="mailto:contact@kensetsu-tools.com">contact@kensetsu-tools.com</a> までご連絡ください。
+        </p>
 
         <h2>9. プライバシーポリシーの変更</h2>
-        <p>
-          本プライバシーポリシーは、必要に応じて変更することがあります。重要な変更がある場合は、サイト上で告知します。
-        </p>
+        <ol>
+          <li>当方は、必要に応じて本ポリシーを変更することがあります。</li>
+          <li>変更後のポリシーは、当方のウェブサイト（<a href="https://kensetsu-tools.com/">https://kensetsu-tools.com/</a>）に掲載した時点で効力を生じます。</li>
+        </ol>
 
-        <h2>10. 制定日</h2>
-        <p>制定日：{lastUpdated}</p>
+        <h2>10. お問い合わせ</h2>
+        <p>本ポリシーに関するお問い合わせは、以下までお願いいたします：</p>
+        <ul>
+          <li>建設業ツール工房</li>
+          <li>メールアドレス：<a href="mailto:contact@kensetsu-tools.com">contact@kensetsu-tools.com</a></li>
+        </ul>
       </div>
+
+      <p class="text-slate-400 text-sm mt-12 pt-6 border-t border-slate-200">制定日：{establishedDate} ／ 建設業ツール工房</p>
     </div>
   </div>
 </BaseLayout>
