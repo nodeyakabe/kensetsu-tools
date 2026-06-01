@@ -5,7 +5,7 @@ const productSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "シンプル工事台帳 ライト版",
-  "description": "確定申告がラクになる、Excelだけで動く工事管理ツール。マクロ不使用、買い切り¥5,980。",
+  "description": "個人事業主・一人親方向け。暦年集計で確定申告がラクになるExcel工事管理ツール。マクロ不使用、買い切り¥5,980。",
   "brand": { "@type": "Brand", "name": "建設業ツール工房" },
   "offers": {
     "@type": "Offer",
@@ -64,7 +64,7 @@ const notifyUrl = '/register/';
 
 <BaseLayout
   title="シンプル工事台帳 ライト版"
-  description="確定申告がラクになる、Excelだけで動く工事管理ツール。買い切り¥5,980、マクロ不使用で安心。2026年内リリース予定。"
+  description="個人事業主・一人親方の確定申告がラクになる、Excelだけで動く工事管理ツール。暦年集計対応。買い切り¥5,980、マクロ不使用で安心。2026年内リリース予定。"
   ogType="product"
 >
   <Fragment slot="head">
@@ -92,6 +92,7 @@ const notifyUrl = '/register/';
       <h1 class="text-4xl md:text-5xl font-bold text-primary-900 mb-4">
         シンプル工事台帳 ライト版
       </h1>
+      <p class="text-sm text-slate-500 mb-3">個人事業主・一人親方（暦年決算）向け</p>
       <p class="text-xl md:text-2xl text-slate-600 mb-6 leading-relaxed">
         確定申告がラクになる、<br>
         Excelだけで動く工事管理ツール。
@@ -437,6 +438,7 @@ const notifyUrl = '/register/';
           { label: 'エディション', value: 'Office 365 / 買い切り版どちらも対応' },
           { label: 'ファイル形式', value: '.xlsx（マクロなし）' },
           { label: '推奨環境', value: 'メモリ 4GB以上' },
+          { label: '集計方式', value: '暦年（1月〜12月）固定　※法人・任意の事業年度での集計には対応していません' },
         ].map((row, i) => (
           <div class={`flex gap-4 px-6 py-4 ${i !== 0 ? 'border-t border-slate-100' : ''}`}>
             <span class="text-slate-500 text-sm w-32 flex-shrink-0 pt-0.5">{row.label}</span>
