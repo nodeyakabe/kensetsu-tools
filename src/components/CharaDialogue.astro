@@ -42,7 +42,8 @@ const charData = {
 
 const c = charData[chara];
 const expr = expression ?? c.defaultExpr;
-const imgSrc = `/images/characters/${chara}_${expr}.png`;
+const filePrefix: Record<'mikeru' | 'kuroe', string> = { mikeru: 'uta', kuroe: 'natu' };
+const imgSrc = `/images/characters/${filePrefix[chara]}_${expr}.png`;
 const isRight = direction === 'right';
 ---
 

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import CharaDialogue from '@/components/CharaDialogue.astro';
 
 const productSchema = {
   "@context": "https://schema.org",
@@ -177,6 +178,129 @@ const notifyUrl = '/register/';
           </div>
         ))}
       </div>
+    </div>
+  </section>
+
+  <!-- S4b：できること／できないこと -->
+  <section class="py-20 bg-slate-50">
+    <div class="container-base max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">守備範囲を正直にお伝えします</h2>
+      <p class="text-slate-500 text-center mb-12 text-sm leading-relaxed">
+        このツールは「<strong>確定申告のための収支管理</strong>」に絞った、最低限・シンプルなツールです。<br>
+        見積書や請求書の作成機能はありません。あれもこれも詰め込まず、<br class="hidden sm:inline">
+        「工事ごとの収支を把握して確定申告をラクにする」一点に特化しています。
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- できること -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-8">
+          <h3 class="text-lg font-bold text-primary-900 mb-5 flex items-center gap-2">
+            <span class="text-accent-500 text-xl">◎</span> できること
+          </h3>
+          <ul class="space-y-3">
+            {[
+              '工事ごとの収支管理（契約金額・原価・粗利・利益率）',
+              '原価を種別（材料費・外注費・労務費・経費・その他）で記録・集計',
+              '月次・年次サマリーで「今月いくら／今年いくら」を自動集計',
+              'インボイス番号の管理・対象別集計',
+              '進行中工事の原価（仕掛品相当）の参考表示',
+              '確定申告用のCSV出力',
+              'マクロ不使用＝開いてすぐ使える（セキュリティ警告が出ない）',
+              '入力ミスを色で警告（金額・日付の入れ間違いを防ぐ）',
+            ].map(item => (
+              <li class="flex items-start gap-3 text-sm text-slate-700">
+                <span class="text-accent-500 font-bold flex-shrink-0 mt-0.5">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <!-- できないこと -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-8">
+          <h3 class="text-lg font-bold text-primary-900 mb-5 flex items-center gap-2">
+            <span class="text-slate-400 text-xl">—</span> 対象外（別ツールをご利用ください）
+          </h3>
+          <ul class="space-y-3">
+            {[
+              '見積書・請求書の作成',
+              '入金／支払いの資金繰り管理',
+              '工程管理・ガントチャート',
+              '複数人での同時編集・クラウド共有',
+            ].map(item => (
+              <li class="flex items-start gap-3 text-sm text-slate-500">
+                <span class="text-slate-300 font-bold flex-shrink-0 mt-0.5">✕</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <p class="mt-6 text-xs text-slate-400 leading-relaxed border-t border-slate-100 pt-4">
+            できないことを増やさないのが、このツールのシンプルさの理由です。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S4c：他社比較 -->
+  <section class="py-20 bg-white">
+    <div class="container-base max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">他のツールと比べてみると</h2>
+      <p class="text-slate-500 text-center mb-12 text-sm">用途が違うだけで、どれも正解です。本品が合うかどうか確認してください。</p>
+      <div class="overflow-x-auto -mx-4 px-4">
+        <table class="w-full text-sm border-collapse min-w-[640px]">
+          <thead>
+            <tr>
+              <th scope="col" class="text-left px-4 py-3 bg-slate-100 text-slate-600 font-medium rounded-tl-xl border-b border-slate-200 w-36">比較項目</th>
+              <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">無料Excelテンプレ</th>
+              <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">市販の工事台帳<br class="hidden sm:inline"/><span class="text-xs font-normal">（日本法令 等）</span></th>
+              <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">クラウド型<br class="hidden sm:inline"/><span class="text-xs font-normal">（月額サービス）</span></th>
+              <th scope="col" class="px-4 py-3 bg-accent-50 text-primary-900 font-bold border-b border-accent-200 text-center rounded-tr-xl">本品<br class="hidden sm:inline"/><span class="text-xs font-normal text-accent-600">ライト版</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { label: '価格', vals: ['無料', '¥8,800前後（買い切り）', '月額4,000円〜', '¥5,980（買い切り）'] },
+              { label: 'マクロ', vals: ['ものによる', 'あり（警告が出ることも）', '—（Web/アプリ）', 'なし（警告ゼロ）'] },
+              { label: '確定申告の収支管理', vals: ['△ 自分で作り込む', '○', '○', '◎ これに特化'] },
+              { label: '入力ミス防止', vals: ['× 基本なし', '△', '○', '○（色で警告）'] },
+              { label: '主な対象', vals: ['Excelが得意な方', '中小〜の事業者', '法人・複数人の現場', '一人親方・ITが苦手な方'] },
+              { label: 'サポート', vals: ['なし', 'あり', 'あり', '60日メールサポート'] },
+            ].map((row, i) => (
+              <tr class={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+                <td class="px-4 py-3 text-slate-500 font-medium border-b border-slate-100">{row.label}</td>
+                {row.vals.map((v, j) => (
+                  <td class={`px-4 py-3 text-center border-b ${j === 3 ? 'bg-accent-50 text-primary-900 font-semibold border-accent-100' : 'text-slate-600 border-slate-100'}`}>
+                    {v}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-slate-400 text-center mt-4">※ 価格・機能は2026年時点の各社公開情報に基づく参考比較です。</p>
+      <div class="mt-8 bg-slate-50 border border-slate-200 rounded-xl p-6 text-sm text-slate-600 leading-relaxed">
+        多機能なクラウド型は月額制で、見積・請求・工程管理まで揃いますが、
+        一人親方の確定申告にはオーバースペックになりがちです。<br>
+        本品は「確定申告に必要なものだけ」を買い切りで。サブスクも、マクロの警告もありません。
+      </div>
+    </div>
+  </section>
+
+  <!-- S4d：キャラクターコメント -->
+  <section class="py-16 bg-white">
+    <div class="container-base max-w-2xl mx-auto">
+      <CharaDialogue
+        chara="kuroe"
+        text="機能は多ければいいというものではありません。確定申告に必要なのは、結局これだけです。"
+        direction="left"
+        expression="tati"
+      />
+      <CharaDialogue
+        chara="mikeru"
+        text="マクロなし、サブスクなし。買って開いたら、すぐ使える。むずかしいのは苦手なのだ。"
+        direction="right"
+        expression="tati"
+      />
     </div>
   </section>
 
