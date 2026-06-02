@@ -80,7 +80,7 @@ const websiteSchema = JSON.stringify({
         <!-- マスコット（lg以上で表示） -->
         <div class="hidden lg:flex items-end gap-4 flex-shrink-0 -mr-6">
 
-          <!-- クロエ（左） -->
+          <!-- ウタ（左） -->
           <div class="flex flex-col items-center gap-2 self-end">
             <div class="relative bg-white text-primary-900 text-xs font-bold rounded-2xl rounded-bl-none px-4 py-2 shadow-lg max-w-[150px] text-center leading-snug">
               複雑な作業は、不要です。
@@ -95,7 +95,7 @@ const websiteSchema = JSON.stringify({
             />
           </div>
 
-          <!-- ミケル（右・メイン） -->
+          <!-- ナツ（右・メイン） -->
           <div class="flex flex-col items-center gap-2 self-end">
             <div class="relative bg-accent-400 text-primary-900 text-xs font-bold rounded-2xl rounded-br-none px-4 py-2 shadow-lg max-w-[160px] text-center leading-snug">
               いいツールで、仕事はもっとはかどります。
@@ -164,9 +164,14 @@ const websiteSchema = JSON.stringify({
             </li>
           ))}
         </ul>
-        <a href="/products/" class="inline-block text-primary-700 hover:text-primary-900 font-bold transition-colors">
-          商品の詳細を見る →
-        </a>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="/products/koji-daicho/" class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 px-6 rounded-lg transition-colors text-center text-sm">
+            商品の詳細を見る →
+          </a>
+          <a href="/register/" class="inline-block border-2 border-accent-400 text-accent-600 hover:bg-accent-50 font-bold py-3 px-6 rounded-lg transition-colors text-center text-sm">
+            無料で事前登録 →
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -243,12 +248,21 @@ const websiteSchema = JSON.stringify({
   <section class="bg-primary-900 text-white py-20">
     <div class="container-base text-center">
       <h2 class="text-3xl md:text-4xl font-bold mb-4">
-        まずはブログから読んでみてください
+        シンプル工事台帳、2026年内リリース予定
       </h2>
-      <p class="text-primary-200 text-lg mb-10 max-w-2xl mx-auto">
-        建設業の実務に役立つノウハウを、わかりやすい言葉でお届けしています。
+      <p class="text-primary-200 text-lg mb-8 max-w-2xl mx-auto">
+        個人事業主・一人親方向けのExcel工事管理ツール。マクロなし、買い切り¥5,980。<br>
+        事前登録で、リリース時に最初にお知らせします。
       </p>
-      <a href="/blog/" class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-200">
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+        <a href="/products/koji-daicho/" class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-200">
+          商品の詳細を見る →
+        </a>
+        <a href="/register/" class="inline-block border-2 border-white hover:bg-white text-white hover:text-primary-800 font-bold py-3 px-8 rounded-lg transition-colors duration-200">
+          無料で事前登録する →
+        </a>
+      </div>
+      <a href="/blog/" class="text-primary-300 hover:text-white text-sm transition-colors">
         ブログを読む →
       </a>
     </div>

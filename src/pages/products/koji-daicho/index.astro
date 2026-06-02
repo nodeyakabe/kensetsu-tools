@@ -60,6 +60,15 @@ const features = [
   },
 ];
 
+const comparisonRows = [
+  { label: '価格',           vals: ['無料', '¥8,800前後（買い切り）', '月額4,000円〜', '¥5,980（買い切り）'] },
+  { label: 'マクロ',         vals: ['ものによる', 'あり（警告が出ることも）', '—（Web/アプリ）', 'なし（警告ゼロ）'] },
+  { label: '確定申告の収支管理', vals: ['△ 自分で作り込む', '○', '○', '◎ これに特化'] },
+  { label: '入力ミス防止',   vals: ['× 基本なし', '△', '○', '○（色で警告）'] },
+  { label: '主な対象',       vals: ['Excelが得意な方', '中小〜の事業者', '法人・複数人の現場', '一人親方・ITが苦手な方'] },
+  { label: 'サポート',       vals: ['なし', 'あり', 'あり', '60日メールサポート'] },
+];
+
 const notifyUrl = '/register/';
 ---
 
@@ -169,7 +178,7 @@ const notifyUrl = '/register/';
       <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">主な機能</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {features.map(f => (
-          <div class="flex items-start gap-3 bg-white border border-slate-200 rounded-xl p-5">
+          <div class="flex items-start gap-3 bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
             <div class="text-accent-500 flex-shrink-0" set:html={f.icon} />
             <div>
               <h3 class="text-base font-bold text-primary-900 mb-1">{f.title}</h3>
@@ -231,20 +240,13 @@ const notifyUrl = '/register/';
             </tr>
           </thead>
           <tbody>
-            {[
-              { label: '価格', vals: ['無料', '¥8,800前後（買い切り）', '月額4,000円〜', '¥5,980（買い切り）'] },
-              { label: 'マクロ', vals: ['ものによる', 'あり（警告が出ることも）', '—（Web/アプリ）', 'なし（警告ゼロ）'] },
-              { label: '確定申告の収支管理', vals: ['△ 自分で作り込む', '○', '○', '◎ これに特化'] },
-              { label: '入力ミス防止', vals: ['× 基本なし', '△', '○', '○（色で警告）'] },
-              { label: '主な対象', vals: ['Excelが得意な方', '中小〜の事業者', '法人・複数人の現場', '一人親方・ITが苦手な方'] },
-              { label: 'サポート', vals: ['なし', 'あり', 'あり', '60日メールサポート'] },
-            ].map((row, i) => (
+            {comparisonRows.map((row, i) => (
               <tr class={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
                 <td class="px-4 py-3 text-slate-500 font-medium border-b border-slate-100">{row.label}</td>
                 {row.vals.map((v, j) => (
                   <td
                     class={`px-4 py-3 text-center ${j === 3 ? 'text-primary-900 font-semibold' : 'text-slate-600 border-b border-slate-100'}`}
-                    style={j === 3 ? `background: #FFF7ED; border-left: 2px solid #F59E0B; border-right: 2px solid #F59E0B; border-bottom: ${i === 5 ? '2px solid #F59E0B' : '1px solid #FED7AA'};` : ''}
+                    style={j === 3 ? `background: #FFF7ED; border-left: 2px solid #F59E0B; border-right: 2px solid #F59E0B; border-bottom: ${i === comparisonRows.length - 1 ? '2px solid #F59E0B' : '1px solid #FED7AA'};` : ''}
                   >
                     {v}
                   </td>
