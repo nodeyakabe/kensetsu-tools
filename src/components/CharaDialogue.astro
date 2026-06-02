@@ -10,8 +10,9 @@
  * direction="left"  → キャラが左、吹き出しが右（デフォルト）
  * direction="right" → キャラが右、吹き出しが左
  *
- * expression: 現在は 'tati' のみ対応（デフォルト）
- *   画像ファイル: uta_tati.png（ウタ / chara="mikeru"）、natu_tati.png（ナツ / chara="kuroe"）
+ * expression: 現在は 'tati' のみ定義（実際は fileMap でファイルを直接解決）
+ *   画像ファイル: uta_product.png（ウタ / chara="mikeru"）、natu_product.png（ナツ / chara="kuroe"）
+ *   ※ トップページは uta_tati.png / natu_tati.png を直接参照（このコンポーネントとは別管理）
  */
 
 interface Props {
@@ -40,8 +41,8 @@ const charData = {
 
 const c = charData[chara];
 const expr = expression ?? c.defaultExpr;
-const filePrefix: Record<'mikeru' | 'kuroe', string> = { mikeru: 'uta', kuroe: 'natu' };
-const imgSrc = `/images/characters/${filePrefix[chara]}_${expr}.png`;
+const fileMap: Record<'mikeru' | 'kuroe', string> = { mikeru: 'uta_product', kuroe: 'natu_product' };
+const imgSrc = `/images/characters/${fileMap[chara]}.png`;
 const isRight = direction === 'right';
 ---
 
