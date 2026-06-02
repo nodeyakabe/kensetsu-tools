@@ -6,35 +6,33 @@
  * 使い方:
  *   <CharaDialogue chara="mikeru" text="工事台帳をつけると確定申告がラクになるにゃ！" />
  *   <CharaDialogue chara="kuroe"  text="一緒に確認してみようにゃ！" direction="right" />
- *   <CharaDialogue chara="mikeru" expression="yorokobi" text="やったにゃ！" />
- *   <CharaDialogue chara="kuroe"  expression="kanngaetyuu" text="うーん、考え中にゃ…" />
  *
  * direction="left"  → キャラが左、吹き出しが右（デフォルト）
  * direction="right" → キャラが右、吹き出しが左
  *
- * expression（ミケル）: 'warai'(デフォルト) | 'yorokobi' | 'tati'
- * expression（クロエ）: 'kanngaetyuu'(デフォルト) | 'no-maru' | 'tati'
+ * expression: 現在は 'tati' のみ対応（デフォルト）
+ *   画像ファイル: uta_tati.png（ミケル）、natu_tati.png（クロエ）
  */
 
 interface Props {
   chara: 'mikeru' | 'kuroe';
   text: string;
   direction?: 'left' | 'right';
-  expression?: string;
+  expression?: 'tati';
 }
 
 const { chara, text, direction = 'left', expression } = Astro.props;
 
 const charData = {
   mikeru: {
-    name: 'ミケル',
-    defaultExpr: 'warai',
+    name: 'ウタ',
+    defaultExpr: 'tati',
     bubbleColor: 'bg-amber-50 border-amber-200',
     nameColor: 'text-amber-700',
   },
   kuroe: {
-    name: 'クロエ',
-    defaultExpr: 'kanngaetyuu',
+    name: 'ナツ',
+    defaultExpr: 'tati',
     bubbleColor: 'bg-slate-50 border-slate-200',
     nameColor: 'text-slate-600',
   },

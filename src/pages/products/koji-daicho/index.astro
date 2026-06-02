@@ -31,32 +31,32 @@ const features = [
   {
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>`,
     title: '工事登録',
-    desc: '工事名・施主・金額・開始日・完了日の5項目だけで、工事を登録できます。迷わず使える設計です。',
+    desc: '工事名・施主・金額など5項目だけ。迷わず使える設計。',
   },
   {
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>`,
     title: '原価入力',
-    desc: '日付・工事・種別・金額を入力するだけ。材料費・外注費・労務費を分類して管理できます。',
+    desc: '材料費・外注費・労務費を種別に分けて記録・集計。',
   },
   {
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
     title: '月次・年次サマリー',
-    desc: '売上・原価・利益を自動集計。確定申告の準備にそのまま使えます。',
+    desc: '売上・原価・利益を自動集計。確定申告の準備に直結。',
   },
   {
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1z"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>`,
     title: 'インボイス番号管理',
-    desc: '取引先のインボイス登録番号を一覧で管理。仕入税額控除の整理がラクになります。',
+    desc: '取引先のインボイス番号を一覧管理・対象別に集計。',
   },
   {
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>`,
     title: '改正建設業法 入力支援',
-    desc: '原価割れの参考表示や、労務費の入力支援を行います。※法令適合性を保証するものではありません',
+    desc: '原価割れの参考表示や労務費の入力支援。※法令適合性は保証外',
   },
   {
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>`,
     title: 'CSV出力',
-    desc: '会計ソフトや税理士提出用にCSV形式でデータを書き出せます。',
+    desc: '会計ソフトや税理士提出用に、CSV形式で書き出せます。',
   },
 ];
 
@@ -85,22 +85,22 @@ const notifyUrl = '/register/';
   </div>
 
   <!-- S1：ヒーロー -->
-  <section class="bg-slate-50 py-20 md:py-28">
+  <section class="bg-slate-50 py-12 md:py-16">
     <div class="container-base text-center max-w-3xl mx-auto">
-      <div class="mb-6">
+      <div class="mb-3">
         <span class="inline-block bg-accent-500 text-white text-sm font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">近日リリース</span>
       </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-primary-900 mb-4">
+      <h1 class="text-4xl md:text-5xl font-bold text-primary-900 mb-2">
         シンプル工事台帳 ライト版
       </h1>
-      <p class="text-sm text-slate-500 mb-3">個人事業主・一人親方（暦年決算）向け</p>
-      <p class="text-xl md:text-2xl text-slate-600 mb-6 leading-relaxed">
+      <p class="text-sm text-slate-500 mb-2">個人事業主・一人親方（暦年決算）向け</p>
+      <p class="text-xl md:text-2xl text-slate-600 mb-4 leading-relaxed">
         確定申告がラクになる、<br>
         Excelだけで動く工事管理ツール。
       </p>
-      <p class="text-3xl font-semibold text-accent-500 mb-2">¥5,980</p>
-      <p class="text-slate-500 text-sm mb-10">税込・買い切り</p>
-      <p class="text-slate-500 mb-8">2026年内リリース予定</p>
+      <p class="text-3xl font-semibold text-accent-500 mb-1">¥5,980</p>
+      <p class="text-slate-500 text-sm mb-4">税込・買い切り</p>
+      <p class="text-slate-500 mb-6">2026年内リリース予定</p>
       <a
         href={notifyUrl}
         class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-md"
@@ -111,10 +111,10 @@ const notifyUrl = '/register/';
   </section>
 
   <!-- S2：悩み -->
-  <section class="py-20 bg-white">
+  <section class="py-16 bg-white">
     <div class="container-base max-w-3xl mx-auto">
-      <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">こんな悩みありませんか？</h2>
-      <ul class="space-y-5">
+      <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">こんな悩みありませんか？</h2>
+      <ul class="space-y-4">
         {[
           '工事台帳の管理が、紙やExcel自作で面倒',
           '確定申告の準備が、毎年大変',
@@ -132,9 +132,9 @@ const notifyUrl = '/register/';
   </section>
 
   <!-- S3：こう変わる -->
-  <section class="py-20 bg-slate-50">
+  <section class="py-16 bg-slate-50">
     <div class="container-base">
-      <h2 class="text-3xl font-bold text-primary-900 mb-12 text-center">シンプル工事台帳なら、こう変わる</h2>
+      <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">シンプル工事台帳なら、こう変わる</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
         {[
           {
@@ -163,16 +163,16 @@ const notifyUrl = '/register/';
     </div>
   </section>
 
-  <!-- S4：機能 -->
-  <section class="py-20 bg-white">
-    <div class="container-base max-w-3xl mx-auto">
-      <h2 class="text-3xl font-bold text-primary-900 mb-12 text-center">主な機能</h2>
-      <div class="space-y-4">
+  <!-- S4：機能（3列グリッド） -->
+  <section class="py-16 bg-white">
+    <div class="container-base max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">主な機能</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {features.map(f => (
-          <div class="flex items-start gap-6 bg-white border border-slate-200 rounded-xl p-6">
+          <div class="flex items-start gap-3 bg-white border border-slate-200 rounded-xl p-5">
             <div class="text-accent-500 flex-shrink-0" set:html={f.icon} />
             <div>
-              <h3 class="text-lg font-bold text-primary-900 mb-1">{f.title}</h3>
+              <h3 class="text-base font-bold text-primary-900 mb-1">{f.title}</h3>
               <p class="text-slate-600 text-sm leading-relaxed">{f.desc}</p>
             </div>
           </div>
@@ -181,70 +181,44 @@ const notifyUrl = '/register/';
     </div>
   </section>
 
-  <!-- S4b：できること／できないこと -->
-  <section class="py-20 bg-slate-50">
-    <div class="container-base max-w-4xl mx-auto">
+  <!-- S4b：守備範囲（できないことのみ） -->
+  <section class="py-16 bg-slate-50">
+    <div class="container-base max-w-3xl mx-auto">
       <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">守備範囲を正直にお伝えします</h2>
-      <p class="text-slate-500 text-center mb-12 text-sm leading-relaxed">
+      <p class="text-slate-500 text-center mb-8 text-sm leading-relaxed">
         このツールは「<strong>確定申告のための収支管理</strong>」に絞った、最低限・シンプルなツールです。<br>
         見積書や請求書の作成機能はありません。あれもこれも詰め込まず、<br class="hidden sm:inline">
         「工事ごとの収支を把握して確定申告をラクにする」一点に特化しています。
       </p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- できること -->
-        <div class="bg-white border border-slate-200 rounded-2xl p-8">
-          <h3 class="text-lg font-bold text-primary-900 mb-5 flex items-center gap-2">
-            <span class="text-accent-500 text-xl">◎</span> できること
-          </h3>
-          <ul class="space-y-3">
-            {[
-              '工事ごとの収支管理（契約金額・原価・粗利・利益率）',
-              '原価を種別（材料費・外注費・労務費・経費・その他）で記録・集計',
-              '月次・年次サマリーで「今月いくら／今年いくら」を自動集計',
-              'インボイス番号の管理・対象別集計',
-              '進行中工事の原価（仕掛品相当）の参考表示',
-              '確定申告用のCSV出力',
-              'マクロ不使用＝開いてすぐ使える（セキュリティ警告が出ない）',
-              '入力ミスを色で警告（金額・日付の入れ間違いを防ぐ）',
-            ].map(item => (
-              <li class="flex items-start gap-3 text-sm text-slate-700">
-                <span class="text-accent-500 font-bold flex-shrink-0 mt-0.5">✓</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <!-- できないこと -->
-        <div class="bg-white border border-slate-200 rounded-2xl p-8">
-          <h3 class="text-lg font-bold text-primary-900 mb-5 flex items-center gap-2">
-            <span class="text-slate-400 text-xl">—</span> 対象外（別ツールをご利用ください）
-          </h3>
-          <ul class="space-y-3">
-            {[
-              '見積書・請求書の作成',
-              '入金／支払いの資金繰り管理',
-              '工程管理・ガントチャート',
-              '複数人での同時編集・クラウド共有',
-            ].map(item => (
-              <li class="flex items-start gap-3 text-sm text-slate-500">
-                <span class="text-slate-300 font-bold flex-shrink-0 mt-0.5">✕</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-          <p class="mt-6 text-xs text-slate-400 leading-relaxed border-t border-slate-100 pt-4">
-            できないことを増やさないのが、このツールのシンプルさの理由です。
-          </p>
-        </div>
+      <div class="bg-white border border-slate-200 rounded-2xl p-8 max-w-lg mx-auto">
+        <h3 class="text-lg font-bold text-primary-900 mb-5 flex items-center gap-2">
+          <span class="text-slate-400 text-xl">—</span> 対象外（別ツールをご利用ください）
+        </h3>
+        <ul class="space-y-3">
+          {[
+            '見積書・請求書の作成',
+            '入金／支払いの資金繰り管理',
+            '工程管理・ガントチャート',
+            '複数人での同時編集・クラウド共有',
+          ].map(item => (
+            <li class="flex items-start gap-3 text-sm text-slate-500">
+              <span class="text-slate-300 font-bold flex-shrink-0 mt-0.5">✕</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-6 text-xs text-slate-400 leading-relaxed border-t border-slate-100 pt-4">
+          できないことを増やさないのが、このツールのシンプルさの理由です。
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- S4c：他社比較 -->
-  <section class="py-20 bg-white">
+  <!-- S4c：他社比較（本品列オレンジ帯ハイライト） -->
+  <section class="py-16 bg-white">
     <div class="container-base max-w-4xl mx-auto">
       <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">他のツールと比べてみると</h2>
-      <p class="text-slate-500 text-center mb-12 text-sm">用途が違うだけで、どれも正解です。本品が合うかどうか確認してください。</p>
+      <p class="text-slate-500 text-center mb-10 text-sm">用途が違うだけで、どれも正解です。本品が合うかどうか確認してください。</p>
       <div class="overflow-x-auto -mx-4 px-4">
         <table class="w-full text-sm border-collapse min-w-[640px]">
           <thead>
@@ -253,7 +227,7 @@ const notifyUrl = '/register/';
               <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">無料Excelテンプレ</th>
               <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">市販の工事台帳<br class="hidden sm:inline"/><span class="text-xs font-normal">（日本法令 等）</span></th>
               <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">クラウド型<br class="hidden sm:inline"/><span class="text-xs font-normal">（月額サービス）</span></th>
-              <th scope="col" class="px-4 py-3 bg-accent-50 text-primary-900 font-bold border-b border-accent-200 text-center rounded-tr-xl">本品<br class="hidden sm:inline"/><span class="text-xs font-normal text-accent-600">ライト版</span></th>
+              <th scope="col" class="px-4 py-3 font-bold text-center text-white rounded-tr-xl" style="background: #F59E0B; border-top: 2px solid #F59E0B; border-left: 2px solid #F59E0B; border-right: 2px solid #F59E0B; border-bottom: 2px solid #F59E0B;">本品<br class="hidden sm:inline"/><span class="text-xs font-normal opacity-80">ライト版</span></th>
             </tr>
           </thead>
           <tbody>
@@ -268,7 +242,10 @@ const notifyUrl = '/register/';
               <tr class={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
                 <td class="px-4 py-3 text-slate-500 font-medium border-b border-slate-100">{row.label}</td>
                 {row.vals.map((v, j) => (
-                  <td class={`px-4 py-3 text-center border-b ${j === 3 ? 'bg-accent-50 text-primary-900 font-semibold border-accent-100' : 'text-slate-600 border-slate-100'}`}>
+                  <td
+                    class={`px-4 py-3 text-center ${j === 3 ? 'text-primary-900 font-semibold' : 'text-slate-600 border-b border-slate-100'}`}
+                    style={j === 3 ? `background: #FFF7ED; border-left: 2px solid #F59E0B; border-right: 2px solid #F59E0B; border-bottom: ${i === 5 ? '2px solid #F59E0B' : '1px solid #FED7AA'};` : ''}
+                  >
                     {v}
                   </td>
                 ))}
@@ -278,7 +255,7 @@ const notifyUrl = '/register/';
         </table>
       </div>
       <p class="text-xs text-slate-400 text-center mt-4">※ 価格・機能は2026年時点の各社公開情報に基づく参考比較です。</p>
-      <div class="mt-8 bg-slate-50 border border-slate-200 rounded-xl p-6 text-sm text-slate-600 leading-relaxed">
+      <div class="mt-6 bg-slate-50 border border-slate-200 rounded-xl p-6 text-sm text-slate-600 leading-relaxed">
         多機能なクラウド型は月額制で、見積・請求・工程管理まで揃いますが、
         一人親方の確定申告にはオーバースペックになりがちです。<br>
         本品は「確定申告に必要なものだけ」を買い切りで。サブスクも、マクロの警告もありません。
@@ -286,17 +263,17 @@ const notifyUrl = '/register/';
     </div>
   </section>
 
-  <!-- S4d：キャラクターコメント -->
+  <!-- S4d：キャラクターコメント（ウタ→ナツの順） -->
   <section class="py-16 bg-white">
     <div class="container-base max-w-2xl mx-auto">
       <CharaDialogue
-        chara="kuroe"
+        chara="mikeru"
         text="機能は多ければいいというものではありません。確定申告に必要なのは、結局これだけです。"
         direction="left"
         expression="tati"
       />
       <CharaDialogue
-        chara="mikeru"
+        chara="kuroe"
         text="マクロなし、サブスクなし。買って開いたら、すぐ使える。むずかしいのは苦手なのだ。"
         direction="right"
         expression="tati"
@@ -304,34 +281,34 @@ const notifyUrl = '/register/';
     </div>
   </section>
 
-  <!-- S5：実際の画面 -->
-  <section class="py-20 bg-slate-50">
-    <div class="container-base max-w-3xl mx-auto">
+  <!-- S5：実際の画面（3列横並び） -->
+  <section class="py-16 bg-slate-50">
+    <div class="container-base max-w-5xl mx-auto">
       <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">画面イメージ</h2>
-      <p class="text-slate-500 text-center mb-14">リリース版では、このような画面でお仕事できます。</p>
+      <p class="text-slate-500 text-center mb-10">リリース版では、このような画面でお仕事できます。</p>
 
-      <div class="space-y-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- モック1：ホーム画面 -->
         <div>
           <div role="img" aria-label="シンプル工事台帳 ホーム画面のイメージ。工事登録・原価入力・月次サマリーなど6つのメニューが並ぶ画面。" class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden" style="box-shadow: 0 4px 24px rgba(0,0,0,0.10);">
             <!-- ウィンドウバー -->
-            <div class="bg-slate-200 px-4 py-2 flex items-center gap-2" aria-hidden="true">
-              <span class="w-3 h-3 rounded-full bg-red-400"></span>
-              <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
-              <span class="w-3 h-3 rounded-full bg-green-400"></span>
-              <span class="text-xs text-slate-500 ml-2">シンプル工事台帳 ライト版.xlsx</span>
+            <div class="bg-slate-200 px-3 py-1.5 flex items-center gap-2" aria-hidden="true">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-yellow-400"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-green-400"></span>
+              <span class="text-xs text-slate-500 ml-1 truncate">工事台帳.xlsx</span>
             </div>
             <!-- Excelリボン風 -->
-            <div class="bg-primary-800 px-4 py-1.5 text-white text-xs flex gap-6" aria-hidden="true">
-              <span>ファイル</span><span>ホーム</span><span>挿入</span><span>ページレイアウト</span><span>数式</span>
+            <div class="bg-primary-800 px-3 py-1 text-white text-xs flex gap-4" aria-hidden="true">
+              <span>ファイル</span><span>ホーム</span><span>挿入</span><span>数式</span>
             </div>
             <!-- コンテンツ -->
-            <div class="p-8 bg-white">
-              <div class="text-center mb-8">
-                <p class="text-lg font-bold text-primary-900">シンプル工事台帳 ライト版</p>
-                <p class="text-xs text-slate-400 mt-1">建設業ツール工房</p>
+            <div class="p-5 bg-white">
+              <div class="text-center mb-5">
+                <p class="text-sm font-bold text-primary-900">シンプル工事台帳 ライト版</p>
+                <p class="text-xs text-slate-400 mt-0.5">建設業ツール工房</p>
               </div>
-              <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-md mx-auto">
+              <div class="grid grid-cols-2 gap-2 max-w-xs mx-auto">
                 {[
                   { label: '工事登録', color: 'bg-primary-700' },
                   { label: '原価入力', color: 'bg-primary-700' },
@@ -340,189 +317,160 @@ const notifyUrl = '/register/';
                   { label: '年次サマリー', color: 'bg-accent-500' },
                   { label: '使い方', color: 'bg-slate-500' },
                 ].map(btn => (
-                  <div class={`${btn.color} text-white text-sm font-bold text-center py-3 rounded cursor-default select-none`}>
+                  <div class={`${btn.color} text-white text-xs font-bold text-center py-2 rounded cursor-default select-none`}>
                     {btn.label}
                   </div>
                 ))}
               </div>
             </div>
             <!-- シートタブ -->
-            <div class="bg-slate-100 px-4 py-1 flex gap-1 border-t border-slate-200">
-              {['ホーム', '工事登録', '原価入力', '月次', '年次'].map((tab, i) => (
-                <span class={`text-xs px-3 py-1 rounded-t border border-b-0 ${i === 0 ? 'bg-white border-slate-300 text-primary-800 font-bold' : 'bg-slate-200 border-slate-300 text-slate-500'}`}>
+            <div class="bg-slate-100 px-3 py-1 flex gap-1 border-t border-slate-200">
+              {['ホーム', '工事登録', '原価', '月次', '年次'].map((tab, i) => (
+                <span class={`text-xs px-2 py-0.5 rounded-t border border-b-0 ${i === 0 ? 'bg-white border-slate-300 text-primary-800 font-bold' : 'bg-slate-200 border-slate-300 text-slate-500'}`}>
                   {tab}
                 </span>
               ))}
             </div>
           </div>
-          <div class="mt-4 text-center">
-            <p class="font-bold text-slate-800">ホーム画面</p>
-            <p class="text-sm text-slate-500 mt-1">すべての操作の入り口、迷わず使えます</p>
+          <div class="mt-3 text-center">
+            <p class="font-bold text-slate-800 text-sm">ホーム画面</p>
+            <p class="text-xs text-slate-500 mt-1">すべての操作の入り口</p>
           </div>
         </div>
 
         <!-- モック2：工事登録画面 -->
         <div>
           <div role="img" aria-label="シンプル工事台帳 工事登録画面のイメージ。工事番号・工事名・施主・請負金額・開始日・完了日の列を持つテーブル形式。" class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden" style="box-shadow: 0 4px 24px rgba(0,0,0,0.10);">
-            <div class="bg-slate-200 px-4 py-2 flex items-center gap-2" aria-hidden="true">
-              <span class="w-3 h-3 rounded-full bg-red-400"></span>
-              <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
-              <span class="w-3 h-3 rounded-full bg-green-400"></span>
-              <span class="text-xs text-slate-500 ml-2">シンプル工事台帳 ライト版.xlsx</span>
+            <div class="bg-slate-200 px-3 py-1.5 flex items-center gap-2" aria-hidden="true">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-yellow-400"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-green-400"></span>
+              <span class="text-xs text-slate-500 ml-1 truncate">工事台帳.xlsx</span>
             </div>
-            <div class="bg-primary-800 px-4 py-1.5 text-white text-xs flex gap-6" aria-hidden="true">
-              <span>ファイル</span><span>ホーム</span><span>挿入</span><span>ページレイアウト</span><span>数式</span>
+            <div class="bg-primary-800 px-3 py-1 text-white text-xs flex gap-4" aria-hidden="true">
+              <span>ファイル</span><span>ホーム</span><span>挿入</span><span>数式</span>
             </div>
-            <div class="p-6 bg-white overflow-x-auto">
-              <div class="flex items-center gap-3 mb-4">
-                <span class="text-sm font-bold text-primary-800">工事登録</span>
-                <span class="text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded">← ホームに戻る</span>
+            <div class="p-4 bg-white overflow-x-auto">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-xs font-bold text-primary-800">工事登録</span>
+                <span class="text-xs bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded">← 戻る</span>
               </div>
-              <table class="w-full text-xs border-collapse min-w-[500px]">
+              <table class="w-full text-xs border-collapse min-w-[320px]">
                 <thead>
                   <tr class="bg-primary-800 text-white">
-                    <th scope="col" class="border border-primary-700 px-3 py-2 text-left font-medium">工事番号</th>
-                    <th scope="col" class="border border-primary-700 px-3 py-2 text-left font-medium">工事名</th>
-                    <th scope="col" class="border border-primary-700 px-3 py-2 text-left font-medium">施主</th>
-                    <th scope="col" class="border border-primary-700 px-3 py-2 text-right font-medium">請負金額</th>
-                    <th scope="col" class="border border-primary-700 px-3 py-2 text-left font-medium">開始日</th>
-                    <th scope="col" class="border border-primary-700 px-3 py-2 text-left font-medium">完了日</th>
+                    <th scope="col" class="border border-primary-700 px-2 py-1.5 text-left font-medium">工事名</th>
+                    <th scope="col" class="border border-primary-700 px-2 py-1.5 text-left font-medium">施主</th>
+                    <th scope="col" class="border border-primary-700 px-2 py-1.5 text-right font-medium">請負金額</th>
+                    <th scope="col" class="border border-primary-700 px-2 py-1.5 text-left font-medium">開始日</th>
                   </tr>
                 </thead>
                 <tbody>
                   {[
-                    ['001', '○○邸 外壁塗装工事', '○○建設', '380,000', '4/1', '4/10'],
-                    ['002', '△△マンション 防水工事', '△△管理', '620,000', '4/12', '4/25'],
-                    ['003', '□□ビル 内装改修', '□□不動産', '450,000', '5/6', '5/20'],
-                    ['004', '◇◇邸 屋根工事', '◇◇工務店', '280,000', '5/22', '5/30'],
-                    ['005', '★★事務所 リフォーム', '★★商事', '510,000', '6/2', ''],
+                    ['○○邸 外壁塗装', '○○建設', '380,000', '4/1'],
+                    ['△△マンション防水', '△△管理', '620,000', '4/12'],
+                    ['□□ビル内装改修', '□□不動産', '450,000', '5/6'],
+                    ['◇◇邸 屋根工事', '◇◇工務店', '280,000', '5/22'],
                   ].map((row, i) => (
                     <tr class={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
                       {row.map(cell => (
-                        <td class="border border-slate-200 px-3 py-2 text-slate-700">{cell}</td>
+                        <td class="border border-slate-200 px-2 py-1.5 text-slate-700">{cell}</td>
                       ))}
                     </tr>
                   ))}
                   <tr class="bg-slate-100 text-slate-400 italic">
-                    <td class="border border-slate-200 px-3 py-2" colspan="6">← 新しい工事はここに入力</td>
+                    <td class="border border-slate-200 px-2 py-1.5" colspan="4">← ここに入力</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <div class="bg-slate-100 px-4 py-1 flex gap-1 border-t border-slate-200">
-              {['ホーム', '工事登録', '原価入力', '月次', '年次'].map((tab, i) => (
-                <span class={`text-xs px-3 py-1 rounded-t border border-b-0 ${i === 1 ? 'bg-white border-slate-300 text-primary-800 font-bold' : 'bg-slate-200 border-slate-300 text-slate-500'}`}>
+            <div class="bg-slate-100 px-3 py-1 flex gap-1 border-t border-slate-200">
+              {['ホーム', '工事登録', '原価', '月次', '年次'].map((tab, i) => (
+                <span class={`text-xs px-2 py-0.5 rounded-t border border-b-0 ${i === 1 ? 'bg-white border-slate-300 text-primary-800 font-bold' : 'bg-slate-200 border-slate-300 text-slate-500'}`}>
                   {tab}
                 </span>
               ))}
             </div>
           </div>
-          <div class="mt-4 text-center">
-            <p class="font-bold text-slate-800">工事登録画面</p>
-            <p class="text-sm text-slate-500 mt-1">5項目を入力するだけで完了</p>
+          <div class="mt-3 text-center">
+            <p class="font-bold text-slate-800 text-sm">工事登録画面</p>
+            <p class="text-xs text-slate-500 mt-1">5項目を入力するだけ</p>
           </div>
         </div>
 
         <!-- モック3：月次サマリー画面 -->
         <div>
           <div role="img" aria-label="シンプル工事台帳 月次サマリー画面のイメージ。月ごとに売上・原価・粗利・粗利率が自動集計されるテーブル形式。" class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden" style="box-shadow: 0 4px 24px rgba(0,0,0,0.10);">
-            <div class="bg-slate-200 px-4 py-2 flex items-center gap-2" aria-hidden="true">
-              <span class="w-3 h-3 rounded-full bg-red-400"></span>
-              <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
-              <span class="w-3 h-3 rounded-full bg-green-400"></span>
-              <span class="text-xs text-slate-500 ml-2">シンプル工事台帳 ライト版.xlsx</span>
+            <div class="bg-slate-200 px-3 py-1.5 flex items-center gap-2" aria-hidden="true">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-yellow-400"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-green-400"></span>
+              <span class="text-xs text-slate-500 ml-1 truncate">工事台帳.xlsx</span>
             </div>
-            <div class="bg-primary-800 px-4 py-1.5 text-white text-xs flex gap-6" aria-hidden="true">
-              <span>ファイル</span><span>ホーム</span><span>挿入</span><span>ページレイアウト</span><span>数式</span>
+            <div class="bg-primary-800 px-3 py-1 text-white text-xs flex gap-4" aria-hidden="true">
+              <span>ファイル</span><span>ホーム</span><span>挿入</span><span>数式</span>
             </div>
-            <div class="p-6 bg-white overflow-x-auto">
-              <div class="flex items-center gap-3 mb-4">
-                <span class="text-sm font-bold text-primary-800">月次サマリー</span>
-                <span class="text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded">← ホームに戻る</span>
+            <div class="p-4 bg-white overflow-x-auto">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-xs font-bold text-primary-800">月次サマリー</span>
+                <span class="text-xs bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded">← 戻る</span>
               </div>
-              <table class="w-full text-xs border-collapse min-w-[400px]">
+              <table class="w-full text-xs border-collapse min-w-[280px]">
                 <thead>
                   <tr class="bg-primary-800 text-white">
-                    <th scope="col" class="border border-primary-700 px-3 py-2 text-left font-medium">月</th>
-                    <th scope="col" class="border border-primary-700 px-3 py-2 text-right font-medium">売上</th>
-                    <th scope="col" class="border border-primary-700 px-3 py-2 text-right font-medium">原価</th>
-                    <th scope="col" class="border border-primary-700 px-3 py-2 text-right font-medium">粗利</th>
-                    <th scope="col" class="border border-primary-700 px-3 py-2 text-right font-medium">粗利率</th>
+                    <th scope="col" class="border border-primary-700 px-2 py-1.5 text-left font-medium">月</th>
+                    <th scope="col" class="border border-primary-700 px-2 py-1.5 text-right font-medium">売上</th>
+                    <th scope="col" class="border border-primary-700 px-2 py-1.5 text-right font-medium">原価</th>
+                    <th scope="col" class="border border-primary-700 px-2 py-1.5 text-right font-medium">粗利</th>
                   </tr>
                 </thead>
                 <tbody>
                   {[
-                    ['1月', '420,000', '138,000', '282,000', '67%'],
-                    ['2月', '380,000', '125,000', '255,000', '67%'],
-                    ['3月', '510,000', '173,000', '337,000', '66%'],
-                    ['4月', '620,000', '198,000', '422,000', '68%'],
-                    ['5月', '450,000', '148,500', '301,500', '67%'],
-                    ['6月', '—', '—', '—', '—'],
+                    ['1月', '420,000', '138,000', '282,000'],
+                    ['2月', '380,000', '125,000', '255,000'],
+                    ['3月', '510,000', '173,000', '337,000'],
+                    ['4月', '620,000', '198,000', '422,000'],
+                    ['5月', '450,000', '148,500', '301,500'],
                   ].map((row, i) => (
                     <tr class={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
                       {row.map((cell, j) => (
-                        <td class={`border border-slate-200 px-3 py-2 text-slate-700 ${j > 0 ? 'text-right' : ''}`}>{cell}</td>
+                        <td class={`border border-slate-200 px-2 py-1.5 text-slate-700 ${j > 0 ? 'text-right' : ''}`}>{cell}</td>
                       ))}
                     </tr>
                   ))}
                   <tr class="bg-accent-50 font-bold">
-                    <td class="border border-slate-200 px-3 py-2 text-slate-800">合計</td>
-                    <td class="border border-slate-200 px-3 py-2 text-right text-slate-800">2,380,000</td>
-                    <td class="border border-slate-200 px-3 py-2 text-right text-slate-800">782,500</td>
-                    <td class="border border-slate-200 px-3 py-2 text-right text-accent-600">1,597,500</td>
-                    <td class="border border-slate-200 px-3 py-2 text-right text-slate-800">67%</td>
+                    <td class="border border-slate-200 px-2 py-1.5 text-slate-800">合計</td>
+                    <td class="border border-slate-200 px-2 py-1.5 text-right text-slate-800">2,380,000</td>
+                    <td class="border border-slate-200 px-2 py-1.5 text-right text-slate-800">782,500</td>
+                    <td class="border border-slate-200 px-2 py-1.5 text-right text-accent-600">1,597,500</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <div class="bg-slate-100 px-4 py-1 flex gap-1 border-t border-slate-200">
-              {['ホーム', '工事登録', '原価入力', '月次', '年次'].map((tab, i) => (
-                <span class={`text-xs px-3 py-1 rounded-t border border-b-0 ${i === 3 ? 'bg-white border-slate-300 text-primary-800 font-bold' : 'bg-slate-200 border-slate-300 text-slate-500'}`}>
+            <div class="bg-slate-100 px-3 py-1 flex gap-1 border-t border-slate-200">
+              {['ホーム', '工事登録', '原価', '月次', '年次'].map((tab, i) => (
+                <span class={`text-xs px-2 py-0.5 rounded-t border border-b-0 ${i === 3 ? 'bg-white border-slate-300 text-primary-800 font-bold' : 'bg-slate-200 border-slate-300 text-slate-500'}`}>
                   {tab}
                 </span>
               ))}
             </div>
           </div>
-          <div class="mt-4 text-center">
-            <p class="font-bold text-slate-800">月次サマリー画面</p>
-            <p class="text-sm text-slate-500 mt-1">売上・原価・利益が自動で集計されます</p>
+          <div class="mt-3 text-center">
+            <p class="font-bold text-slate-800 text-sm">月次サマリー画面</p>
+            <p class="text-xs text-slate-500 mt-1">売上・原価・利益が自動集計</p>
           </div>
         </div>
       </div>
 
-      <p class="text-xs text-slate-400 text-center mt-10">
+      <p class="text-xs text-slate-400 text-center mt-8">
         ※ 開発中のため、リリース時に最終版を公開します。
       </p>
     </div>
   </section>
 
-  <!-- S6：安心の特徴 -->
-  <section class="py-20 bg-white">
-    <div class="container-base max-w-3xl mx-auto">
-      <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">安心の特徴</h2>
-      <ul class="space-y-5">
-        {[
-          'インストール不要、Excelで開くだけ',
-          '3分で使い始められる設計',
-          'マクロ不使用で「マクロ警告」が出ない',
-          '買い切り価格、サブスクなし',
-          'データはあなたのPCだけに保存（クラウド不使用）',
-          '60日間のメールサポート付き',
-          'Excel 2016以降、Windows・Mac両対応',
-        ].map(item => (
-          <li class="flex items-center gap-4 text-lg text-slate-700">
-            <span class="text-accent-500 font-black text-xl flex-shrink-0">✓</span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <!-- S7：価格 -->
-  <section class="py-20 bg-slate-50">
+  <!-- S7：価格（安心の特徴を統合） -->
+  <section class="py-16 bg-white">
     <div class="container-base">
-      <h2 class="text-3xl font-bold text-primary-900 mb-12 text-center">価格</h2>
+      <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">価格</h2>
       <div class="max-w-md mx-auto border-2 border-accent-400 rounded-2xl p-10 shadow-lg text-center">
         <p class="text-lg font-bold text-slate-700 mb-2">シンプル工事台帳 ライト版</p>
         <p class="text-6xl font-bold text-accent-500 mb-1">¥5,980</p>
@@ -534,9 +482,13 @@ const notifyUrl = '/register/';
             '同一事業者内の複数PCで利用可',
             '60日間メールサポート',
             '不具合の無償対応（60日以内）',
+            'インストール不要、Excelで開くだけ',
+            'マクロ不使用で「マクロ警告」が出ない',
+            'データはあなたのPCだけに保存（クラウド不使用）',
+            '3分で使い始められる設計',
           ].map(item => (
-            <li class="flex items-center gap-3 text-slate-700">
-              <span class="text-accent-500 font-bold">✓</span>
+            <li class="flex items-center gap-3 text-slate-700 text-sm">
+              <span class="text-accent-500 font-bold flex-shrink-0">✓</span>
               <span>{item}</span>
             </li>
           ))}
@@ -552,9 +504,9 @@ const notifyUrl = '/register/';
   </section>
 
   <!-- S8：動作環境 -->
-  <section class="py-20 bg-slate-50">
+  <section class="py-16 bg-slate-50">
     <div class="container-base max-w-2xl mx-auto">
-      <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">動作環境</h2>
+      <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">動作環境</h2>
       <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
         {[
           { label: 'OS', value: 'Windows / Mac' },
@@ -574,7 +526,7 @@ const notifyUrl = '/register/';
   </section>
 
   <!-- S9：リリース通知CTA -->
-  <section class="py-24 bg-primary-900">
+  <section class="py-20 bg-primary-900">
     <div class="container-base text-center max-w-2xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
         2026年内のリリースを予定しています
