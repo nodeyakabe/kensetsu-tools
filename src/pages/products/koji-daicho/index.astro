@@ -278,34 +278,69 @@ const notifyUrl = '/register/';
     </div>
   </section>
 
-  <!-- S5：実際の画面（4枚スクリーンショット） -->
+  <!-- S5：実際の画面（5枚スクリーンショット） -->
   <section class="py-16 bg-slate-50">
     <div class="container-base max-w-5xl mx-auto">
       <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">画面イメージ</h2>
       <p class="text-slate-500 text-center mb-10">実際のExcelファイルの画面です。</p>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {[
-          { src: '/images/screens/screen_home.png',        label: 'ホーム',       desc: 'すべての操作の入り口' },
-          { src: '/images/screens/screen_kojitoroku.png', label: '工事登録',   desc: '工事名・施主・請負金額などをシンプルに記録' },
-          { src: '/images/screens/screen_getsujisum.png', label: '月次サマリー', desc: '月ごとの売上・原価・利益が自動集計' },
-          { src: '/images/screens/screen_nenjisummary.png', label: '年次サマリー', desc: '年間利益・インボイス対象額を確認' },
-        ].map(item => (
-          <div>
-            <img
-              src={item.src}
-              alt={`シンプル工事台帳 ${item.label}画面`}
-              class="w-full rounded-xl shadow-md border border-slate-200"
-              loading="lazy"
-              width="800"
-              height="500"
-            />
-            <div class="mt-3 text-center">
-              <p class="font-bold text-slate-800 text-sm">{item.label}</p>
-              <p class="text-xs text-slate-500 mt-1">{item.desc}</p>
-            </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
+          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3">
+            <img src="/images/screens/screen_home.png" alt="シンプル工事台帳 ホーム画面"
+                 class="max-h-full max-w-full object-contain" loading="lazy" />
           </div>
-        ))}
+          <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
+            <p class="font-medium text-slate-800">ホーム</p>
+            <p class="text-sm text-slate-500">1枚のメニューから全機能にアクセス</p>
+          </figcaption>
+        </figure>
+
+        <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
+          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3">
+            <img src="/images/screens/screen_kojitoroku.png" alt="シンプル工事台帳 工事登録画面"
+                 class="max-h-full max-w-full object-contain" loading="lazy" />
+          </div>
+          <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
+            <p class="font-medium text-slate-800">工事登録</p>
+            <p class="text-sm text-slate-500">工事名・施主・金額などをシンプルに記録</p>
+          </figcaption>
+        </figure>
+
+        <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
+          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3">
+            <img src="/images/screens/screen_genka.png" alt="シンプル工事台帳 原価入力画面"
+                 class="max-h-full max-w-full object-contain" loading="lazy" />
+          </div>
+          <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
+            <p class="font-medium text-slate-800">原価入力</p>
+            <p class="text-sm text-slate-500">原価を工事番号で紐づけて一覧管理</p>
+          </figcaption>
+        </figure>
+
+        <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
+          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3">
+            <img src="/images/screens/screen_getsujisum.png" alt="シンプル工事台帳 月次サマリー画面"
+                 class="max-h-full max-w-full object-contain" loading="lazy" />
+          </div>
+          <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
+            <p class="font-medium text-slate-800">月次サマリー</p>
+            <p class="text-sm text-slate-500">月ごとの売上・原価・利益を自動集計</p>
+          </figcaption>
+        </figure>
+
+        <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
+          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3">
+            <img src="/images/screens/screen_nenjisummary.png" alt="シンプル工事台帳 年次サマリー画面"
+                 class="max-h-full max-w-full object-contain" loading="lazy" />
+          </div>
+          <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
+            <p class="font-medium text-slate-800">年次サマリー</p>
+            <p class="text-sm text-slate-500">年間利益・インボイス対象額を確認</p>
+          </figcaption>
+        </figure>
+
       </div>
     </div>
   </section>
