@@ -282,14 +282,15 @@ const notifyUrl = '/register/';
   <section class="py-16 bg-slate-50">
     <div class="container-base max-w-5xl mx-auto">
       <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">画面イメージ</h2>
-      <p class="text-slate-500 text-center mb-10">実際のExcelファイルの画面です。</p>
+      <p class="text-slate-500 text-center mb-2">実際のExcelファイルの画面です。</p>
+      <p class="text-sm text-slate-400 text-center mb-10">画像をクリックすると拡大できます</p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
         <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
           <div class="aspect-[4/3] bg-white flex items-center justify-center p-3">
             <img src="/images/screens/screen_home.png" alt="シンプル工事台帳 ホーム画面"
-                 class="max-h-full max-w-full object-contain" loading="lazy" />
+                 class="max-h-full max-w-full object-contain gallery-img cursor-zoom-in" loading="lazy" />
           </div>
           <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
             <p class="font-medium text-slate-800">ホーム</p>
@@ -300,7 +301,7 @@ const notifyUrl = '/register/';
         <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
           <div class="aspect-[4/3] bg-white flex items-center justify-center p-3">
             <img src="/images/screens/screen_kojitoroku.png" alt="シンプル工事台帳 工事登録画面"
-                 class="max-h-full max-w-full object-contain" loading="lazy" />
+                 class="max-h-full max-w-full object-contain gallery-img cursor-zoom-in" loading="lazy" />
           </div>
           <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
             <p class="font-medium text-slate-800">工事登録</p>
@@ -311,7 +312,7 @@ const notifyUrl = '/register/';
         <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
           <div class="aspect-[4/3] bg-white flex items-center justify-center p-3">
             <img src="/images/screens/screen_genka.png" alt="シンプル工事台帳 原価入力画面"
-                 class="max-h-full max-w-full object-contain" loading="lazy" />
+                 class="max-h-full max-w-full object-contain gallery-img cursor-zoom-in" loading="lazy" />
           </div>
           <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
             <p class="font-medium text-slate-800">原価入力</p>
@@ -322,7 +323,7 @@ const notifyUrl = '/register/';
         <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
           <div class="aspect-[4/3] bg-white flex items-center justify-center p-3">
             <img src="/images/screens/screen_getsujisum.png" alt="シンプル工事台帳 月次サマリー画面"
-                 class="max-h-full max-w-full object-contain" loading="lazy" />
+                 class="max-h-full max-w-full object-contain gallery-img cursor-zoom-in" loading="lazy" />
           </div>
           <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
             <p class="font-medium text-slate-800">月次サマリー</p>
@@ -333,7 +334,7 @@ const notifyUrl = '/register/';
         <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
           <div class="aspect-[4/3] bg-white flex items-center justify-center p-3">
             <img src="/images/screens/screen_nenjisummary.png" alt="シンプル工事台帳 年次サマリー画面"
-                 class="max-h-full max-w-full object-contain" loading="lazy" />
+                 class="max-h-full max-w-full object-contain gallery-img cursor-zoom-in" loading="lazy" />
           </div>
           <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
             <p class="font-medium text-slate-800">年次サマリー</p>
@@ -403,6 +404,17 @@ const notifyUrl = '/register/';
     </div>
   </section>
 
+  <!-- ライトボックス -->
+  <div id="ss-lightbox"
+       class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4"
+       role="dialog" aria-modal="true" aria-label="拡大画像">
+    <button id="ss-lightbox-close"
+            class="absolute top-4 right-5 text-white text-4xl leading-none"
+            aria-label="閉じる">&times;</button>
+    <img id="ss-lightbox-img" src="" alt=""
+         class="max-h-[90vh] max-w-[95vw] object-contain rounded-lg bg-white" />
+  </div>
+
   <!-- S9：リリース通知CTA -->
   <section class="py-20 bg-primary-900">
     <div class="container-base text-center max-w-2xl mx-auto">
@@ -422,4 +434,34 @@ const notifyUrl = '/register/';
       </a>
     </div>
   </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const lb = document.getElementById('ss-lightbox');
+    const lbImg = document.getElementById('ss-lightbox-img');
+    const closeBtn = document.getElementById('ss-lightbox-close');
+    if (!lb || !lbImg) return;
+
+    const open = (src, alt) => {
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      lb.classList.remove('hidden');
+      lb.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    };
+    const close = () => {
+      lb.classList.add('hidden');
+      lb.classList.remove('flex');
+      lbImg.src = '';
+      document.body.style.overflow = '';
+    };
+
+    document.querySelectorAll('.gallery-img').forEach((img) => {
+      img.addEventListener('click', () => open(img.currentSrc || img.src, img.alt));
+    });
+    lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+    closeBtn.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+  });
+</script>
 </BaseLayout>
