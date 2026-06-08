@@ -288,9 +288,10 @@ const notifyUrl = '/register/';
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
         <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
-          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3">
+          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
+               role="button" tabindex="0" aria-label="ホーム画面を拡大">
             <img src="/images/screens/screen_home.png" alt="シンプル工事台帳 ホーム画面"
-                 class="max-h-full max-w-full object-contain gallery-img cursor-zoom-in" loading="lazy" />
+                 class="max-h-full max-w-full object-contain pointer-events-none" loading="lazy" />
           </div>
           <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
             <p class="font-medium text-slate-800">ホーム</p>
@@ -299,9 +300,10 @@ const notifyUrl = '/register/';
         </figure>
 
         <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
-          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3">
+          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
+               role="button" tabindex="0" aria-label="工事登録画面を拡大">
             <img src="/images/screens/screen_kojitoroku.png" alt="シンプル工事台帳 工事登録画面"
-                 class="max-h-full max-w-full object-contain gallery-img cursor-zoom-in" loading="lazy" />
+                 class="max-h-full max-w-full object-contain pointer-events-none" loading="lazy" />
           </div>
           <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
             <p class="font-medium text-slate-800">工事登録</p>
@@ -310,9 +312,10 @@ const notifyUrl = '/register/';
         </figure>
 
         <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
-          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3">
+          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
+               role="button" tabindex="0" aria-label="原価入力画面を拡大">
             <img src="/images/screens/screen_genka.png" alt="シンプル工事台帳 原価入力画面"
-                 class="max-h-full max-w-full object-contain gallery-img cursor-zoom-in" loading="lazy" />
+                 class="max-h-full max-w-full object-contain pointer-events-none" loading="lazy" />
           </div>
           <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
             <p class="font-medium text-slate-800">原価入力</p>
@@ -321,9 +324,10 @@ const notifyUrl = '/register/';
         </figure>
 
         <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
-          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3">
+          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
+               role="button" tabindex="0" aria-label="月次サマリー画面を拡大">
             <img src="/images/screens/screen_getsujisum.png" alt="シンプル工事台帳 月次サマリー画面"
-                 class="max-h-full max-w-full object-contain gallery-img cursor-zoom-in" loading="lazy" />
+                 class="max-h-full max-w-full object-contain pointer-events-none" loading="lazy" />
           </div>
           <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
             <p class="font-medium text-slate-800">月次サマリー</p>
@@ -332,9 +336,10 @@ const notifyUrl = '/register/';
         </figure>
 
         <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
-          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3">
+          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
+               role="button" tabindex="0" aria-label="年次サマリー画面を拡大">
             <img src="/images/screens/screen_nenjisummary.png" alt="シンプル工事台帳 年次サマリー画面"
-                 class="max-h-full max-w-full object-contain gallery-img cursor-zoom-in" loading="lazy" />
+                 class="max-h-full max-w-full object-contain pointer-events-none" loading="lazy" />
           </div>
           <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
             <p class="font-medium text-slate-800">年次サマリー</p>
@@ -409,7 +414,7 @@ const notifyUrl = '/register/';
        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4"
        role="dialog" aria-modal="true" aria-label="拡大画像">
     <button id="ss-lightbox-close"
-            class="absolute top-4 right-5 text-white text-4xl leading-none"
+            class="absolute top-4 right-4 flex items-center justify-center w-11 h-11 text-white text-3xl leading-none rounded-full hover:bg-white/20 transition-colors"
             aria-label="閉じる">&times;</button>
     <img id="ss-lightbox-img" src="" alt=""
          class="max-h-[90vh] max-w-[95vw] object-contain rounded-lg bg-white" />
@@ -436,32 +441,71 @@ const notifyUrl = '/register/';
   </section>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  function initLightbox() {
     const lb = document.getElementById('ss-lightbox');
     const lbImg = document.getElementById('ss-lightbox-img');
     const closeBtn = document.getElementById('ss-lightbox-close');
-    if (!lb || !lbImg) return;
+    const mainEl = document.querySelector('main');
+    if (!lb || !lbImg || !closeBtn) return;
+
+    // AbortController で前回のリスナーを破棄（View Transitions 対応）
+    const prevAc = (window).__lbAbort;
+    if (prevAc) prevAc.abort();
+    const ac = new AbortController();
+    (window).__lbAbort = ac;
+    const sig = { signal: ac.signal };
+
+    let lastFocused = null;
 
     const open = (src, alt) => {
+      lastFocused = document.activeElement;
       lbImg.src = src;
       lbImg.alt = alt || '';
       lb.classList.remove('hidden');
       lb.classList.add('flex');
-      document.body.style.overflow = 'hidden';
+      // iOS Safari 対応スクロール固定
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      mainEl?.setAttribute('aria-hidden', 'true');
+      closeBtn.focus();
     };
     const close = () => {
+      const scrollY = Math.abs(parseInt(document.body.style.top || '0', 10));
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      window.scrollTo(0, scrollY);
       lb.classList.add('hidden');
       lb.classList.remove('flex');
       lbImg.src = '';
-      document.body.style.overflow = '';
+      mainEl?.removeAttribute('aria-hidden');
+      lastFocused?.focus();
     };
 
-    document.querySelectorAll('.gallery-img').forEach((img) => {
-      img.addEventListener('click', () => open(img.currentSrc || img.src, img.alt));
+    // フォーカストラップ
+    lb.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') { e.preventDefault(); closeBtn.focus(); }
+    }, sig);
+
+    document.querySelectorAll('.gallery-wrapper').forEach((wrapper) => {
+      const img = wrapper.querySelector('img');
+      const handler = () => {
+        if (img) open(img.currentSrc || img.src, img.alt);
+      };
+      wrapper.addEventListener('click', handler, sig);
+      wrapper.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); }
+      }, sig);
     });
-    lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
-    closeBtn.addEventListener('click', close);
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
-  });
+
+    lb.addEventListener('click', (e) => { if (e.target === lb) close(); }, sig);
+    closeBtn.addEventListener('click', close, sig);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); }, sig);
+  }
+
+  initLightbox();
+  document.addEventListener('astro:page-load', initLightbox);
 </script>
 </BaseLayout>
