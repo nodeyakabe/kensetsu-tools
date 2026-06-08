@@ -443,6 +443,12 @@ const notifyUrl = '/register/';
     (window).__lbAbort = ac;
     const sig = { signal: ac.signal };
 
+    // 前回の残留状態をクリーンアップ
+    document.body.style.overflow = '';
+    lb.classList.add('hidden');
+    lb.classList.remove('flex');
+    mainEl?.removeAttribute('aria-hidden');
+
     let lastFocused = null;
 
     const preventTouch = (e) => e.preventDefault();
@@ -454,7 +460,7 @@ const notifyUrl = '/register/';
       lb.classList.remove('hidden');
       lb.classList.add('flex');
       document.body.style.overflow = 'hidden';
-      lb.addEventListener('touchmove', preventTouch, { passive: false });
+      lb.addEventListener('touchmove', preventTouch, { passive: false, signal: ac.signal });
       mainEl?.setAttribute('aria-hidden', 'true');
       closeBtn.focus();
     };
