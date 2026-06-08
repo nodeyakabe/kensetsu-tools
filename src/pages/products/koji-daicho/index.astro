@@ -445,26 +445,22 @@ const notifyUrl = '/register/';
 
     let lastFocused = null;
 
+    const preventTouch = (e) => e.preventDefault();
+
     const open = (src, alt) => {
       lastFocused = document.activeElement;
       lbImg.src = src;
       lbImg.alt = alt || '';
       lb.classList.remove('hidden');
       lb.classList.add('flex');
-      // iOS Safari 対応スクロール固定
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
+      lb.addEventListener('touchmove', preventTouch, { passive: false });
       mainEl?.setAttribute('aria-hidden', 'true');
       closeBtn.focus();
     };
     const close = () => {
-      const scrollY = Math.abs(parseInt(document.body.style.top || '0', 10));
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      window.scrollTo(0, scrollY);
+      document.body.style.overflow = '';
+      lb.removeEventListener('touchmove', preventTouch);
       lb.classList.add('hidden');
       lb.classList.remove('flex');
       lbImg.src = '';
