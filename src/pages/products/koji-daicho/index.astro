@@ -366,11 +366,14 @@ const notifyUrl = '/register/';
           ))}
         </ul>
         <button
-          disabled
-          class="w-full bg-slate-100 text-slate-400 font-bold py-3 rounded-lg cursor-not-allowed text-sm"
+          id="buy-btn"
+          class="w-full bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 rounded-lg transition-colors text-sm"
         >
-          リリース時に購入予定
+          購入する（¥5,980 買い切り）
         </button>
+        <p id="buy-error" class="mt-2 text-sm text-red-600 hidden">
+          エラーが発生しました。少し時間をおいて再度お試しください。
+        </p>
       </div>
     </div>
   </section>
@@ -497,5 +500,29 @@ const notifyUrl = '/register/';
 
   initLightbox();
   document.addEventListener('astro:page-load', initLightbox);
+</script>
+
+<script>
+  const btn = document.getElementById("buy-btn");
+  const err = document.getElementById("buy-error");
+  btn?.addEventListener("click", async () => {
+    btn.disabled = true;
+    const original = btn.textContent;
+    btn.textContent = "読み込み中…";
+    err.classList.add("hidden");
+    try {
+      const res = await fetch("/api/create-checkout", { method: "POST" });
+      const data = await res.json();
+      if (data && data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error("no url");
+      }
+    } catch {
+      err.classList.remove("hidden");
+      btn.disabled = false;
+      btn.textContent = original;
+    }
+  });
 </script>
 </BaseLayout>
