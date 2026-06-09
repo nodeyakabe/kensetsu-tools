@@ -52,7 +52,7 @@ export async function onRequestGet({ request, env }) {
       "Content-Type":
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       "Content-Disposition":
-        'attachment; filename="シンプル工事台帳_ライト版_v1.xlsx"',
+        "attachment; filename=\"koji-daicho-light-v1.xlsx\"; filename*=UTF-8''%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E5%B7%A5%E4%BA%8B%E5%8F%B0%E5%B8%B3_%E3%83%A9%E3%82%A4%E3%83%88%E7%89%88_v1.xlsx",
       "Cache-Control": "no-store",
     },
   });

@@ -33,11 +33,15 @@ export async function onRequestPost({ request, env }) {
 
   if (event.type === "checkout.session.completed") {
     const s = event.data.object;
+
+    // 非同期決済（銀行振込等）で payment_status が unpaid の場合はメール送信しない
+    if (s.payment_status !== "paid") return new Response("ok", { status: 200 });
+
     const email = s.customer_details?.email || s.customer_email;
-    const dlUrl = `${env.SITE_ORIGIN}/api/download?session_id=${s.id}`;
+    const dlUrl = `${env.SITE_ORIGIN}/api/download?session_id=${encodeURIComponent(s.id)}`;
 
     if (email) {
-      await fetch("https://api.brevo.com/v3/smtp/email", {
+      const mailRes = await fetch("https://api.brevo.com/v3/smtp/email", {
         method: "POST",
         headers: {
           "api-key": env.BREVO_API_KEY,
@@ -89,6 +93,10 @@ export async function onRequestPost({ request, env }) {
 </html>`,
         }),
       });
+      if (!mailRes.ok) {
+        const err = await mailRes.text();
+        console.error("Brevo mail error:", mailRes.status, err);
+      }
     }
   }
 
