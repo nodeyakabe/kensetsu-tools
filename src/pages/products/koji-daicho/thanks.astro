@@ -26,6 +26,21 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       </h1>
       <p class="text-slate-500 text-base mb-10">シンプル工事台帳 ライト版</p>
 
+      <!-- ダウンロードボタン（session_id 付きでリダイレクトされた場合のみ表示） -->
+      <div class="mb-8">
+        <a
+          id="dl"
+          class="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl transition-colors text-base shadow-md"
+          style="display:none"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          </svg>
+          Excelをダウンロード
+        </a>
+        <p id="dl-note" class="text-sm text-slate-500 mt-3"></p>
+      </div>
+
       <!-- メイン説明 -->
       <div class="bg-white border border-slate-200 rounded-2xl p-8 mb-8 text-left shadow-sm">
         <div class="text-slate-700 text-base leading-relaxed space-y-4">
@@ -70,4 +85,17 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
     </div>
   </div>
+
+  <script>
+    const id = new URLSearchParams(location.search).get("session_id");
+    const dl = document.getElementById("dl");
+    const note = document.getElementById("dl-note");
+    if (id) {
+      dl.href = "/api/download?session_id=" + encodeURIComponent(id);
+      dl.style.display = "inline-flex";
+      note.textContent = "同じリンクをメールにもお送りしています。";
+    } else {
+      note.textContent = "購入が確認できません。お送りしたメールのリンクからダウンロードしてください。";
+    }
+  </script>
 </BaseLayout>
