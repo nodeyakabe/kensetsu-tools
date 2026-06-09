@@ -13,6 +13,7 @@ export async function onRequestPost({ env }) {
       headers: { "content-type": "application/json" },
     });
   } catch (e) {
+    console.error("create-checkout error:", e.message);
     return new Response(JSON.stringify({ error: "checkout_failed" }), {
       status: 500,
       headers: { "content-type": "application/json" },

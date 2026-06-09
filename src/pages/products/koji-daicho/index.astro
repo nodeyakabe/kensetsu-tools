@@ -512,12 +512,10 @@ const notifyUrl = '/register/';
     err.classList.add("hidden");
     try {
       const res = await fetch("/api/create-checkout", { method: "POST" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      if (data && data.url) {
-        window.location.href = data.url;
-      } else {
-        throw new Error("no url");
-      }
+      if (!data?.url) throw new Error("no url");
+      window.location.href = data.url;
     } catch {
       err.classList.remove("hidden");
       btn.disabled = false;
