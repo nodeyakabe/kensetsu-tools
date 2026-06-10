@@ -53,7 +53,7 @@ const isRight = direction === 'right';
       src={imgSrc}
       alt={c.name}
       loading="lazy"
-      style="width:90px;"
+      style="width:120px;"
     />
     <p class:list={['text-xs font-semibold', c.nameColor]}>{c.name}</p>
   </div>
@@ -61,7 +61,7 @@ const isRight = direction === 'right';
   <!-- 吹き出し -->
   <div
     class:list={[
-      'relative border rounded-2xl px-5 py-4 max-w-sm shadow-sm text-sm leading-relaxed text-slate-800',
+      'relative border rounded-2xl px-6 py-5 max-w-md shadow-sm text-base leading-relaxed text-slate-800',
       c.bubbleColor,
       isRight ? 'rounded-br-none' : 'rounded-bl-none',
     ]}
