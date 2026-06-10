@@ -10,33 +10,6 @@ const breadcrumbSchema = {
   ],
 };
 
-const orgSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "建設業ツール工房",
-  "url": "https://kensetsu-tools.com",
-  "logo": {
-    "@type": "ImageObject",
-    "url": "https://kensetsu-tools.com/apple-touch-icon.png"
-  },
-  "description": "建設業に携わる一人親方・中小事業者向けの業務ツール・テンプレート・業界情報を提供するサイトです。",
-  "founder": {
-    "@type": "Person",
-    "name": "矢ヶ部"
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "addressRegion": "福岡県",
-    "addressLocality": "北九州市",
-    "addressCountry": "JP"
-  },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "email": "contact@kensetsu-tools.com",
-    "contactType": "customer support",
-    "availableLanguage": "Japanese"
-  }
-};
 ---
 
 <BaseLayout
@@ -44,7 +17,6 @@ const orgSchema = {
   description="建設業の現場をシンプルにしたい——その思いから生まれたサイトです。一人親方・小規模建設業向けにExcel業務ツール・テンプレート・最新の業界情報を発信しています。"
 >
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
   <div class="container-base py-16">
@@ -117,7 +89,7 @@ const orgSchema = {
           <h3 class="text-lg font-bold text-primary-700 mb-3">シンプル工事台帳 ライト版</h3>
           <p class="text-slate-600 leading-relaxed mb-6">
             確定申告がラクになる、Excelだけで動く工事管理ツールです。<br>
-            買い切り・¥5,980（税込）。
+            ¥5,980（税込・買い切り）。
           </p>
           <a href="/products/koji-daicho/" class="inline-block text-primary-700 hover:text-primary-900 font-bold transition-colors">
             商品の詳細を見る →
@@ -152,6 +124,8 @@ const orgSchema = {
             <img
               src="/images/characters/uta_tati.png"
               alt="ウタ"
+              width="107"
+              height="160"
               style="height:160px; width:auto;"
               class="drop-shadow"
             />
@@ -167,6 +141,8 @@ const orgSchema = {
             <img
               src="/images/characters/natu_tati.png"
               alt="ナツ"
+              width="124"
+              height="160"
               style="height:160px; width:auto;"
               class="drop-shadow"
             />

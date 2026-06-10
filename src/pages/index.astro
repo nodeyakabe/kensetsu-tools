@@ -26,34 +26,12 @@ const features = [
     desc: '建設業の法改正・助成金・実務ノウハウをわかりやすく解説。一人親方・新規開業者に特に役立つ情報を発信。',
   },
 ];
-
-
-const siteUrl = 'https://kensetsu-tools.com';
-const orgSchema = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: '建設業ツール工房',
-  url: siteUrl,
-  logo: `${siteUrl}/apple-touch-icon.png`,
-  description: '建設業向けの業務ツール・テンプレート・業界情報を提供するサイトです。',
-});
-const websiteSchema = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: '建設業ツール工房',
-  url: siteUrl,
-});
 ---
 
 <BaseLayout
   title="建設業ツール工房"
   description="建設業の現場を、もっとシンプルに。法令対応・業務ツール・テンプレート・業界情報を提供。一人親方・中小建設業・新規開業者向け。"
 >
-  <Fragment slot="head">
-    <script type="application/ld+json" set:html={orgSchema}></script>
-    <script type="application/ld+json" set:html={websiteSchema}></script>
-  </Fragment>
-
   <!-- ヒーロー -->
   <section class="bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-24">
@@ -93,6 +71,7 @@ const websiteSchema = JSON.stringify({
               src="/images/characters/uta_tati.png"
               alt="ウタ"
               loading="eager"
+              width="147"
               height="220"
               class="drop-shadow-lg"
               style="height:220px; width:auto;"
@@ -109,6 +88,7 @@ const websiteSchema = JSON.stringify({
               src="/images/characters/natu_tati.png"
               alt="ナツ"
               loading="eager"
+              width="187"
               height="240"
               class="drop-shadow-lg"
               style="height:240px; width:auto;"
@@ -277,7 +257,7 @@ const websiteSchema = JSON.stringify({
         シンプル工事台帳 ライト版、好評発売中
       </h2>
       <p class="text-primary-200 text-lg mb-8 max-w-2xl mx-auto">
-        個人事業主・一人親方向けのExcel工事管理ツール。マクロなし、買い切り¥5,980（税込）。
+        個人事業主・一人親方向けのExcel工事管理ツール。マクロなし、¥5,980（税込・買い切り）。
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
         <a href="/products/koji-daicho/" class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-200">

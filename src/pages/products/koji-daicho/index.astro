@@ -1,22 +1,26 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import CharaDialogue from '@/components/CharaDialogue.astro';
+import { PRODUCT } from '@/data/product';
+
+const siteUrl = (import.meta.env.SITE ?? 'https://kensetsu-tools.com').replace(/\/$/, '');
+const priceValidUntil = `${new Date().getFullYear() + 1}-12-31`;
 
 const productSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
-  "name": "シンプル工事台帳 ライト版",
+  "name": PRODUCT.name,
   "description": "確定申告がラクになる、Excelだけで動く工事管理ツール。収支管理に特化・マクロ不使用・買い切り。",
   "brand": { "@type": "Brand", "name": "建設業ツール工房" },
-  "url": "https://kensetsu-tools.com/products/koji-daicho/",
-  "image": "https://kensetsu-tools.com/ogp.png",
+  "url": `${siteUrl}/products/koji-daicho/`,
+  "image": `${siteUrl}/og/koji-daicho.png`,
   "offers": {
     "@type": "Offer",
-    "price": "5980",
-    "priceCurrency": "JPY",
+    "price": String(PRODUCT.price),
+    "priceCurrency": PRODUCT.currency,
     "availability": "https://schema.org/InStock",
-    "url": "https://kensetsu-tools.com/products/koji-daicho/",
-    "priceValidUntil": "2026-12-31"
+    "url": `${siteUrl}/products/koji-daicho/`,
+    "priceValidUntil": priceValidUntil
   }
 };
 
@@ -24,9 +28,9 @@ const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kensetsu-tools.com/" },
-    { "@type": "ListItem", "position": 2, "name": "ツール・商品", "item": "https://kensetsu-tools.com/products/" },
-    { "@type": "ListItem", "position": 3, "name": "シンプル工事台帳 ライト版", "item": "https://kensetsu-tools.com/products/koji-daicho/" },
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": `${siteUrl}/` },
+    { "@type": "ListItem", "position": 2, "name": "ツール・商品", "item": `${siteUrl}/products/` },
+    { "@type": "ListItem", "position": 3, "name": PRODUCT.name, "item": `${siteUrl}/products/koji-daicho/` },
   ],
 };
 
@@ -77,6 +81,7 @@ const comparisonRows = [
 <BaseLayout
   title="シンプル工事台帳 ライト版｜一人親方の確定申告用Excel工事台帳"
   description="一人親方・個人事業主向けのExcel工事台帳。工事ごとの収支を自動集計し確定申告がラクになります。インボイス番号管理・CSV出力対応。マクロ不使用・買い切り¥5,980。60日メールサポート付き。"
+  ogImage="/og/koji-daicho.png"
   ogType="product"
 >
   <Fragment slot="head">
@@ -110,6 +115,7 @@ const comparisonRows = [
       <p class="text-slate-500 text-sm mb-6">税込・買い切り</p>
       <button
         id="buy-btn-hero"
+        type="button"
         class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-md"
       >
         今すぐ購入する →
@@ -301,6 +307,7 @@ const comparisonRows = [
   <div class="py-8 bg-white text-center border-t border-slate-100">
     <button
       id="buy-btn-mid1"
+      type="button"
       class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-md"
     >
       今すぐ購入する →
@@ -391,6 +398,7 @@ const comparisonRows = [
   <div class="py-8 bg-slate-50 text-center border-t border-slate-200">
     <button
       id="buy-btn-mid2"
+      type="button"
       class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-md"
     >
       今すぐ購入する →
@@ -405,7 +413,7 @@ const comparisonRows = [
       <div class="max-w-md mx-auto border-2 border-accent-400 rounded-2xl p-10 shadow-lg text-center">
         <p class="text-lg font-bold text-slate-700 mb-2">シンプル工事台帳 ライト版</p>
         <p class="text-6xl font-bold text-accent-500 mb-1">¥5,980</p>
-        <p class="text-slate-400 text-sm mb-8">税込・買い切り</p>
+        <p class="text-slate-400 text-sm mb-8">税込・買い切り・返金保証なし</p>
         <hr class="border-slate-200 mb-8" />
         <ul class="space-y-3 text-left mb-10">
           {[
@@ -426,13 +434,11 @@ const comparisonRows = [
         </ul>
         <button
           id="buy-btn"
+          type="button"
           class="w-full bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 rounded-lg transition-colors text-sm"
         >
           購入する（¥5,980 買い切り）
         </button>
-        <p id="buy-error" class="mt-2 text-sm text-red-600 hidden">
-          エラーが発生しました。少し時間をおいて再度お試しください。
-        </p>
       </div>
     </div>
   </section>
@@ -459,6 +465,19 @@ const comparisonRows = [
     </div>
   </section>
 
+  <!-- エラートースト（購入エラー時に画面上部に表示） -->
+  <div
+    id="buy-toast"
+    class="fixed top-4 left-1/2 -translate-x-1/2 z-[60] hidden items-center gap-2 bg-red-600 text-white text-sm font-medium px-5 py-3 rounded-xl shadow-lg pointer-events-none"
+    role="alert"
+    aria-live="assertive"
+  >
+    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+    </svg>
+    エラーが発生しました。少し時間をおいて再度お試しください。
+  </div>
+
   <!-- ライトボックス -->
   <div id="ss-lightbox"
        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4"
@@ -468,6 +487,15 @@ const comparisonRows = [
             aria-label="閉じる">&times;</button>
     <img id="ss-lightbox-img" src="" alt=""
          class="max-h-[90vh] max-w-[95vw] object-contain rounded-lg bg-white" />
+  </div>
+
+  <!-- FAQ導線 -->
+  <div class="py-6 bg-white text-center border-t border-slate-100">
+    <p class="text-slate-500 text-sm">
+      ご購入前のご不明点は
+      <a href="/faq/" class="text-primary-600 hover:text-primary-800 font-semibold underline transition-colors">よくある質問</a>
+      もあわせてご確認ください。
+    </p>
   </div>
 
   <!-- S9：購入CTA -->
@@ -480,9 +508,10 @@ const comparisonRows = [
         買い切り・Excelだけで動く。<br>
         インストール不要で、すぐに使えます。
       </p>
-      <p class="text-accent-300 text-sm mb-10">¥5,980（税込）・返金保証なし・ライセンス1名様</p>
+      <p class="text-accent-300 text-sm mb-10">¥5,980（税込）・買い切り・返金保証なし</p>
       <button
         id="buy-btn-cta"
+        type="button"
         class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-md"
       >
         購入する（¥5,980 買い切り）
@@ -562,13 +591,24 @@ const comparisonRows = [
 </script>
 
 <script>
-  const err = document.getElementById("buy-error");
+  const toast = document.getElementById("buy-toast");
+  let toastTimer: ReturnType<typeof setTimeout> | null = null;
+
+  function showToast() {
+    if (!toast) return;
+    if (toastTimer) clearTimeout(toastTimer);
+    toast.classList.remove("hidden");
+    toast.classList.add("flex");
+    toastTimer = setTimeout(() => {
+      toast.classList.add("hidden");
+      toast.classList.remove("flex");
+    }, 5000);
+  }
 
   async function handleBuy(btn: HTMLButtonElement) {
     btn.disabled = true;
     const original = btn.textContent;
     btn.textContent = "読み込み中…";
-    err?.classList.add("hidden");
     try {
       const res = await fetch("/api/create-checkout", { method: "POST" });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -576,7 +616,7 @@ const comparisonRows = [
       if (!data?.url) throw new Error("no url");
       window.location.href = data.url;
     } catch {
-      err?.classList.remove("hidden");
+      showToast();
       btn.disabled = false;
       btn.textContent = original;
     }
@@ -601,6 +641,7 @@ const comparisonRows = [
       </div>
       <button
         id="buy-btn-sticky"
+        type="button"
         class="flex-shrink-0 bg-accent-500 hover:bg-accent-600 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors shadow"
       >
         今すぐ購入

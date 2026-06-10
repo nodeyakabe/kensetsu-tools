@@ -20,11 +20,30 @@ const {
   canonicalUrl,
 } = Astro.props;
 
-const siteUrl = 'https://kensetsu-tools.com';
+const siteUrl = (import.meta.env.SITE ?? 'https://kensetsu-tools.com').replace(/\/$/, '');
 const siteName = '建設業ツール工房';
 const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
 const canonical = canonicalUrl ?? new URL(Astro.url.pathname, siteUrl).href;
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteUrl).href;
+
+const orgSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: siteName,
+  url: siteUrl,
+  logo: { '@type': 'ImageObject', url: `${siteUrl}/apple-touch-icon.png` },
+  email: 'contact@kensetsu-tools.com',
+  founder: { '@type': 'Person', name: '矢ヶ部' },
+  address: { '@type': 'PostalAddress', addressRegion: '福岡県', addressLocality: '北九州市', addressCountry: 'JP' },
+  contactPoint: { '@type': 'ContactPoint', email: 'contact@kensetsu-tools.com', contactType: 'customer support', availableLanguage: 'Japanese' },
+});
+
+const websiteSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: siteName,
+  url: siteUrl,
+});
 ---
 
 <!doctype html>
@@ -81,10 +100,9 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteU
     <meta name="twitter:image" content={ogImageUrl} />
 
     <!-- Google Analytics 4 (Cookie同意後に有効化) -->
-    <!-- TODO: G-XXXXXXXXXX を実際のGA4測定IDに変更してください -->
     <script is:inline>
       (function() {
-        var GA_ID = 'G-XXXXXXXXXX';
+        var GA_ID = 'G-9EVSFZW5JP';
         function loadGA() {
           if (window._gaLoaded) return;
           window._gaLoaded = true;
@@ -106,6 +124,8 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteU
       })();
     </script>
 
+    <script type="application/ld+json" set:html={orgSchema}></script>
+    <script type="application/ld+json" set:html={websiteSchema}></script>
     <slot name="head" />
   </head>
   <body class="min-h-screen flex flex-col">
