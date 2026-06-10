@@ -202,38 +202,6 @@ const comparisonRows = [
     </div>
   </section>
 
-  <!-- S4b：守備範囲（できないことのみ） -->
-  <section class="py-16 bg-slate-50">
-    <div class="container-base max-w-3xl mx-auto">
-      <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">守備範囲を正直にお伝えします</h2>
-      <p class="text-slate-500 text-center mb-8 text-sm leading-relaxed">
-        このツールは「<strong>確定申告のための収支管理</strong>」に絞った、最低限・シンプルなツールです。<br>
-        見積書や請求書の作成機能はありません。あれもこれも詰め込まず、<br class="hidden sm:inline">
-        「工事ごとの収支を把握して確定申告をラクにする」一点に特化しています。
-      </p>
-      <div class="bg-white border border-slate-200 rounded-2xl p-8 max-w-lg mx-auto">
-        <h3 class="text-lg font-bold text-primary-900 mb-5 flex items-center gap-2">
-          <span class="text-slate-400 text-xl">—</span> 対象外（別ツールをご利用ください）
-        </h3>
-        <ul class="space-y-3">
-          {[
-            '見積書・請求書の作成',
-            '入金／支払いの資金繰り管理',
-            '工程管理・ガントチャート',
-            '複数人での同時編集・クラウド共有',
-          ].map(item => (
-            <li class="flex items-start gap-3 text-sm text-slate-500">
-              <span class="text-slate-300 font-bold flex-shrink-0 mt-0.5">✕</span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-        <p class="mt-6 text-xs text-slate-400 leading-relaxed border-t border-slate-100 pt-4">
-          できないことを増やさないのが、このツールのシンプルさの理由です。
-        </p>
-      </div>
-    </div>
-  </section>
 
   <!-- S4c：他社比較（本品列オレンジ帯ハイライト） -->
   <section class="py-16 bg-white">
@@ -302,16 +270,6 @@ const comparisonRows = [
     </div>
   </section>
 
-  <!-- 中間CTA 1：比較表直後 -->
-  <div class="py-8 bg-white text-center border-t border-slate-100">
-    <button
-      id="buy-btn-mid1"
-      type="button"
-      class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-md"
-    >
-      今すぐ購入する →
-    </button>
-  </div>
 
   <!-- S4d：キャラクターコメント（比較表の補足・ウタ→ナツの順） -->
   <section class="pt-4 pb-16 bg-white">
@@ -340,7 +298,7 @@ const comparisonRows = [
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-        <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
+        <figure class="rounded-xl border-2 border-slate-300 bg-white overflow-hidden shadow-sm">
           <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
                role="button" tabindex="0" aria-label="ホーム画面を拡大">
             <img src="/images/screens/screen_home.png" alt="シンプル工事台帳 ホーム画面"
@@ -352,7 +310,7 @@ const comparisonRows = [
           </figcaption>
         </figure>
 
-        <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
+        <figure class="rounded-xl border-2 border-slate-300 bg-white overflow-hidden shadow-sm">
           <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
                role="button" tabindex="0" aria-label="年次サマリー画面を拡大">
             <img src="/images/screens/screen_nenjisummary.png" alt="シンプル工事台帳 年次サマリー画面"
@@ -364,7 +322,7 @@ const comparisonRows = [
           </figcaption>
         </figure>
 
-        <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
+        <figure class="rounded-xl border-2 border-slate-300 bg-white overflow-hidden shadow-sm">
           <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
                role="button" tabindex="0" aria-label="月次サマリー画面を拡大">
             <img src="/images/screens/screen_getsujisum.png" alt="シンプル工事台帳 月次サマリー画面"
@@ -376,7 +334,7 @@ const comparisonRows = [
           </figcaption>
         </figure>
 
-        <figure class="rounded-xl border border-slate-200 bg-white overflow-hidden">
+        <figure class="rounded-xl border-2 border-slate-300 bg-white overflow-hidden shadow-sm">
           <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
                role="button" tabindex="0" aria-label="工事登録画面を拡大">
             <img src="/images/screens/screen_kojitoroku.png" alt="シンプル工事台帳 工事登録画面"
@@ -392,16 +350,6 @@ const comparisonRows = [
     </div>
   </section>
 
-  <!-- 中間CTA 2：画面イメージ直後 -->
-  <div class="py-8 bg-slate-50 text-center border-t border-slate-200">
-    <button
-      id="buy-btn-mid2"
-      type="button"
-      class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-md"
-    >
-      今すぐ購入する →
-    </button>
-  </div>
 
   <!-- S7：価格（安心の特徴を統合） -->
   <section class="py-16 bg-white">
