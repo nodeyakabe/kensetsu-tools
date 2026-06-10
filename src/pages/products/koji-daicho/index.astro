@@ -114,6 +114,15 @@ const comparisonRows = [
       >
         今すぐ購入する →
       </button>
+      <!-- 信頼チップ -->
+      <div class="flex flex-wrap justify-center gap-2 mt-5">
+        {['買い切り・月額なし', 'マクロなし', 'インストール不要', '3分で使い始め', '60日メールサポート'].map(chip => (
+          <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium bg-primary-50 text-primary-800 border border-primary-200">
+            <span aria-hidden="true">✓</span>
+            {chip}
+          </span>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -226,7 +235,37 @@ const comparisonRows = [
     <div class="container-base max-w-4xl mx-auto">
       <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">他のツールと比べてみると</h2>
       <p class="text-slate-500 text-center mb-10 text-sm">用途が違うだけで、どれも正解です。本品が合うかどうか確認してください。</p>
-      <div class="overflow-x-auto -mx-4 px-4">
+      <!-- モバイル比較カード（md未満） -->
+      <div class="md:hidden space-y-2 mb-6">
+        {comparisonRows.map(row => (
+          <div class="rounded-xl border border-slate-200 overflow-hidden">
+            <div class="bg-slate-100 px-4 py-2.5 text-sm font-semibold text-slate-700">{row.label}</div>
+            <div class="p-4 space-y-3">
+              <div class="flex items-start gap-2 rounded-lg px-3 py-2.5" style="background:#FFF7ED; border-left: 3px solid #F59E0B;">
+                <span class="text-xs font-bold text-accent-600 flex-shrink-0 pt-0.5">本品</span>
+                <span class="text-sm font-semibold text-primary-900">{row.vals[3]}</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2 text-xs text-center text-slate-500">
+                <div>
+                  <p class="font-medium text-slate-400 mb-1 leading-tight">無料テンプレ</p>
+                  <p class="leading-tight">{row.vals[0]}</p>
+                </div>
+                <div>
+                  <p class="font-medium text-slate-400 mb-1 leading-tight">市販台帳</p>
+                  <p class="leading-tight">{row.vals[1]}</p>
+                </div>
+                <div>
+                  <p class="font-medium text-slate-400 mb-1 leading-tight">クラウド型</p>
+                  <p class="leading-tight">{row.vals[2]}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- デスクトップ比較テーブル（md以上） -->
+      <div class="hidden md:block overflow-x-auto -mx-4 px-4">
         <table class="w-full text-sm border-collapse min-w-[640px]">
           <thead>
             <tr>
@@ -257,6 +296,17 @@ const comparisonRows = [
       <p class="text-xs text-slate-400 text-center mt-4">※ 価格・機能は2026年時点の各社公開情報に基づく参考比較です。</p>
     </div>
   </section>
+
+  <!-- 中間CTA 1：比較表直後 -->
+  <div class="py-8 bg-white text-center border-t border-slate-100">
+    <button
+      id="buy-btn-mid1"
+      class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-md"
+    >
+      今すぐ購入する →
+    </button>
+    <p class="mt-3 text-sm text-slate-500">¥5,980 税込・買い切り・60日メールサポート</p>
+  </div>
 
   <!-- S4d：キャラクターコメント（比較表の補足・ウタ→ナツの順） -->
   <section class="pt-4 pb-16 bg-white">
@@ -336,6 +386,17 @@ const comparisonRows = [
       </div>
     </div>
   </section>
+
+  <!-- 中間CTA 2：画面イメージ直後 -->
+  <div class="py-8 bg-slate-50 text-center border-t border-slate-200">
+    <button
+      id="buy-btn-mid2"
+      class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-md"
+    >
+      今すぐ購入する →
+    </button>
+    <p class="mt-3 text-sm text-slate-500">¥5,980 税込・買い切り・60日メールサポート</p>
+  </div>
 
   <!-- S7：価格（安心の特徴を統合） -->
   <section class="py-16 bg-white">
@@ -521,9 +582,48 @@ const comparisonRows = [
     }
   }
 
-  ["buy-btn-hero", "buy-btn", "buy-btn-cta"].forEach(id => {
+  ["buy-btn-hero", "buy-btn", "buy-btn-cta", "buy-btn-sticky", "buy-btn-mid1", "buy-btn-mid2"].forEach(id => {
     const b = document.getElementById(id) as HTMLButtonElement | null;
     b?.addEventListener("click", () => handleBuy(b));
   });
 </script>
+  <!-- モバイル下部固定バー（ヒーローCTAが画面外に出たら表示） -->
+  <div
+    id="sticky-buy-bar"
+    class="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white border-t border-slate-200 shadow-lg translate-y-full transition-transform duration-300"
+    aria-hidden="true"
+  >
+    <div class="flex items-center justify-between gap-4 px-4 py-3 max-w-sm mx-auto"
+         style="padding-bottom: max(12px, env(safe-area-inset-bottom));">
+      <div class="min-w-0">
+        <p class="text-xs text-slate-500 truncate">シンプル工事台帳 ライト版</p>
+        <p class="text-lg font-bold text-accent-500 leading-none">¥5,980</p>
+      </div>
+      <button
+        id="buy-btn-sticky"
+        class="flex-shrink-0 bg-accent-500 hover:bg-accent-600 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors shadow"
+      >
+        今すぐ購入
+      </button>
+    </div>
+  </div>
+
+<script>
+  // モバイル下部固定バーの表示制御（IntersectionObserver）
+  const stickyBar = document.getElementById('sticky-buy-bar');
+  const heroBtn = document.getElementById('buy-btn-hero');
+  if (stickyBar && heroBtn) {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const show = !entry.isIntersecting;
+        stickyBar.classList.toggle('translate-y-full', !show);
+        stickyBar.classList.toggle('translate-y-0', show);
+        stickyBar.setAttribute('aria-hidden', String(!show));
+      },
+      { threshold: 0 }
+    );
+    observer.observe(heroBtn);
+  }
+</script>
+
 </BaseLayout>

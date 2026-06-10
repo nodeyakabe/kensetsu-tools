@@ -31,25 +31,47 @@ const breadcrumbSchema = {
       <p class="text-slate-500 text-lg">建設業の現場で本当に使えるツールをお届けします。</p>
     </div>
 
-    <div class="max-w-2xl">
-      <a href="/products/koji-daicho/" class="block group">
-        <div class="bg-white border border-slate-200 rounded-xl p-8 hover:shadow-md hover:border-slate-300 transition-all duration-200">
+    <!-- 発売中 -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+      <a href="/products/koji-daicho/" class="block group col-span-full md:col-span-1">
+        <div class="bg-white border-2 border-accent-400 rounded-xl p-8 hover:shadow-md transition-all duration-200 h-full">
           <div class="mb-4">
             <span class="inline-block bg-accent-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">発売中</span>
           </div>
           <h2 class="text-2xl font-bold text-primary-900 mb-2 group-hover:text-primary-700 transition-colors">
             シンプル工事台帳 ライト版
           </h2>
-          <p class="text-slate-600 text-lg mb-4">
+          <p class="text-slate-600 text-base mb-4">
             確定申告がラクになる、Excelだけで動く工事管理ツール
           </p>
           <p class="text-accent-500 text-xl font-semibold mb-1">¥5,980（買い切り）</p>
           <p class="text-slate-400 text-sm mb-6">税込・返金保証なし</p>
           <span class="text-primary-600 font-bold group-hover:text-primary-800 transition-colors">
-            詳細を見る →
+            詳細・購入はこちら →
           </span>
         </div>
       </a>
+    </div>
+
+    <!-- 今後のラインナップ -->
+    <div>
+      <h2 class="text-2xl font-bold text-primary-900 mb-2">今後のラインナップ</h2>
+      <p class="text-slate-500 text-sm mb-8">順次提供予定です（提供時期は未定）。</p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {[
+          { title: '見積書テンプレ（Excel）', desc: '建設工事向けのシンプルな見積書。Excel形式で手軽に作成・保存。' },
+          { title: '工程表テンプレ（Excel）', desc: '工事スケジュールをExcelで管理。着工から完工までを視覚的に整理。' },
+          { title: '日報・KY活動表（Excel）', desc: '現場日報と危険予知活動のシンプルなExcelテンプレ。' },
+        ].map(card => (
+          <div class="bg-slate-100 border border-slate-200 rounded-xl p-6 cursor-default">
+            <div class="mb-3">
+              <span class="inline-block bg-slate-400 text-white text-xs font-bold px-3 py-1 rounded-full">準備中</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-600 mb-2">{card.title}</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">{card.desc}</p>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 </BaseLayout>
