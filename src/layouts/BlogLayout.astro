@@ -14,7 +14,7 @@ interface Props {
 
 const { title, description, publishedAt, updatedAt, heroImage, tags = [], category, slug } = Astro.props;
 
-const siteUrl = 'https://kensetsu-tools.com';
+const siteUrl = (import.meta.env.SITE ?? 'https://kensetsu-tools.com').replace(/\/$/, '');
 const canonicalUrl = `${siteUrl}/blog/${slug}/`;
 
 const formattedDate = publishedAt.toLocaleDateString('ja-JP', {
@@ -29,7 +29,7 @@ const updatedFormatted = updatedAt?.toLocaleDateString('ja-JP', {
   day: 'numeric',
 });
 
-// Article 構造化データ
+// BlogPosting 構造化データ
 const articleSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
@@ -38,6 +38,8 @@ const articleSchema = JSON.stringify({
   ...(heroImage ? { image: [new URL(heroImage, siteUrl).href] } : {}),
   datePublished: publishedAt.toISOString(),
   dateModified: (updatedAt ?? publishedAt).toISOString(),
+  ...(category ? { articleSection: category } : {}),
+  ...(tags.length > 0 ? { keywords: tags.join(', ') } : {}),
   author: {
     '@type': 'Organization',
     name: '建設業ツール工房',
@@ -136,7 +138,7 @@ const breadcrumbSchema = JSON.stringify({
       {heroImage && (
         <img
           src={heroImage}
-          alt={title}
+          alt={`${title} のアイキャッチ画像`}
           class="w-full rounded-xl mb-10 shadow-sm"
           loading="eager"
         />
