@@ -89,23 +89,20 @@ const comparisonRows = [
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
 
-  <!-- パンくず -->
-  <div class="container-base pt-8">
-    <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
-      <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
-      <span class="mx-2">/</span>
-      <a href="/products/" class="hover:text-primary-600 transition-colors">ツール・商品</a>
-      <span class="mx-2">/</span>
-      <span class="text-slate-700">シンプル工事台帳 ライト版</span>
-    </nav>
-  </div>
-
   <!-- S1：ヒーロー -->
   <section class="bg-slate-50 py-12 md:py-16">
     <div class="container-base text-center max-w-3xl mx-auto">
       <h1 class="text-4xl md:text-5xl font-bold text-primary-900 mb-2">
         シンプル工事台帳 ライト版
       </h1>
+      <!-- パンくず -->
+      <nav class="text-sm text-slate-500 mb-4 text-left" aria-label="パンくずリスト">
+        <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
+        <span class="mx-2">/</span>
+        <a href="/products/" class="hover:text-primary-600 transition-colors">ツール・商品</a>
+        <span class="mx-2">/</span>
+        <span class="text-slate-700">シンプル工事台帳 ライト版</span>
+      </nav>
       <p class="text-sm text-slate-500 mb-2">個人事業主・一人親方（暦年決算）向け</p>
       <p class="text-xl md:text-2xl text-slate-600 mb-4 leading-relaxed">
         確定申告がラクになる、<br>
