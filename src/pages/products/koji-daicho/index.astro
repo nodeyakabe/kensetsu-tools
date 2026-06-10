@@ -12,7 +12,7 @@ const productSchema = {
     "@type": "Offer",
     "price": "5980",
     "priceCurrency": "JPY",
-    "availability": "https://schema.org/PreOrder",
+    "availability": "https://schema.org/InStock",
     "url": "https://kensetsu-tools.com/products/koji-daicho/"
   }
 };
@@ -69,12 +69,11 @@ const comparisonRows = [
   { label: 'サポート',       vals: ['なし', 'あり', 'あり', '60日メールサポート'] },
 ];
 
-const notifyUrl = '/register/';
 ---
 
 <BaseLayout
   title="シンプル工事台帳 ライト版"
-  description="個人事業主・一人親方の確定申告がラクになる、Excelだけで動く工事管理ツール。暦年集計対応。買い切り¥5,980、マクロ不使用で安心。2026年内リリース予定。"
+  description="個人事業主・一人親方の確定申告がラクになる、Excelだけで動く工事管理ツール。暦年集計対応。買い切り¥5,980、マクロ不使用で安心。"
   ogType="product"
 >
   <Fragment slot="head">
@@ -96,9 +95,6 @@ const notifyUrl = '/register/';
   <!-- S1：ヒーロー -->
   <section class="bg-slate-50 py-12 md:py-16">
     <div class="container-base text-center max-w-3xl mx-auto">
-      <div class="mb-3">
-        <span class="inline-block bg-accent-500 text-white text-sm font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">近日リリース</span>
-      </div>
       <h1 class="text-4xl md:text-5xl font-bold text-primary-900 mb-2">
         シンプル工事台帳 ライト版
       </h1>
@@ -108,14 +104,13 @@ const notifyUrl = '/register/';
         Excelだけで動く工事管理ツール。
       </p>
       <p class="text-3xl font-semibold text-accent-500 mb-1">¥5,980</p>
-      <p class="text-slate-500 text-sm mb-4">税込・買い切り</p>
-      <p class="text-slate-500 mb-6">2026年内リリース予定</p>
-      <a
-        href={notifyUrl}
+      <p class="text-slate-500 text-sm mb-6">税込・買い切り</p>
+      <button
+        id="buy-btn-hero"
         class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-md"
       >
-        無料で事前登録する →
-      </a>
+        今すぐ購入する →
+      </button>
     </div>
   </section>
 
@@ -411,23 +406,23 @@ const notifyUrl = '/register/';
          class="max-h-[90vh] max-w-[95vw] object-contain rounded-lg bg-white" />
   </div>
 
-  <!-- S9：リリース通知CTA -->
+  <!-- S9：購入CTA -->
   <section class="py-20 bg-primary-900">
     <div class="container-base text-center max-w-2xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-        2026年内のリリースを予定しています
+        今日から、工事管理をシンプルに。
       </h2>
       <p class="text-primary-200 text-lg mb-4 leading-relaxed">
-        メールアドレスを登録するだけ。<br>
-        リリース時に最初にお知らせします。
+        買い切り・Excelだけで動く。<br>
+        インストール不要で、すぐに使えます。
       </p>
-      <p class="text-accent-300 text-sm mb-10">特典：確定申告チェックリストPDFを無料プレゼント</p>
-      <a
-        href={notifyUrl}
+      <p class="text-accent-300 text-sm mb-10">¥5,980（税込）・返金保証なし・ライセンス1名様</p>
+      <button
+        id="buy-btn-cta"
         class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-md"
       >
-        無料で事前登録する →
-      </a>
+        購入する（¥5,980 買い切り）
+      </button>
     </div>
   </section>
 
@@ -503,13 +498,13 @@ const notifyUrl = '/register/';
 </script>
 
 <script>
-  const btn = document.getElementById("buy-btn");
   const err = document.getElementById("buy-error");
-  btn?.addEventListener("click", async () => {
+
+  async function handleBuy(btn: HTMLButtonElement) {
     btn.disabled = true;
     const original = btn.textContent;
     btn.textContent = "読み込み中…";
-    err.classList.add("hidden");
+    err?.classList.add("hidden");
     try {
       const res = await fetch("/api/create-checkout", { method: "POST" });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -517,10 +512,15 @@ const notifyUrl = '/register/';
       if (!data?.url) throw new Error("no url");
       window.location.href = data.url;
     } catch {
-      err.classList.remove("hidden");
+      err?.classList.remove("hidden");
       btn.disabled = false;
       btn.textContent = original;
     }
+  }
+
+  ["buy-btn-hero", "buy-btn", "buy-btn-cta"].forEach(id => {
+    const b = document.getElementById(id) as HTMLButtonElement | null;
+    b?.addEventListener("click", () => handleBuy(b));
   });
 </script>
 </BaseLayout>
