@@ -68,7 +68,7 @@ const features = [
 ];
 
 const comparisonRows = [
-  { label: '価格',           vals: ['無料', '¥8,800前後（買い切り）', '月額4,000円〜', '¥5,980（買い切り）'] },
+  { label: '価格',           vals: ['無料', '¥8,800前後（買い切り）', '月額4,000円〜', `¥${PRODUCT.price.toLocaleString()}（買い切り）`] },
   { label: 'マクロ',         vals: ['ものによる', 'あり（警告が出ることも）', '—（Web/アプリ）', 'なし（警告ゼロ）'] },
   { label: '確定申告の収支管理', vals: ['△ 自分で作り込む', '○', '○', '◎ これに特化'] },
   { label: '入力ミス防止',   vals: ['× 基本なし', '△', '○', '○（色で警告）'] },
@@ -111,7 +111,7 @@ const comparisonRows = [
         確定申告がラクになる、<br>
         Excelだけで動く工事管理ツール。
       </p>
-      <p class="text-3xl font-semibold text-accent-500 mb-6">¥5,980</p>
+      <p class="text-3xl font-semibold text-accent-500 mb-6">¥{PRODUCT.price.toLocaleString()}</p>
       <button
         id="buy-btn-hero"
         type="button"
@@ -357,7 +357,7 @@ const comparisonRows = [
       <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">価格</h2>
       <div class="max-w-md mx-auto border-2 border-accent-400 rounded-2xl p-10 shadow-lg text-center">
         <p class="text-lg font-bold text-slate-700 mb-2">シンプル工事台帳 ライト版</p>
-        <p class="text-6xl font-bold text-accent-500 mb-1">¥5,980</p>
+        <p class="text-6xl font-bold text-accent-500 mb-1">¥{PRODUCT.price.toLocaleString()}</p>
         <hr class="border-slate-200 mb-8" />
         <ul class="space-y-3 text-left mb-10">
           {[
@@ -381,7 +381,7 @@ const comparisonRows = [
           type="button"
           class="w-full bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 rounded-lg transition-colors text-sm"
         >
-          購入する（¥5,980 買い切り）
+          購入する（¥{PRODUCT.price.toLocaleString()} 買い切り）
         </button>
       </div>
     </div>
@@ -538,8 +538,11 @@ const comparisonRows = [
     }, 5000);
   }
 
+  const BUY_IDS = ["buy-btn-hero", "buy-btn", "buy-btn-sticky"] as const;
+  const allBuyBtns = () => BUY_IDS.map(id => document.getElementById(id) as HTMLButtonElement | null).filter(Boolean) as HTMLButtonElement[];
+
   async function handleBuy(btn: HTMLButtonElement) {
-    btn.disabled = true;
+    allBuyBtns().forEach(b => { b.disabled = true; });
     const original = btn.textContent;
     btn.textContent = "読み込み中…";
     try {
@@ -550,14 +553,14 @@ const comparisonRows = [
       window.location.href = data.url;
     } catch {
       showToast();
-      btn.disabled = false;
+      allBuyBtns().forEach(b => { b.disabled = false; });
       btn.textContent = original;
     }
   }
 
-  ["buy-btn-hero", "buy-btn", "buy-btn-cta", "buy-btn-sticky", "buy-btn-mid1", "buy-btn-mid2"].forEach(id => {
+  BUY_IDS.forEach(id => {
     const b = document.getElementById(id) as HTMLButtonElement | null;
-    b?.addEventListener("click", () => handleBuy(b));
+    b?.addEventListener("click", () => handleBuy(b!));
   });
 </script>
   <!-- モバイル下部固定バー（ヒーローCTAが画面外に出たら表示） -->
@@ -570,7 +573,7 @@ const comparisonRows = [
          style="padding-bottom: max(12px, env(safe-area-inset-bottom));">
       <div class="min-w-0">
         <p class="text-xs text-slate-500 truncate">シンプル工事台帳 ライト版</p>
-        <p class="text-lg font-bold text-accent-500 leading-none">¥5,980</p>
+        <p class="text-lg font-bold text-accent-500 leading-none">¥{PRODUCT.price.toLocaleString()}</p>
       </div>
       <button
         id="buy-btn-sticky"

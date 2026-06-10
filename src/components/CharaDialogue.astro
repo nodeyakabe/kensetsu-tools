@@ -22,7 +22,7 @@ interface Props {
   expression?: 'tati';
 }
 
-const { chara, text, direction = 'left', expression } = Astro.props;
+const { chara, text, direction = 'left' } = Astro.props;
 
 const charData = {
   mikeru: {
@@ -40,7 +40,6 @@ const charData = {
 } as const;
 
 const c = charData[chara];
-const expr = expression ?? c.defaultExpr;
 const fileMap: Record<'mikeru' | 'kuroe', string> = { mikeru: 'uta_product', kuroe: 'natu_product' };
 const imgSrc = `/images/characters/${fileMap[chara]}.png`;
 const isRight = direction === 'right';
