@@ -13,13 +13,15 @@ const categories = [...new Set(allPosts.map(p => p.data.category).filter(Boolean
   title="ブログ"
   description="法令対応・確定申告・実務ノウハウなど、建設業の現場で役立つ情報をお届けします。"
 >
-  <div class="container-base py-16">
-    <nav class="text-sm text-slate-500 mb-10" aria-label="パンくずリスト">
+  <div class="w-full px-4 sm:px-6 lg:px-10 py-3 border-b border-slate-100">
+    <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
       <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
       <span class="mx-2">/</span>
       <span class="text-slate-700">ブログ</span>
     </nav>
+  </div>
 
+  <div class="container-base py-16">
     <div class="mb-10">
       <h1 class="text-4xl font-bold text-primary-900 mb-3">ブログ</h1>
       <p class="text-slate-500 text-lg">法令対応・確定申告・実務ノウハウなど、現場で役立つ情報をお届けします。</p>
