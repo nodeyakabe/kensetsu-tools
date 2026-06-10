@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BlogCard from '@/components/BlogCard.astro';
+import ComingSoonCard from '@/components/ComingSoonCard.astro';
+import { comingSoonItems } from '@/data/coming-soon';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
@@ -25,13 +27,14 @@ const features = [
   },
 ];
 
+
 const siteUrl = 'https://kensetsu-tools.com';
 const orgSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: '建設業ツール工房',
   url: siteUrl,
-  logo: `${siteUrl}/favicon.svg`,
+  logo: `${siteUrl}/apple-touch-icon.png`,
   description: '建設業向けの業務ツール・テンプレート・業界情報を提供するサイトです。',
 });
 const websiteSchema = JSON.stringify({
@@ -51,7 +54,7 @@ const websiteSchema = JSON.stringify({
     <script type="application/ld+json" set:html={websiteSchema}></script>
   </Fragment>
 
-  <!-- Hero -->
+  <!-- ヒーロー -->
   <section class="bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-24">
       <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
@@ -59,18 +62,18 @@ const websiteSchema = JSON.stringify({
         <!-- テキスト -->
         <div class="flex-1 min-w-0 pl-6 lg:pl-12">
           <div class="inline-block bg-accent-500 text-white text-sm font-bold px-3 py-1 rounded-full mb-6 uppercase tracking-wider">
-            建設業向け 無料ツール・情報サイト
+            建設業向け 業務ツール・情報サイト
           </div>
           <h1 class="text-4xl lg:text-5xl font-bold leading-tight mb-6 lg:whitespace-nowrap">
             建設業の現場を、<br>
             <span class="text-accent-400">もっとシンプルに。</span>
           </h1>
           <p class="text-primary-200 text-xl leading-relaxed mb-10 max-w-2xl">
-            一人親方・小規模事業者のための、業務ツールと法令対応の情報サイトです。<br>
-            <span class="text-accent-300 font-semibold">確定申告がラクになる「シンプル工事台帳」、好評発売中。</span>
+            一人親方・小規模建設業のための、買い切りの業務ツールと、<br class="hidden md:inline">
+            法令・実務の情報をお届けします。
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
-            <a href="/products/koji-daicho/" class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-200 text-center">商品を見る</a>
+            <a href="/products/" class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-200 text-center">ツール・商品を見る</a>
             <a href="/blog/" class="inline-block border-2 border-white hover:bg-white text-white hover:text-primary-800 font-bold py-3 px-8 rounded-lg transition-colors duration-200 text-center">
               ブログを読む
             </a>
@@ -118,10 +121,64 @@ const websiteSchema = JSON.stringify({
     <div class="h-12 bg-white" style="clip-path: ellipse(110% 100% at 50% 100%)"></div>
   </section>
 
+  <!-- できること（3本柱）- ヒーロー直下 -->
+  <section class="py-16 bg-white">
+    <div class="container-base">
+      <div class="text-center mb-12">
+        <h2 class="section-title">建設業ツール工房でできること</h2>
+        <p class="section-subtitle">建設業の「あったらいいな」をまとめました</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {features.map(f => (
+          <div class="card p-8 text-center">
+            <div class="text-5xl mb-5" aria-hidden="true">{f.icon}</div>
+            <h3 class="font-bold text-xl text-primary-900 mb-3">{f.title}</h3>
+            <p class="text-slate-600 leading-relaxed">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 注目の商品（第1弾） -->
+  <section class="py-16 bg-slate-50">
+    <div class="container-base">
+      <div class="text-center mb-10">
+        <h2 class="section-title">注目の商品</h2>
+        <p class="section-subtitle">現在発売中の第1弾ツールです</p>
+      </div>
+      <div class="max-w-2xl mx-auto bg-white border-2 border-accent-400 rounded-xl p-8 shadow-md">
+        <div class="mb-4 flex items-center gap-3">
+          <span class="inline-block bg-accent-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">発売中</span>
+          <span class="text-slate-400 text-xs font-medium">第1弾</span>
+        </div>
+        <h3 class="text-2xl font-bold text-primary-900 mb-2">シンプル工事台帳 ライト版</h3>
+        <p class="text-accent-500 font-semibold mb-1">¥5,980</p>
+        <p class="text-slate-500 text-sm mb-6">税込・買い切り</p>
+        <ul class="space-y-3 mb-8">
+          {[
+            'Excelだけで動く。特別なソフト不要。',
+            '工事ごとの収支を自動集計。',
+            '確定申告に使える収支サマリーを出力。',
+            '一人親方・小規模事業者向けのシンプル設計。',
+          ].map(item => (
+            <li class="flex items-start gap-3">
+              <span class="text-accent-500 font-bold mt-0.5 flex-shrink-0">✓</span>
+              <span class="text-slate-700">{item}</span>
+            </li>
+          ))}
+        </ul>
+        <a href="/products/koji-daicho/" class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 px-6 rounded-lg transition-colors text-sm">
+          商品の詳細・購入はこちら →
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- 悩みセクション -->
-  <section class="py-20 bg-slate-50">
+  <section class="py-20 bg-white">
     <div class="container-base max-w-2xl mx-auto">
-      <h2 class="text-3xl font-bold text-primary-900 mb-12 text-center">こんな悩みありませんか？</h2>
+      <h2 class="section-title mb-12">こんな悩みありませんか？</h2>
       <ul class="space-y-5 mb-10">
         {[
           '工事ごとの利益が見えない',
@@ -144,57 +201,27 @@ const websiteSchema = JSON.stringify({
     </div>
   </section>
 
-  <!-- 商品紹介 -->
-  <section class="py-16 bg-white">
+  <!-- 今後のラインナップ（準備中） -->
+  <section class="py-16 bg-slate-50">
     <div class="container-base">
-      <div class="max-w-2xl mx-auto rounded-xl p-8 shadow-md bg-slate-50 border border-slate-200">
-        <div class="mb-4">
-          <span class="inline-block bg-accent-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">発売中</span>
-        </div>
-        <h2 class="text-2xl font-bold text-primary-900 mb-2">シンプル工事台帳 ライト版</h2>
-        <p class="text-slate-500 text-sm mb-6">¥5,980（税込・買い切り）</p>
-        <ul class="space-y-3 mb-8">
-          {[
-            'Excelだけで動く。特別なソフト不要。',
-            '工事ごとの収支を自動集計。',
-            '確定申告に使える収支サマリーを出力。',
-            '一人親方・小規模事業者向けのシンプル設計。',
-          ].map(item => (
-            <li class="flex items-start gap-3">
-              <span class="text-accent-500 font-bold mt-0.5">✓</span>
-              <span class="text-slate-700">{item}</span>
-            </li>
-          ))}
-        </ul>
-        <div class="flex flex-col sm:flex-row gap-3">
-          <a href="/products/koji-daicho/" class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 px-6 rounded-lg transition-colors text-center text-sm">
-            商品の詳細・購入はこちら →
-          </a>
-        </div>
+      <div class="text-center mb-10">
+        <h2 class="section-title">今後のラインナップ</h2>
+        <p class="section-subtitle">順次提供予定です（提供時期は未定）</p>
       </div>
-    </div>
-  </section>
-
-  <!-- Features -->
-  <section class="py-20 bg-slate-50">
-    <div class="container-base">
-      <div class="text-center mb-14">
-        <h2 class="section-title">建設業ツール工房でできること</h2>
-        <p class="section-subtitle">建設業の「あったらいいな」をまとめました</p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {features.map(f => (
-          <div class="card p-8 text-center">
-            <div class="text-5xl mb-5" aria-hidden="true">{f.icon}</div>
-            <h3 class="font-bold text-xl text-primary-900 mb-3">{f.title}</h3>
-            <p class="text-slate-600 leading-relaxed">{f.desc}</p>
-          </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+        {comingSoonItems.map(card => (
+          <ComingSoonCard title={card.title} desc={card.desc} />
         ))}
       </div>
+      <div class="text-center mt-10">
+        <a href="/products/" class="text-primary-600 hover:text-primary-800 font-semibold transition-colors text-sm">
+          すべてのツールを見る →
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- Target audience -->
+  <!-- こんな方のためのサイトです -->
   <section class="bg-primary-50 py-16">
     <div class="container-base">
       <div class="text-center mb-10">
@@ -211,7 +238,7 @@ const websiteSchema = JSON.stringify({
     </div>
   </section>
 
-  <!-- Recent Posts -->
+  <!-- 最新の記事 -->
   {posts.length > 0 && (
     <section class="py-20">
       <div class="container-base">
@@ -247,7 +274,7 @@ const websiteSchema = JSON.stringify({
   <section class="bg-primary-900 text-white py-20">
     <div class="container-base text-center">
       <h2 class="text-3xl md:text-4xl font-bold mb-4">
-        シンプル工事台帳、好評発売中
+        シンプル工事台帳 ライト版、好評発売中
       </h2>
       <p class="text-primary-200 text-lg mb-8 max-w-2xl mx-auto">
         個人事業主・一人親方向けのExcel工事管理ツール。マクロなし、買い切り¥5,980（税込）。

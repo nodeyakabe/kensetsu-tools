@@ -16,11 +16,11 @@ const faqs = [
   },
   {
     q: 'インボイス制度（適格請求書等保存方式）に対応していますか？',
-    a: '取引先のインボイス登録番号を記録・管理し、原価を「インボイス対象／対象外」で集計できます。なお本ツールは収支管理に特化しており、請求書・見積書の作成機能はありません。詳細は商品ページをご確認ください。',
+    a: '取引先のインボイス登録番号を記録・管理し、原価を「インボイス対象／対象外」で集計できます。なお本ツールは収支管理に特化しており、請求書・見積書の作成機能はありません。詳細は<a href="/products/koji-daicho/" class="text-primary-600 hover:text-primary-800 underline">商品ページ</a>をご確認ください。',
   },
   {
     q: 'サポートはどうなっていますか？',
-    a: 'メールによるサポートを提供しています。お問い合わせはサイト内のお問い合わせフォームまたは contact@kensetsu-tools.com までご連絡ください。個人運営のため返答にお時間をいただく場合があります。',
+    a: 'メールによるサポートを提供しています（購入から60日間）。お問い合わせはサイト内のお問い合わせフォームまたは contact@kensetsu-tools.com までご連絡ください。個人運営のため返答にお時間をいただく場合があります。',
   },
   {
     q: '複数のPCで使えますか？',
@@ -44,7 +44,7 @@ const faqSchema = {
     "name": faq.q,
     "acceptedAnswer": {
       "@type": "Answer",
-      "text": faq.a,
+      "text": faq.a.replace(/<[^>]*>/g, ''),
     },
   })),
 };
@@ -111,14 +111,23 @@ const breadcrumbSchema = {
             >
               <div class="flex gap-3 items-start pt-1 border-t border-slate-100">
                 <span class="text-accent-500 font-black text-sm mt-0.5 flex-shrink-0">A</span>
-                <span>{faq.a}</span>
+                <span set:html={faq.a} />
               </div>
             </dd>
           </div>
         ))}
       </dl>
 
-      <div class="mt-14 bg-primary-50 border border-primary-100 rounded-xl p-8 text-center">
+      <!-- 商品ページへの導線 -->
+      <div class="mt-12 bg-accent-50 border border-accent-200 rounded-xl p-8 text-center">
+        <p class="text-slate-700 font-medium mb-2">シンプル工事台帳 ライト版</p>
+        <p class="text-slate-500 text-sm mb-5">¥5,980（税込・買い切り）・マクロ不使用・60日メールサポート</p>
+        <a href="/products/koji-daicho/" class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-6 py-3 rounded-lg transition-colors">
+          商品の詳細・購入はこちら →
+        </a>
+      </div>
+
+      <div class="mt-6 bg-primary-50 border border-primary-100 rounded-xl p-8 text-center">
         <p class="text-slate-700 font-medium mb-4">解決しない場合はお気軽にご連絡ください</p>
         <a href="/contact/" class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold px-6 py-3 rounded-lg transition-colors">
           お問い合わせはこちら
@@ -129,16 +138,21 @@ const breadcrumbSchema = {
 </BaseLayout>
 
 <script>
-  document.querySelectorAll<HTMLButtonElement>('[id^="faq-btn-"]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      const answerId = btn.getAttribute('aria-controls')!;
-      const answer = document.getElementById(answerId)!;
-      const chevron = btn.querySelector('.faq-chevron')!;
+  function initFaqAccordion() {
+    document.querySelectorAll<HTMLButtonElement>('[id^="faq-btn-"]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        const answerId = btn.getAttribute('aria-controls')!;
+        const answer = document.getElementById(answerId)!;
+        const chevron = btn.querySelector('.faq-chevron')!;
 
-      btn.setAttribute('aria-expanded', String(!expanded));
-      answer.classList.toggle('hidden', expanded);
-      chevron.classList.toggle('rotate-180', !expanded);
+        btn.setAttribute('aria-expanded', String(!expanded));
+        answer.classList.toggle('hidden', expanded);
+        chevron.classList.toggle('rotate-180', !expanded);
+      });
     });
-  });
+  }
+
+  initFaqAccordion();
+  document.addEventListener('astro:page-load', initFaqAccordion);
 </script>
