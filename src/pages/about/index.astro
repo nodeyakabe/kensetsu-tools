@@ -1,6 +1,15 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kensetsu-tools.com/" },
+    { "@type": "ListItem", "position": 2, "name": "このサイトについて", "item": "https://kensetsu-tools.com/about/" },
+  ],
+};
+
 const orgSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -32,10 +41,11 @@ const orgSchema = {
 
 <BaseLayout
   title="このサイトについて"
-  description="建設業の現場をシンプルにしたい——その思いから生まれた、建設業向け情報・ツールサイトです。"
+  description="建設業の現場をシンプルにしたい——その思いから生まれたサイトです。一人親方・小規模建設業向けにExcel業務ツール・テンプレート・最新の業界情報を発信しています。"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
   <div class="container-base py-16">
     <nav class="text-sm text-slate-500 mb-10" aria-label="パンくずリスト">

@@ -113,7 +113,7 @@ tags: ["確定申告", "一人親方", "青色申告", "経費"]
 4. 材料費・外注費・諸経費の内訳
 5. 粗利（請負金額 − 直接費用）
 
-Excelで工事台帳を作成して管理している一人親方も多いですが、工事数が増えると集計が面倒になりがちです。確定申告に使えるサマリーまで自動で出力できるツールがあれば、年末の作業を大幅に減らせます。
+Excelで工事台帳を作成して管理している一人親方も多いですが、工事数が増えると集計が面倒になりがちです。確定申告に使えるサマリーまで自動で出力できる[シンプル工事台帳 ライト版](/products/koji-daicho/)があれば、年末の作業を大幅に減らせます。
 
 ---
 
@@ -177,6 +177,10 @@ Excelで工事台帳を作成して管理している一人親方も多いです
 
 ---
 
-**建設業ツール工房**では、一人親方の確定申告を楽にする工事台帳ツール（Excelベース）を提供しています。工事ごとの収支入力から確定申告用サマリーの自動出力まで対応します。
-
-→ [シンプル工事台帳 ライト版の詳細を見る](/products/koji-daicho/)
+<div class="not-prose my-8 p-6 border-2 border-accent-500 rounded-xl bg-slate-50">
+  <p class="text-xs font-bold text-accent-600 uppercase tracking-wider mb-2">関連商品</p>
+  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳 ライト版</p>
+  <p class="text-slate-600 text-sm mb-3">一人親方向けのExcel工事台帳。工事ごとの収支管理から確定申告用サマリーの自動出力まで対応。マクロ不使用・買い切り。</p>
+  <p class="text-accent-500 font-semibold mb-4">¥5,980（税込・買い切り）</p>
+  <a href="/products/koji-daicho/" class="inline-block bg-accent-500 text-white font-bold py-2 px-5 rounded-lg text-sm">詳細を見る →</a>
+</div>
