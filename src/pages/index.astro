@@ -41,24 +41,12 @@ const productHighlights = [
   description="建設業の現場を、もっとシンプルに。一人親方・小規模建設業のための買い切り業務ツールと実務情報。確定申告・書類づくりをExcelでシンプルに。"
 >
 
-<style>
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(28px); }
-    to   { opacity: 1; transform: none; }
-  }
-  .reveal {
-    animation: rise 0.7s ease-out both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 28%;
-  }
-</style>
-
-<!-- ===== 1. ヒーロー ===== -->
+<!-- ===== 1. ヒーロー（ファーストビュー: LCP保護のためreveal対象外） ===== -->
 <section class="bg-[#EFF2F7]">
   <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-0">
     <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-6">
 
-      <!-- 左：テキストカード（navy） -->
+      <!-- 左：テキストカード（navy） — LCP要素のためrevealなし -->
       <div class="bg-[#0F2557] rounded-3xl px-8 py-12 sm:px-12 sm:py-14 flex flex-col gap-6">
         <div class="flex items-center gap-2.5">
           <span class="w-2 h-2 bg-[#F59E0B] rounded-full flex-shrink-0"></span>
@@ -71,8 +59,8 @@ const productHighlights = [
           買い切り（月額なし）の業務ツールと実務情報。むずかしい操作はありません。ITが苦手な方でも、今日から使えます。
         </p>
         <div class="flex flex-col sm:flex-row gap-3">
-          <a href="/products/" class="bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold text-[15px] px-7 py-3.5 rounded-full transition-colors text-center">ツール・商品を見る</a>
-          <a href="/blog/" class="border border-[#4A5E8C] hover:border-white text-white font-bold text-[15px] px-7 py-3.5 rounded-full transition-colors text-center">ブログを読む</a>
+          <a href="/products/" class="bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold text-[15px] px-7 py-3.5 rounded-full text-center" style="transition:background-color 0.2s ease,transform 0.15s ease;" onmousedown="this.style.transform='scale(0.98)'" onmouseup="this.style.transform=''" ontouchstart="this.style.transform='scale(0.98)'" ontouchend="this.style.transform=''">ツール・商品を見る</a>
+          <a href="/blog/" class="border border-[#4A5E8C] hover:border-white text-white font-bold text-[15px] px-7 py-3.5 rounded-full text-center transition-colors">ブログを読む</a>
         </div>
         <!-- 信頼チップ -->
         <div class="flex flex-wrap gap-2 pt-5 mt-auto border-t border-[#2A4374]">
@@ -88,8 +76,8 @@ const productHighlights = [
         </div>
       </div>
 
-      <!-- 右：案内係パネル（lg以上で表示） -->
-      <div class="hidden lg:flex bg-white rounded-3xl px-9 py-10 relative overflow-hidden flex-col items-center justify-center gap-5">
+      <!-- 右：案内係パネル（lg以上）— ふわっと登場 -->
+      <div class="hidden lg:flex bg-white rounded-3xl px-9 py-10 relative overflow-hidden flex-col items-center justify-center gap-5 reveal">
         <!-- 装飾円 -->
         <div class="absolute -top-[70px] -right-[70px] w-[200px] h-[200px] bg-[#EFF2F7] rounded-full"></div>
         <div class="absolute -bottom-[50px] -left-[50px] w-[150px] h-[150px] bg-[#FDEBC8] rounded-full"></div>
@@ -106,7 +94,7 @@ const productHighlights = [
                 alt="黒猫のウタ"
                 width="128"
                 height="128"
-                class="w-full h-full object-contain"
+                class="w-full h-full object-contain mascot-idle"
                 loading="eager"
               />
             </div>
@@ -120,8 +108,9 @@ const productHighlights = [
                 alt="三毛猫のナツ"
                 width="128"
                 height="128"
-                class="w-full h-full object-contain"
+                class="w-full h-full object-contain mascot-idle"
                 loading="eager"
+                style="animation-delay: 0.9s;"
               />
             </div>
             <div class="text-[13px] font-bold text-[#0F2557]">三毛猫の<span class="text-[15px]">ナツ</span></div>
@@ -135,10 +124,10 @@ const productHighlights = [
 
   <!-- ラインナップ帯 -->
   <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-10 sm:pb-12">
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 reveal-stagger">
 
       <!-- 第1弾・発売中 -->
-      <a href="/products/koji-daicho/" class="group bg-white border border-[#D8DEE8] hover:border-[#0F2557] rounded-2xl p-5 sm:p-6 flex flex-col gap-2 transition-colors no-underline text-inherit">
+      <a href="/products/koji-daicho/" class="reveal group bg-white border border-[#D8DEE8] hover:border-[#0F2557] rounded-2xl p-5 sm:p-6 flex flex-col gap-2 no-underline text-inherit" style="transition:border-color 0.2s ease,transform 0.2s ease,box-shadow 0.2s ease;">
         <div>
           <span class="bg-[#F59E0B] text-white text-[11px] font-bold px-3 py-0.5 rounded-full">第1弾・発売中</span>
         </div>
@@ -150,7 +139,7 @@ const productHighlights = [
       </a>
 
       <!-- 第2弾・準備中 -->
-      <a href="/products/" class="group bg-white border border-dashed border-[#B9C4D6] hover:border-[#0F2557] rounded-2xl p-5 sm:p-6 flex flex-col gap-2 transition-colors no-underline text-inherit">
+      <a href="/products/" class="reveal group bg-white border border-dashed border-[#B9C4D6] hover:border-[#0F2557] rounded-2xl p-5 sm:p-6 flex flex-col gap-2 no-underline text-inherit" style="transition:border-color 0.2s ease,transform 0.2s ease,box-shadow 0.2s ease;">
         <div>
           <span class="border border-[#5A6B85] text-[#5A6B85] text-[11px] font-bold px-3 py-0.5 rounded-full">第2弾・準備中</span>
         </div>
@@ -159,7 +148,7 @@ const productHighlights = [
       </a>
 
       <!-- 第3弾・構想中 -->
-      <a href="/contact/" class="group bg-white border border-dashed border-[#B9C4D6] hover:border-[#0F2557] rounded-2xl p-5 sm:p-6 flex flex-col gap-2 transition-colors no-underline text-inherit">
+      <a href="/contact/" class="reveal group bg-white border border-dashed border-[#B9C4D6] hover:border-[#0F2557] rounded-2xl p-5 sm:p-6 flex flex-col gap-2 no-underline text-inherit" style="transition:border-color 0.2s ease,transform 0.2s ease,box-shadow 0.2s ease;">
         <div>
           <span class="border border-[#5A6B85] text-[#5A6B85] text-[11px] font-bold px-3 py-0.5 rounded-full">第3弾・構想中</span>
         </div>
@@ -200,14 +189,14 @@ const productHighlights = [
 
 <!-- ===== 3. こんな方のためのサイト ===== -->
 <section id="about" class="bg-[#EFF2F7]">
-  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9 reveal">
-    <div class="flex items-center gap-4">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
+    <div class="flex items-center gap-4 reveal">
       <div class="w-11 h-11 bg-[#0F2557] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">02</div>
       <h2 class="text-2xl sm:text-[28px] font-black text-[#0F2557]">こんな方のためのサイトです</h2>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 reveal-stagger">
       {targetTypes.map(t => (
-        <div class="bg-white rounded-2xl p-7 flex flex-col gap-3">
+        <div class="reveal bg-white rounded-2xl p-7 flex flex-col gap-3">
           <span class="self-start bg-[#EFF2F7] text-[#0F2557] text-[11.5px] font-bold px-3.5 py-1 rounded-full">{t.tag}</span>
           <div class="text-[17px] font-black text-[#0F2557]">{t.title}</div>
           <div class="text-[13.5px] leading-[1.9] text-[#44536E]">{t.desc}</div>
@@ -220,14 +209,14 @@ const productHighlights = [
 
 <!-- ===== 4. できること（3本柱） ===== -->
 <section class="bg-white">
-  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9 reveal">
-    <div class="flex items-center gap-4">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
+    <div class="flex items-center gap-4 reveal">
       <div class="w-11 h-11 bg-[#0F2557] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">03</div>
       <h2 class="text-2xl sm:text-[28px] font-black text-[#0F2557]">建設業ツール工房でできること</h2>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 reveal-stagger">
       {pillars.map(p => (
-        <div class="border border-[#D8DEE8] rounded-2xl p-8 flex flex-col gap-3">
+        <div class="reveal border border-[#D8DEE8] rounded-2xl p-8 flex flex-col gap-3" style="transition:box-shadow 0.2s ease,transform 0.2s ease;">
           <div class="w-9 h-9 bg-[#F59E0B] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">{p.num}</div>
           <div class="text-[18px] font-black text-[#0F2557]">{p.title}</div>
           <div class="text-[13.5px] leading-[1.9] text-[#5A6B85]">{p.desc}</div>
@@ -240,13 +229,13 @@ const productHighlights = [
 
 <!-- ===== 5. 注目の商品 ===== -->
 <section id="products" class="bg-[#EFF2F7]">
-  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9 reveal">
-    <div class="flex items-center gap-4">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
+    <div class="flex items-center gap-4 reveal">
       <div class="w-11 h-11 bg-[#0F2557] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">04</div>
       <h2 class="text-2xl sm:text-[28px] font-black text-[#0F2557]">注目の商品</h2>
     </div>
 
-    <div class="bg-white rounded-3xl p-8 sm:p-12 relative">
+    <div class="bg-white rounded-3xl p-8 sm:p-12 relative reveal">
       <!-- バッジ -->
       <div class="sm:absolute sm:top-9 sm:right-11 inline-block sm:hidden bg-[#F59E0B] text-white text-[13px] font-black px-5 py-2 rounded-full mb-6">第1弾・発売中</div>
       <div class="hidden sm:block absolute top-9 right-11 bg-[#F59E0B] text-white text-[13px] font-black px-5 py-2 rounded-full rotate-[4deg]">第1弾・発売中</div>
@@ -266,7 +255,7 @@ const productHighlights = [
             ))}
           </ul>
           <div class="flex items-center gap-4 mt-1.5">
-            <a href={PRODUCT.slug} class="bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold text-[15px] px-8 py-3.5 rounded-full transition-colors">商品ページを見る</a>
+            <a href={PRODUCT.slug} class="bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold text-[15px] px-8 py-3.5 rounded-full" style="transition:background-color 0.2s ease,transform 0.15s ease;" onmousedown="this.style.transform='scale(0.98)'" onmouseup="this.style.transform=''">商品ページを見る</a>
             <div class="text-[12.5px] text-[#5A6B85]">追加費用・更新料はありません</div>
           </div>
         </div>
@@ -276,22 +265,17 @@ const productHighlights = [
           <div class="font-mono text-[11px] tracking-widest text-[#8FA1C4]">SPEC — 仕様</div>
           <div class="border border-[#D8DEE8] rounded-2xl overflow-hidden">
             <div class="grid grid-cols-[100px_1fr] sm:grid-cols-[120px_1fr] text-[13px]">
-              <!-- 価格 -->
               <div class="px-4 sm:px-5 py-3 bg-[#EFF2F7] font-bold text-[#0F2557] border-b border-[#E3E8F0]">価格</div>
               <div class="px-4 sm:px-5 py-3 border-b border-[#E9EDF3] flex items-baseline gap-2">
                 <span class="text-[20px] font-black text-[#0F2557]">¥{PRODUCT.price.toLocaleString()}</span>
                 <span class="text-xs text-[#5A6B85]">税込</span>
               </div>
-              <!-- 販売形態 -->
               <div class="px-4 sm:px-5 py-3 bg-[#EFF2F7] font-bold text-[#0F2557] border-b border-[#E3E8F0]">販売形態</div>
               <div class="px-4 sm:px-5 py-3 border-b border-[#E9EDF3] text-[#44536E]">買い切り（月額・更新料なし）</div>
-              <!-- 形式 -->
               <div class="px-4 sm:px-5 py-3 bg-[#EFF2F7] font-bold text-[#0F2557] border-b border-[#E3E8F0]">形式</div>
               <div class="px-4 sm:px-5 py-3 border-b border-[#E9EDF3] text-[#44536E]">Excel（.xlsx）／マクロ不使用</div>
-              <!-- 用途 -->
               <div class="px-4 sm:px-5 py-3 bg-[#EFF2F7] font-bold text-[#0F2557] border-b border-[#E3E8F0]">用途</div>
               <div class="px-4 sm:px-5 py-3 border-b border-[#E9EDF3] text-[#44536E]">工事ごとの収支管理・確定申告の準備</div>
-              <!-- サポート -->
               <div class="px-4 sm:px-5 py-3 bg-[#EFF2F7] font-bold text-[#0F2557]">サポート</div>
               <div class="px-4 sm:px-5 py-3 text-[#44536E]">お問い合わせフォームにて対応</div>
             </div>
@@ -305,12 +289,12 @@ const productHighlights = [
 
 <!-- ===== 6. 今後のラインナップ ===== -->
 <section id="roadmap" class="bg-white">
-  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9 reveal">
-    <div class="flex items-center gap-4">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
+    <div class="flex items-center gap-4 reveal">
       <div class="w-11 h-11 bg-[#0F2557] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">05</div>
       <h2 class="text-2xl sm:text-[28px] font-black text-[#0F2557]">今後のラインナップ</h2>
     </div>
-    <div class="border border-dashed border-[#B9C4D6] rounded-3xl p-8 sm:p-10 sm:px-12 flex flex-col sm:flex-row items-start sm:items-center gap-8 sm:gap-11">
+    <div class="border border-dashed border-[#B9C4D6] rounded-3xl p-8 sm:p-10 sm:px-12 flex flex-col sm:flex-row items-start sm:items-center gap-8 sm:gap-11 reveal">
       <div class="flex-1 flex flex-col gap-3">
         <div class="flex flex-wrap gap-2 items-center">
           <span class="border border-[#5A6B85] text-[#5A6B85] text-xs font-bold px-3.5 py-0.5 rounded-full">準備中</span>
@@ -329,19 +313,22 @@ const productHighlights = [
 
 <!-- ===== 7. 最新の記事 ===== -->
 <section id="blog" class="bg-[#EFF2F7]">
-  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9 reveal">
-    <div class="flex items-center gap-4">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
+    <div class="flex items-center gap-4 reveal">
       <div class="w-11 h-11 bg-[#0F2557] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">06</div>
       <h2 class="text-2xl sm:text-[28px] font-black text-[#0F2557]">最新の記事</h2>
       <a href="/blog/" class="ml-auto text-sm font-bold text-[#0F2557] hover:underline transition-colors whitespace-nowrap hidden sm:block">記事一覧を見る →</a>
     </div>
 
     {posts.length > 0 && (
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 reveal-stagger">
         {posts.map(post => (
           <a
             href={`/blog/${post.slug}/`}
-            class="group bg-white rounded-2xl p-6 sm:p-7 flex flex-col gap-3 hover:outline hover:outline-1 hover:outline-[#0F2557] transition-all no-underline text-inherit"
+            class="reveal group bg-white rounded-2xl p-6 sm:p-7 flex flex-col gap-3 no-underline text-inherit"
+            style="transition:box-shadow 0.2s ease,transform 0.2s ease,outline-color 0.2s ease;"
+            onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 4px 16px rgba(11,28,66,0.10)'"
+            onmouseout="this.style.transform='';this.style.boxShadow=''"
           >
             <div class="flex gap-2.5 items-center text-xs text-[#5A6B85]">
               {post.data.category && (
@@ -364,7 +351,7 @@ const productHighlights = [
     </div>
 
     <!-- お客様の声（準備中） -->
-    <div class="border border-dashed border-[#B9C4D6] rounded-2xl p-5 sm:p-6 flex items-start sm:items-center gap-4 bg-white">
+    <div class="border border-dashed border-[#B9C4D6] rounded-2xl p-5 sm:p-6 flex items-start sm:items-center gap-4 bg-white reveal">
       <span class="border border-[#5A6B85] text-[#5A6B85] text-xs font-bold px-3.5 py-0.5 rounded-full flex-shrink-0">準備中</span>
       <div class="text-[13.5px] leading-[1.8] text-[#5A6B85]">
         <strong class="text-[#0F2557]">お客様の声</strong> — ご利用いただいた方の感想を、許可をいただいたうえでこの場所に掲載していく予定です。

@@ -14,11 +14,19 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-block bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold py-3 px-8 rounded-full transition-colors duration-200;
+    @apply inline-block bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold py-3 px-8 rounded-full;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+  }
+  .btn-primary:active {
+    transform: scale(0.98);
   }
 
   .btn-outline {
-    @apply inline-block border-2 border-[#0F2557] hover:bg-[#0F2557] text-[#0F2557] hover:text-white font-bold py-3 px-8 rounded-full transition-colors duration-200;
+    @apply inline-block border-2 border-[#0F2557] hover:bg-[#0F2557] text-[#0F2557] hover:text-white font-bold py-3 px-8 rounded-full;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  }
+  .btn-outline:active {
+    transform: scale(0.98);
   }
 
   .section-title {
@@ -30,10 +38,72 @@
   }
 
   .card {
-    @apply bg-white rounded-2xl border border-[#D8DEE8] hover:shadow-md transition-shadow duration-200;
+    @apply bg-white rounded-2xl border border-[#D8DEE8];
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .card:hover {
+    @apply shadow-md;
+    transform: translateY(-3px);
   }
 
   .container-base {
     @apply max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* ================================================================
+   MOTION — スクロールリビール・マスコット・ヘッダー
+   prefers-reduced-motion 非対応環境ではすべて即表示。
+   JS 無効時（html.no-js or html:not(.js)）も即表示。
+================================================================ */
+
+/* --- Scroll Reveal 基本 --- */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .reveal:not(.is-visible) {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  html.js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  /* スタガー: .reveal-stagger の直下の .reveal に遅延 */
+  html.js .reveal-stagger > .reveal:nth-child(1) { transition-delay: 0ms; }
+  html.js .reveal-stagger > .reveal:nth-child(2) { transition-delay: 70ms; }
+  html.js .reveal-stagger > .reveal:nth-child(3) { transition-delay: 140ms; }
+  html.js .reveal-stagger > .reveal:nth-child(4) { transition-delay: 210ms; }
+
+  /* モバイル: 移動距離とスタガーを控えめに */
+  @media (max-width: 639px) {
+    html.js .reveal:not(.is-visible) {
+      transform: translateY(12px);
+    }
+    html.js .reveal-stagger > .reveal:nth-child(2) { transition-delay: 40ms; }
+    html.js .reveal-stagger > .reveal:nth-child(3) { transition-delay: 80ms; }
+    html.js .reveal-stagger > .reveal:nth-child(4) { transition-delay: 120ms; }
+  }
+}
+
+/* --- マスコット アイドルフロート --- */
+@media (prefers-reduced-motion: no-preference) {
+  .mascot-idle {
+    animation: mascot-float 3.5s 0.6s ease-in-out infinite both;
+  }
+  @keyframes mascot-float {
+    0%,  100% { transform: translateY(0); }
+    50%        { transform: translateY(-4px); }
+  }
+}
+
+/* --- ヘッダー スクロール時に影 --- */
+#site-header {
+  transition: box-shadow 0.25s ease;
+}
+@media (prefers-reduced-motion: no-preference) {
+  #site-header.is-scrolled {
+    box-shadow: 0 2px 12px rgba(11, 28, 66, 0.08);
   }
 }
