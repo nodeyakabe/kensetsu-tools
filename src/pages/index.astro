@@ -3,11 +3,20 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import BlogCard from '@/components/BlogCard.astro';
 import ComingSoonCard from '@/components/ComingSoonCard.astro';
 import { comingSoonItems } from '@/data/coming-soon';
+import { PRODUCT } from '@/data/product';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
   .slice(0, 3);
+
+const painItems = [
+  '確定申告や帳簿づけが、毎年憂うつ',
+  '名簿や台帳などの書類づくりに時間を取られる',
+  '専用ソフトは高いし、操作も難しそう',
+  '毎月のサブスク負担は、これ以上増やしたくない',
+  'ITは苦手。できればExcelや今の道具のまま済ませたい',
+];
 
 const features = [
   {
@@ -25,6 +34,13 @@ const features = [
     title: '業界情報・ノウハウ',
     desc: '建設業の法改正・助成金・実務ノウハウをわかりやすく解説。一人親方・新規開業者に特に役立つ情報を発信。',
   },
+];
+
+const productHighlights = [
+  'Excelだけで動く。特別なソフト不要。',
+  '工事ごとの収支を自動集計。',
+  '確定申告に使える収支サマリーを出力。',
+  '一人親方・小規模事業者向けのシンプル設計。',
 ];
 ---
 
@@ -106,13 +122,7 @@ const features = [
     <div class="container-base max-w-2xl mx-auto">
       <h2 class="section-title mb-12">こんな「めんどくさい」、ありませんか？</h2>
       <ul class="space-y-5 mb-10">
-        {[
-          '確定申告や帳簿づけが、毎年憂うつ',
-          '名簿や台帳などの書類づくりに時間を取られる',
-          '専用ソフトは高いし、操作も難しそう',
-          '毎月のサブスク負担は、これ以上増やしたくない',
-          'ITは苦手。できればExcelや今の道具のまま済ませたい',
-        ].map(item => (
+        {painItems.map(item => (
           <li class="flex items-center gap-4 text-lg text-slate-700">
             <span class="text-red-400 font-black text-xl flex-shrink-0" aria-hidden="true">!</span>
             <span>{item}</span>
@@ -179,16 +189,11 @@ const features = [
           <span class="inline-block bg-accent-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">発売中</span>
           <span class="text-slate-400 text-xs font-medium">第1弾</span>
         </div>
-        <h3 class="text-2xl font-bold text-primary-900 mb-2">シンプル工事台帳 ライト版</h3>
-        <p class="text-accent-500 font-semibold mb-1">¥5,980</p>
+        <h3 class="text-2xl font-bold text-primary-900 mb-2">{PRODUCT.name}</h3>
+        <p class="text-accent-500 font-semibold mb-1">¥{PRODUCT.price.toLocaleString()}</p>
         <p class="text-slate-500 text-sm mb-6">税込・買い切り</p>
         <ul class="space-y-3 mb-8">
-          {[
-            'Excelだけで動く。特別なソフト不要。',
-            '工事ごとの収支を自動集計。',
-            '確定申告に使える収支サマリーを出力。',
-            '一人親方・小規模事業者向けのシンプル設計。',
-          ].map(item => (
+          {productHighlights.map(item => (
             <li class="flex items-start gap-3">
               <span class="text-accent-500 font-bold mt-0.5 flex-shrink-0">✓</span>
               <span class="text-slate-700">{item}</span>
@@ -196,7 +201,7 @@ const features = [
           ))}
         </ul>
         <div class="text-right">
-          <a href="/products/koji-daicho/" class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 px-6 rounded-lg transition-colors text-sm">
+          <a href={PRODUCT.slug} class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 px-6 rounded-lg transition-colors text-sm">
             商品の詳細・購入はこちら →
           </a>
         </div>
