@@ -45,77 +45,87 @@ const productHighlights = [
 <section class="bg-[#EFF2F7]">
   <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-0">
 
-    <!-- 全幅ネイビーカード — タイトルを主役に -->
-    <div class="bg-[#0F2557] rounded-3xl px-8 py-12 sm:px-12 sm:py-14" style="box-shadow: var(--shadow-lg);">
-      <div class="flex flex-col lg:flex-row lg:items-end gap-8 lg:gap-14">
+    <!-- 全幅ネイビーカード — 案C: eyebrow→h1→サブ→区切り→下部バンド(CTA左・マスコット右)→チップ -->
+    <div class="bg-[#0F2557] rounded-3xl px-8 py-12 sm:px-12 sm:py-14 flex flex-col gap-6" style="box-shadow: var(--shadow-lg);">
 
-        <!-- テキストブロック（主役） -->
-        <div class="flex-1 flex flex-col gap-6">
-          <div class="flex items-center gap-2.5">
-            <span class="w-2 h-2 bg-[#F59E0B] rounded-full flex-shrink-0"></span>
-            <span class="text-[12.5px] font-bold tracking-widest text-[#F59E0B]">一人親方・小規模建設業のための業務ツール</span>
-          </div>
-          <h1 class="text-4xl sm:text-5xl font-black leading-[1.35] text-white tracking-wide">
-            建設業の現場を、<br class="hidden sm:block">もっとシンプルに。
-          </h1>
-          <p class="text-[15px] leading-[2] text-[#C7D2E5] max-w-[560px]">
-            買い切り（月額なし）の業務ツールと実務情報。むずかしい操作はありません。ITが苦手な方でも、今日から使えます。
-          </p>
-          <div class="flex flex-col sm:flex-row gap-3">
-            <a href="/products/" class="bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold text-[15px] px-7 py-3.5 rounded-full text-center btn-press">ツール・商品を見る</a>
-            <a href="/blog/" class="border border-[#4A5E8C] hover:border-white text-white font-bold text-[15px] px-7 py-3.5 rounded-full text-center transition-colors">ブログを読む</a>
-          </div>
-          <!-- 信頼チップ -->
-          <div class="flex flex-wrap gap-2 pt-5 mt-auto border-t border-[#2A4374]">
-            {[
-              '買い切り・月額なし',
-              'マクロなしのExcel',
-              '確定申告に対応',
-            ].map(chip => (
-              <div class="bg-[#1B3463] rounded-full px-4 py-1.5 text-[12.5px] font-bold text-[#C7D2E5] flex items-center gap-1.5">
-                <span class="text-[#F59E0B]">✓</span>{chip}
-              </div>
-            ))}
-          </div>
+      <!-- eyebrow -->
+      <div class="flex items-center gap-2.5">
+        <span class="w-2 h-2 bg-[#F59E0B] rounded-full flex-shrink-0"></span>
+        <span class="text-[12.5px] font-bold tracking-widest text-[#F59E0B]">一人親方・小規模建設業のための業務ツール</span>
+      </div>
+
+      <!-- h1 全幅 -->
+      <h1 class="text-4xl sm:text-5xl font-black leading-[1.35] text-white tracking-wide">
+        建設業の現場を、<br class="hidden sm:block">もっとシンプルに。
+      </h1>
+
+      <!-- サブコピー -->
+      <p class="text-[15px] leading-[2] text-[#C7D2E5] max-w-[560px]">
+        買い切り（月額なし）の業務ツールと実務情報。むずかしい操作はありません。ITが苦手な方でも、今日から使えます。
+      </p>
+
+      <!-- 区切り線 -->
+      <div class="border-t border-[#2A4374]"></div>
+
+      <!-- 下部バンド: CTA（左）+ マスコット（右） -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+
+        <!-- CTA -->
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="/products/" class="bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold text-[15px] px-7 py-3.5 rounded-full text-center btn-press">ツール・商品を見る</a>
+          <a href="/blog/" class="border border-[#4A5E8C] hover:border-white text-white font-bold text-[15px] px-7 py-3.5 rounded-full text-center transition-colors">ブログを読む</a>
         </div>
 
-        <!-- マスコット（小さな脇役、PCのみ） -->
-        <div class="hidden lg:flex flex-col items-center gap-3 flex-shrink-0">
-          <div class="flex gap-4 items-end">
-            <!-- ウタ -->
-            <div class="flex flex-col items-center gap-1.5">
-              <div class="w-[88px] h-[88px] bg-[#1B3463] rounded-full overflow-hidden flex items-center justify-center">
-                <img
-                  src="/images/characters/uta_tati.png"
-                  alt="黒猫のウタ"
-                  width="88"
-                  height="88"
-                  class="w-full h-full object-contain mascot-idle"
-                  loading="eager"
-                />
-              </div>
-              <span class="text-[11px] font-bold text-[#8FA1C4]">ウタ</span>
+        <!-- マスコット（小・横一列・全デバイス） -->
+        <div class="flex items-center gap-3.5">
+          <!-- ウタ -->
+          <div class="flex flex-col items-center gap-1">
+            <div class="w-[60px] h-[60px] bg-[#1B3463] rounded-full overflow-hidden flex items-center justify-center">
+              <img
+                src="/images/characters/uta_tati.png"
+                alt="黒猫のウタ"
+                width="60"
+                height="60"
+                class="w-full h-full object-contain mascot-idle"
+                loading="eager"
+              />
             </div>
-            <!-- ナツ -->
-            <div class="flex flex-col items-center gap-1.5">
-              <div class="w-[88px] h-[88px] bg-[#1B3463] rounded-full overflow-hidden flex items-center justify-center">
-                <img
-                  src="/images/characters/natu_tati.png"
-                  alt="三毛猫のナツ"
-                  width="88"
-                  height="88"
-                  class="w-full h-full object-contain mascot-idle"
-                  loading="eager"
-                  style="animation-delay: 0.9s;"
-                />
-              </div>
-              <span class="text-[11px] font-bold text-[#8FA1C4]">ナツ</span>
-            </div>
+            <span class="text-[10px] font-bold text-[#8FA1C4]">ウタ</span>
           </div>
-          <span class="text-[11px] text-[#5A6B85]">工房の案内係</span>
+          <!-- ナツ -->
+          <div class="flex flex-col items-center gap-1">
+            <div class="w-[60px] h-[60px] bg-[#1B3463] rounded-full overflow-hidden flex items-center justify-center">
+              <img
+                src="/images/characters/natu_tati.png"
+                alt="三毛猫のナツ"
+                width="60"
+                height="60"
+                class="w-full h-full object-contain mascot-idle"
+                loading="eager"
+                style="animation-delay: 0.9s;"
+              />
+            </div>
+            <span class="text-[10px] font-bold text-[#8FA1C4]">ナツ</span>
+          </div>
+          <!-- ラベル -->
+          <span class="text-[11px] leading-[1.7] text-[#5A6B85]">工房の<br>案内係</span>
         </div>
 
       </div>
+
+      <!-- 信頼チップ -->
+      <div class="flex flex-wrap gap-2 pt-1 border-t border-[#2A4374]">
+        {[
+          '買い切り・月額なし',
+          'マクロなしのExcel',
+          '確定申告に対応',
+        ].map(chip => (
+          <div class="bg-[#1B3463] rounded-full px-4 py-1.5 text-[12.5px] font-bold text-[#C7D2E5] flex items-center gap-1.5">
+            <span class="text-[#F59E0B]">✓</span>{chip}
+          </div>
+        ))}
+      </div>
+
     </div>
   </div>
 
