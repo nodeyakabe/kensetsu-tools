@@ -101,7 +101,54 @@ const features = [
     <div class="h-12 bg-white" style="clip-path: ellipse(110% 100% at 50% 100%)"></div>
   </section>
 
-  <!-- できること（3本柱）- ヒーロー直下 -->
+  <!-- 悩みセクション -->
+  <section class="py-20 bg-white">
+    <div class="container-base max-w-2xl mx-auto">
+      <h2 class="section-title mb-12">こんな「めんどくさい」、ありませんか？</h2>
+      <ul class="space-y-5 mb-10">
+        {[
+          '確定申告や帳簿づけが、毎年憂うつ',
+          '名簿や台帳などの書類づくりに時間を取られる',
+          '専用ソフトは高いし、操作も難しそう',
+          '毎月のサブスク負担は、これ以上増やしたくない',
+          'ITは苦手。できればExcelや今の道具のまま済ませたい',
+        ].map(item => (
+          <li class="flex items-center gap-4 text-lg text-slate-700">
+            <span class="text-red-400 font-black text-xl flex-shrink-0" aria-hidden="true">!</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="text-slate-600 text-center leading-relaxed mb-6">
+        建設業ツール工房は、そんな「めんどくさい」を、<br class="hidden sm:inline">
+        シンプルで買い切りのツールでひとつずつ減らします。
+      </p>
+      <p class="text-center">
+        <a href="/products/" class="text-primary-600 hover:text-primary-800 font-semibold transition-colors">
+          ツール・商品を見る →
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- こんな方のためのサイトです -->
+  <section class="bg-primary-50 py-16">
+    <div class="container-base">
+      <div class="text-center mb-10">
+        <h2 class="section-title">こんな方のためのサイトです</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+        {['一人親方・個人事業主', '建設業の中小企業', '建設業への新規参入者'].map(item => (
+          <div class="flex items-center gap-3 bg-white rounded-xl px-6 py-4 shadow-sm border border-primary-100">
+            <span class="text-accent-500 text-xl font-bold">✓</span>
+            <span class="font-medium text-slate-800">{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- できること（3本柱） -->
   <section class="py-16 bg-white">
     <div class="container-base">
       <div class="text-center mb-12">
@@ -157,65 +204,23 @@ const features = [
     </div>
   </section>
 
-  <!-- 悩みセクション -->
-  <section class="py-20 bg-white">
-    <div class="container-base max-w-2xl mx-auto">
-      <h2 class="section-title mb-12">こんな悩みありませんか？</h2>
-      <ul class="space-y-5 mb-10">
-        {[
-          '工事ごとの利益が見えない',
-          '確定申告の準備が毎年地獄',
-          'Excelファイルがバラバラに散らばる',
-          'サブスクの月額負担がしんどい',
-        ].map(item => (
-          <li class="flex items-center gap-4 text-lg text-slate-700">
-            <span class="text-red-400 font-black text-xl flex-shrink-0" aria-hidden="true">!</span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-      <p class="text-slate-500 text-sm text-center">
-        そんな悩みを解決するツールがあります。<br>
-        <a href="/products/koji-daicho/" class="text-primary-600 hover:text-primary-800 font-semibold transition-colors">
-          「シンプル工事台帳」の詳細を見る →
-        </a>
-      </p>
-    </div>
-  </section>
-
   <!-- 今後のラインナップ（準備中） -->
-  <section class="py-16 bg-slate-50">
+  <section class="py-16 bg-white">
     <div class="container-base">
       <div class="text-center mb-10">
         <h2 class="section-title">今後のラインナップ</h2>
         <p class="section-subtitle">順次提供予定です（提供時期は未定）</p>
       </div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+      <div class="max-w-xl mx-auto">
         {comingSoonItems.map(card => (
           <ComingSoonCard title={card.title} desc={card.desc} />
         ))}
       </div>
-      <div class="text-center mt-10">
+      <p class="text-slate-500 text-sm text-center mt-6">今後も、小規模事業者向けのシンプルなツールを順次追加予定です。</p>
+      <div class="text-center mt-6">
         <a href="/products/" class="text-primary-600 hover:text-primary-800 font-semibold transition-colors text-sm">
           すべてのツールを見る →
         </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- こんな方のためのサイトです -->
-  <section class="bg-primary-50 py-16">
-    <div class="container-base">
-      <div class="text-center mb-10">
-        <h2 class="section-title">こんな方のためのサイトです</h2>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
-        {['一人親方・個人事業主', '建設業の中小企業', '建設業への新規参入者'].map(item => (
-          <div class="flex items-center gap-3 bg-white rounded-xl px-6 py-4 shadow-sm border border-primary-100">
-            <span class="text-accent-500 text-xl font-bold">✓</span>
-            <span class="font-medium text-slate-800">{item}</span>
-          </div>
-        ))}
       </div>
     </div>
   </section>
