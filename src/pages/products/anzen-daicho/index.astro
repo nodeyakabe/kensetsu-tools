@@ -1,0 +1,654 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CharaDialogue from '@/components/CharaDialogue.astro';
+import { PRODUCT as KOJI_PRODUCT } from '@/data/product';
+
+const siteUrl = (import.meta.env.SITE ?? 'https://kensetsu-tools.com').replace(/\/$/, '');
+const priceValidUntil = `${new Date().getFullYear() + 1}-12-31`;
+
+const PRODUCT = {
+  name: 'シンプル安全台帳',
+  price: 9800,
+  priceSet: 13800,
+  currency: 'JPY',
+};
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": PRODUCT.name,
+  "description": "作業員・資格・車両の期限を自動管理。作業員名簿など安全書類もPDF出力。完全オフライン・買い切り・月額なし。",
+  "brand": { "@type": "Brand", "name": "建設業ツール工房" },
+  "url": `${siteUrl}/products/anzen-daicho/`,
+  "image": `${siteUrl}/og/anzen-daicho.png`,
+  "offers": {
+    "@type": "Offer",
+    "price": String(PRODUCT.price),
+    "priceCurrency": PRODUCT.currency,
+    "availability": "https://schema.org/InStock",
+    "url": `${siteUrl}/products/anzen-daicho/`,
+    "priceValidUntil": priceValidUntil,
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム",        "item": `${siteUrl}/` },
+    { "@type": "ListItem", "position": 2, "name": "ツール・商品",  "item": `${siteUrl}/products/` },
+    { "@type": "ListItem", "position": 3, "name": PRODUCT.name,    "item": `${siteUrl}/products/anzen-daicho/` },
+  ],
+};
+
+const features = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>`,
+    title: '期限管理ダッシュボード',
+    desc: '起動直後に「誰の何がいつ切れる」が一画面で分かる。赤・橙・黄で色分け表示。',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    title: '作業員・資格管理',
+    desc: '作業員を登録し、資格の有効期限もセットで管理。健康診断の期限も自動アラート。',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`,
+    title: '車両管理',
+    desc: '車検・自賠責・任意保険の期限を登録。期限切れ直前に自動で警告表示。',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+    title: '現場管理',
+    desc: '現場ごとに入場作業員・持込車両を選択。チームの状況をひとまとめに。',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
+    title: '作業員名簿 PDF出力',
+    desc: '全建統一様式準拠の作業員名簿をワンクリックでPDF生成。期限切れ者は赤くハイライト。',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="12" y1="17" x2="8" y2="17"/></svg>`,
+    title: '工事用車両届 PDF出力',
+    desc: '現場に持ち込む車両の届出書をPDF生成。車検・保険切れ車両は赤く警告表示。',
+  },
+];
+
+const comparisonRows = [
+  { label: '価格',             vals: ['無料（手間は自分持ち）', '月額3,000円〜', '月額数千円〜（元請負担あり）', `¥${PRODUCT.price.toLocaleString()}（買い切り）`] },
+  { label: 'ネット接続',       vals: ['不要', '必要', '必要（グリーンサイト登録）', '完全不要'] },
+  { label: '個人情報の扱い',   vals: ['自己管理', 'クラウド保存', 'クラウド保存', 'PC内のみ（外部送信なし）'] },
+  { label: '期限自動アラート', vals: ['× 自分で管理', '○', '○', '◎ 起動直後に一覧表示'] },
+  { label: 'PDF帳票出力',     vals: ['× テンプレなし', '○', '○（元請指定様式）', '○（作業員名簿・車両届）'] },
+  { label: 'サポート',         vals: ['なし', 'あり', 'あり', '60日メールサポート'] },
+];
+---
+
+<BaseLayout
+  title="シンプル安全台帳｜資格・車検期限管理と作業員名簿PDF出力｜買い切り¥9,800"
+  description="作業員の資格・健康診断、車両の車検・保険を期限管理。作業員名簿・工事用車両届をPDFで一発出力。完全オフライン・データはPC内のみ・月額なし・買い切り¥9,800。建設業の小規模下請向け。"
+  ogImage="/og/anzen-daicho.png"
+  ogType="product"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <!-- パンくず -->
+  <div class="w-full px-4 sm:px-6 lg:px-10 py-3 border-b border-slate-100">
+    <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
+      <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <a href="/products/" class="hover:text-primary-600 transition-colors">ツール・商品</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-700">シンプル安全台帳</span>
+    </nav>
+  </div>
+
+  <!-- S1：ヒーロー -->
+  <section class="bg-slate-50 py-12 md:py-16">
+    <div class="container-base text-center max-w-3xl mx-auto">
+      <p class="text-sm text-primary-600 font-bold uppercase tracking-wider mb-3">新発売</p>
+      <h1 class="text-4xl md:text-5xl font-bold text-primary-900 mb-4">
+        シンプル安全台帳
+      </h1>
+      <p class="text-sm text-slate-500 mb-2">非グリーンサイトの小規模下請（数人規模）向け</p>
+      <p class="text-xl md:text-2xl text-slate-600 mb-4 leading-relaxed">
+        資格・車検の期限切れを見逃さない。<br>
+        安全書類をその場でPDF出力できる。
+      </p>
+      <p class="text-3xl font-semibold text-accent-500 mb-6">¥{PRODUCT.price.toLocaleString()}</p>
+      <button
+        id="buy-btn-hero"
+        type="button"
+        class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-md"
+      >
+        今すぐ購入する →
+      </button>
+      <!-- 信頼チップ -->
+      <div class="flex flex-wrap justify-center gap-2 mt-5">
+        {['買い切り・月額なし', '完全オフライン', 'ダブルクリックで起動', '個人情報クラウド不送信', '60日メールサポート'].map(chip => (
+          <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium bg-primary-50 text-primary-800 border border-primary-200">
+            <span aria-hidden="true">✓</span>
+            {chip}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S2：悩み -->
+  <section class="py-16 bg-white">
+    <div class="container-base max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">こんな悩みありませんか？</h2>
+      <ul class="space-y-4">
+        {[
+          '資格・車検の期限をExcelで管理していて、気づいたら切れていた',
+          '作業員名簿を書くたびに、手書きやコピペで1時間かかる',
+          'グリーンサイトは元請に言われないと使わない。月額を払うのが惜しい',
+          '現場の朝、急に安全書類を求められてあわてる',
+          'クラウドに作業員の個人情報を上げるのが不安',
+        ].map(item => (
+          <li class="flex items-start gap-4 text-lg text-slate-700">
+            <span class="text-red-400 font-black text-xl flex-shrink-0 mt-0.5" aria-hidden="true">!</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- S3：こう変わる -->
+  <section class="py-16 bg-slate-50">
+    <div class="container-base">
+      <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">シンプル安全台帳なら、こう変わる</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        {[
+          {
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>`,
+            title: '一目で分かる',
+            desc: '起動すると「あと○日で期限切れ」が色分け一覧で即表示。見逃しがなくなります。',
+          },
+          {
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`,
+            title: '個人情報はPC内だけ',
+            desc: '完全オフライン動作。作業員の個人情報・免許証番号が外部に出ません。',
+          },
+          {
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`,
+            title: '書類作成が数秒に',
+            desc: '作業員を選ぶだけで作業員名簿がPDF化。現場でも印刷してすぐ提出。',
+          },
+        ].map(card => (
+          <div class="bg-white border border-slate-200 rounded-xl p-8 text-center">
+            <div class="text-accent-500 flex justify-center mb-4" set:html={card.icon} />
+            <h3 class="text-xl font-bold text-primary-900 mb-3">{card.title}</h3>
+            <p class="text-slate-600 leading-relaxed text-sm">{card.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S4：機能 -->
+  <section class="py-16 bg-white">
+    <div class="container-base max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">主な機能</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {features.map(f => (
+          <div class="flex items-start gap-3 bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+            <div class="text-accent-500 flex-shrink-0" set:html={f.icon} />
+            <div>
+              <h3 class="text-base font-bold text-primary-900 mb-1">{f.title}</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">{f.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S4c：他社比較 -->
+  <section class="py-16 bg-white">
+    <div class="container-base mx-auto">
+      <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">他のツールと比べてみると</h2>
+      <p class="text-slate-500 text-center mb-10 text-sm">用途が違うだけで、どれも正解です。本品が合うかどうか確認してください。</p>
+
+      <!-- モバイル比較カード -->
+      <div class="md:hidden space-y-2 mb-6">
+        {comparisonRows.map(row => (
+          <div class="rounded-xl border border-slate-200 overflow-hidden">
+            <div class="bg-slate-100 px-4 py-2.5 text-sm font-semibold text-slate-700">{row.label}</div>
+            <div class="p-4 space-y-3">
+              <div class="flex items-start gap-2 rounded-lg px-3 py-2.5" style="background:#FFF7ED; border-left: 3px solid #F59E0B;">
+                <span class="text-xs font-bold text-accent-600 flex-shrink-0 pt-0.5">本品</span>
+                <span class="text-sm font-semibold text-primary-900">{row.vals[3]}</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2 text-xs text-center text-slate-500">
+                <div>
+                  <p class="font-medium text-slate-400 mb-1 leading-tight">Excel手動</p>
+                  <p class="leading-tight">{row.vals[0]}</p>
+                </div>
+                <div>
+                  <p class="font-medium text-slate-400 mb-1 leading-tight">月額ソフト</p>
+                  <p class="leading-tight">{row.vals[1]}</p>
+                </div>
+                <div>
+                  <p class="font-medium text-slate-400 mb-1 leading-tight">グリーンサイト</p>
+                  <p class="leading-tight">{row.vals[2]}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- デスクトップ比較テーブル -->
+      <div class="hidden md:block overflow-x-auto -mx-4 px-4">
+        <table class="w-full text-sm border-collapse min-w-[900px]">
+          <thead>
+            <tr>
+              <th scope="col" class="text-left px-4 py-3 bg-slate-100 text-slate-600 font-medium rounded-tl-xl border-b border-slate-200 w-44">比較項目</th>
+              <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">Excel手動管理</th>
+              <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">月額安全書類ソフト<br class="hidden sm:inline"/><span class="text-xs font-normal">（みどりちゃん 等）</span></th>
+              <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">グリーンサイト<br class="hidden sm:inline"/><span class="text-xs font-normal">（クラウド）</span></th>
+              <th scope="col" class="px-4 py-3 font-bold text-center text-white rounded-tr-xl" style="background: #F59E0B; border: 2px solid #F59E0B;">本品</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparisonRows.map((row, i) => (
+              <tr class={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+                <td class="px-4 py-3 text-slate-500 font-medium border-b border-slate-100">{row.label}</td>
+                {row.vals.map((v, j) => (
+                  <td
+                    class={`px-4 py-3 text-center ${j === 3 ? 'text-primary-900 font-semibold' : 'text-slate-600 border-b border-slate-100'}`}
+                    style={j === 3 ? `background: #FFF7ED; border-left: 2px solid #F59E0B; border-right: 2px solid #F59E0B; border-bottom: ${i === comparisonRows.length - 1 ? '2px solid #F59E0B' : '1px solid #FED7AA'};` : ''}
+                  >
+                    {v}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-slate-400 text-center mt-4">※ 価格・機能は2026年時点の各社公開情報に基づく参考比較です。</p>
+    </div>
+  </section>
+
+  <!-- S4d：キャラクターコメント -->
+  <section class="pt-4 pb-16 bg-white">
+    <div class="container-base max-w-2xl mx-auto">
+      <CharaDialogue
+        chara="mikeru"
+        text="期限切れの資格者を現場に入れてしまったら、元請に怒られるだけじゃなくて、労基にも引っかかることがある。台帳で管理しておけば防げる話なんだけどな。"
+        direction="left"
+        expression="tati"
+      />
+      <CharaDialogue
+        chara="kuroe"
+        text="グリーンサイトは元請が使ってる現場だけ登録すればいい。毎月払い続けるのは、コスパが悪いのだ。自社の台帳は自社で持つのが一番シンプルなのだ。"
+        direction="right"
+        expression="tati"
+      />
+    </div>
+  </section>
+
+  <!-- S5：画面イメージ -->
+  <section class="py-16 bg-slate-50">
+    <div class="container-base max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">画面イメージ</h2>
+      <p class="text-slate-500 text-center mb-2">実際のアプリの画面です。</p>
+      <p class="text-sm text-slate-400 text-center mb-10">画像をクリックすると拡大できます</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+        <figure class="rounded-xl border-2 border-slate-300 bg-white overflow-hidden shadow-sm">
+          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
+               role="button" tabindex="0" aria-label="期限管理ダッシュボードを拡大">
+            <img src="/images/screens/anzen/screen_dashboard.png" alt="シンプル安全台帳 期限管理ダッシュボード"
+                 class="max-h-full max-w-full object-contain pointer-events-none" loading="lazy" />
+          </div>
+          <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
+            <p class="font-medium text-slate-800">期限管理ダッシュボード</p>
+            <p class="text-sm text-slate-500">起動直後に「やばい期限」が一目で分かる</p>
+          </figcaption>
+        </figure>
+
+        <figure class="rounded-xl border-2 border-slate-300 bg-white overflow-hidden shadow-sm">
+          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
+               role="button" tabindex="0" aria-label="作業員管理画面を拡大">
+            <img src="/images/screens/anzen/screen_worker.png" alt="シンプル安全台帳 作業員管理"
+                 class="max-h-full max-w-full object-contain pointer-events-none" loading="lazy" />
+          </div>
+          <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
+            <p class="font-medium text-slate-800">作業員管理</p>
+            <p class="text-sm text-slate-500">作業員と資格をまとめて管理</p>
+          </figcaption>
+        </figure>
+
+        <figure class="rounded-xl border-2 border-slate-300 bg-white overflow-hidden shadow-sm">
+          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
+               role="button" tabindex="0" aria-label="現場管理画面を拡大">
+            <img src="/images/screens/anzen/screen_site.png" alt="シンプル安全台帳 現場管理"
+                 class="max-h-full max-w-full object-contain pointer-events-none" loading="lazy" />
+          </div>
+          <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
+            <p class="font-medium text-slate-800">現場管理</p>
+            <p class="text-sm text-slate-500">現場ごとに作業員・車両を紐づけ</p>
+          </figcaption>
+        </figure>
+
+        <figure class="rounded-xl border-2 border-slate-300 bg-white overflow-hidden shadow-sm">
+          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
+               role="button" tabindex="0" aria-label="作業員名簿PDF出力を拡大">
+            <img src="/images/screens/anzen/screen_pdf.png" alt="シンプル安全台帳 作業員名簿PDF"
+                 class="max-h-full max-w-full object-contain pointer-events-none" loading="lazy" />
+          </div>
+          <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
+            <p class="font-medium text-slate-800">作業員名簿 PDF出力</p>
+            <p class="text-sm text-slate-500">登録データから即PDF生成・印刷できる</p>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- S7：価格 -->
+  <section class="py-16 bg-white">
+    <div class="container-base">
+      <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">価格</h2>
+
+      <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+
+        <!-- 単品カード -->
+        <div class="border-2 border-accent-400 rounded-2xl p-8 shadow-lg text-center">
+          <p class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1">シンプル安全台帳</p>
+          <p class="text-5xl font-bold text-accent-500 mb-1">¥{PRODUCT.price.toLocaleString()}</p>
+          <p class="text-sm text-slate-400 mb-6">税込・買い切り</p>
+          <hr class="border-slate-200 mb-6" />
+          <ul class="space-y-3 text-left mb-8">
+            {[
+              '永続ライセンス',
+              '同一事業者内の複数PCで利用可',
+              '60日間メールサポート',
+              '不具合の無償対応（60日以内）',
+              'ダブルクリックで起動（インストール不要）',
+              'ランタイム別途インストール不要',
+              'データはあなたのPCだけに保存',
+              '個人情報のクラウド送信なし',
+            ].map(item => (
+              <li class="flex items-center gap-3 text-slate-700 text-sm">
+                <span class="text-accent-500 font-bold flex-shrink-0">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <button
+            id="buy-btn"
+            type="button"
+            class="w-full bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 rounded-lg transition-colors text-sm"
+          >
+            購入する（¥{PRODUCT.price.toLocaleString()} 買い切り）
+          </button>
+        </div>
+
+        <!-- セットカード -->
+        <div class="border-2 border-primary-300 rounded-2xl p-8 text-center relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+            <span class="bg-primary-700 text-white text-xs font-bold px-4 py-1 rounded-full">おトクなセット</span>
+          </div>
+          <p class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1 mt-2">工事台帳 ＋ 安全台帳 セット</p>
+          <div class="mb-1">
+            <span class="text-3xl font-bold text-primary-900">¥{PRODUCT.priceSet.toLocaleString()}</span>
+          </div>
+          <p class="text-sm text-slate-400 mb-1">税込・買い切り</p>
+          <p class="text-xs text-accent-600 font-semibold mb-6">
+            通常 ¥{(PRODUCT.price + KOJI_PRODUCT.price).toLocaleString()} → ¥{(PRODUCT.price + KOJI_PRODUCT.price - PRODUCT.priceSet).toLocaleString()} お得
+          </p>
+          <hr class="border-slate-200 mb-6" />
+          <ul class="space-y-2 text-left mb-8 text-sm text-slate-600">
+            <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>シンプル工事台帳 ライト版（確定申告）</li>
+            <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>シンプル安全台帳（資格・書類管理）</li>
+            <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>両製品の永続ライセンス</li>
+            <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>60日間メールサポート</li>
+          </ul>
+          <button
+            id="buy-btn-set"
+            type="button"
+            class="w-full bg-primary-700 hover:bg-primary-800 text-white font-bold py-3 rounded-lg transition-colors text-sm"
+          >
+            セットで購入する（¥{PRODUCT.priceSet.toLocaleString()}）
+          </button>
+          <p class="text-xs text-slate-400 mt-3">工事台帳のみの購入は<a href="/products/koji-daicho/" class="underline hover:text-slate-600">こちら</a></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- S8：動作環境 -->
+  <section class="py-16 bg-slate-50">
+    <div class="container-base max-w-2xl mx-auto">
+      <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">動作環境</h2>
+      <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+        {[
+          { label: 'OS',          value: 'Windows 10 / 11（64bit）' },
+          { label: '起動方法',    value: 'exe ファイルをダブルクリックするだけ（インストール不要）' },
+          { label: 'ランタイム',  value: '不要（.NET ランタイム同梱済み）' },
+          { label: 'ネット接続',  value: '不要（完全オフライン動作）' },
+          { label: 'データ保存先',value: 'お使いのPC内（%LOCALAPPDATA%\\SimpleAnzenDaicho）' },
+          { label: '推奨環境',    value: 'メモリ 4GB以上、ストレージ空き 500MB以上' },
+          { label: '対応言語',    value: '日本語のみ' },
+        ].map((row, i) => (
+          <div class={`flex gap-4 px-6 py-4 ${i !== 0 ? 'border-t border-slate-100' : ''}`}>
+            <span class="text-slate-500 text-sm w-32 flex-shrink-0 pt-0.5">{row.label}</span>
+            <span class="text-slate-800 font-medium text-sm">{row.value}</span>
+          </div>
+        ))}
+      </div>
+      <p class="text-xs text-slate-400 text-center mt-4">※ Mac・Linux は非対応です。</p>
+    </div>
+  </section>
+
+  <!-- エラートースト -->
+  <div
+    id="buy-toast"
+    class="fixed top-4 left-1/2 -translate-x-1/2 z-[60] hidden items-center gap-2 bg-red-600 text-white text-sm font-medium px-5 py-3 rounded-xl shadow-lg pointer-events-none"
+    role="alert"
+    aria-live="assertive"
+  >
+    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+    </svg>
+    エラーが発生しました。少し時間をおいて再度お試しください。
+  </div>
+
+  <!-- ライトボックス -->
+  <div id="ss-lightbox"
+       class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4"
+       role="dialog" aria-modal="true" aria-label="拡大画像">
+    <button id="ss-lightbox-close"
+            class="absolute top-4 right-4 flex items-center justify-center w-11 h-11 text-white text-3xl leading-none rounded-full hover:bg-white/20 transition-colors"
+            aria-label="閉じる">&times;</button>
+    <img id="ss-lightbox-img" src="" alt=""
+         class="max-h-[90vh] max-w-[95vw] object-contain rounded-lg bg-white" />
+  </div>
+
+  <!-- FAQ導線 -->
+  <div class="py-6 bg-white text-center border-t border-slate-100">
+    <p class="text-slate-500 text-sm">
+      ご購入前のご不明点は
+      <a href="/faq/" class="text-primary-600 hover:text-primary-800 font-semibold underline transition-colors">よくある質問</a>
+      もあわせてご確認ください。
+    </p>
+  </div>
+
+  <!-- S9：購入CTA -->
+  <section class="py-20 bg-primary-900">
+    <div class="container-base text-center max-w-2xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        今日から、期限切れを見逃さない。
+      </h2>
+      <button
+        id="buy-btn-cta"
+        type="button"
+        class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors shadow-md"
+      >
+        シンプル安全台帳を購入する →
+      </button>
+      <p class="text-primary-300 text-sm mt-4">¥{PRODUCT.price.toLocaleString()} 税込・買い切り・月額なし</p>
+    </div>
+  </section>
+
+<script>
+  function initLightbox() {
+    const lb = document.getElementById('ss-lightbox');
+    const lbImg = document.getElementById('ss-lightbox-img');
+    const closeBtn = document.getElementById('ss-lightbox-close');
+    const mainEl = document.querySelector('main');
+    if (!lb || !lbImg || !closeBtn) return;
+
+    const prevAc = (window).__lbAbort;
+    if (prevAc) prevAc.abort();
+    const ac = new AbortController();
+    (window).__lbAbort = ac;
+    const sig = { signal: ac.signal };
+
+    document.body.style.overflow = '';
+    lb.classList.add('hidden');
+    lb.classList.remove('flex');
+    mainEl?.removeAttribute('aria-hidden');
+
+    let lastFocused = null;
+    const preventTouch = (e) => e.preventDefault();
+
+    const open = (src, alt) => {
+      lastFocused = document.activeElement;
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      lb.classList.remove('hidden');
+      lb.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      lb.addEventListener('touchmove', preventTouch, { passive: false, signal: ac.signal });
+      mainEl?.setAttribute('aria-hidden', 'true');
+      closeBtn.focus();
+    };
+    const close = () => {
+      document.body.style.overflow = '';
+      lb.removeEventListener('touchmove', preventTouch);
+      lb.classList.add('hidden');
+      lb.classList.remove('flex');
+      lbImg.src = '';
+      mainEl?.removeAttribute('aria-hidden');
+      lastFocused?.focus();
+    };
+
+    lb.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') { e.preventDefault(); closeBtn.focus(); }
+    }, sig);
+
+    document.querySelectorAll('.gallery-wrapper').forEach((wrapper) => {
+      const img = wrapper.querySelector('img');
+      const handler = () => { if (img) open(img.currentSrc || img.src, img.alt); };
+      wrapper.addEventListener('click', handler, sig);
+      wrapper.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); }
+      }, sig);
+    });
+
+    lb.addEventListener('click', (e) => { if (e.target === lb) close(); }, sig);
+    closeBtn.addEventListener('click', close, sig);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); }, sig);
+  }
+
+  initLightbox();
+  document.addEventListener('astro:page-load', initLightbox);
+</script>
+
+<script>
+  const toast = document.getElementById("buy-toast");
+  let toastTimer: ReturnType<typeof setTimeout> | null = null;
+
+  function showToast() {
+    if (!toast) return;
+    if (toastTimer) clearTimeout(toastTimer);
+    toast.classList.remove("hidden");
+    toast.classList.add("flex");
+    toastTimer = setTimeout(() => {
+      toast.classList.add("hidden");
+      toast.classList.remove("flex");
+    }, 5000);
+  }
+
+  async function handleBuy(btn: HTMLButtonElement, endpoint: string) {
+    const allBtns = ["buy-btn-hero","buy-btn","buy-btn-cta","buy-btn-set","buy-btn-sticky"]
+      .map(id => document.getElementById(id) as HTMLButtonElement | null)
+      .filter(Boolean) as HTMLButtonElement[];
+    allBtns.forEach(b => { b.disabled = true; });
+    const original = btn.textContent;
+    btn.textContent = "読み込み中…";
+    try {
+      const res = await fetch(endpoint, { method: "POST" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if (!data?.url) throw new Error("no url");
+      window.location.href = data.url;
+    } catch {
+      showToast();
+      allBtns.forEach(b => { b.disabled = false; });
+      btn.textContent = original;
+    }
+  }
+
+  ["buy-btn-hero","buy-btn","buy-btn-cta","buy-btn-sticky"].forEach(id => {
+    const b = document.getElementById(id) as HTMLButtonElement | null;
+    b?.addEventListener("click", () => handleBuy(b!, "/api/create-checkout-anzen"));
+  });
+
+  const setBtn = document.getElementById("buy-btn-set") as HTMLButtonElement | null;
+  setBtn?.addEventListener("click", () => handleBuy(setBtn!, "/api/create-checkout-set"));
+</script>
+
+  <!-- モバイル下部固定バー -->
+  <div
+    id="sticky-buy-bar"
+    class="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white border-t border-slate-200 shadow-lg translate-y-full transition-transform duration-300"
+    aria-hidden="true"
+  >
+    <div class="flex items-center justify-between gap-4 px-4 py-3 max-w-sm mx-auto"
+         style="padding-bottom: max(12px, env(safe-area-inset-bottom));">
+      <div class="min-w-0">
+        <p class="text-xs text-slate-500 truncate">シンプル安全台帳</p>
+        <p class="text-lg font-bold text-accent-500 leading-none">¥{PRODUCT.price.toLocaleString()}</p>
+      </div>
+      <button
+        id="buy-btn-sticky"
+        type="button"
+        class="flex-shrink-0 bg-accent-500 hover:bg-accent-600 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors shadow"
+      >
+        今すぐ購入
+      </button>
+    </div>
+  </div>
+
+<script>
+  const stickyBar = document.getElementById('sticky-buy-bar');
+  const heroBtn = document.getElementById('buy-btn-hero');
+  if (stickyBar && heroBtn) {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const show = !entry.isIntersecting;
+        stickyBar.classList.toggle('translate-y-full', !show);
+        stickyBar.classList.toggle('translate-y-0', show);
+        stickyBar.setAttribute('aria-hidden', String(!show));
+      },
+      { threshold: 0 }
+    );
+    observer.observe(heroBtn);
+  }
+</script>
+
+</BaseLayout>
