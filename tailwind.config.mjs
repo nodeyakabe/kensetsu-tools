@@ -32,6 +32,12 @@ export default {
           'Meiryo',
           'sans-serif',
         ],
+        mono: [
+          '"JetBrains Mono"',
+          'ui-monospace',
+          'SFMono-Regular',
+          'monospace',
+        ],
       },
       typography: (theme) => ({
         DEFAULT: {

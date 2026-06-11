@@ -2,45 +2,42 @@
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-primary-900 text-white">
-  <div class="container-base py-12">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <!-- Brand -->
-      <div>
-        <div class="flex items-center gap-2 mb-3">
-          <span class="bg-white text-primary-900 text-sm font-bold w-8 h-8 rounded-lg flex items-center justify-center">工</span>
-          <span class="font-bold text-lg">建設業ツール工房</span>
+<footer class="bg-[#0B1C42] text-white">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
+
+      <!-- ブランド -->
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 bg-white rounded-full flex items-center justify-center text-[#0F2557] text-[17px] font-black flex-shrink-0 select-none">工</div>
+          <span class="text-base font-black text-white">建設業ツール工房</span>
         </div>
-        <p class="text-primary-200 text-sm leading-relaxed">
-          建設業の現場を、もっとスマートに。<br>
-          業務ツール・テンプレート・業界情報を提供します。
+        <p class="text-sm leading-loose text-[#8FA1C4] max-w-[380px]">
+          小さな建設業の事務まわりを、買い切りのツールと実務情報で支える個人の工房です。ご質問・ご要望は、お問い合わせフォームからお気軽にどうぞ。
         </p>
       </div>
 
-      <!-- Links -->
-      <div>
-        <h3 class="font-bold text-sm mb-4 text-primary-300 uppercase tracking-wider">コンテンツ</h3>
-        <ul class="space-y-2 text-sm">
-          <li><a href="/blog/" class="text-primary-200 hover:text-white transition-colors">ブログ</a></li>
-          <li><a href="/products/" class="text-primary-200 hover:text-white transition-colors">ツール・商品</a></li>
-          <li><a href="/about/" class="text-primary-200 hover:text-white transition-colors">このサイトについて</a></li>
-          <li><a href="/faq/" class="text-primary-200 hover:text-white transition-colors">よくある質問</a></li>
-        </ul>
+      <!-- サイトマップ -->
+      <div class="flex flex-col gap-3">
+        <div class="text-xs font-bold tracking-widest text-[#5A6B85] uppercase">サイトマップ</div>
+        <a href="/products/" class="text-[13.5px] text-[#C7D2E5] hover:text-white hover:underline transition-colors">ツール・商品</a>
+        <a href="/blog/" class="text-[13.5px] text-[#C7D2E5] hover:text-white hover:underline transition-colors">ブログ</a>
+        <a href="/about/" class="text-[13.5px] text-[#C7D2E5] hover:text-white hover:underline transition-colors">このサイトについて</a>
+        <a href="/contact/" class="text-[13.5px] text-[#C7D2E5] hover:text-white hover:underline transition-colors">お問い合わせ</a>
       </div>
 
-      <!-- Legal -->
-      <div>
-        <h3 class="font-bold text-sm mb-4 text-primary-300 uppercase tracking-wider">法的情報</h3>
-        <ul class="space-y-2 text-sm">
-          <li><a href="/privacy/" class="text-primary-200 hover:text-white transition-colors">プライバシーポリシー</a></li>
-          <li><a href="/terms/" class="text-primary-200 hover:text-white transition-colors">利用規約</a></li>
-          <li><a href="/sct/" class="text-primary-200 hover:text-white transition-colors">特定商取引法に基づく表記</a></li>
-        </ul>
+      <!-- 規約・表記 -->
+      <div class="flex flex-col gap-3">
+        <div class="text-xs font-bold tracking-widest text-[#5A6B85] uppercase">規約・表記</div>
+        <a href="/sct/" class="text-[13.5px] text-[#C7D2E5] hover:text-white hover:underline transition-colors">特定商取引法に基づく表記</a>
+        <a href="/privacy/" class="text-[13.5px] text-[#C7D2E5] hover:text-white hover:underline transition-colors">プライバシーポリシー</a>
+        <a href="/terms/" class="text-[13.5px] text-[#C7D2E5] hover:text-white hover:underline transition-colors">利用規約</a>
       </div>
     </div>
 
-    <div class="border-t border-primary-800 mt-10 pt-6 text-center text-primary-400 text-sm">
-      &copy; {year} 建設業ツール工房. All rights reserved.
+    <div class="border-t border-[#1B3463] mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div class="text-xs text-[#5A6B85]">© {year} 建設業ツール工房</div>
+      <div class="text-xs text-[#5A6B85] text-center">安心してお使いいただくため、特商法表記・規約類を整備しています。</div>
     </div>
   </div>
 </footer>
