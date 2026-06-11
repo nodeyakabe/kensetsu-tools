@@ -12,34 +12,34 @@ const { title, description, slug, publishedAt, category, tags = [] } = Astro.pro
 
 const formattedDate = publishedAt.toLocaleDateString('ja-JP', {
   year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+  month: '2-digit',
+  day: '2-digit',
+}).replace(/\//g, '-');
 ---
 
-<article class="bg-white border border-slate-200 rounded-xl p-8 flex flex-col gap-4 hover:shadow-md transition-shadow duration-200 group">
+<article class="bg-white border border-[#D8DEE8] rounded-2xl p-6 flex flex-col gap-3 hover:shadow-md transition-shadow duration-200 group">
   <div class="flex items-center gap-3">
     {category && (
-      <span class="text-xs font-bold bg-primary-50 text-primary-700 border border-primary-200 px-2 py-0.5 rounded-full">
+      <span class="text-[11px] font-bold bg-[#FDEBC8] text-[#B45309] px-2.5 py-0.5 rounded-full">
         {category}
       </span>
     )}
-    <time class="text-xs text-slate-400" datetime={publishedAt.toISOString()}>
+    <time class="font-mono text-xs text-[#5A6B85]" datetime={publishedAt.toISOString()}>
       {formattedDate}
     </time>
   </div>
-  <h2 class="font-bold text-slate-900 text-lg leading-snug group-hover:text-primary-700 transition-colors">
+  <h2 class="font-bold text-[#1A2B4A] text-base leading-snug group-hover:text-[#0F2557] transition-colors">
     <a href={`/blog/${slug}/`}>{title}</a>
   </h2>
-  <p class="text-slate-600 text-sm leading-relaxed line-clamp-3">{description}</p>
+  <p class="text-[#44536E] text-sm leading-relaxed line-clamp-3">{description}</p>
   {tags.length > 0 && (
     <div class="flex flex-wrap gap-2">
       {tags.slice(0, 2).map(tag => (
-        <span class="text-xs text-slate-500">#{tag}</span>
+        <span class="text-xs text-[#5A6B85]">#{tag}</span>
       ))}
     </div>
   )}
-  <a href={`/blog/${slug}/`} class="text-sm font-medium text-primary-600 hover:text-primary-800 transition-colors self-start">
-    続きを読む →
+  <a href={`/blog/${slug}/`} class="text-sm font-bold text-[#F59E0B] hover:text-[#D98908] transition-colors self-start mt-auto">
+    読む →
   </a>
 </article>

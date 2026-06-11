@@ -19,15 +19,15 @@ const canonicalUrl = `${siteUrl}/blog/${slug}/`;
 
 const formattedDate = publishedAt.toLocaleDateString('ja-JP', {
   year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+  month: '2-digit',
+  day: '2-digit',
+}).replace(/\//g, '-');
 
 const updatedFormatted = updatedAt?.toLocaleDateString('ja-JP', {
   year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+  month: '2-digit',
+  day: '2-digit',
+}).replace(/\//g, '-');
 
 // BlogPosting 構造化データ
 const articleSchema = JSON.stringify({
@@ -99,38 +99,39 @@ const breadcrumbSchema = JSON.stringify({
     <script type="application/ld+json" set:html={breadcrumbSchema} />
   </Fragment>
 
-  <div class="w-full px-4 sm:px-6 lg:px-10 py-3 border-b border-slate-100">
-    <!-- Breadcrumb -->
-    <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
-      <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
-      <span class="mx-2">/</span>
-      <a href="/blog/" class="hover:text-primary-600 transition-colors">ブログ</a>
-      <span class="mx-2">/</span>
-      <span class="text-slate-700">{title}</span>
-    </nav>
+  <div class="w-full bg-white border-b border-[#D8DEE8]">
+    <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <nav class="text-sm text-[#5A6B85]" aria-label="パンくずリスト">
+        <a href="/" class="hover:text-[#0F2557] transition-colors">ホーム</a>
+        <span class="mx-2">/</span>
+        <a href="/blog/" class="hover:text-[#0F2557] transition-colors">ブログ</a>
+        <span class="mx-2">/</span>
+        <span class="text-[#1A2B4A]">{title}</span>
+      </nav>
+    </div>
   </div>
 
-  <div class="container-base py-12">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <article class="max-w-3xl mx-auto">
       <!-- Category & Tags -->
       <div class="flex flex-wrap items-center gap-2 mb-4">
         {category && (
-          <span class="text-xs font-bold bg-primary-600 text-white px-3 py-1 rounded-full">
+          <span class="text-[11px] font-bold bg-[#FDEBC8] text-[#B45309] px-3 py-1 rounded-full">
             {category}
           </span>
         )}
         {tags.map(tag => (
-          <span class="text-xs font-medium bg-primary-50 text-primary-700 px-3 py-1 rounded-full">
+          <span class="text-xs font-medium bg-[#EFF2F7] text-[#44536E] px-3 py-1 rounded-full">
             #{tag}
           </span>
         ))}
       </div>
 
-      <h1 class="text-3xl md:text-4xl font-bold text-primary-900 leading-tight mb-4">
+      <h1 class="text-3xl md:text-4xl font-black text-[#0F2557] leading-tight mb-4">
         {title}
       </h1>
 
-      <div class="flex items-center gap-4 text-sm text-slate-500 mb-8 pb-8 border-b border-slate-200">
+      <div class="flex items-center gap-4 font-mono text-sm text-[#5A6B85] mb-8 pb-8 border-b border-[#D8DEE8]">
         <time datetime={publishedAt.toISOString()}>公開: {formattedDate}</time>
         {updatedAt && (
           <time datetime={updatedAt.toISOString()}>更新: {updatedFormatted}</time>
@@ -141,7 +142,7 @@ const breadcrumbSchema = JSON.stringify({
         <img
           src={heroImage}
           alt={`${title} のアイキャッチ画像`}
-          class="w-full rounded-xl mb-10 shadow-sm"
+          class="w-full rounded-2xl mb-10"
           loading="eager"
         />
       )}
@@ -152,8 +153,8 @@ const breadcrumbSchema = JSON.stringify({
       </div>
 
       <!-- Back link -->
-      <div class="mt-16 pt-8 border-t border-slate-200">
-        <a href="/blog/" class="text-primary-600 hover:text-primary-800 font-medium transition-colors">
+      <div class="mt-16 pt-8 border-t border-[#D8DEE8]">
+        <a href="/blog/" class="text-[#0F2557] hover:text-[#F59E0B] font-bold transition-colors">
           ← ブログ一覧に戻る
         </a>
       </div>

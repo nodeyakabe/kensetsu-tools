@@ -10,24 +10,26 @@ const establishedDate = '2026年5月25日';
   title="特定商取引法に基づく表記"
   description="建設業ツール工房の特定商取引法に基づく表記です。"
 >
-  <div class="w-full px-4 sm:px-6 lg:px-10 py-3 border-b border-slate-100">
-    <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
-      <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
-      <span class="mx-2">/</span>
-      <span class="text-slate-700">特定商取引法に基づく表記</span>
-    </nav>
+  <div class="w-full bg-white border-b border-[#D8DEE8]">
+    <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <nav class="text-sm text-[#5A6B85]" aria-label="パンくずリスト">
+        <a href="/" class="hover:text-[#0F2557] transition-colors">ホーム</a>
+        <span class="mx-2">/</span>
+        <span class="text-[#1A2B4A]">特定商取引法に基づく表記</span>
+      </nav>
+    </div>
   </div>
 
-  <div class="container-base py-16">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="max-w-3xl mx-auto">
-      <h1 class="text-4xl font-bold text-primary-900 mb-3">特定商取引法に基づく表記</h1>
-      <p class="text-slate-400 text-sm mb-12 pb-12 border-b border-slate-200">
+      <h1 class="text-4xl font-black text-[#0F2557] mb-3">特定商取引法に基づく表記</h1>
+      <p class="text-[#5A6B85] text-sm mb-12 pb-12 border-b border-[#D8DEE8]">
         特定商取引に関する法律第11条に基づく表示
       </p>
 
-      <div class="card overflow-hidden mb-8">
+      <div class="bg-white border border-[#D8DEE8] rounded-2xl overflow-hidden mb-8">
         <table class="w-full text-sm">
-          <tbody class="divide-y divide-slate-100">
+          <tbody class="divide-y divide-[#D8DEE8]">
             {[
               ['販売業者', '建設業ツール工房（屋号）'],
               ['運営責任者', operatorName],
@@ -45,8 +47,8 @@ const establishedDate = '2026年5月25日';
               ['動作環境', '各商品ページに記載'],
             ].map(([label, value]) => (
               <tr>
-                <th class="py-4 px-6 text-left text-slate-500 font-medium bg-slate-50 w-44 align-top">{label}</th>
-                <td class="py-4 px-6 text-slate-800 leading-relaxed">{value}</td>
+                <th class="py-4 px-6 text-left text-[#5A6B85] font-medium bg-[#EFF2F7] w-44 align-top">{label}</th>
+                <td class="py-4 px-6 text-[#1A2B4A] leading-relaxed">{value}</td>
               </tr>
             ))}
           </tbody>
@@ -80,7 +82,7 @@ const establishedDate = '2026年5月25日';
         </ul>
       </div>
 
-      <p class="text-slate-400 text-sm mt-12 pt-6 border-t border-slate-200">制定日：{establishedDate}</p>
+      <p class="text-[#5A6B85] text-sm mt-12 pt-6 border-t border-[#D8DEE8]">制定日：{establishedDate}</p>
     </div>
   </div>
 </BaseLayout>

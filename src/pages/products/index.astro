@@ -14,43 +14,65 @@ const breadcrumbSchema = {
 ---
 
 <BaseLayout
-  title="ツール・商品｜一人親方向けExcel工事台帳"
-  description="一人親方・小規模建設業向けの業務ツール一覧。確定申告に直結するExcel工事台帳「シンプル工事台帳 ライト版」（買い切り¥5,980・マクロ不使用）を発売中。Windows・Mac対応。"
+  title="ツール・商品｜建設業向け買い切りツール"
+  description="一人親方・小規模建設業向けの買い切りツール一覧。Excel工事台帳「シンプル工事台帳 ライト版」（¥5,980）、資格・車検期限管理アプリ「シンプル安全台帳」（¥9,800）を発売中。月額なし・完全買い切り。"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
 
-  <div class="w-full px-4 sm:px-6 lg:px-10 py-3 border-b border-slate-100">
-    <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
-      <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
-      <span class="mx-2">/</span>
-      <span class="text-slate-700">ツール・商品</span>
-    </nav>
+  <div class="w-full bg-white border-b border-[#D8DEE8]">
+    <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <nav class="text-sm text-[#5A6B85]" aria-label="パンくずリスト">
+        <a href="/" class="hover:text-[#0F2557] transition-colors">ホーム</a>
+        <span class="mx-2">/</span>
+        <span class="text-[#1A2B4A]">ツール・商品</span>
+      </nav>
+    </div>
   </div>
 
-  <div class="container-base py-16">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-12">
-      <h1 class="text-4xl font-bold text-primary-900 mb-3">ツール・商品</h1>
-      <p class="text-slate-500 text-lg">建設業の現場で本当に使えるツールをお届けします。</p>
+      <h1 class="text-4xl font-black text-[#0F2557] mb-3">ツール・商品</h1>
+      <p class="text-[#44536E] text-lg">建設業の現場で本当に使えるツールをお届けします。</p>
     </div>
 
     <!-- 発売中 -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-      <a href="/products/koji-daicho/" class="block group col-span-full md:col-span-1">
-        <div class="bg-white border-2 border-accent-400 rounded-xl p-8 hover:shadow-md transition-all duration-200 h-full">
+      <a href="/products/koji-daicho/" class="block group">
+        <div class="bg-white border-2 border-[#F59E0B] rounded-2xl p-8 hover:shadow-md transition-all duration-200 h-full">
           <div class="mb-4">
-            <span class="inline-block bg-accent-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">発売中</span>
+            <span class="inline-block bg-[#F59E0B] text-white text-xs font-bold px-3 py-1 rounded-full">発売中</span>
           </div>
-          <h2 class="text-2xl font-bold text-primary-900 mb-2 group-hover:text-primary-700 transition-colors">
+          <h2 class="text-xl font-black text-[#0F2557] mb-2 group-hover:text-[#1A2B4A] transition-colors">
             シンプル工事台帳 ライト版
           </h2>
-          <p class="text-slate-600 text-base mb-4">
+          <p class="text-[#44536E] text-base mb-4">
             確定申告がラクになる、Excelだけで動く工事管理ツール
           </p>
-          <p class="text-accent-500 text-xl font-semibold mb-1">¥5,980（税込・買い切り）</p>
-          <p class="text-slate-400 text-sm mb-6">返金保証なし</p>
-          <span class="text-primary-600 font-bold group-hover:text-primary-800 transition-colors">
+          <p class="text-[#F59E0B] text-xl font-bold mb-1">¥5,980（税込・買い切り）</p>
+          <p class="text-[#5A6B85] text-sm mb-6">返金保証なし</p>
+          <span class="text-[#0F2557] font-bold group-hover:text-[#F59E0B] transition-colors">
+            詳細・購入はこちら →
+          </span>
+        </div>
+      </a>
+
+      <a href="/products/anzen-daicho/" class="block group">
+        <div class="bg-white border-2 border-[#F59E0B] rounded-2xl p-8 hover:shadow-md transition-all duration-200 h-full">
+          <div class="mb-4 flex items-center gap-2">
+            <span class="inline-block bg-[#F59E0B] text-white text-xs font-bold px-3 py-1 rounded-full">発売中</span>
+            <span class="inline-block bg-[#FDEBC8] text-[#B45309] text-xs font-bold px-3 py-1 rounded-full">NEW</span>
+          </div>
+          <h2 class="text-xl font-black text-[#0F2557] mb-2 group-hover:text-[#1A2B4A] transition-colors">
+            シンプル安全台帳
+          </h2>
+          <p class="text-[#44536E] text-base mb-4">
+            資格・車検の期限管理と安全書類PDF出力。完全オフライン・月額なし
+          </p>
+          <p class="text-[#F59E0B] text-xl font-bold mb-1">¥9,800（税込・買い切り）</p>
+          <p class="text-[#5A6B85] text-sm mb-6">返金保証なし</p>
+          <span class="text-[#0F2557] font-bold group-hover:text-[#F59E0B] transition-colors">
             詳細・購入はこちら →
           </span>
         </div>
@@ -58,14 +80,16 @@ const breadcrumbSchema = {
     </div>
 
     <!-- 今後のラインナップ -->
-    <div>
-      <h2 class="text-2xl font-bold text-primary-900 mb-2">今後のラインナップ</h2>
-      <p class="text-slate-500 text-sm mb-8">順次提供予定です（提供時期は未定）。</p>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {comingSoonItems.map(card => (
-          <ComingSoonCard title={card.title} desc={card.desc} />
-        ))}
+    {comingSoonItems.length > 0 && (
+      <div>
+        <h2 class="text-2xl font-black text-[#0F2557] mb-2">今後のラインナップ</h2>
+        <p class="text-[#5A6B85] text-sm mb-8">順次提供予定です（提供時期は未定）。</p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {comingSoonItems.map(card => (
+            <ComingSoonCard title={card.title} desc={card.desc} />
+          ))}
+        </div>
       </div>
-    </div>
+    )}
   </div>
 </BaseLayout>

@@ -19,28 +19,31 @@ const breadcrumbSchema = {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
-  <div class="w-full px-4 sm:px-6 lg:px-10 py-3 border-b border-slate-100">
-    <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
-      <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
-      <span class="mx-2">/</span>
-      <span class="text-slate-700">このサイトについて</span>
-    </nav>
+
+  <div class="w-full bg-white border-b border-[#D8DEE8]">
+    <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <nav class="text-sm text-[#5A6B85]" aria-label="パンくずリスト">
+        <a href="/" class="hover:text-[#0F2557] transition-colors">ホーム</a>
+        <span class="mx-2">/</span>
+        <span class="text-[#1A2B4A]">このサイトについて</span>
+      </nav>
+    </div>
   </div>
 
-  <div class="container-base py-16">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="max-w-3xl mx-auto">
-      <h1 class="text-4xl font-bold text-primary-900 mb-4">このサイトについて</h1>
-      <p class="text-slate-500 mb-12 pb-12 border-b border-slate-200 text-lg">
+      <h1 class="text-4xl font-black text-[#0F2557] mb-4">このサイトについて</h1>
+      <p class="text-[#44536E] mb-12 pb-12 border-b border-[#D8DEE8] text-lg">
         建設業の現場をシンプルにしたい——<br>
         その思いから生まれたサイトです。
       </p>
 
       <!-- サイトのコンセプト -->
       <section class="mb-14">
-        <h2 class="text-2xl font-bold text-primary-800 mb-6">サイトのコンセプト</h2>
-        <div class="space-y-5 text-slate-700 leading-relaxed">
+        <h2 class="text-2xl font-black text-[#0F2557] mb-6">サイトのコンセプト</h2>
+        <div class="space-y-5 text-[#44536E] leading-relaxed">
           <p>
-            <strong>建設業ツール工房</strong>は、建設業に携わる方のための情報・ツール提供サイトです。
+            <strong class="text-[#1A2B4A]">建設業ツール工房</strong>は、建設業に携わる方のための情報・ツール提供サイトです。
           </p>
           <p>
             一人親方として独立した方、新たに会社を立ち上げた方、日々の業務効率化を考えている方——「あと少しだけ楽になれる」ように、実用的な情報とツールをお届けします。
@@ -53,30 +56,30 @@ const breadcrumbSchema = {
 
       <!-- 提供するコンテンツ -->
       <section class="mb-14">
-        <h2 class="text-2xl font-bold text-primary-800 mb-6">提供するコンテンツ</h2>
+        <h2 class="text-2xl font-black text-[#0F2557] mb-6">提供するコンテンツ</h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
             {
-              icon: '📋',
+              label: '法',
               title: '法令対応情報',
               desc: '改正建設業法・労働安全衛生法など、最新の法改正をわかりやすく解説します。',
             },
             {
-              icon: '🔧',
+              label: '工',
               title: '業務テンプレート',
               desc: '見積書・日報・KY活動表など、現場で使えるテンプレートを順次提供予定です。',
             },
             {
-              icon: '💡',
+              label: '知',
               title: '業界情報・実務ノウハウ',
               desc: '助成金・確定申告・現場改善など、一人親方・新規開業者に役立つ情報を発信します。',
             },
           ].map(item => (
-            <div class="card p-5 flex flex-col gap-3">
-              <span class="text-3xl" aria-hidden="true">{item.icon}</span>
+            <div class="bg-white border border-[#D8DEE8] rounded-2xl p-5 flex flex-col gap-3">
+              <div class="w-10 h-10 bg-[#0F2557] rounded-full flex items-center justify-center text-white font-black text-base select-none">{item.label}</div>
               <div>
-                <h3 class="font-bold text-slate-900 mb-1">{item.title}</h3>
-                <p class="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
+                <h3 class="font-bold text-[#1A2B4A] mb-1">{item.title}</h3>
+                <p class="text-[#44536E] text-sm leading-relaxed">{item.desc}</p>
               </div>
             </div>
           ))}
@@ -85,15 +88,15 @@ const breadcrumbSchema = {
 
       <!-- 販売中の商品 -->
       <section class="mb-14">
-        <div class="rounded-xl p-8 bg-slate-50 border border-slate-200">
-          <span class="inline-block bg-accent-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4">発売中</span>
-          <h2 class="text-xl font-bold text-primary-900 mb-2">販売中の商品</h2>
-          <h3 class="text-lg font-bold text-primary-700 mb-3">シンプル工事台帳 ライト版</h3>
-          <p class="text-slate-600 leading-relaxed mb-6">
+        <div class="rounded-2xl p-8 bg-[#EFF2F7] border border-[#D8DEE8]">
+          <span class="inline-block bg-[#F59E0B] text-white text-xs font-bold px-3 py-1 rounded-full mb-4">発売中</span>
+          <h2 class="text-xl font-black text-[#0F2557] mb-2">販売中の商品</h2>
+          <h3 class="text-base font-bold text-[#1A2B4A] mb-3">シンプル工事台帳 ライト版</h3>
+          <p class="text-[#44536E] leading-relaxed mb-6">
             確定申告がラクになる、Excelだけで動く工事管理ツールです。<br>
             ¥5,980（税込・買い切り）。
           </p>
-          <a href="/products/koji-daicho/" class="inline-block text-primary-700 hover:text-primary-900 font-bold transition-colors">
+          <a href="/products/koji-daicho/" class="inline-block text-[#0F2557] hover:text-[#F59E0B] font-bold transition-colors">
             商品の詳細を見る →
           </a>
         </div>
@@ -101,15 +104,15 @@ const breadcrumbSchema = {
 
       <!-- 運営しているのは -->
       <section class="mb-14">
-        <h2 class="text-2xl font-bold text-primary-800 mb-6">運営しているのは</h2>
-        <div class="space-y-5 text-slate-700 leading-relaxed">
+        <h2 class="text-2xl font-black text-[#0F2557] mb-6">運営しているのは</h2>
+        <div class="space-y-5 text-[#44536E] leading-relaxed">
           <p>
             このサイトは、矢ヶ部が一人で運営しています。
           </p>
           <p>
             福岡県北九州市を拠点に、個人で建設業向けツールの開発と情報発信をしています。
           </p>
-          <p class="text-primary-800 font-medium">
+          <p class="text-[#0F2557] font-bold">
             「現場の人が、本当に使えるものを作りたい」——<br>
             その思いで、業務ツールの開発と情報発信を続けています。
           </p>
@@ -118,11 +121,11 @@ const breadcrumbSchema = {
 
       <!-- このサイトのなかまたち -->
       <section class="mb-14">
-        <h2 class="text-2xl font-bold text-primary-800 mb-6">このサイトのなかまたち</h2>
+        <h2 class="text-2xl font-black text-[#0F2557] mb-6">このサイトのなかまたち</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
           <!-- ウタ -->
-          <div class="card p-6 flex flex-col items-center text-center gap-4">
+          <div class="bg-white border border-[#D8DEE8] rounded-2xl p-6 flex flex-col items-center text-center gap-4">
             <img
               src="/images/characters/uta_tati.png"
               alt="建設業ツール工房のキャラクター ウタ"
@@ -133,14 +136,14 @@ const breadcrumbSchema = {
               class="drop-shadow"
             />
             <div>
-              <p class="font-bold text-primary-900 mb-1">ウタ</p>
-              <p class="text-slate-600 text-sm italic mb-2">「複雑な作業は、不要です。」</p>
-              <p class="text-slate-500 text-xs">あなたの作業をシンプルにするお手伝いをします。</p>
+              <p class="font-bold text-[#0F2557] mb-1">ウタ</p>
+              <p class="text-[#44536E] text-sm italic mb-2">「複雑な作業は、不要です。」</p>
+              <p class="text-[#5A6B85] text-xs">あなたの作業をシンプルにするお手伝いをします。</p>
             </div>
           </div>
 
           <!-- ナツ -->
-          <div class="card p-6 flex flex-col items-center text-center gap-4">
+          <div class="bg-white border border-[#D8DEE8] rounded-2xl p-6 flex flex-col items-center text-center gap-4">
             <img
               src="/images/characters/natu_tati.png"
               alt="建設業ツール工房のキャラクター ナツ"
@@ -151,9 +154,9 @@ const breadcrumbSchema = {
               class="drop-shadow"
             />
             <div>
-              <p class="font-bold text-primary-900 mb-1">ナツ</p>
-              <p class="text-slate-600 text-sm italic mb-2">「いいツールで、仕事はもっとはかどります。」</p>
-              <p class="text-slate-500 text-xs">便利なツールや情報をお届けします。</p>
+              <p class="font-bold text-[#0F2557] mb-1">ナツ</p>
+              <p class="text-[#44536E] text-sm italic mb-2">「いいツールで、仕事はもっとはかどります。」</p>
+              <p class="text-[#5A6B85] text-xs">便利なツールや情報をお届けします。</p>
             </div>
           </div>
 
@@ -162,34 +165,34 @@ const breadcrumbSchema = {
 
       <!-- 運営者情報 -->
       <section class="mb-14">
-        <h2 class="text-2xl font-bold text-primary-800 mb-5">運営者情報</h2>
-        <div class="card p-8">
+        <h2 class="text-2xl font-black text-[#0F2557] mb-5">運営者情報</h2>
+        <div class="bg-white border border-[#D8DEE8] rounded-2xl p-8">
           <table class="w-full text-sm">
-            <tbody class="divide-y divide-slate-100">
+            <tbody class="divide-y divide-[#D8DEE8]">
               <tr>
-                <th class="py-3 pr-6 text-left text-slate-500 font-medium w-36 align-top">サイト名</th>
-                <td class="py-3 text-slate-800">建設業ツール工房</td>
+                <th class="py-3 pr-6 text-left text-[#5A6B85] font-medium w-36 align-top">サイト名</th>
+                <td class="py-3 text-[#1A2B4A]">建設業ツール工房</td>
               </tr>
               <tr>
-                <th class="py-3 pr-6 text-left text-slate-500 font-medium align-top">屋号</th>
-                <td class="py-3 text-slate-800">建設業ツール工房（個人事業）</td>
+                <th class="py-3 pr-6 text-left text-[#5A6B85] font-medium align-top">屋号</th>
+                <td class="py-3 text-[#1A2B4A]">建設業ツール工房（個人事業）</td>
               </tr>
               <tr>
-                <th class="py-3 pr-6 text-left text-slate-500 font-medium align-top">運営者</th>
-                <td class="py-3 text-slate-800">矢ヶ部 隼人（屋号：建設業ツール工房）</td>
+                <th class="py-3 pr-6 text-left text-[#5A6B85] font-medium align-top">運営者</th>
+                <td class="py-3 text-[#1A2B4A]">矢ヶ部 隼人（屋号：建設業ツール工房）</td>
               </tr>
               <tr>
-                <th class="py-3 pr-6 text-left text-slate-500 font-medium align-top">所在地</th>
-                <td class="py-3 text-slate-800">請求があった場合に遅滞なく開示いたします</td>
+                <th class="py-3 pr-6 text-left text-[#5A6B85] font-medium align-top">所在地</th>
+                <td class="py-3 text-[#1A2B4A]">請求があった場合に遅滞なく開示いたします</td>
               </tr>
               <tr>
-                <th class="py-3 pr-6 text-left text-slate-500 font-medium align-top">お問い合わせ</th>
-                <td class="py-3 text-slate-800">contact@kensetsu-tools.com</td>
+                <th class="py-3 pr-6 text-left text-[#5A6B85] font-medium align-top">お問い合わせ</th>
+                <td class="py-3 text-[#1A2B4A]">contact@kensetsu-tools.com</td>
               </tr>
               <tr>
-                <th class="py-3 pr-6 text-left text-slate-500 font-medium align-top">詳細情報</th>
-                <td class="py-3 text-slate-800">
-                  <a href="/sct/" class="text-primary-600 hover:text-primary-800 underline">特定商取引法に基づく表記</a>をご覧ください
+                <th class="py-3 pr-6 text-left text-[#5A6B85] font-medium align-top">詳細情報</th>
+                <td class="py-3 text-[#1A2B4A]">
+                  <a href="/sct/" class="text-[#0F2557] hover:text-[#F59E0B] font-medium underline transition-colors">特定商取引法に基づく表記</a>をご覧ください
                 </td>
               </tr>
             </tbody>
@@ -199,8 +202,8 @@ const breadcrumbSchema = {
 
       <!-- お問い合わせ -->
       <section>
-        <h2 class="text-2xl font-bold text-primary-800 mb-5">ご意見・お問い合わせ</h2>
-        <p class="text-slate-600 mb-6">
+        <h2 class="text-2xl font-black text-[#0F2557] mb-5">ご意見・お問い合わせ</h2>
+        <p class="text-[#44536E] mb-6">
           ご意見・ご要望・商品に関する質問など、お気軽にご連絡ください。
         </p>
         <a href="/contact/" class="btn-primary">お問い合わせはこちら</a>
