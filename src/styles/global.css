@@ -48,6 +48,13 @@
   .container-base {
     @apply max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8;
   }
+
+  .btn-press {
+    transition: background-color 0.2s ease, transform 0.15s ease;
+  }
+  .btn-press:active {
+    transform: scale(0.98);
+  }
 }
 
 /* ================================================================
