@@ -43,10 +43,10 @@ const productHighlights = [
 
 <!-- ===== 1. ヒーロー（ファーストビュー: LCP保護のためreveal対象外） ===== -->
 <section class="bg-[#EFF2F7]">
-  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-0">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-0">
 
     <!-- 全幅ネイビーカード — タイトルを主役に -->
-    <div class="bg-[#0F2557] rounded-3xl px-8 py-12 sm:px-12 sm:py-14">
+    <div class="bg-[#0F2557] rounded-3xl px-8 py-12 sm:px-12 sm:py-14" style="box-shadow: var(--shadow-lg);">
       <div class="flex flex-col lg:flex-row lg:items-end gap-8 lg:gap-14">
 
         <!-- テキストブロック（主役） -->
@@ -120,11 +120,11 @@ const productHighlights = [
   </div>
 
   <!-- ラインナップ帯 -->
-  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-10 sm:pb-12">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-10 sm:pb-12">
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 reveal-stagger">
 
       <!-- 第1弾・発売中 -->
-      <a href="/products/koji-daicho/" class="reveal group bg-white border border-[#D8DEE8] hover:border-[#0F2557] rounded-2xl p-5 sm:p-6 flex flex-col gap-2 no-underline text-inherit" style="transition:border-color 0.2s ease,transform 0.2s ease,box-shadow 0.2s ease;">
+      <a href="/products/koji-daicho/" class="reveal group bg-white border border-[#D8DEE8] hover:border-[#0F2557] rounded-2xl p-5 sm:p-6 flex flex-col gap-2 no-underline text-inherit" style="box-shadow: var(--shadow-sm); transition:border-color 0.2s ease,transform 0.2s ease,box-shadow 0.2s ease;">
         <div>
           <span class="bg-[#F59E0B] text-white text-[11px] font-bold px-3 py-0.5 rounded-full">第1弾・発売中</span>
         </div>
@@ -136,7 +136,7 @@ const productHighlights = [
       </a>
 
       <!-- 第2弾・準備中 -->
-      <a href="/products/" class="reveal group bg-white border border-dashed border-[#B9C4D6] hover:border-[#0F2557] rounded-2xl p-5 sm:p-6 flex flex-col gap-2 no-underline text-inherit" style="transition:border-color 0.2s ease,transform 0.2s ease,box-shadow 0.2s ease;">
+      <a href="/products/" class="reveal group bg-white border border-dashed border-[#B9C4D6] hover:border-[#0F2557] rounded-2xl p-5 sm:p-6 flex flex-col gap-2 no-underline text-inherit" style="box-shadow: var(--shadow-sm); transition:border-color 0.2s ease,transform 0.2s ease,box-shadow 0.2s ease;">
         <div>
           <span class="border border-[#5A6B85] text-[#5A6B85] text-[11px] font-bold px-3 py-0.5 rounded-full">第2弾・準備中</span>
         </div>
@@ -145,7 +145,7 @@ const productHighlights = [
       </a>
 
       <!-- 第3弾・構想中 -->
-      <a href="/contact/" class="reveal group bg-white border border-dashed border-[#B9C4D6] hover:border-[#0F2557] rounded-2xl p-5 sm:p-6 flex flex-col gap-2 no-underline text-inherit" style="transition:border-color 0.2s ease,transform 0.2s ease,box-shadow 0.2s ease;">
+      <a href="/contact/" class="reveal group bg-white border border-dashed border-[#B9C4D6] hover:border-[#0F2557] rounded-2xl p-5 sm:p-6 flex flex-col gap-2 no-underline text-inherit" style="box-shadow: var(--shadow-sm); transition:border-color 0.2s ease,transform 0.2s ease,box-shadow 0.2s ease;">
         <div>
           <span class="border border-[#5A6B85] text-[#5A6B85] text-[11px] font-bold px-3 py-0.5 rounded-full">第3弾・構想中</span>
         </div>
@@ -159,13 +159,15 @@ const productHighlights = [
 
 
 <!-- ===== 2. こんなお悩み ===== -->
-<section class="bg-white">
-  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9 reveal">
+<section class="bg-white relative overflow-hidden">
+  <!-- 装飾ブロブ（控えめ） -->
+  <div class="absolute -bottom-[100px] -right-[100px] w-[380px] h-[380px] rounded-full bg-[#F59E0B] opacity-[0.04] pointer-events-none" aria-hidden="true"></div>
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9 reveal">
     <div class="flex items-center gap-4">
       <div class="w-11 h-11 bg-[#0F2557] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">01</div>
       <h2 class="text-2xl sm:text-[28px] font-black text-[#0F2557]">こんなお悩み、ありませんか？</h2>
     </div>
-    <div class="border border-[#D8DEE8] rounded-2xl overflow-hidden">
+    <div class="border border-[#D8DEE8] rounded-2xl overflow-hidden" style="box-shadow: var(--shadow-sm);">
       {painItems.map((item, i) => (
         <div class={`flex items-start sm:items-center gap-4 sm:gap-5 px-5 sm:px-[30px] py-4 sm:py-[19px] ${i < painItems.length - 1 ? 'border-b border-[#E9EDF3]' : ''} ${i % 2 === 1 ? 'bg-[#FAFBFD]' : ''}`}>
           <div class="w-[30px] h-[30px] bg-[#FDEBC8] rounded-full text-[#B45309] font-mono text-xs flex items-center justify-center flex-shrink-0 mt-0.5 sm:mt-0">{i + 1}</div>
@@ -186,14 +188,14 @@ const productHighlights = [
 
 <!-- ===== 3. こんな方のためのサイト ===== -->
 <section id="about" class="bg-[#EFF2F7]">
-  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
     <div class="flex items-center gap-4 reveal">
       <div class="w-11 h-11 bg-[#0F2557] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">02</div>
       <h2 class="text-2xl sm:text-[28px] font-black text-[#0F2557]">こんな方のためのサイトです</h2>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 reveal-stagger">
       {targetTypes.map(t => (
-        <div class="reveal bg-white rounded-2xl p-7 flex flex-col gap-3">
+        <div class="reveal bg-white rounded-2xl p-7 flex flex-col gap-3" style="box-shadow: var(--shadow-sm);">
           <span class="self-start bg-[#EFF2F7] text-[#0F2557] text-[11.5px] font-bold px-3.5 py-1 rounded-full">{t.tag}</span>
           <div class="text-[17px] font-black text-[#0F2557]">{t.title}</div>
           <div class="text-[13.5px] leading-[1.9] text-[#44536E]">{t.desc}</div>
@@ -205,15 +207,15 @@ const productHighlights = [
 
 
 <!-- ===== 4. できること（3本柱） ===== -->
-<section class="bg-white">
-  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
+<section class="bg-white bg-dots">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
     <div class="flex items-center gap-4 reveal">
       <div class="w-11 h-11 bg-[#0F2557] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">03</div>
       <h2 class="text-2xl sm:text-[28px] font-black text-[#0F2557]">建設業ツール工房でできること</h2>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 reveal-stagger">
       {pillars.map(p => (
-        <div class="reveal border border-[#D8DEE8] rounded-2xl p-8 flex flex-col gap-3" style="transition:box-shadow 0.2s ease,transform 0.2s ease;">
+        <div class="reveal bg-white border border-[#D8DEE8] rounded-2xl p-8 flex flex-col gap-3" style="box-shadow: var(--shadow-sm); transition:box-shadow 0.2s ease,transform 0.2s ease;">
           <div class="w-9 h-9 bg-[#F59E0B] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">{p.num}</div>
           <div class="text-[18px] font-black text-[#0F2557]">{p.title}</div>
           <div class="text-[13.5px] leading-[1.9] text-[#5A6B85]">{p.desc}</div>
@@ -226,13 +228,13 @@ const productHighlights = [
 
 <!-- ===== 5. 注目の商品 ===== -->
 <section id="products" class="bg-[#EFF2F7]">
-  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
     <div class="flex items-center gap-4 reveal">
       <div class="w-11 h-11 bg-[#0F2557] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">04</div>
       <h2 class="text-2xl sm:text-[28px] font-black text-[#0F2557]">注目の商品</h2>
     </div>
 
-    <div class="bg-white rounded-3xl p-8 sm:p-12 relative reveal">
+    <div class="bg-white rounded-3xl p-8 sm:p-12 relative reveal" style="box-shadow: var(--shadow-md);">
       <!-- バッジ -->
       <div class="sm:absolute sm:top-9 sm:right-11 inline-block sm:hidden bg-[#F59E0B] text-white text-[13px] font-black px-5 py-2 rounded-full mb-6">第1弾・発売中</div>
       <div class="hidden sm:block absolute top-9 right-11 bg-[#F59E0B] text-white text-[13px] font-black px-5 py-2 rounded-full rotate-[4deg]">第1弾・発売中</div>
@@ -285,8 +287,8 @@ const productHighlights = [
 
 
 <!-- ===== 6. 今後のラインナップ ===== -->
-<section id="roadmap" class="bg-white">
-  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
+<section id="roadmap" class="bg-white bg-dots">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
     <div class="flex items-center gap-4 reveal">
       <div class="w-11 h-11 bg-[#0F2557] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">05</div>
       <h2 class="text-2xl sm:text-[28px] font-black text-[#0F2557]">今後のラインナップ</h2>
@@ -310,7 +312,7 @@ const productHighlights = [
 
 <!-- ===== 7. 最新の記事 ===== -->
 <section id="blog" class="bg-[#EFF2F7]">
-  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
     <div class="flex items-center gap-4 reveal">
       <div class="w-11 h-11 bg-[#0F2557] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">06</div>
       <h2 class="text-2xl sm:text-[28px] font-black text-[#0F2557]">最新の記事</h2>
@@ -323,7 +325,7 @@ const productHighlights = [
           <a
             href={`/blog/${post.slug}/`}
             class="reveal group bg-white rounded-2xl p-6 sm:p-7 flex flex-col gap-3 no-underline text-inherit hover-lift"
-            style="transition:box-shadow 0.2s ease,transform 0.2s ease,outline-color 0.2s ease;"
+            style="box-shadow: var(--shadow-sm); transition:box-shadow 0.2s ease,transform 0.2s ease,outline-color 0.2s ease;"
           >
             <div class="flex gap-2.5 items-center text-xs text-[#5A6B85]">
               {post.data.category && (

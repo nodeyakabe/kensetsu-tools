@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --shadow-sm: 0 1px 2px rgba(15, 37, 87, .06);
+    --shadow-md: 0 2px 4px rgba(15, 37, 87, .06), 0 8px 24px rgba(15, 37, 87, .08);
+    --shadow-lg: 0 4px 8px rgba(15, 37, 87, .08), 0 16px 40px rgba(15, 37, 87, .12);
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -39,14 +45,15 @@
 
   .card {
     @apply bg-white rounded-2xl border border-[#D8DEE8];
+    box-shadow: var(--shadow-sm);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
   }
   .card:hover {
-    @apply shadow-md;
+    box-shadow: var(--shadow-md);
   }
 
   .container-base {
-    @apply max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8;
   }
 
   .btn-press {
@@ -54,6 +61,12 @@
   }
   .btn-press:active {
     transform: scale(0.98);
+  }
+
+  /* 控えめなドット背景装飾 */
+  .bg-dots {
+    background-image: radial-gradient(circle, rgba(15, 37, 87, 0.04) 1.5px, transparent 1.5px);
+    background-size: 28px 28px;
   }
 }
 
@@ -108,10 +121,11 @@
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .card:hover {
     transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
   }
   .hover-lift:hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 16px rgba(11, 28, 66, 0.10);
+    box-shadow: var(--shadow-lg);
   }
 }
 
