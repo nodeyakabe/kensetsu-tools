@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import BlogCard from '@/components/BlogCard.astro';
 import { PRODUCT } from '@/data/product';
 import { getCollection } from 'astro:content';
 
@@ -35,13 +34,6 @@ const productHighlights = [
   '説明書いらずのシンプル設計',
 ];
 
-const specs = [
-  { label: '価格',     value: null },
-  { label: '販売形態', value: '買い切り（月額・更新料なし）' },
-  { label: '形式',     value: 'Excel（.xlsx）／マクロ不使用' },
-  { label: '用途',     value: '工事ごとの収支管理・確定申告の準備' },
-  { label: 'サポート', value: 'お問い合わせフォームにて対応' },
-];
 ---
 
 <BaseLayout
