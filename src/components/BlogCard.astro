@@ -17,7 +17,7 @@ const formattedDate = publishedAt.toLocaleDateString('ja-JP', {
 }).replace(/\//g, '-');
 ---
 
-<article class="bg-white border border-[#D8DEE8] rounded-2xl p-6 flex flex-col gap-3 group" style="transition:box-shadow 0.2s ease,transform 0.2s ease;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 4px 16px rgba(11,28,66,0.10)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+<article class="bg-white border border-[#D8DEE8] rounded-2xl p-6 flex flex-col gap-3 group hover-lift" style="transition:box-shadow 0.2s ease,transform 0.2s ease;">
   <div class="flex items-center gap-3">
     {category && (
       <span class="text-[11px] font-bold bg-[#FDEBC8] text-[#B45309] px-2.5 py-0.5 rounded-full">

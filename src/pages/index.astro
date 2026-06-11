@@ -325,10 +325,8 @@ const productHighlights = [
         {posts.map(post => (
           <a
             href={`/blog/${post.slug}/`}
-            class="reveal group bg-white rounded-2xl p-6 sm:p-7 flex flex-col gap-3 no-underline text-inherit"
+            class="reveal group bg-white rounded-2xl p-6 sm:p-7 flex flex-col gap-3 no-underline text-inherit hover-lift"
             style="transition:box-shadow 0.2s ease,transform 0.2s ease,outline-color 0.2s ease;"
-            onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 4px 16px rgba(11,28,66,0.10)'"
-            onmouseout="this.style.transform='';this.style.boxShadow=''"
           >
             <div class="flex gap-2.5 items-center text-xs text-[#5A6B85]">
               {post.data.category && (
