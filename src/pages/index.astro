@@ -46,7 +46,10 @@ const productHighlights = [
   <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-0">
 
     <!-- 全幅ネイビーカード — 案C: eyebrow→h1→サブ→区切り→下部バンド(CTA左・マスコット右)→チップ -->
-    <div class="bg-[#0F2557] rounded-3xl px-8 py-12 sm:px-12 sm:py-14 flex flex-col gap-6" style="box-shadow: var(--shadow-lg);">
+    <div class="bg-[#0F2557] rounded-3xl px-8 py-12 sm:px-12 sm:py-14 flex flex-col items-center" style="box-shadow: var(--shadow-lg);">
+
+      <!-- 中身を960pxに収める内側コンテナ（背景は全幅のまま） -->
+      <div class="w-full max-w-[960px] flex flex-col gap-6">
 
       <!-- eyebrow -->
       <div class="flex items-center gap-2.5">
@@ -54,9 +57,9 @@ const productHighlights = [
         <span class="text-[12.5px] font-bold tracking-widest text-[#F59E0B]">一人親方・小規模建設業のための業務ツール</span>
       </div>
 
-      <!-- h1 全幅 -->
-      <h1 class="text-4xl sm:text-5xl font-black leading-[1.35] text-white tracking-wide">
-        建設業の現場を、<br class="hidden sm:block">もっとシンプルに。
+      <!-- h1 全幅（デスクトップは1行で幅を使う・強制改行なし） -->
+      <h1 class="text-4xl sm:text-5xl lg:text-[52px] font-black leading-[1.35] text-white tracking-wide">
+        建設業の現場を、もっとシンプルに。
       </h1>
 
       <!-- サブコピー -->
