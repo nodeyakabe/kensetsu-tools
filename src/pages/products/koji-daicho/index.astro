@@ -118,6 +118,15 @@ const comparisonRows = [
 
         <!-- テキストブロック -->
         <div class="order-last md:order-first text-center md:text-left">
+          <!-- サブブランド表記 -->
+          <div class="flex items-center justify-center md:justify-start gap-2 mb-4">
+            <div class="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-white" aria-hidden="true">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              </svg>
+            </div>
+            <span class="font-mono text-[11px] tracking-[0.25em] text-[#8FA1C4] uppercase">KENSETSU-TOOLS</span>
+          </div>
           <p class="text-[#F59E0B] text-xs font-bold tracking-widest mb-4 uppercase">
             個人事業主・一人親方（暦年決算）向け
           </p>
@@ -209,6 +218,7 @@ const comparisonRows = [
   <!-- ===== S4：主な機能 ===== -->
   <section id="features" class="bg-white relative mt-[-40px] rounded-t-[40px] sm:rounded-t-[80px] pt-16 sm:pt-20 pb-16">
     <div class="container-base max-w-5xl mx-auto">
+      <p class="font-mono text-[11px] tracking-[0.25em] text-[#F59E0B] uppercase text-center mb-2">FUNCTION</p>
       <h2 class="text-2xl sm:text-3xl font-bold text-[#0F2557] mb-10 text-center">主な機能</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {features.map(f => (
@@ -374,6 +384,7 @@ const comparisonRows = [
   <!-- ===== S7：価格 ===== -->
   <section id="price" class="bg-white relative mt-[-40px] rounded-t-[40px] sm:rounded-t-[80px] pt-16 sm:pt-20 pb-16">
     <div class="container-base">
+      <p class="font-mono text-[11px] tracking-[0.25em] text-[#F59E0B] uppercase text-center mb-2">PRICE</p>
       <h2 class="text-2xl sm:text-3xl font-bold text-[#0F2557] mb-10 text-center">価格</h2>
       <div class="max-w-md mx-auto border-2 border-[#F59E0B] rounded-3xl p-8 sm:p-10 text-center" style="box-shadow: var(--shadow-lg);">
         <p class="text-base font-bold text-slate-600 mb-3">シンプル工事台帳 ライト版</p>
