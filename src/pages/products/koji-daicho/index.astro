@@ -75,6 +75,7 @@ const comparisonRows = [
   { label: '主な対象',       vals: ['Excelが得意な方', '中小〜の事業者', '法人・複数人の現場', '一人親方・ITが苦手な方'] },
   { label: 'サポート',       vals: ['なし', 'あり', 'あり', '60日メールサポート'] },
 ];
+
 ---
 
 <BaseLayout
@@ -89,84 +90,52 @@ const comparisonRows = [
   </Fragment>
 
   <!-- パンくず -->
-  <div class="w-full px-4 sm:px-6 lg:px-10 py-3 bg-white border-b border-slate-100">
+  <div class="w-full px-4 sm:px-6 lg:px-10 py-3 border-b border-slate-100">
     <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
-      <a href="/" class="hover:text-[#0F2557] transition-colors">ホーム</a>
+      <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
       <span class="mx-2">/</span>
-      <a href="/products/" class="hover:text-[#0F2557] transition-colors">ツール・商品</a>
+      <a href="/products/" class="hover:text-primary-600 transition-colors">ツール・商品</a>
       <span class="mx-2">/</span>
       <span class="text-slate-700">シンプル工事台帳 ライト版</span>
     </nav>
   </div>
 
-  <!-- ===== S1：ヒーロー（ネイビー・2カラム） ===== -->
-  <section class="bg-[#0F2557] pt-10 sm:pt-14 pb-24 sm:pb-32 overflow-clip">
-    <div class="container-base">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-
-        <!-- キャラクター画像（モバイルは先に表示） -->
-        <div class="flex justify-center md:justify-end order-first md:order-last">
-          <img
-            src="/images/characters/uta_product.png"
-            alt="工房の案内係・ウタ"
-            width="320"
-            height="320"
-            class="w-[160px] sm:w-[220px] md:w-[300px] h-auto drop-shadow-2xl mascot-idle"
-            loading="eager"
-          />
-        </div>
-
-        <!-- テキストブロック -->
-        <div class="order-last md:order-first text-center md:text-left">
-          <!-- サブブランド表記 -->
-          <div class="flex items-center justify-center md:justify-start gap-2 mb-4">
-            <div class="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-              <svg viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-white" aria-hidden="true">
-                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-              </svg>
-            </div>
-            <span class="font-mono text-[11px] tracking-[0.25em] text-[#8FA1C4] uppercase">KENSETSU-TOOLS</span>
-          </div>
-          <p class="text-[#F59E0B] text-xs font-bold tracking-widest mb-4 uppercase">
-            個人事業主・一人親方（暦年決算）向け
-          </p>
-          <h1 class="text-[2.25rem] sm:text-[2.75rem] md:text-[3rem] font-black text-white leading-[1.2] tracking-tight mb-5">
-            シンプル工事台帳<br>ライト版
-          </h1>
-          <p class="text-base sm:text-lg text-[#C7D2E5] mb-6 leading-[1.9]">
-            確定申告がラクになる、<br>
-            Excelだけで動く工事管理ツール。
-          </p>
-          <div class="mb-7">
-            <span class="text-4xl sm:text-5xl font-black text-[#F59E0B]">¥{PRODUCT.price.toLocaleString()}</span>
-            <span class="text-sm text-[#8FA1C4] ml-2">税込・買い切り</span>
-          </div>
-          <button
-            id="buy-btn-hero"
-            type="button"
-            class="bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold px-8 py-4 rounded-full text-base sm:text-lg transition-colors shadow-lg btn-press"
-          >
-            今すぐ購入する →
-          </button>
-          <!-- 信頼チップ -->
-          <div class="flex flex-wrap justify-center md:justify-start gap-2 mt-6">
-            {['買い切り・月額なし', 'マクロなし', 'インストール不要', '60日サポート'].map(chip => (
-              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-white/10 text-[#C7D2E5] border border-white/20">
-                <span class="text-[#F59E0B]" aria-hidden="true">✓</span>{chip}
-              </span>
-            ))}
-          </div>
-        </div>
-
+  <!-- S1：ヒーロー -->
+  <section class="bg-slate-50 py-12 md:py-16">
+    <div class="container-base text-center max-w-3xl mx-auto">
+      <h1 class="text-4xl md:text-5xl font-bold text-primary-900 mb-4">
+        シンプル工事台帳 ライト版
+      </h1>
+      <p class="text-sm text-slate-500 mb-2">個人事業主・一人親方（暦年決算）向け</p>
+      <p class="text-xl md:text-2xl text-slate-600 mb-4 leading-relaxed">
+        確定申告がラクになる、<br>
+        Excelだけで動く工事管理ツール。
+      </p>
+      <p class="text-3xl font-semibold text-accent-500 mb-6">¥{PRODUCT.price.toLocaleString()}</p>
+      <button
+        id="buy-btn-hero"
+        type="button"
+        class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-md"
+      >
+        今すぐ購入する →
+      </button>
+      <!-- 信頼チップ -->
+      <div class="flex flex-wrap justify-center gap-2 mt-5">
+        {['買い切り・月額なし', 'マクロなし', 'インストール不要', '3分で使い始め', '60日メールサポート'].map(chip => (
+          <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium bg-primary-50 text-primary-800 border border-primary-200">
+            <span aria-hidden="true">✓</span>
+            {chip}
+          </span>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- ===== S2：こんな悩みありませんか？ ===== -->
-  <section class="bg-white relative mt-[-40px] rounded-t-[40px] sm:rounded-t-[80px] pt-16 sm:pt-20 pb-16">
+  <!-- S2：悩み -->
+  <section class="py-16 bg-white">
     <div class="container-base max-w-3xl mx-auto">
-      <h2 class="text-2xl sm:text-3xl font-bold text-[#0F2557] mb-10 text-center">こんな悩みありませんか？</h2>
-      <ul class="space-y-5">
+      <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">こんな悩みありませんか？</h2>
+      <ul class="space-y-4">
         {[
           '工事台帳の管理が、紙やExcel自作で面倒',
           '確定申告の準備が、毎年大変',
@@ -174,7 +143,7 @@ const comparisonRows = [
           'インボイス制度や改正建設業法への対応が不安',
           'ITに詳しくないけど、何か始めたい',
         ].map(item => (
-          <li class="flex items-start gap-4 text-base sm:text-lg text-slate-700 leading-relaxed">
+          <li class="flex items-start gap-4 text-lg text-slate-700">
             <span class="text-red-400 font-black text-xl flex-shrink-0 mt-0.5" aria-hidden="true">!</span>
             <span>{item}</span>
           </li>
@@ -183,11 +152,11 @@ const comparisonRows = [
     </div>
   </section>
 
-  <!-- ===== S3：こう変わる ===== -->
-  <section class="bg-[#F3F6FB] relative mt-[-40px] rounded-t-[40px] sm:rounded-t-[80px] pt-16 sm:pt-20 pb-16">
+  <!-- S3：こう変わる -->
+  <section class="py-16 bg-slate-50">
     <div class="container-base">
-      <h2 class="text-2xl sm:text-3xl font-bold text-[#0F2557] mb-10 text-center">シンプル工事台帳なら、こう変わる</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">シンプル工事台帳なら、こう変わる</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
         {[
           {
             icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
@@ -205,9 +174,9 @@ const comparisonRows = [
             desc: '¥5,980の買い切り。月額料金は一切ありません。',
           },
         ].map(card => (
-          <div class="bg-white border border-[#D8DEE8] rounded-2xl p-8 text-center" style="box-shadow: var(--shadow-sm);">
-            <div class="text-[#F59E0B] flex justify-center mb-4" set:html={card.icon} />
-            <h3 class="text-xl font-bold text-[#0F2557] mb-3">{card.title}</h3>
+          <div class="bg-white border border-slate-200 rounded-xl p-8 text-center">
+            <div class="text-accent-500 flex justify-center mb-4" set:html={card.icon} />
+            <h3 class="text-xl font-bold text-primary-900 mb-3">{card.title}</h3>
             <p class="text-slate-600 leading-relaxed text-sm">{card.desc}</p>
           </div>
         ))}
@@ -215,17 +184,16 @@ const comparisonRows = [
     </div>
   </section>
 
-  <!-- ===== S4：主な機能 ===== -->
-  <section id="features" class="bg-white relative mt-[-40px] rounded-t-[40px] sm:rounded-t-[80px] pt-16 sm:pt-20 pb-16">
+  <!-- S4：機能（3列グリッド） -->
+  <section class="py-16 bg-white">
     <div class="container-base max-w-5xl mx-auto">
-      <p class="font-mono text-[11px] tracking-[0.25em] text-[#F59E0B] uppercase text-center mb-2">FUNCTION</p>
-      <h2 class="text-2xl sm:text-3xl font-bold text-[#0F2557] mb-10 text-center">主な機能</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">主な機能</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {features.map(f => (
-          <div class="flex items-start gap-3 bg-white border border-[#D8DEE8] rounded-2xl p-5" style="box-shadow: var(--shadow-sm);">
-            <div class="text-[#F59E0B] flex-shrink-0" set:html={f.icon} />
+          <div class="flex items-start gap-3 bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+            <div class="text-accent-500 flex-shrink-0" set:html={f.icon} />
             <div>
-              <h3 class="text-base font-bold text-[#0F2557] mb-1">{f.title}</h3>
+              <h3 class="text-base font-bold text-primary-900 mb-1">{f.title}</h3>
               <p class="text-slate-600 text-sm leading-relaxed">{f.desc}</p>
             </div>
           </div>
@@ -234,21 +202,21 @@ const comparisonRows = [
     </div>
   </section>
 
-  <!-- ===== S4c：他社比較 ===== -->
-  <section class="bg-[#F3F6FB] relative mt-[-40px] rounded-t-[40px] sm:rounded-t-[80px] pt-16 sm:pt-20 pb-16">
-    <div class="container-base mx-auto">
-      <h2 class="text-2xl sm:text-3xl font-bold text-[#0F2557] mb-3 text-center">他のツールと比べてみると</h2>
-      <p class="text-slate-500 text-center mb-10 text-sm">用途が違うだけで、どれも正解です。本品が合うかどうか確認してください。</p>
 
+  <!-- S4c：他社比較（本品列オレンジ帯ハイライト） -->
+  <section class="py-16 bg-white">
+    <div class="container-base mx-auto">
+      <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">他のツールと比べてみると</h2>
+      <p class="text-slate-500 text-center mb-10 text-sm">用途が違うだけで、どれも正解です。本品が合うかどうか確認してください。</p>
       <!-- モバイル比較カード（md未満） -->
       <div class="md:hidden space-y-2 mb-6">
         {comparisonRows.map(row => (
-          <div class="rounded-xl border border-slate-200 overflow-hidden bg-white">
+          <div class="rounded-xl border border-slate-200 overflow-hidden">
             <div class="bg-slate-100 px-4 py-2.5 text-sm font-semibold text-slate-700">{row.label}</div>
             <div class="p-4 space-y-3">
               <div class="flex items-start gap-2 rounded-lg px-3 py-2.5" style="background:#FFF7ED; border-left: 3px solid #F59E0B;">
-                <span class="text-xs font-bold text-[#D98908] flex-shrink-0 pt-0.5">本品</span>
-                <span class="text-sm font-semibold text-[#0F2557]">{row.vals[3]}</span>
+                <span class="text-xs font-bold text-accent-600 flex-shrink-0 pt-0.5">本品</span>
+                <span class="text-sm font-semibold text-primary-900">{row.vals[3]}</span>
               </div>
               <div class="grid grid-cols-3 gap-2 text-xs text-center text-slate-500">
                 <div>
@@ -278,7 +246,7 @@ const comparisonRows = [
               <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">無料Excelテンプレ</th>
               <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">市販の工事台帳<br class="hidden sm:inline"/><span class="text-xs font-normal">（日本法令 等）</span></th>
               <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">クラウド型<br class="hidden sm:inline"/><span class="text-xs font-normal">（月額サービス）</span></th>
-              <th scope="col" class="px-4 py-3 font-bold text-center text-white rounded-tr-xl" style="background: #F59E0B; border: 2px solid #F59E0B;">本品<br class="hidden sm:inline"/><span class="text-xs font-normal opacity-90">ライト版</span></th>
+              <th scope="col" class="px-4 py-3 font-bold text-center text-white rounded-tr-xl" style="background: #F59E0B; border: 2px solid #F59E0B;">本品<br class="hidden sm:inline"/><span class="text-xs font-normal opacity-80">ライト版</span></th>
             </tr>
           </thead>
           <tbody>
@@ -287,7 +255,7 @@ const comparisonRows = [
                 <td class="px-4 py-3 text-slate-500 font-medium border-b border-slate-100">{row.label}</td>
                 {row.vals.map((v, j) => (
                   <td
-                    class={`px-4 py-3 text-center ${j === 3 ? 'text-[#0F2557] font-semibold' : 'text-slate-600 border-b border-slate-100'}`}
+                    class={`px-4 py-3 text-center ${j === 3 ? 'text-primary-900 font-semibold' : 'text-slate-600 border-b border-slate-100'}`}
                     style={j === 3 ? `background: #FFF7ED; border-left: 2px solid #F59E0B; border-right: 2px solid #F59E0B; border-bottom: ${i === comparisonRows.length - 1 ? '2px solid #F59E0B' : '1px solid #FED7AA'};` : ''}
                   >
                     {v}
@@ -302,8 +270,9 @@ const comparisonRows = [
     </div>
   </section>
 
-  <!-- ===== S4d：キャラクターコメント ===== -->
-  <section class="bg-white relative mt-[-40px] rounded-t-[40px] sm:rounded-t-[80px] pt-16 pb-16">
+
+  <!-- S4d：キャラクターコメント（比較表の補足・ウタ→ナツの順） -->
+  <section class="pt-4 pb-16 bg-white">
     <div class="container-base max-w-2xl mx-auto">
       <CharaDialogue
         chara="mikeru"
@@ -320,16 +289,16 @@ const comparisonRows = [
     </div>
   </section>
 
-  <!-- ===== S5：画面イメージ ===== -->
-  <section class="bg-[#F3F6FB] relative mt-[-40px] rounded-t-[40px] sm:rounded-t-[80px] pt-16 sm:pt-20 pb-16">
+  <!-- S5：実際の画面（5枚スクリーンショット） -->
+  <section class="py-16 bg-slate-50">
     <div class="container-base max-w-5xl mx-auto">
-      <h2 class="text-2xl sm:text-3xl font-bold text-[#0F2557] mb-3 text-center">画面イメージ</h2>
-      <p class="text-slate-500 text-center mb-2 text-sm">実際のExcelファイルの画面です。</p>
-      <p class="text-xs text-slate-400 text-center mb-10">画像をクリックすると拡大できます</p>
+      <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">画面イメージ</h2>
+      <p class="text-slate-500 text-center mb-2">実際のExcelファイルの画面です。</p>
+      <p class="text-sm text-slate-400 text-center mb-10">画像をクリックすると拡大できます</p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-        <figure class="rounded-2xl border-2 border-slate-200 bg-white overflow-hidden" style="box-shadow: var(--shadow-sm);">
+        <figure class="rounded-xl border-2 border-slate-300 bg-white overflow-hidden shadow-sm">
           <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
                role="button" tabindex="0" aria-label="ホーム画面を拡大">
             <img src="/images/screens/screen_home.png" alt="シンプル工事台帳 ホーム画面"
@@ -341,7 +310,7 @@ const comparisonRows = [
           </figcaption>
         </figure>
 
-        <figure class="rounded-2xl border-2 border-slate-200 bg-white overflow-hidden" style="box-shadow: var(--shadow-sm);">
+        <figure class="rounded-xl border-2 border-slate-300 bg-white overflow-hidden shadow-sm">
           <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
                role="button" tabindex="0" aria-label="年次サマリー画面を拡大">
             <img src="/images/screens/screen_nenjisummary.png" alt="シンプル工事台帳 年次サマリー画面"
@@ -353,7 +322,7 @@ const comparisonRows = [
           </figcaption>
         </figure>
 
-        <figure class="rounded-2xl border-2 border-slate-200 bg-white overflow-hidden" style="box-shadow: var(--shadow-sm);">
+        <figure class="rounded-xl border-2 border-slate-300 bg-white overflow-hidden shadow-sm">
           <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
                role="button" tabindex="0" aria-label="月次サマリー画面を拡大">
             <img src="/images/screens/screen_getsujisum.png" alt="シンプル工事台帳 月次サマリー画面"
@@ -365,7 +334,7 @@ const comparisonRows = [
           </figcaption>
         </figure>
 
-        <figure class="rounded-2xl border-2 border-slate-200 bg-white overflow-hidden" style="box-shadow: var(--shadow-sm);">
+        <figure class="rounded-xl border-2 border-slate-300 bg-white overflow-hidden shadow-sm">
           <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
                role="button" tabindex="0" aria-label="工事登録画面を拡大">
             <img src="/images/screens/screen_kojitoroku.png" alt="シンプル工事台帳 工事登録画面"
@@ -381,19 +350,16 @@ const comparisonRows = [
     </div>
   </section>
 
-  <!-- ===== S7：価格 ===== -->
-  <section id="price" class="bg-white relative mt-[-40px] rounded-t-[40px] sm:rounded-t-[80px] pt-16 sm:pt-20 pb-16">
+
+  <!-- S7：価格（安心の特徴を統合） -->
+  <section class="py-16 bg-white">
     <div class="container-base">
-      <p class="font-mono text-[11px] tracking-[0.25em] text-[#F59E0B] uppercase text-center mb-2">PRICE</p>
-      <h2 class="text-2xl sm:text-3xl font-bold text-[#0F2557] mb-10 text-center">価格</h2>
-      <div class="max-w-md mx-auto border-2 border-[#F59E0B] rounded-3xl p-8 sm:p-10 text-center" style="box-shadow: var(--shadow-lg);">
-        <p class="text-base font-bold text-slate-600 mb-3">シンプル工事台帳 ライト版</p>
-        <div class="mb-1">
-          <span class="text-5xl sm:text-6xl font-black text-[#F59E0B]">¥{PRODUCT.price.toLocaleString()}</span>
-        </div>
-        <p class="text-sm text-slate-400 mb-8">税込・買い切り</p>
+      <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">価格</h2>
+      <div class="max-w-md mx-auto border-2 border-accent-400 rounded-2xl p-10 shadow-lg text-center">
+        <p class="text-lg font-bold text-slate-700 mb-2">シンプル工事台帳 ライト版</p>
+        <p class="text-6xl font-bold text-accent-500 mb-1">¥{PRODUCT.price.toLocaleString()}</p>
         <hr class="border-slate-200 mb-8" />
-        <ul class="space-y-3.5 text-left mb-10">
+        <ul class="space-y-3 text-left mb-10">
           {[
             '永続ライセンス',
             '同一事業者内の複数PCで利用可',
@@ -402,10 +368,10 @@ const comparisonRows = [
             'インストール不要、Excelで開くだけ',
             'マクロ不使用で「マクロ警告」が出ない',
             'データはあなたのPCだけに保存（クラウド不使用）',
-            'DL後すぐ使える設計',
+            '3分で使い始められる設計',
           ].map(item => (
             <li class="flex items-center gap-3 text-slate-700 text-sm">
-              <span class="text-[#F59E0B] font-bold flex-shrink-0">✓</span>
+              <span class="text-accent-500 font-bold flex-shrink-0">✓</span>
               <span>{item}</span>
             </li>
           ))}
@@ -413,7 +379,7 @@ const comparisonRows = [
         <button
           id="buy-btn"
           type="button"
-          class="w-full bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold py-3.5 rounded-full transition-colors text-sm btn-press"
+          class="w-full bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 rounded-lg transition-colors text-sm"
         >
           購入する（¥{PRODUCT.price.toLocaleString()} 買い切り）
         </button>
@@ -421,60 +387,29 @@ const comparisonRows = [
     </div>
   </section>
 
-  <!-- ===== S8：動作環境 ===== -->
-  <section class="bg-[#F3F6FB] relative mt-[-40px] rounded-t-[40px] sm:rounded-t-[80px] pt-16 sm:pt-20 pb-16">
+  <!-- S8：動作環境 -->
+  <section class="py-16 bg-slate-50">
     <div class="container-base max-w-2xl mx-auto">
-      <h2 class="text-2xl sm:text-3xl font-bold text-[#0F2557] mb-8 text-center">動作環境</h2>
-      <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden" style="box-shadow: var(--shadow-sm);">
+      <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">動作環境</h2>
+      <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
         {[
-          { label: 'OS',        value: 'Windows（Excel 2016 以降）' },
+          { label: 'OS', value: 'Windows / Mac' },
+          { label: 'Excel', value: '2016 以降' },
           { label: 'エディション', value: 'Office 365 / 買い切り版どちらも対応' },
           { label: 'ファイル形式', value: '.xlsx（マクロなし）' },
-          { label: '推奨環境',  value: 'メモリ 4GB以上' },
-          { label: '集計方式',  value: '暦年（1月〜12月）固定　※法人・任意の事業年度での集計には対応していません' },
+          { label: '推奨環境', value: 'メモリ 4GB以上' },
+          { label: '集計方式', value: '暦年（1月〜12月）固定　※法人・任意の事業年度での集計には対応していません' },
         ].map((row, i) => (
           <div class={`flex gap-4 px-6 py-4 ${i !== 0 ? 'border-t border-slate-100' : ''}`}>
             <span class="text-slate-500 text-sm w-32 flex-shrink-0 pt-0.5">{row.label}</span>
-            <span class="text-slate-800 font-medium text-sm">{row.value}</span>
+            <span class="text-slate-800 font-medium">{row.value}</span>
           </div>
         ))}
       </div>
-      <p class="text-xs text-slate-400 text-center mt-4">※ Linux・ChromeOS は非対応です。</p>
     </div>
   </section>
 
-  <!-- ===== FAQ導線 ===== -->
-  <div class="bg-white relative mt-[-40px] rounded-t-[40px] sm:rounded-t-[80px] py-8 text-center border-b border-slate-100">
-    <p class="text-slate-500 text-sm">
-      ご購入前のご不明点は
-      <a href="/faq/" class="text-[#0F2557] hover:text-[#0B1C42] font-semibold underline transition-colors">よくある質問</a>
-      もあわせてご確認ください。
-    </p>
-  </div>
-
-  <!-- ===== S9：最終CTA ===== -->
-  <section class="bg-[#0F2557] relative mt-[-40px] rounded-t-[40px] sm:rounded-t-[80px] pt-20 sm:pt-24 pb-20 sm:pb-24">
-    <div class="container-base text-center max-w-2xl mx-auto">
-      <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 leading-snug">
-        今日から、工事管理をシンプルに。
-      </h2>
-      <p class="text-[#8FA1C4] text-sm mb-10">¥{PRODUCT.price.toLocaleString()} 税込・買い切り・月額なし</p>
-      <button
-        id="buy-btn-cta"
-        type="button"
-        class="bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold px-10 py-4 rounded-full text-base sm:text-lg transition-colors shadow-lg btn-press"
-      >
-        今すぐ購入する →
-      </button>
-      <div class="mt-5">
-        <a href="/faq/" class="text-[#5A6B85] hover:text-[#8FA1C4] text-sm transition-colors underline underline-offset-2">
-          ご購入前のよくある質問はこちら
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- エラートースト -->
+  <!-- エラートースト（購入エラー時に画面上部に表示） -->
   <div
     id="buy-toast"
     class="fixed top-4 left-1/2 -translate-x-1/2 z-[60] hidden items-center gap-2 bg-red-600 text-white text-sm font-medium px-5 py-3 rounded-xl shadow-lg pointer-events-none"
@@ -498,27 +433,24 @@ const comparisonRows = [
          class="max-h-[90vh] max-w-[95vw] object-contain rounded-lg bg-white" />
   </div>
 
-  <!-- モバイル下部固定バー -->
-  <div
-    id="sticky-buy-bar"
-    class="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white border-t border-slate-200 shadow-lg translate-y-full transition-transform duration-300"
-    aria-hidden="true"
-  >
-    <div class="flex items-center justify-between gap-4 px-4 py-3 max-w-sm mx-auto"
-         style="padding-bottom: max(12px, env(safe-area-inset-bottom));">
-      <div class="min-w-0">
-        <p class="text-xs text-slate-500 truncate">シンプル工事台帳 ライト版</p>
-        <p class="text-lg font-bold text-[#F59E0B] leading-none">¥{PRODUCT.price.toLocaleString()}</p>
-      </div>
-      <button
-        id="buy-btn-sticky"
-        type="button"
-        class="flex-shrink-0 bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold px-5 py-2.5 rounded-full text-sm transition-colors shadow btn-press"
-      >
-        今すぐ購入
-      </button>
-    </div>
+  <!-- FAQ導線 -->
+  <div class="py-6 bg-white text-center border-t border-slate-100">
+    <p class="text-slate-500 text-sm">
+      ご購入前のご不明点は
+      <a href="/faq/" class="text-primary-600 hover:text-primary-800 font-semibold underline transition-colors">よくある質問</a>
+      もあわせてご確認ください。
+    </p>
   </div>
+
+  <!-- S9：購入CTA -->
+  <section class="py-20 bg-primary-900">
+    <div class="container-base text-center max-w-2xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        今日から、工事管理をシンプルに。
+      </h2>
+
+    </div>
+  </section>
 
 <script>
   function initLightbox() {
@@ -528,18 +460,21 @@ const comparisonRows = [
     const mainEl = document.querySelector('main');
     if (!lb || !lbImg || !closeBtn) return;
 
+    // AbortController で前回のリスナーを破棄（View Transitions 対応）
     const prevAc = (window).__lbAbort;
     if (prevAc) prevAc.abort();
     const ac = new AbortController();
     (window).__lbAbort = ac;
     const sig = { signal: ac.signal };
 
+    // 前回の残留状態をクリーンアップ
     document.body.style.overflow = '';
     lb.classList.add('hidden');
     lb.classList.remove('flex');
     mainEl?.removeAttribute('aria-hidden');
 
     let lastFocused = null;
+
     const preventTouch = (e) => e.preventDefault();
 
     const open = (src, alt) => {
@@ -563,13 +498,16 @@ const comparisonRows = [
       lastFocused?.focus();
     };
 
+    // フォーカストラップ
     lb.addEventListener('keydown', (e) => {
       if (e.key === 'Tab') { e.preventDefault(); closeBtn.focus(); }
     }, sig);
 
     document.querySelectorAll('.gallery-wrapper').forEach((wrapper) => {
       const img = wrapper.querySelector('img');
-      const handler = () => { if (img) open(img.currentSrc || img.src, img.alt); };
+      const handler = () => {
+        if (img) open(img.currentSrc || img.src, img.alt);
+      };
       wrapper.addEventListener('click', handler, sig);
       wrapper.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); }
@@ -600,7 +538,7 @@ const comparisonRows = [
     }, 5000);
   }
 
-  const BUY_IDS = ["buy-btn-hero", "buy-btn", "buy-btn-cta", "buy-btn-sticky"] as const;
+  const BUY_IDS = ["buy-btn-hero", "buy-btn", "buy-btn-sticky"] as const;
   const allBuyBtns = () => BUY_IDS.map(id => document.getElementById(id) as HTMLButtonElement | null).filter(Boolean) as HTMLButtonElement[];
 
   async function handleBuy(btn: HTMLButtonElement) {
@@ -625,8 +563,30 @@ const comparisonRows = [
     b?.addEventListener("click", () => handleBuy(b!));
   });
 </script>
+  <!-- モバイル下部固定バー（ヒーローCTAが画面外に出たら表示） -->
+  <div
+    id="sticky-buy-bar"
+    class="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white border-t border-slate-200 shadow-lg translate-y-full transition-transform duration-300"
+    aria-hidden="true"
+  >
+    <div class="flex items-center justify-between gap-4 px-4 py-3 max-w-sm mx-auto"
+         style="padding-bottom: max(12px, env(safe-area-inset-bottom));">
+      <div class="min-w-0">
+        <p class="text-xs text-slate-500 truncate">シンプル工事台帳 ライト版</p>
+        <p class="text-lg font-bold text-accent-500 leading-none">¥{PRODUCT.price.toLocaleString()}</p>
+      </div>
+      <button
+        id="buy-btn-sticky"
+        type="button"
+        class="flex-shrink-0 bg-accent-500 hover:bg-accent-600 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors shadow"
+      >
+        今すぐ購入
+      </button>
+    </div>
+  </div>
 
 <script>
+  // モバイル下部固定バーの表示制御（IntersectionObserver）
   const stickyBar = document.getElementById('sticky-buy-bar');
   const heroBtn = document.getElementById('buy-btn-hero');
   if (stickyBar && heroBtn) {
