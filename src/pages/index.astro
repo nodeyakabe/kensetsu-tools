@@ -73,48 +73,34 @@ const pillars = [
     style="right:20px; bottom:40px; width:220px; z-index:2;"
   />
 
-  <div class="max-w-[1350px] mx-auto px-4 sm:px-6 lg:px-10 pt-16 sm:pt-24 lg:pt-28 pb-14 sm:pb-16 lg:pb-20 relative flex flex-col gap-8 min-h-[520px] lg:min-h-[600px] justify-center" style="z-index:1;">
+  <!-- ブランドロゴ透かし（右端・文字にかぶる） -->
+  <img
+    src="/images/brand-watermark.png"
+    aria-hidden="true"
+    class="hidden lg:block absolute pointer-events-none select-none"
+    style="right:60px; top:50%; transform:translateY(-50%); width:340px; height:340px; object-fit:contain; opacity:0.13; z-index:2;"
+  />
 
-    <!-- 2カラム: 左＝装飾 / 右＝コピー -->
-    <div class="grid grid-cols-1 lg:grid-cols-[0.8fr_1.4fr] items-center gap-10 lg:gap-12">
+  <div class="max-w-[1350px] mx-auto px-4 sm:px-6 lg:px-10 pt-16 sm:pt-24 lg:pt-28 pb-14 sm:pb-16 lg:pb-20 relative flex flex-col gap-8 min-h-[520px] lg:min-h-[600px] justify-center" style="z-index:3;">
 
-      <!-- 左カラム: 装飾アイコン（デスクトップのみ） -->
-      <div class="hidden lg:flex flex-col items-center justify-center gap-4 pr-6">
-        <img
-          src="/images/brand-watermark.png"
-          aria-hidden="true"
-          width="200"
-          height="200"
-          class="select-none"
-          style="width:200px; height:200px; object-fit:contain;"
-        />
-        <div class="flex flex-col items-center gap-2">
-          <div class="w-10 h-[2px] rounded-full" style="background:rgba(74,94,140,0.5);"></div>
-          <div class="text-[13px] font-bold tracking-[0.32em]" style="color:#4A6A9A;">KENSETSU TOOLS</div>
-          <div class="text-[11px] tracking-[0.12em]" style="color:#3A5280;">建設業の業務ツール工房</div>
-        </div>
-      </div>
+    <!-- メインコピー -->
+    <div class="flex flex-col gap-7 max-w-[820px]">
 
-      <!-- 右カラム: メインコピー -->
-      <div class="flex flex-col gap-7">
+      <!-- バッジ -->
+      <span
+        class="inline-block font-bold self-start"
+        style="border:1px solid #4A5E8C; color:#DCE4F1; font-size:13.5px; font-weight:700; padding:8px 22px; border-radius:8px;"
+      >一人親方・小規模建設業のための業務ツール</span>
 
-        <!-- バッジ -->
-        <span
-          class="inline-block font-bold self-start"
-          style="border:1px solid #4A5E8C; color:#DCE4F1; font-size:13.5px; font-weight:700; padding:8px 22px; border-radius:8px;"
-        >一人親方・小規模建設業のための業務ツール</span>
+      <!-- h1 -->
+      <h1 class="text-[38px] sm:text-[50px] lg:text-[58px] font-black text-white" style="line-height:1.35; letter-spacing:0.04em;">
+        建設業の現場を、<br>もっとシンプルに。
+      </h1>
 
-        <!-- h1 -->
-        <h1 class="text-[38px] sm:text-[50px] lg:text-[58px] font-black text-white" style="line-height:1.35; letter-spacing:0.04em;">
-          建設業の現場を、<br>もっとシンプルに。
-        </h1>
-
-        <!-- サブコピー -->
-        <p style="font-size:16px; line-height:2.1; color:#C7D2E5; letter-spacing:0.04em; max-width:560px;">
-          買い切り（月額なし）の業務ツールと実務情報。むずかしい操作はありません。ITが苦手な方でも、今日から使えます。
-        </p>
-
-      </div>
+      <!-- サブコピー -->
+      <p style="font-size:16px; line-height:2.1; color:#C7D2E5; letter-spacing:0.04em; max-width:560px;">
+        買い切り（月額なし）の業務ツールと実務情報。むずかしい操作はありません。ITが苦手な方でも、今日から使えます。
+      </p>
 
     </div>
 
