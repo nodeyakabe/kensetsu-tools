@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import CharaDialogue from '@/components/CharaDialogue.astro';
 import { PRODUCT } from '@/data/product';
 
 const siteUrl = (import.meta.env.SITE ?? 'https://kensetsu-tools.com').replace(/\/$/, '');
@@ -75,7 +74,6 @@ const comparisonRows = [
   { label: '主な対象',       vals: ['Excelが得意な方', '中小〜の事業者', '法人・複数人の現場', '一人親方・ITが苦手な方'] },
   { label: 'サポート',       vals: ['なし', 'あり', 'あり', '60日メールサポート'] },
 ];
-
 ---
 
 <BaseLayout
@@ -90,324 +88,481 @@ const comparisonRows = [
   </Fragment>
 
   <!-- パンくず -->
-  <div class="w-full px-4 sm:px-6 lg:px-10 py-3 border-b border-slate-100">
+  <div class="w-full px-4 sm:px-6 lg:px-10 py-3 bg-white border-b border-slate-100">
     <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
-      <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
-      <span class="mx-2">/</span>
-      <a href="/products/" class="hover:text-primary-600 transition-colors">ツール・商品</a>
-      <span class="mx-2">/</span>
-      <span class="text-slate-700">シンプル工事台帳 ライト版</span>
+      <ol class="flex items-center flex-wrap">
+        <li><a href="/" class="hover:text-[#0F2557] transition-colors">ホーム</a></li>
+        <li aria-hidden="true" class="mx-2">/</li>
+        <li><a href="/products/" class="hover:text-[#0F2557] transition-colors">ツール・商品</a></li>
+        <li aria-hidden="true" class="mx-2">/</li>
+        <li aria-current="page" class="text-slate-700">シンプル工事台帳 ライト版</li>
+      </ol>
     </nav>
   </div>
 
-  <!-- S1：ヒーロー -->
-  <section class="bg-slate-50 py-12 md:py-16">
-    <div class="container-base text-center max-w-3xl mx-auto">
-      <h1 class="text-4xl md:text-5xl font-bold text-primary-900 mb-4">
-        シンプル工事台帳 ライト版
-      </h1>
-      <p class="text-sm text-slate-500 mb-2">個人事業主・一人親方（暦年決算）向け</p>
-      <p class="text-xl md:text-2xl text-slate-600 mb-4 leading-relaxed">
-        確定申告がラクになる、<br>
-        Excelだけで動く工事管理ツール。
-      </p>
-      <p class="text-3xl font-semibold text-accent-500 mb-6">¥{PRODUCT.price.toLocaleString()}</p>
-      <button
-        id="buy-btn-hero"
-        type="button"
-        class="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-md"
-      >
-        今すぐ購入する →
-      </button>
-      <!-- 信頼チップ -->
-      <div class="flex flex-wrap justify-center gap-2 mt-5">
-        {['買い切り・月額なし', 'マクロなし', 'インストール不要', '3分で使い始め', '60日メールサポート'].map(chip => (
-          <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium bg-primary-50 text-primary-800 border border-primary-200">
-            <span aria-hidden="true">✓</span>
-            {chip}
-          </span>
-        ))}
+  <!-- ===== S1：ヒーロー（カンプ案6・是正版 #34） ===== -->
+  <section class="bg-white relative overflow-clip">
+
+    <!-- 背景の装飾リング（デスクトップのみ） -->
+    <div class="hidden lg:block absolute pointer-events-none" style="top:-340px; left:-460px; width:1400px; height:1300px; border:170px solid #E4EBF6; border-radius:50%; transform:rotate(-18deg);" aria-hidden="true"></div>
+    <div class="hidden lg:block absolute pointer-events-none" style="top:430px; left:620px; width:900px; height:900px; border:120px solid #F3F6FB; border-radius:50%;" aria-hidden="true"></div>
+
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 pt-12 lg:pt-[56px] pb-20 lg:pb-[120px] relative">
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.05fr] gap-10 lg:gap-[56px] items-start">
+
+        <!-- 左：ビジュアルコンポジション -->
+
+        <!-- デスクトップ（lg以上）: カンプ通りの絶対配置 -->
+        <div class="hidden lg:block relative" style="min-height:540px;">
+          <!-- 回り込む英字 -->
+          <div class="absolute font-mono font-medium whitespace-nowrap text-[#8FA1C4]" style="top:170px; left:-10px; transform:rotate(-72deg); transform-origin:left top; font-size:21px; letter-spacing:0.28em;" aria-hidden="true">One-time purchase</div>
+          <!-- 濃紺の太い円リング -->
+          <div class="absolute rounded-full" style="top:14px; left:30px; width:430px; height:430px; border:38px solid #0F2557;"></div>
+          <!-- クリーム色の小円 -->
+          <div class="absolute rounded-full bg-[#FDEBC8]" style="top:396px; left:0; width:100px; height:100px;"></div>
+          <!-- 白カード＋スクショ -->
+          <div class="absolute bg-white" style="top:114px; left:62px; width:384px; border-radius:18px; padding:12px; transform:rotate(-2deg); box-shadow:0 4px 20px rgba(0,0,0,0.12);">
+            <img
+              src="/images/screens/screen_home.png"
+              alt="シンプル工事台帳 ホーム画面"
+              width="360"
+              height="300"
+              class="w-full block"
+              style="height:300px; object-fit:cover; object-position:center top; border-radius:10px;"
+              loading="eager"
+            />
+          </div>
+          <!-- オレンジの大チェックマーク -->
+          <div class="absolute" style="top:340px; left:366px; width:46px; height:92px; border-right:26px solid #F59E0B; border-bottom:26px solid #F59E0B; transform:rotate(42deg); border-radius:6px;"></div>
+          <!-- ウタ（上） -->
+          <img
+            src="/images/characters/uta_product.png"
+            alt="工房の案内係・ウタ"
+            width="100"
+            height="100"
+            class="absolute object-contain"
+            style="top:18px; left:78px; width:100px; height:100px; transform:rotate(-2deg);"
+            loading="eager"
+          />
+          <!-- ナツ（下） -->
+          <img
+            src="/images/characters/natu_product.png"
+            alt="工房の案内係・ナツ"
+            width="106"
+            height="106"
+            class="absolute object-contain"
+            style="top:386px; left:4px; width:106px; height:106px;"
+            loading="eager"
+          />
+        </div>
+
+        <!-- モバイル（lg未満）: 縮小版 -->
+        <div class="lg:hidden flex flex-col items-center gap-6">
+          <div class="relative flex items-center justify-center" style="width:280px; height:280px;">
+            <!-- 濃紺リング -->
+            <div class="absolute inset-0 rounded-full" style="border:28px solid #0F2557;"></div>
+            <!-- スクショ -->
+            <div class="w-[190px] bg-white rounded-2xl p-2" style="box-shadow:0 4px 16px rgba(0,0,0,0.12); transform:rotate(-2deg);">
+              <img
+                src="/images/screens/screen_home.png"
+                alt="シンプル工事台帳 ホーム画面"
+                class="w-full block rounded-xl"
+                style="height:150px; object-fit:cover; object-position:center top;"
+                loading="eager"
+              />
+            </div>
+            <!-- オレンジチェック（簡略） -->
+            <div class="absolute" style="bottom:20px; right:14px; width:26px; height:52px; border-right:14px solid #F59E0B; border-bottom:14px solid #F59E0B; transform:rotate(42deg); border-radius:4px;"></div>
+            <!-- クリーム小円 -->
+            <div class="absolute rounded-full bg-[#FDEBC8]" style="bottom:4px; left:8px; width:48px; height:48px;"></div>
+          </div>
+          <!-- キャラクター -->
+          <div class="flex gap-4 items-end">
+            <img src="/images/characters/uta_product.png" alt="工房の案内係・ウタ" width="80" height="80" class="w-[80px] h-[80px] object-contain" loading="eager" />
+            <img src="/images/characters/natu_product.png" alt="工房の案内係・ナツ" width="86" height="86" class="w-[86px] h-[86px] object-contain" loading="eager" />
+          </div>
+        </div>
+
+        <!-- 右：コピー -->
+        <div class="flex flex-col gap-6 justify-center text-center lg:text-left">
+
+          <!-- バッジ -->
+          <div class="self-center lg:self-start" style="border:1.5px solid #0F2557; color:#0F2557; font-size:14px; font-weight:700; padding:9px 26px; border-radius:999px; display:inline-block;">
+            一人親方・個人事業主向け 工事収支管理Excel
+          </div>
+          <!-- h1 -->
+          <h1 class="text-[36px] sm:text-[42px] font-black leading-[1.6] text-[#1A2B4A] tracking-[0.06em] m-0">
+            工事の収支を<br>記録、集計、申告準備。
+          </h1>
+          <!-- 説明文 -->
+          <p class="text-[15px] leading-[2.2] text-[#44536E] tracking-[0.06em] max-w-[520px] mx-auto lg:mx-0 m-0">
+            「シンプル工事台帳 ライト版」は、工事ごとの入金と支出を記録するだけで、確定申告に使える収支がまとまるExcelの工事台帳です。マクロなし・インストール不要で、今日から使えます。
+          </p>
+          <!-- 価格 -->
+          <div class="flex items-baseline gap-1.5 flex-wrap justify-center lg:justify-start">
+            <span class="text-[15px] font-bold text-[#0F2557]">買い切り</span>
+            <span class="text-[40px] font-black text-[#0F2557]" style="border-bottom:4px solid #F59E0B;">¥{PRODUCT.price.toLocaleString()}</span>
+            <span class="text-[13px] text-[#5A6B85]">税込・月額なし</span>
+          </div>
+          <!-- バッジ3つ -->
+          <div class="flex gap-2 flex-wrap justify-center lg:justify-start">
+            {['✓ マクロなし', '✓ インストール不要', '✓ 3分で使い始め'].map(b => (
+              <span class="bg-[#E4EBF6] rounded-full px-[18px] py-[7px] text-[12.5px] font-bold text-[#0F2557]">{b}</span>
+            ))}
+          </div>
+          <!-- 購入ボタン -->
+          <div class="flex justify-center lg:justify-start pt-2">
+            <button
+              id="buy-btn-hero"
+              type="button"
+              class="bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold px-8 py-4 rounded-full text-base transition-colors btn-press"
+            >
+              今すぐ購入する →
+            </button>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- S2：悩み -->
-  <section class="py-16 bg-white">
-    <div class="container-base max-w-3xl mx-auto">
-      <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">こんな悩みありませんか？</h2>
-      <ul class="space-y-4">
-        {[
-          '工事台帳の管理が、紙やExcel自作で面倒',
-          '確定申告の準備が、毎年大変',
-          '既存の業務ソフトはサブスクで毎月料金がかかる',
-          'インボイス制度や改正建設業法への対応が不安',
-          'ITに詳しくないけど、何か始めたい',
-        ].map(item => (
-          <li class="flex items-start gap-4 text-lg text-slate-700">
-            <span class="text-red-400 font-black text-xl flex-shrink-0 mt-0.5" aria-hidden="true">!</span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
+  <!-- ===== S2：悩み（PROBLEM） ===== -->
+  <section class="bg-[#E4EBF6] relative overflow-clip rounded-t-[40px] sm:rounded-t-[80px] pt-16 sm:pt-20 pb-16">
+    <!-- 装飾円 -->
+    <div class="absolute pointer-events-none" style="top:-200px; right:-300px; width:800px; height:800px; border-radius:50%; background:#DDE6F2;" aria-hidden="true"></div>
 
-  <!-- S3：こう変わる -->
-  <section class="py-16 bg-slate-50">
-    <div class="container-base">
-      <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">シンプル工事台帳なら、こう変わる</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 relative">
+      <!-- バッジ -->
+      <div class="flex justify-center mb-6 p-reveal">
+        <span class="bg-white rounded-full px-5 py-2 font-mono text-[11px] tracking-[0.22em] text-[#44536E] font-medium">PROBLEM — こんな悩みありませんか？</span>
+      </div>
+      <h2 class="text-[28px] sm:text-[34px] font-black text-[#0F2557] text-center mb-10 leading-snug tracking-[0.04em] p-reveal">事務しごとが、現場の時間を削っていく。</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-stagger">
+        <!-- 白カード×5 -->
         {[
-          {
-            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
-            title: 'シンプル',
-            desc: '5項目を入力するだけで、工事台帳が完成します。迷わず使える設計です。',
-          },
-          {
-            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`,
-            title: '安心',
-            desc: 'マクロを使わないExcelファイル。怪しい警告が出ません。',
-          },
-          {
-            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`,
-            title: '経済的',
-            desc: '¥5,980の買い切り。月額料金は一切ありません。',
-          },
+          { title: '工事台帳の管理が面倒', desc: '紙やExcel自作での管理は、つくるのも続けるのも大変。' },
+          { title: '確定申告の準備が毎年大変', desc: '1年分の領収書と通帳を前に、2月の夜が長くなる。' },
+          { title: 'サブスクの固定費がかさむ', desc: '業務ソフトは月額制ばかり。使う回数のわりに高くつく。' },
+          { title: '制度対応が不安', desc: 'インボイス制度や改正建設業法。何をすればいいのか。' },
+          { title: 'ITに詳しくない', desc: 'パソコンは苦手。でも、何か始めなきゃとは思っている。' },
         ].map(card => (
-          <div class="bg-white border border-slate-200 rounded-xl p-8 text-center">
-            <div class="text-accent-500 flex justify-center mb-4" set:html={card.icon} />
-            <h3 class="text-xl font-bold text-primary-900 mb-3">{card.title}</h3>
-            <p class="text-slate-600 leading-relaxed text-sm">{card.desc}</p>
+          <div class="bg-white rounded-2xl p-6 p-reveal" style="box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full bg-[#FDEBC8] flex items-center justify-center flex-shrink-0 text-[#D97706] font-black text-sm">！</div>
+              <div>
+                <p class="font-bold text-[#0F2557] text-[19px] mb-1">{card.title}</p>
+                <p class="text-[#44536E] text-[17px] leading-relaxed">{card.desc}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+        <!-- 濃紺アクセントカード -->
+        <div class="rounded-2xl p-6 p-reveal" style="background:#0F2557; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
+          <p class="font-bold text-white text-[15px] mb-2 leading-snug">その事務しごと、この台帳ひとつで軽くなります。</p>
+          <p class="text-[#8FA1C4] text-[17px] leading-relaxed">入力するのは、工事と入金と支出だけ。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== S3：機能（FUNCTION） ===== -->
+  <section id="features" class="bg-white relative mt-[-40px] rounded-t-[40px] sm:rounded-t-[80px] pt-16 sm:pt-20 pb-16">
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10">
+      <!-- バッジ -->
+      <div class="flex justify-center mb-6 p-reveal">
+        <span class="bg-[#E4EBF6] rounded-full px-5 py-2 font-mono text-[11px] tracking-[0.22em] text-[#44536E] font-medium">FUNCTION — 主な機能</span>
+      </div>
+      <h2 class="text-[28px] sm:text-[34px] font-black text-[#0F2557] text-center mb-10 leading-snug p-reveal">必要な機能だけを、ぜんぶ。</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-stagger">
+        {features.map((f, i) => (
+          <div class="rounded-2xl p-6 p-reveal" style="background:#F3F6FB;">
+            <div class="font-mono text-[11px] tracking-[0.22em] text-[#8FA1C4] mb-3">{String(i + 1).padStart(2, '0')}</div>
+            <div class="text-[#F59E0B] mb-3" set:html={f.icon} />
+            <h3 class="font-bold text-[#0F2557] text-[19px] mb-1">{f.title}</h3>
+            <p class="text-[#44536E] text-[17px] leading-relaxed">{f.desc}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- S4：機能（3列グリッド） -->
-  <section class="py-16 bg-white">
-    <div class="container-base max-w-5xl mx-auto">
-      <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">主な機能</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {features.map(f => (
-          <div class="flex items-start gap-3 bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-            <div class="text-accent-500 flex-shrink-0" set:html={f.icon} />
-            <div>
-              <h3 class="text-base font-bold text-primary-900 mb-1">{f.title}</h3>
-              <p class="text-slate-600 text-sm leading-relaxed">{f.desc}</p>
-            </div>
-          </div>
-        ))}
+  <!-- ===== S4：比較（COMPARISON）+ ウタ・ナツのコメント ===== -->
+  <section class="bg-white pt-16 sm:pt-20 pb-16">
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10">
+      <!-- バッジ -->
+      <div class="flex justify-center mb-6 p-reveal">
+        <span class="bg-[#E4EBF6] rounded-full px-5 py-2 font-mono text-[11px] tracking-[0.22em] text-[#44536E] font-medium">COMPARISON</span>
       </div>
-    </div>
-  </section>
-
-
-  <!-- S4c：他社比較（本品列オレンジ帯ハイライト） -->
-  <section class="py-16 bg-white">
-    <div class="container-base mx-auto">
-      <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">他のツールと比べてみると</h2>
-      <p class="text-slate-500 text-center mb-10 text-sm">用途が違うだけで、どれも正解です。本品が合うかどうか確認してください。</p>
-      <!-- モバイル比較カード（md未満） -->
-      <div class="md:hidden space-y-2 mb-6">
-        {comparisonRows.map(row => (
-          <div class="rounded-xl border border-slate-200 overflow-hidden">
-            <div class="bg-slate-100 px-4 py-2.5 text-sm font-semibold text-slate-700">{row.label}</div>
-            <div class="p-4 space-y-3">
-              <div class="flex items-start gap-2 rounded-lg px-3 py-2.5" style="background:#FFF7ED; border-left: 3px solid #F59E0B;">
-                <span class="text-xs font-bold text-accent-600 flex-shrink-0 pt-0.5">本品</span>
-                <span class="text-sm font-semibold text-primary-900">{row.vals[3]}</span>
-              </div>
-              <div class="grid grid-cols-3 gap-2 text-xs text-center text-slate-500">
-                <div>
-                  <p class="font-medium text-slate-400 mb-1 leading-tight">無料テンプレ</p>
-                  <p class="leading-tight">{row.vals[0]}</p>
-                </div>
-                <div>
-                  <p class="font-medium text-slate-400 mb-1 leading-tight">市販台帳</p>
-                  <p class="leading-tight">{row.vals[1]}</p>
-                </div>
-                <div>
-                  <p class="font-medium text-slate-400 mb-1 leading-tight">クラウド型</p>
-                  <p class="leading-tight">{row.vals[2]}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      <h2 class="text-[28px] sm:text-[34px] font-black text-[#0F2557] text-center mb-3 leading-snug p-reveal">他のツールと比べてみると</h2>
+      <p class="text-[#44536E] text-[17px] text-center mb-10 max-w-xl mx-auto p-reveal">用途が違うだけで、どれも正解です。本品が合うかどうか確認してください。</p>
 
       <!-- デスクトップ比較テーブル（md以上） -->
-      <div class="hidden md:block overflow-x-auto -mx-4 px-4">
-        <table class="w-full text-sm border-collapse min-w-[900px]">
+      <div class="hidden md:block overflow-x-auto">
+        <table class="w-full text-sm border-collapse min-w-[700px]" style="border-radius:16px; overflow:hidden;">
           <thead>
             <tr>
-              <th scope="col" class="text-left px-4 py-3 bg-slate-100 text-slate-600 font-medium rounded-tl-xl border-b border-slate-200 w-44">比較項目</th>
-              <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">無料Excelテンプレ</th>
-              <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">市販の工事台帳<br class="hidden sm:inline"/><span class="text-xs font-normal">（日本法令 等）</span></th>
-              <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">クラウド型<br class="hidden sm:inline"/><span class="text-xs font-normal">（月額サービス）</span></th>
-              <th scope="col" class="px-4 py-3 font-bold text-center text-white rounded-tr-xl" style="background: #F59E0B; border: 2px solid #F59E0B;">本品<br class="hidden sm:inline"/><span class="text-xs font-normal opacity-80">ライト版</span></th>
+              <th scope="col" class="text-left px-5 py-3.5 bg-[#F3F6FB] text-[#44536E] font-medium" style="border-radius:16px 0 0 0; width:22%">比較項目</th>
+              <th scope="col" class="px-4 py-3.5 bg-[#F3F6FB] text-[#44536E] font-medium text-center border-l border-[#E2E8F0]">無料Excelテンプレ</th>
+              <th scope="col" class="px-4 py-3.5 bg-[#F3F6FB] text-[#44536E] font-medium text-center border-l border-[#E2E8F0]">市販の工事台帳<br/><span class="text-xs font-normal text-[#8FA1C4]">（日本法令 等）</span></th>
+              <th scope="col" class="px-4 py-3.5 bg-[#F3F6FB] text-[#44536E] font-medium text-center border-l border-[#E2E8F0]">クラウド型<br/><span class="text-xs font-normal text-[#8FA1C4]">（月額サービス）</span></th>
+              <th scope="col" class="px-4 py-3.5 text-white font-bold text-center border-l border-[#0B1C42]" style="background:#0F2557; border-radius:0 16px 0 0;">本品<br/><span class="text-xs font-normal opacity-80">ライト版</span></th>
             </tr>
           </thead>
           <tbody>
             {comparisonRows.map((row, i) => (
-              <tr class={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
-                <td class="px-4 py-3 text-slate-500 font-medium border-b border-slate-100">{row.label}</td>
-                {row.vals.map((v, j) => (
-                  <td
-                    class={`px-4 py-3 text-center ${j === 3 ? 'text-primary-900 font-semibold' : 'text-slate-600 border-b border-slate-100'}`}
-                    style={j === 3 ? `background: #FFF7ED; border-left: 2px solid #F59E0B; border-right: 2px solid #F59E0B; border-bottom: ${i === comparisonRows.length - 1 ? '2px solid #F59E0B' : '1px solid #FED7AA'};` : ''}
-                  >
-                    {v}
-                  </td>
-                ))}
+              <tr style={i % 2 === 0 ? 'background:#FFFFFF' : 'background:#FAFBFD'}>
+                <td class="px-5 py-3.5 text-[#44536E] font-medium border-t border-[#E8EEF6]">{row.label}</td>
+                <td class="px-4 py-3.5 text-[#5A6B85] text-center border-t border-[#E8EEF6] border-l border-[#E2E8F0]">{row.vals[0]}</td>
+                <td class="px-4 py-3.5 text-[#5A6B85] text-center border-t border-[#E8EEF6] border-l border-[#E2E8F0]">{row.vals[1]}</td>
+                <td class="px-4 py-3.5 text-[#5A6B85] text-center border-t border-[#E8EEF6] border-l border-[#E2E8F0]">{row.vals[2]}</td>
+                <td class="px-4 py-3.5 text-[#0F2557] font-semibold text-center border-t border-[#F3D49C] border-l border-[#D4A855]" style="background:#FFF9EF;">{row.vals[3]}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <p class="text-xs text-slate-400 text-center mt-4">※ 価格・機能は2026年時点の各社公開情報に基づく参考比較です。</p>
-    </div>
-  </section>
 
-
-  <!-- S4d：キャラクターコメント（比較表の補足・ウタ→ナツの順） -->
-  <section class="pt-4 pb-16 bg-white">
-    <div class="container-base max-w-2xl mx-auto">
-      <CharaDialogue
-        chara="mikeru"
-        text="いろんな機能があっても、どうせ使わないんだよなぁ。あれこれ多いと、かえってどこを触ればいいか分からなくなる。"
-        direction="left"
-        expression="tati"
-      />
-      <CharaDialogue
-        chara="kuroe"
-        text="サブスクはずっと払い続けると、合計でけっこうな額になるのだ。買い切りなら一度きり。そのほうが安心できるのだ。"
-        direction="right"
-        expression="tati"
-      />
-    </div>
-  </section>
-
-  <!-- S5：実際の画面（5枚スクリーンショット） -->
-  <section class="py-16 bg-slate-50">
-    <div class="container-base max-w-5xl mx-auto">
-      <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">画面イメージ</h2>
-      <p class="text-slate-500 text-center mb-2">実際のExcelファイルの画面です。</p>
-      <p class="text-sm text-slate-400 text-center mb-10">画像をクリックすると拡大できます</p>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-
-        <figure class="rounded-xl border-2 border-slate-300 bg-white overflow-hidden shadow-sm">
-          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
-               role="button" tabindex="0" aria-label="ホーム画面を拡大">
-            <img src="/images/screens/screen_home.png" alt="シンプル工事台帳 ホーム画面"
-                 class="max-h-full max-w-full object-contain pointer-events-none" loading="lazy" />
-          </div>
-          <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
-            <p class="font-medium text-slate-800">ホーム</p>
-            <p class="text-sm text-slate-500">1枚のメニューから全機能にアクセス</p>
-          </figcaption>
-        </figure>
-
-        <figure class="rounded-xl border-2 border-slate-300 bg-white overflow-hidden shadow-sm">
-          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
-               role="button" tabindex="0" aria-label="年次サマリー画面を拡大">
-            <img src="/images/screens/screen_nenjisummary.png" alt="シンプル工事台帳 年次サマリー画面"
-                 class="max-h-full max-w-full object-contain pointer-events-none" loading="lazy" />
-          </div>
-          <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
-            <p class="font-medium text-slate-800">年次サマリー</p>
-            <p class="text-sm text-slate-500">年間利益・インボイス対象額を確認</p>
-          </figcaption>
-        </figure>
-
-        <figure class="rounded-xl border-2 border-slate-300 bg-white overflow-hidden shadow-sm">
-          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
-               role="button" tabindex="0" aria-label="月次サマリー画面を拡大">
-            <img src="/images/screens/screen_getsujisum.png" alt="シンプル工事台帳 月次サマリー画面"
-                 class="max-h-full max-w-full object-contain pointer-events-none" loading="lazy" />
-          </div>
-          <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
-            <p class="font-medium text-slate-800">月次サマリー</p>
-            <p class="text-sm text-slate-500">月ごとの売上・原価・利益を自動集計</p>
-          </figcaption>
-        </figure>
-
-        <figure class="rounded-xl border-2 border-slate-300 bg-white overflow-hidden shadow-sm">
-          <div class="aspect-[4/3] bg-white flex items-center justify-center p-3 cursor-zoom-in gallery-wrapper"
-               role="button" tabindex="0" aria-label="工事登録画面を拡大">
-            <img src="/images/screens/screen_kojitoroku.png" alt="シンプル工事台帳 工事登録画面"
-                 class="max-h-full max-w-full object-contain pointer-events-none" loading="lazy" />
-          </div>
-          <figcaption class="border-t border-slate-100 px-4 py-3 text-center">
-            <p class="font-medium text-slate-800">工事登録</p>
-            <p class="text-sm text-slate-500">工事名・施主・金額などをシンプルに記録</p>
-          </figcaption>
-        </figure>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- S7：価格（安心の特徴を統合） -->
-  <section class="py-16 bg-white">
-    <div class="container-base">
-      <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">価格</h2>
-      <div class="max-w-md mx-auto border-2 border-accent-400 rounded-2xl p-10 shadow-lg text-center">
-        <p class="text-lg font-bold text-slate-700 mb-2">シンプル工事台帳 ライト版</p>
-        <p class="text-6xl font-bold text-accent-500 mb-1">¥{PRODUCT.price.toLocaleString()}</p>
-        <hr class="border-slate-200 mb-8" />
-        <ul class="space-y-3 text-left mb-10">
-          {[
-            '永続ライセンス',
-            '同一事業者内の複数PCで利用可',
-            '60日間メールサポート',
-            '不具合の無償対応（60日以内）',
-            'インストール不要、Excelで開くだけ',
-            'マクロ不使用で「マクロ警告」が出ない',
-            'データはあなたのPCだけに保存（クラウド不使用）',
-            '3分で使い始められる設計',
-          ].map(item => (
-            <li class="flex items-center gap-3 text-slate-700 text-sm">
-              <span class="text-accent-500 font-bold flex-shrink-0">✓</span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-        <button
-          id="buy-btn"
-          type="button"
-          class="w-full bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 rounded-lg transition-colors text-sm"
-        >
-          購入する（¥{PRODUCT.price.toLocaleString()} 買い切り）
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- S8：動作環境 -->
-  <section class="py-16 bg-slate-50">
-    <div class="container-base max-w-2xl mx-auto">
-      <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">動作環境</h2>
-      <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
-        {[
-          { label: 'OS', value: 'Windows / Mac' },
-          { label: 'Excel', value: '2016 以降' },
-          { label: 'エディション', value: 'Office 365 / 買い切り版どちらも対応' },
-          { label: 'ファイル形式', value: '.xlsx（マクロなし）' },
-          { label: '推奨環境', value: 'メモリ 4GB以上' },
-          { label: '集計方式', value: '暦年（1月〜12月）固定　※法人・任意の事業年度での集計には対応していません' },
-        ].map((row, i) => (
-          <div class={`flex gap-4 px-6 py-4 ${i !== 0 ? 'border-t border-slate-100' : ''}`}>
-            <span class="text-slate-500 text-sm w-32 flex-shrink-0 pt-0.5">{row.label}</span>
-            <span class="text-slate-800 font-medium">{row.value}</span>
+      <!-- モバイル比較カード（md未満） -->
+      <div class="md:hidden space-y-2">
+        {comparisonRows.map(row => (
+          <div class="rounded-xl border border-[#E2E8F0] overflow-hidden bg-white">
+            <div class="bg-[#F3F6FB] px-4 py-2.5 text-sm font-semibold text-[#44536E]">{row.label}</div>
+            <div class="p-4 space-y-3">
+              <div class="flex items-start gap-2 rounded-lg px-3 py-2.5" style="background:#FFF9EF; border-left:3px solid #F59E0B;">
+                <span class="text-xs font-bold text-[#D98908] flex-shrink-0 pt-0.5">本品</span>
+                <span class="text-sm font-semibold text-[#0F2557]">{row.vals[3]}</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2 text-xs text-center text-[#5A6B85]">
+                <div><p class="font-medium text-[#8FA1C4] mb-1">無料テンプレ</p><p>{row.vals[0]}</p></div>
+                <div><p class="font-medium text-[#8FA1C4] mb-1">市販台帳</p><p>{row.vals[1]}</p></div>
+                <div><p class="font-medium text-[#8FA1C4] mb-1">クラウド型</p><p>{row.vals[2]}</p></div>
+              </div>
+            </div>
           </div>
         ))}
       </div>
+
+      <p class="text-xs text-[#8FA1C4] text-center mt-4 mb-14">※ 価格・機能は2026年時点の各社公開情報に基づく参考比較です。</p>
+
+      <!-- ウタ・ナツのコメント -->
+      <div class="max-w-3xl mx-auto">
+        <!-- ウタ（左） -->
+        <div class="flex gap-4 my-6 items-center p-reveal">
+          <div class="flex-shrink-0 flex flex-col items-center gap-1">
+            <img src="/images/characters/uta_tati.png" alt="建設業ツール工房のキャラクター ウタ"
+                 width="120" height="120" loading="lazy" style="width:120px;" />
+            <p class="text-xs font-semibold text-amber-700">ウタ</p>
+          </div>
+          <div class="relative border border-amber-200 bg-amber-50 rounded-2xl px-6 py-5 max-w-md shadow-sm text-[17px] leading-relaxed text-slate-800">
+            いろんな機能があっても、どうせ使わないんだよなぁ。あれこれ多いと、かえってどこを触ればいいか分からなくなる。
+            <!-- 吹き出し尻尾（左向き） -->
+            <div aria-hidden="true" style="position:absolute; left:-11px; top:50%; transform:translateY(-50%); width:0; height:0; border-top:10px solid transparent; border-bottom:10px solid transparent; border-right:11px solid #fde68a;"></div>
+            <div aria-hidden="true" style="position:absolute; left:-9px; top:50%; transform:translateY(-50%); width:0; height:0; border-top:9px solid transparent; border-bottom:9px solid transparent; border-right:10px solid #fffbeb;"></div>
+          </div>
+        </div>
+        <!-- ナツ（右） -->
+        <div class="flex gap-4 my-6 items-center flex-row-reverse p-reveal">
+          <div class="flex-shrink-0 flex flex-col items-center gap-1">
+            <img src="/images/characters/natu_tati.png" alt="建設業ツール工房のキャラクター ナツ"
+                 width="120" height="120" loading="lazy" style="width:120px;" />
+            <p class="text-xs font-semibold text-slate-600">ナツ</p>
+          </div>
+          <div class="relative border border-slate-200 bg-slate-50 rounded-2xl px-6 py-5 max-w-md shadow-sm text-[17px] leading-relaxed text-slate-800">
+            サブスクはずっと払い続けると、合計でけっこうな額になるのだ。買い切りなら一度きり。そのほうが安心できるのだ。
+            <!-- 吹き出し尻尾（右向き） -->
+            <div aria-hidden="true" style="position:absolute; right:-11px; top:50%; transform:translateY(-50%); width:0; height:0; border-top:10px solid transparent; border-bottom:10px solid transparent; border-left:11px solid #e2e8f0;"></div>
+            <div aria-hidden="true" style="position:absolute; right:-9px; top:50%; transform:translateY(-50%); width:0; height:0; border-top:9px solid transparent; border-bottom:9px solid transparent; border-left:10px solid #f8fafc;"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
+
+  <!-- ===== S5：画面イメージ ===== -->
+  <section class="bg-[#E4EBF6] relative overflow-clip rounded-t-[40px] sm:rounded-t-[80px] pt-24 sm:pt-28 pb-20">
+    <!-- 装飾円 -->
+    <div class="absolute pointer-events-none" style="top:-100px; right:-200px; width:600px; height:600px; border-radius:50%; background:#DDE6F2;" aria-hidden="true"></div>
+    <div class="absolute pointer-events-none" style="bottom:-150px; left:-150px; width:500px; height:500px; border-radius:50%; background:#DDE6F2;" aria-hidden="true"></div>
+
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 relative">
+      <!-- バッジ -->
+      <div class="flex justify-center mb-6 p-reveal">
+        <span class="bg-white rounded-full px-5 py-2 font-mono text-[11px] tracking-[0.22em] text-[#44536E] font-medium">中身をお見せします</span>
+      </div>
+      <h2 class="text-[28px] sm:text-[34px] font-black text-[#0F2557] text-center mb-3 leading-snug p-reveal">画面イメージ</h2>
+      <p class="text-[#44536E] text-[17px] text-center mb-12 p-reveal">実際のExcelファイルの画面です。画像をクリックすると拡大できます</p>
+
+      <!-- キャラクターをグリッド外のマージンに配置（デスクトップのみ） -->
+      <div class="relative">
+        <img src="/images/characters/uta_deskwork.png" alt=""
+             width="160" height="160"
+             class="hidden lg:block absolute object-contain pointer-events-none"
+             style="top:0; left:-180px; width:160px;" aria-hidden="true" loading="lazy" />
+        <img src="/images/characters/natu_yorokobi_tati.png" alt=""
+             width="160" height="160"
+             class="hidden lg:block absolute object-contain pointer-events-none"
+             style="bottom:60px; right:-180px; width:160px;" aria-hidden="true" loading="lazy" />
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-[40px] gap-y-[40px] p-stagger">
+
+        <!-- カード1：ホーム -->
+        <div class="p-reveal">
+          <figure class="bg-white rounded-2xl overflow-hidden" style="box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+            <div class="aspect-[4/3] cursor-zoom-in gallery-wrapper" role="button" tabindex="0" aria-label="ホーム画面を拡大">
+              <img src="/images/screens/screen_home.png" alt="シンプル工事台帳 ホーム画面"
+                   class="w-full h-full object-cover object-top pointer-events-none" loading="lazy" />
+            </div>
+            <figcaption class="px-5 py-4">
+              <p class="font-bold text-[#0F2557] text-[15px]">ホーム</p>
+              <p class="text-[#44536E] text-[17px]">1枚のメニューから全機能にアクセス</p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- カード2：年次サマリー -->
+        <div class="p-reveal">
+          <figure class="bg-white rounded-2xl overflow-hidden" style="box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+            <div class="aspect-[4/3] cursor-zoom-in gallery-wrapper" role="button" tabindex="0" aria-label="年次サマリー画面を拡大">
+              <img src="/images/screens/screen_nenjisummary.png" alt="シンプル工事台帳 年次サマリー画面"
+                   class="w-full h-full object-cover object-top pointer-events-none" loading="lazy" />
+            </div>
+            <figcaption class="px-5 py-4">
+              <p class="font-bold text-[#0F2557] text-[15px]">年次サマリー</p>
+              <p class="text-[#44536E] text-[17px]">年間利益・インボイス対象額を確認</p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- カード3：月次サマリー -->
+        <div class="p-reveal">
+          <figure class="bg-white rounded-2xl overflow-hidden" style="box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+            <div class="aspect-[4/3] cursor-zoom-in gallery-wrapper" role="button" tabindex="0" aria-label="月次サマリー画面を拡大">
+              <img src="/images/screens/screen_getsujisum.png" alt="シンプル工事台帳 月次サマリー画面"
+                   class="w-full h-full object-cover object-top pointer-events-none" loading="lazy" />
+            </div>
+            <figcaption class="px-5 py-4">
+              <p class="font-bold text-[#0F2557] text-[15px]">月次サマリー</p>
+              <p class="text-[#44536E] text-[17px]">月ごとの売上・原価・利益を自動集計</p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- カード4：工事登録 -->
+        <div class="p-reveal">
+          <figure class="bg-white rounded-2xl overflow-hidden" style="box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+            <div class="aspect-[4/3] cursor-zoom-in gallery-wrapper" role="button" tabindex="0" aria-label="工事登録画面を拡大">
+              <img src="/images/screens/screen_kojitoroku.png" alt="シンプル工事台帳 工事登録画面"
+                   class="w-full h-full object-cover object-top pointer-events-none" loading="lazy" />
+            </div>
+            <figcaption class="px-5 py-4">
+              <p class="font-bold text-[#0F2557] text-[15px]">工事登録</p>
+              <p class="text-[#44536E] text-[17px]">工事名・施主・金額などをシンプルに記録</p>
+            </figcaption>
+          </figure>
+        </div>
+
+      </div>
+      </div><!-- /relative wrapper -->
+    </div>
+  </section>
+
+  <!-- ===== S6：価格（PRICE） ===== -->
+  <section id="price" class="bg-white relative mt-[-40px] rounded-t-[40px] sm:rounded-t-[80px] pt-16 sm:pt-20 pb-20">
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10">
+      <!-- バッジ -->
+      <div class="flex justify-center mb-6 p-reveal">
+        <span class="bg-[#E4EBF6] rounded-full px-5 py-2 font-mono text-[11px] tracking-[0.22em] text-[#44536E] font-medium">PRICE</span>
+      </div>
+      <h2 class="text-[28px] sm:text-[34px] font-black text-[#0F2557] text-center mb-12 leading-snug p-reveal">一度買えば、ずっと使えます。</h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-8 items-start">
+
+        <!-- 左：価格カード（濃紺） -->
+        <div class="p-reveal">
+          <div class="rounded-3xl p-10 sm:p-12" style="background:#0F2557; box-shadow:0 8px 32px rgba(15,37,87,0.2);">
+            <p class="font-mono text-[13px] tracking-[0.22em] text-[#8FA1C4] mb-7">BUY ONCE, USE FOREVER</p>
+            <div class="flex items-baseline gap-3 mb-2">
+              <span class="text-[18px] font-bold text-white">買い切り</span>
+              <span class="text-[56px] font-black text-white" style="border-bottom:5px solid #F59E0B;">¥{PRODUCT.price.toLocaleString()}</span>
+            </div>
+            <p class="text-[#8FA1C4] text-[17px] mb-10">税込・月額なし</p>
+            <div class="grid grid-cols-2 gap-x-6 gap-y-4 mb-10">
+              {[
+                '永続ライセンス',
+                '複数PCで利用可',
+                '60日メールサポート',
+                '不具合無償対応',
+                'インストール不要',
+                'マクロ不使用',
+                'ローカル保存',
+                '3分で使い始め',
+              ].map(item => (
+                <div class="flex items-center gap-2 text-white text-[17px]">
+                  <span class="text-[#F59E0B] font-bold flex-shrink-0">✓</span>
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+            <button
+              id="buy-btn-price"
+              type="button"
+              class="w-full bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold py-5 rounded-full text-lg transition-colors btn-press"
+            >
+              今すぐ購入する →
+            </button>
+          </div>
+        </div>
+
+        <!-- 右：動作環境カード -->
+        <div class="p-reveal">
+        <div class="rounded-3xl p-10 sm:p-12" style="background:#F3F6FB;">
+          <p class="font-mono text-[13px] tracking-[0.22em] text-[#8FA1C4] mb-7">REQUIREMENTS</p>
+          <div>
+            {[
+              { label: 'OS', value: 'Windows（Excel 2016 以降）' },
+              { label: 'エディション', value: 'Office 365 / 買い切り版どちらも対応' },
+              { label: 'ファイル形式', value: '.xlsx（マクロなし）' },
+              { label: '推奨環境', value: 'メモリ 4GB以上' },
+              { label: '集計方式', value: '暦年（1月〜12月）固定' },
+            ].map((row, i) => (
+              <div class={`flex gap-4 py-4 ${i !== 0 ? 'border-t border-[#D8DEE8]' : ''}`}>
+                <span class="text-[#8FA1C4] text-sm font-mono tracking-wider w-[120px] flex-shrink-0 pt-0.5">{row.label}</span>
+                <span class="text-[#0F2557] text-[17px] font-medium">{row.value}</span>
+              </div>
+            ))}
+          </div>
+          <p class="text-sm text-[#8FA1C4] mt-5 mb-7 leading-relaxed">※ Linux・ChromeOS は非対応です。<br/>※ 法人・任意の事業年度での集計には対応していません。</p>
+          <a href="/faq/" class="block text-center text-[#0F2557] text-[17px] font-semibold hover:underline">
+            よくある質問を見る →
+          </a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== S7：最終CTA ===== -->
+  <section class="bg-white pt-16 pb-24 text-center">
+    <div class="max-w-[700px] mx-auto px-6">
+      <h2 id="final-cta-text" class="text-[28px] sm:text-[34px] font-black text-[#0F2557] leading-snug tracking-[0.04em]"
+          style="opacity:0; transform:scale(0.92) translateY(12px); transition:opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);">
+        今日から、工事管理をシンプルに。
+      </h2>
+    </div>
+  </section>
+
+  <!-- 固定購入ボタン（デスクトップ右下） -->
+  <a
+    id="fixed-buy-btn"
+    href="#price"
+    class="fixed bottom-7 right-7 z-50 hidden lg:flex items-center gap-2 bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold px-6 py-3.5 rounded-full shadow-lg text-sm btn-press"
+    style="transition: opacity 0.3s ease, background-color 0.2s ease;"
+    aria-label="価格セクションへ移動して購入する"
+  >
+    今すぐ購入する →
+  </a>
 
   <!-- エラートースト（購入エラー時に画面上部に表示） -->
   <div
@@ -433,25 +588,6 @@ const comparisonRows = [
          class="max-h-[90vh] max-w-[95vw] object-contain rounded-lg bg-white" />
   </div>
 
-  <!-- FAQ導線 -->
-  <div class="py-6 bg-white text-center border-t border-slate-100">
-    <p class="text-slate-500 text-sm">
-      ご購入前のご不明点は
-      <a href="/faq/" class="text-primary-600 hover:text-primary-800 font-semibold underline transition-colors">よくある質問</a>
-      もあわせてご確認ください。
-    </p>
-  </div>
-
-  <!-- S9：購入CTA -->
-  <section class="py-20 bg-primary-900">
-    <div class="container-base text-center max-w-2xl mx-auto">
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-        今日から、工事管理をシンプルに。
-      </h2>
-
-    </div>
-  </section>
-
 <script>
   function initLightbox() {
     const lb = document.getElementById('ss-lightbox');
@@ -460,29 +596,24 @@ const comparisonRows = [
     const mainEl = document.querySelector('main');
     if (!lb || !lbImg || !closeBtn) return;
 
-    // AbortController で前回のリスナーを破棄（View Transitions 対応）
     const prevAc = (window).__lbAbort;
     if (prevAc) prevAc.abort();
     const ac = new AbortController();
     (window).__lbAbort = ac;
     const sig = { signal: ac.signal };
 
-    // 前回の残留状態をクリーンアップ
     document.body.style.overflow = '';
     lb.classList.add('hidden');
     lb.classList.remove('flex');
     mainEl?.removeAttribute('aria-hidden');
 
     let lastFocused = null;
-
     const preventTouch = (e) => e.preventDefault();
 
     const open = (src, alt) => {
       lastFocused = document.activeElement;
-      lbImg.src = src;
-      lbImg.alt = alt || '';
-      lb.classList.remove('hidden');
-      lb.classList.add('flex');
+      lbImg.src = src; lbImg.alt = alt || '';
+      lb.classList.remove('hidden'); lb.classList.add('flex');
       document.body.style.overflow = 'hidden';
       lb.addEventListener('touchmove', preventTouch, { passive: false, signal: ac.signal });
       mainEl?.setAttribute('aria-hidden', 'true');
@@ -491,29 +622,19 @@ const comparisonRows = [
     const close = () => {
       document.body.style.overflow = '';
       lb.removeEventListener('touchmove', preventTouch);
-      lb.classList.add('hidden');
-      lb.classList.remove('flex');
+      lb.classList.add('hidden'); lb.classList.remove('flex');
       lbImg.src = '';
       mainEl?.removeAttribute('aria-hidden');
       lastFocused?.focus();
     };
 
-    // フォーカストラップ
-    lb.addEventListener('keydown', (e) => {
-      if (e.key === 'Tab') { e.preventDefault(); closeBtn.focus(); }
-    }, sig);
-
+    lb.addEventListener('keydown', (e) => { if (e.key === 'Tab') { e.preventDefault(); closeBtn.focus(); } }, sig);
     document.querySelectorAll('.gallery-wrapper').forEach((wrapper) => {
       const img = wrapper.querySelector('img');
-      const handler = () => {
-        if (img) open(img.currentSrc || img.src, img.alt);
-      };
+      const handler = () => { if (img) open(img.currentSrc || img.src, img.alt); };
       wrapper.addEventListener('click', handler, sig);
-      wrapper.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); }
-      }, sig);
+      wrapper.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); } }, sig);
     });
-
     lb.addEventListener('click', (e) => { if (e.target === lb) close(); }, sig);
     closeBtn.addEventListener('click', close, sig);
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); }, sig);
@@ -524,32 +645,32 @@ const comparisonRows = [
 </script>
 
 <script>
-  const toast = document.getElementById("buy-toast");
-  let toastTimer: ReturnType<typeof setTimeout> | null = null;
+  // 購入ボタン：/api/create-checkout エンドポイント経由でStripe決済
+  const BUY_IDS = ['buy-btn-hero', 'buy-btn-price'] as const;
+  const allBuyBtns = () =>
+    BUY_IDS.map(id => document.getElementById(id) as HTMLButtonElement | null)
+            .filter(Boolean) as HTMLButtonElement[];
 
   function showToast() {
+    const toast = document.getElementById('buy-toast');
     if (!toast) return;
-    if (toastTimer) clearTimeout(toastTimer);
-    toast.classList.remove("hidden");
-    toast.classList.add("flex");
-    toastTimer = setTimeout(() => {
-      toast.classList.add("hidden");
-      toast.classList.remove("flex");
-    }, 5000);
+    toast.classList.remove('hidden');
+    toast.classList.add('flex');
+    setTimeout(() => {
+      toast.classList.add('hidden');
+      toast.classList.remove('flex');
+    }, 4000);
   }
-
-  const BUY_IDS = ["buy-btn-hero", "buy-btn", "buy-btn-sticky"] as const;
-  const allBuyBtns = () => BUY_IDS.map(id => document.getElementById(id) as HTMLButtonElement | null).filter(Boolean) as HTMLButtonElement[];
 
   async function handleBuy(btn: HTMLButtonElement) {
     allBuyBtns().forEach(b => { b.disabled = true; });
     const original = btn.textContent;
-    btn.textContent = "読み込み中…";
+    btn.textContent = '読み込み中…';
     try {
-      const res = await fetch("/api/create-checkout", { method: "POST" });
+      const res = await fetch('/api/create-checkout', { method: 'POST' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      if (!data?.url) throw new Error("no url");
+      if (!data?.url) throw new Error('no url');
       window.location.href = data.url;
     } catch {
       showToast();
@@ -558,49 +679,111 @@ const comparisonRows = [
     }
   }
 
-  BUY_IDS.forEach(id => {
-    const b = document.getElementById(id) as HTMLButtonElement | null;
-    b?.addEventListener("click", () => handleBuy(b!));
-  });
-</script>
-  <!-- モバイル下部固定バー（ヒーローCTAが画面外に出たら表示） -->
-  <div
-    id="sticky-buy-bar"
-    class="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white border-t border-slate-200 shadow-lg translate-y-full transition-transform duration-300"
-    aria-hidden="true"
-  >
-    <div class="flex items-center justify-between gap-4 px-4 py-3 max-w-sm mx-auto"
-         style="padding-bottom: max(12px, env(safe-area-inset-bottom));">
-      <div class="min-w-0">
-        <p class="text-xs text-slate-500 truncate">シンプル工事台帳 ライト版</p>
-        <p class="text-lg font-bold text-accent-500 leading-none">¥{PRODUCT.price.toLocaleString()}</p>
-      </div>
-      <button
-        id="buy-btn-sticky"
-        type="button"
-        class="flex-shrink-0 bg-accent-500 hover:bg-accent-600 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors shadow"
-      >
-        今すぐ購入
-      </button>
-    </div>
-  </div>
-
-<script>
-  // モバイル下部固定バーの表示制御（IntersectionObserver）
-  const stickyBar = document.getElementById('sticky-buy-bar');
-  const heroBtn = document.getElementById('buy-btn-hero');
-  if (stickyBar && heroBtn) {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const show = !entry.isIntersecting;
-        stickyBar.classList.toggle('translate-y-full', !show);
-        stickyBar.classList.toggle('translate-y-0', show);
-        stickyBar.setAttribute('aria-hidden', String(!show));
-      },
-      { threshold: 0 }
-    );
-    observer.observe(heroBtn);
+  function initBuyButtons() {
+    BUY_IDS.forEach(id => {
+      const b = document.getElementById(id) as HTMLButtonElement | null;
+      if (!b || b.dataset.buyInit) return;
+      b.dataset.buyInit = '1';
+      b.addEventListener('click', () => handleBuy(b!));
+    });
   }
+
+  initBuyButtons();
+  document.addEventListener('astro:page-load', initBuyButtons);
+</script>
+
+<!-- ===== 商品ページ専用アニメーション（スケール＋フェード） ===== -->
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .p-reveal {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .p-reveal.p-visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+    /* カードスタガー */
+    .p-stagger > .p-reveal:nth-child(1) { transition-delay: 0ms; }
+    .p-stagger > .p-reveal:nth-child(2) { transition-delay: 80ms; }
+    .p-stagger > .p-reveal:nth-child(3) { transition-delay: 160ms; }
+    .p-stagger > .p-reveal:nth-child(4) { transition-delay: 240ms; }
+    .p-stagger > .p-reveal:nth-child(5) { transition-delay: 320ms; }
+    .p-stagger > .p-reveal:nth-child(6) { transition-delay: 400ms; }
+  }
+</style>
+<script>
+  // 商品ページ専用アニメーション初期化（astro:page-load対応）
+  var _productObservers = window._productObservers || [];
+
+  function initProductAnimations() {
+    // 前回のObserverをすべてdisconnect
+    _productObservers.forEach(function (o) { o.disconnect(); });
+    _productObservers = [];
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // --- p-reveal（スケール＋フェード） ---
+    if (!reduced && 'IntersectionObserver' in window) {
+      var revealObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('p-visible');
+            revealObs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.p-reveal').forEach(function (el) { revealObs.observe(el); });
+      _productObservers.push(revealObs);
+    }
+
+    // --- 最終CTAテキストアニメーション ---
+    var ctaEl = document.getElementById('final-cta-text');
+    if (ctaEl) {
+      if (reduced) {
+        ctaEl.style.opacity = '1';
+        ctaEl.style.transform = 'none';
+      } else if ('IntersectionObserver' in window) {
+        var ctaObs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              ctaEl.style.opacity = '1';
+              ctaEl.style.transform = 'scale(1) translateY(0)';
+              ctaObs.unobserve(ctaEl);
+            }
+          });
+        }, { threshold: 0.4 });
+        ctaObs.observe(ctaEl);
+        _productObservers.push(ctaObs);
+      }
+    }
+
+    // --- 固定ボタン：価格セクションが見えたら非表示 ---
+    var btn = document.getElementById('fixed-buy-btn');
+    var priceSection = document.getElementById('price');
+    if (btn && priceSection && 'IntersectionObserver' in window) {
+      var btnObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            btn.style.opacity = '0';
+            btn.style.pointerEvents = 'none';
+          } else {
+            btn.style.opacity = '1';
+            btn.style.pointerEvents = '';
+          }
+        });
+      }, { threshold: 0.1 });
+      btnObs.observe(priceSection);
+      _productObservers.push(btnObs);
+    }
+
+    window._productObservers = _productObservers;
+  }
+
+  initProductAnimations();
+  document.addEventListener('astro:page-load', initProductAnimations);
 </script>
 
 </BaseLayout>
