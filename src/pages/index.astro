@@ -8,30 +8,23 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .slice(0, 3);
 
 const painItems = [
-  { title: '確定申告・帳簿づけが毎年憂うつ',   desc: 'レシートと請求書の山を前に、毎年2月が近づくと気が重い。' },
-  { title: '書類づくりに時間がとられる',         desc: '見積・請求・安全書類。現場を終えた夜に事務仕事が残っている。' },
+  { title: '確定申告・帳簿づけが毎年憂うつ',   desc: 'レシートと請求書の山を前に、2月が近づくと気が重い。' },
+  { title: '書類づくりに時間がとられる',         desc: '見積・請求・安全書類。現場を終えた夜に事務仕事が残る。' },
   { title: '専用ソフトは高いし、難しそう',       desc: '機能が多すぎて使いこなせる気がしない。導入の手間も心配。' },
   { title: '月額サブスクを増やしたくない',       desc: '使うのは月に数回なのに、固定費がじわじわ積み上がる。' },
-  { title: 'そもそもITが苦手',                  desc: 'パソコンは得意じゃない。何から手をつければいいか分からない。' },
+  { title: 'そもそもITが苦手',                  desc: 'パソコンは得意じゃない。何から手をつければいいのか。' },
 ];
 
 const targetTypes = [
-  { tag: 'ひとりで全部',  title: '一人親方・個人事業主の方',    desc: '現場も事務もぜんぶ自分。確定申告や帳簿づけにかける時間を、できるだけ短くしたい方に。' },
-  { tag: '〜10人の会社',  title: '中小建設業の方',              desc: '高機能なシステムを入れるほどではない。でも紙とカンだけの管理から、一歩進みたい方に。' },
-  { tag: '独立したて',    title: 'これから建設業をはじめる方',   desc: '新規参入したばかりで、お金と書類のことが不安。最初のひとそろえを探している方に。' },
+  { tag: 'ひとりで全部', title: '一人親方・個人事業主の方',   desc: '現場も事務もぜんぶ自分。確定申告や帳簿づけにかける時間を、できるだけ短くしたい方に。' },
+  { tag: '〜10人の会社', title: '中小建設業の方',             desc: '高機能なシステムを入れるほどではない。でも紙とカンだけの管理から、一歩進みたい方に。' },
+  { tag: '独立したて',   title: 'これから建設業をはじめる方', desc: '新規参入したばかりで、お金と書類のことが不安。最初のひとそろえを探している方に。' },
 ];
 
 const pillars = [
-  { num: '1', title: '法令対応ツール',   desc: '確定申告やインボイスなど、制度にきちんと対応した実務ツール。買い切りで、ずっと使えます。' },
-  { num: '2', title: '業務テンプレート', desc: '見積書・請求書・安全書類など、現場でそのまま使えるひな形。書類づくりの時間を減らします。' },
-  { num: '3', title: '業界情報',         desc: '制度改正や実務のコツを、専門用語をかみくだいて解説。ブログで無料で読めます。' },
-];
-
-const productHighlights = [
-  'Excelだけで動く（マクロなし・警告なし）',
-  '工事ごとの収支を自動集計',
-  '確定申告用サマリーを出力',
-  '説明書いらずのシンプル設計',
+  { num: '01', title: '法令対応ツール',   desc: '確定申告やインボイスなど、制度にきちんと対応した実務ツール。買い切りで、ずっと使えます。' },
+  { num: '02', title: '業務テンプレート', desc: '見積書・請求書・安全書類など、現場でそのまま使えるひな形。書類づくりの時間を減らします。' },
+  { num: '03', title: '業界情報',         desc: '制度改正や実務のコツを、専門用語をかみくだいて解説。ブログで無料で読めます。' },
 ];
 
 ---
@@ -41,331 +34,401 @@ const productHighlights = [
   description="建設業の現場を、もっとシンプルに。一人親方・小規模建設業のための買い切り業務ツールと実務情報。確定申告・書類づくりをExcelでシンプルに。"
 >
 
-<!-- ===== 1. ヒーロー（ファーストビュー: LCP保護のためreveal対象外） ===== -->
-<section class="bg-[#EFF2F7]">
-  <div class="max-w-[1350px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-0">
 
-    <!-- 全幅ネイビーカード — 案C: eyebrow→h1→サブ→区切り→下部バンド(CTA左・マスコット右)→チップ -->
-    <div class="bg-[#0F2557] rounded-3xl px-8 py-12 sm:px-12 sm:py-14 flex flex-col items-center" style="box-shadow: var(--shadow-lg);">
+<!-- ===== S1. ヒーロー ===== -->
+<section class="relative overflow-clip" style="background:#0F2557;">
 
-      <!-- 中身を960pxに収める内側コンテナ（背景は全幅のまま） -->
-      <div class="w-full max-w-[960px] flex flex-col gap-6">
+  <!-- 装飾リング右上 -->
+  <div
+    class="hidden lg:block absolute pointer-events-none"
+    aria-hidden="true"
+    style="top:-120px; right:-160px; width:680px; height:680px; border:60px solid rgba(20,48,95,0.45); border-radius:50%; z-index:0;"
+  ></div>
 
-      <!-- eyebrow -->
-      <div class="flex items-center gap-2.5">
-        <span class="w-2 h-2 bg-[#F59E0B] rounded-full flex-shrink-0"></span>
-        <span class="text-[12.5px] font-bold tracking-widest text-[#F59E0B]">一人親方・小規模建設業のための業務ツール</span>
+  <!-- 装飾リング左下 -->
+  <div
+    class="hidden lg:block absolute pointer-events-none"
+    aria-hidden="true"
+    style="bottom:-80px; left:-100px; width:360px; height:360px; border:40px solid rgba(20,48,95,0.3); border-radius:50%; z-index:0;"
+  ></div>
+
+  <!-- 左マージンキャラクター（ウタ） -->
+  <img
+    src="/images/characters/uta_product.png"
+    aria-hidden="true"
+    width="220"
+    height="220"
+    loading="lazy"
+    class="hidden 2xl:block absolute pointer-events-none"
+    style="left:20px; bottom:40px; width:220px; z-index:2;"
+  />
+  <!-- 右マージンキャラクター（ナツ） -->
+  <img
+    src="/images/characters/natu_product.png"
+    aria-hidden="true"
+    width="220"
+    height="220"
+    loading="lazy"
+    class="hidden 2xl:block absolute pointer-events-none"
+    style="right:20px; bottom:40px; width:220px; z-index:2;"
+  />
+
+  <div class="max-w-[1350px] mx-auto px-4 sm:px-6 lg:px-10 pt-16 sm:pt-24 lg:pt-28 pb-14 sm:pb-16 lg:pb-20 relative flex flex-col gap-8 min-h-[520px] lg:min-h-[600px] justify-center" style="z-index:1;">
+
+    <!-- 2カラム: 左＝装飾 / 右＝コピー -->
+    <div class="grid grid-cols-1 lg:grid-cols-[0.8fr_1.4fr] items-center gap-10 lg:gap-12">
+
+      <!-- 左カラム: 装飾アイコン（デスクトップのみ） -->
+      <div class="hidden lg:flex flex-col items-center justify-center gap-4 pr-6">
+        <img
+          src="/images/brand-watermark.png"
+          aria-hidden="true"
+          width="200"
+          height="200"
+          class="select-none"
+          style="width:200px; height:200px; object-fit:contain;"
+        />
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-10 h-[2px] rounded-full" style="background:rgba(74,94,140,0.5);"></div>
+          <div class="text-[13px] font-bold tracking-[0.32em]" style="color:#4A6A9A;">KENSETSU TOOLS</div>
+          <div class="text-[11px] tracking-[0.12em]" style="color:#3A5280;">建設業の業務ツール工房</div>
+        </div>
       </div>
 
-      <!-- h1 全幅（デスクトップは1行で幅を使う・強制改行なし） -->
-      <h1 class="text-4xl sm:text-5xl lg:text-[52px] font-black leading-[1.35] text-white tracking-wide">
-        建設業の現場を、もっとシンプルに。
-      </h1>
+      <!-- 右カラム: メインコピー -->
+      <div class="flex flex-col gap-7">
 
-      <!-- サブコピー -->
-      <p class="text-[15px] leading-[2] text-[#C7D2E5] max-w-[560px]">
-        買い切り（月額なし）の業務ツールと実務情報。むずかしい操作はありません。<br>ITが苦手な方でも、今日から使えます。
-      </p>
+        <!-- バッジ -->
+        <span
+          class="inline-block font-bold self-start"
+          style="border:1px solid #4A5E8C; color:#DCE4F1; font-size:13.5px; font-weight:700; padding:8px 22px; border-radius:8px;"
+        >一人親方・小規模建設業のための業務ツール</span>
 
-      <!-- 区切り線 -->
-      <div class="border-t border-[#2A4374]"></div>
+        <!-- h1 -->
+        <h1 class="text-[38px] sm:text-[50px] lg:text-[58px] font-black text-white" style="line-height:1.35; letter-spacing:0.04em;">
+          建設業の現場を、<br>もっとシンプルに。
+        </h1>
 
-      <!-- 下部バンド: CTA（左）+ マスコット（右） -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+        <!-- サブコピー -->
+        <p style="font-size:16px; line-height:2.1; color:#C7D2E5; letter-spacing:0.04em; max-width:560px;">
+          買い切り（月額なし）の業務ツールと実務情報。むずかしい操作はありません。ITが苦手な方でも、今日から使えます。
+        </p>
 
-        <!-- CTA -->
-        <div class="flex flex-col sm:flex-row gap-3">
-          <a href="/products/" class="bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold text-[15px] px-7 py-3.5 rounded-full text-center btn-press">ツール・商品を見る</a>
-          <a href="/blog/" class="border border-[#4A5E8C] hover:border-white text-white font-bold text-[15px] px-7 py-3.5 rounded-full text-center transition-colors">ブログを読む</a>
-        </div>
-
-        <!-- マスコット（小・横一列・全デバイス） -->
-        <div class="flex items-center gap-3.5">
-          <!-- ラベル -->
-          <span class="text-[11px] leading-[1.7] text-[#5A6B85]">工房の<br>案内係</span>
-          <!-- ウタ -->
-          <div class="flex flex-col items-center gap-1">
-            <div class="w-[60px] h-[60px] bg-[#1B3463] rounded-full overflow-hidden flex items-center justify-center">
-              <img
-                src="/images/characters/uta_tati.png"
-                alt="黒猫のウタ"
-                width="60"
-                height="60"
-                class="w-full h-full object-contain mascot-idle"
-                loading="eager"
-              />
-            </div>
-            <span class="text-[10px] font-bold text-[#8FA1C4]">ウタ</span>
-          </div>
-          <!-- ナツ -->
-          <div class="flex flex-col items-center gap-1">
-            <div class="w-[60px] h-[60px] bg-[#1B3463] rounded-full overflow-hidden flex items-center justify-center">
-              <img
-                src="/images/characters/natu_tati.png"
-                alt="三毛猫のナツ"
-                width="60"
-                height="60"
-                class="w-full h-full object-contain mascot-idle"
-                loading="eager"
-                style="animation-delay: 0.9s;"
-              />
-            </div>
-            <span class="text-[10px] font-bold text-[#8FA1C4]">ナツ</span>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- 信頼チップ -->
-      <div class="flex flex-wrap gap-2 pt-1 border-t border-[#2A4374]">
-        {[
-          '買い切り・月額なし',
-          'マクロなしのExcel',
-          '確定申告に対応',
-        ].map(chip => (
-          <div class="bg-[#1B3463] rounded-full px-4 py-1.5 text-[12.5px] font-bold text-[#C7D2E5] flex items-center gap-1.5">
-            <span class="text-[#F59E0B]">✓</span>{chip}
-          </div>
-        ))}
       </div>
 
     </div>
-  </div>
 
-  <!-- ラインナップ帯 -->
-  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-10 sm:pb-12">
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 reveal-stagger">
+    <!-- 全幅トラストバー（工房の強み） -->
+    <div class="bg-white rounded-2xl grid grid-cols-2 sm:grid-cols-4" style="box-shadow:0 4px 24px rgba(0,0,0,0.15);">
 
-      <!-- 第1弾・発売中 -->
-      <a href="/products/koji-daicho/" class="reveal group bg-white border border-[#D8DEE8] hover:border-[#0F2557] rounded-2xl p-5 sm:p-6 flex flex-col gap-2 no-underline text-inherit" style="box-shadow: var(--shadow-sm); transition:border-color 0.2s ease,transform 0.2s ease,box-shadow 0.2s ease;">
+      <div class="flex items-center gap-4 px-7 py-5 border-r border-b sm:border-b-0 border-[#E9EDF3]">
+        <div aria-hidden="true" class="w-11 h-11 bg-[#F59E0B] rounded-lg flex items-center justify-center text-white font-black text-[18px] flex-shrink-0">¥</div>
         <div>
-          <span class="bg-[#F59E0B] text-white text-[11px] font-bold px-3 py-0.5 rounded-full">第1弾・発売中</span>
+          <div class="text-[14px] font-black text-[#0F2557]">買い切り・月額なし</div>
+          <div class="text-[12px] text-[#5A6B85] mt-0.5">更新料も0円</div>
         </div>
-        <div class="text-base font-black text-[#0F2557]">シンプル工事台帳 ライト版</div>
-        <div class="flex items-center justify-between">
-          <div class="text-[12.5px] text-[#5A6B85]">確定申告用の収支管理（Excel）</div>
-          <div class="text-sm font-black text-[#0F2557]">¥{PRODUCT.price.toLocaleString()}</div>
-        </div>
-      </a>
+      </div>
 
-      <!-- 第2弾・準備中 -->
-      <a href="/products/" class="reveal group bg-white border border-dashed border-[#B9C4D6] hover:border-[#0F2557] rounded-2xl p-5 sm:p-6 flex flex-col gap-2 no-underline text-inherit" style="box-shadow: var(--shadow-sm); transition:border-color 0.2s ease,transform 0.2s ease,box-shadow 0.2s ease;">
+      <div class="flex items-center gap-4 px-7 py-5 border-b sm:border-b-0 sm:border-r border-[#E9EDF3]">
+        <div aria-hidden="true" class="w-11 h-11 bg-[#F59E0B] rounded-lg flex items-center justify-center text-white font-black text-[11px] flex-shrink-0">XLS</div>
         <div>
-          <span class="border border-[#5A6B85] text-[#5A6B85] text-[11px] font-bold px-3 py-0.5 rounded-full">第2弾・準備中</span>
+          <div class="text-[14px] font-black text-[#0F2557]">マクロなしのExcel</div>
+          <div class="text-[12px] text-[#5A6B85] mt-0.5">警告は出ません</div>
         </div>
-        <div class="text-base font-black text-[#0F2557]">シンプル安全台帳</div>
-        <div class="text-[12.5px] text-[#5A6B85]">資格・車両の期限管理＋安全書類</div>
-      </a>
+      </div>
 
-      <!-- 第3弾・構想中 -->
-      <a href="/contact/" class="reveal group bg-white border border-dashed border-[#B9C4D6] hover:border-[#0F2557] rounded-2xl p-5 sm:p-6 flex flex-col gap-2 no-underline text-inherit" style="box-shadow: var(--shadow-sm); transition:border-color 0.2s ease,transform 0.2s ease,box-shadow 0.2s ease;">
+      <div class="flex items-center gap-4 px-7 py-5 border-r border-[#E9EDF3]">
+        <div aria-hidden="true" class="w-11 h-11 bg-[#F59E0B] rounded-lg flex items-center justify-center text-white font-black text-[18px] flex-shrink-0">✓</div>
         <div>
-          <span class="border border-[#5A6B85] text-[#5A6B85] text-[11px] font-bold px-3 py-0.5 rounded-full">第3弾・構想中</span>
+          <div class="text-[14px] font-black text-[#0F2557]">確定申告に対応</div>
+          <div class="text-[12px] text-[#5A6B85] mt-0.5">収支を自動集計</div>
         </div>
-        <div class="text-base font-black text-[#0F2557]">次の道具は、現場の声から</div>
-        <div class="text-[12.5px] text-[#5A6B85]">「こんな道具がほしい」をお聞かせください →</div>
-      </a>
+      </div>
+
+      <div class="flex items-center gap-4 px-7 py-5">
+        <div aria-hidden="true" class="w-11 h-11 bg-[#F59E0B] rounded-lg flex items-center justify-center text-white font-black text-[11px] flex-shrink-0">PC</div>
+        <div>
+          <div class="text-[14px] font-black text-[#0F2557]">データはお手元に</div>
+          <div class="text-[12px] text-[#5A6B85] mt-0.5">クラウド送信なし</div>
+        </div>
+      </div>
 
     </div>
+
   </div>
 </section>
 
 
-<!-- ===== 2. こんなお悩み ===== -->
-<section class="bg-white relative overflow-hidden">
-  <!-- 装飾ブロブ（控えめ） -->
-  <div class="absolute -bottom-[100px] -right-[100px] w-[380px] h-[380px] rounded-full bg-[#F59E0B] opacity-[0.04] pointer-events-none" aria-hidden="true"></div>
-  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9 reveal">
-    <div class="flex items-center gap-4">
-      <div class="w-11 h-11 bg-[#0F2557] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">01</div>
-      <h2 class="text-2xl sm:text-[28px] font-black text-[#0F2557]">こんなお悩み、ありませんか？</h2>
+<!-- ===== S2. こんな悩み ===== -->
+<section class="bg-white rounded-t-[40px] sm:rounded-t-[80px] mt-[-40px]">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-[88px]">
+
+    <!-- セクションヘッダー -->
+    <div class="flex flex-col items-center gap-5 mb-12 reveal">
+      <span
+        class="inline-block font-bold"
+        style="border:1.5px solid #0F2557; color:#0F2557; font-size:13px; font-weight:700; padding:8px 26px; border-radius:999px;"
+      >PROBLEM — こんなお悩み、ありませんか？</span>
+      <h2 style="font-size:31px; font-weight:900; color:#0F2557; letter-spacing:0.04em;" class="text-center">
+        紙とExcelの管理、そろそろ限界かも。
+      </h2>
     </div>
-    <div class="border border-[#D8DEE8] rounded-2xl overflow-hidden" style="box-shadow: var(--shadow-sm);">
-      {painItems.map((item, i) => (
-        <div class={`flex items-start sm:items-center gap-4 sm:gap-5 px-5 sm:px-[30px] py-4 sm:py-[19px] ${i < painItems.length - 1 ? 'border-b border-[#E9EDF3]' : ''} ${i % 2 === 1 ? 'bg-[#FAFBFD]' : ''}`}>
-          <div class="w-[30px] h-[30px] bg-[#FDEBC8] rounded-full text-[#B45309] font-mono text-xs flex items-center justify-center flex-shrink-0 mt-0.5 sm:mt-0">{i + 1}</div>
-          <div class="flex flex-col sm:flex-row sm:items-center sm:gap-5 gap-1 min-w-0">
-            <div class="text-[15px] sm:text-[15.5px] font-bold flex-none sm:w-[300px]">{item.title}</div>
-            <div class="text-[13px] text-[#5A6B85]">{item.desc}</div>
-          </div>
+
+    <!-- カードグリッド -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[18px] reveal-stagger">
+
+      {painItems.map(item => (
+        <div class="reveal bg-[#F3F6FB] rounded-[18px] p-7 flex flex-col gap-3">
+          <div class="w-[38px] h-[38px] bg-white rounded-full text-[#B45309] font-black text-base flex items-center justify-center flex-shrink-0">!</div>
+          <div class="text-[15.5px] font-black text-[#0F2557]">{item.title}</div>
+          <div class="text-[13px] leading-[1.9] text-[#5A6B85]">{item.desc}</div>
         </div>
       ))}
-      <div class="bg-[#0F2557] px-5 sm:px-[30px] py-4 text-sm font-bold text-white flex items-center gap-2.5">
-        <span class="w-2 h-2 bg-[#F59E0B] rounded-full flex-shrink-0"></span>
-        ひとつでも当てはまった方のために、このサイトをつくりました。
-      </div>
-    </div>
-  </div>
-</section>
 
-
-<!-- ===== 3. こんな方のためのサイト ===== -->
-<section id="about" class="bg-[#EFF2F7]">
-  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
-    <div class="flex items-center gap-4 reveal">
-      <div class="w-11 h-11 bg-[#0F2557] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">02</div>
-      <h2 class="text-2xl sm:text-[28px] font-black text-[#0F2557]">こんな方のためのサイトです</h2>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 reveal-stagger">
-      {targetTypes.map(t => (
-        <div class="reveal bg-white rounded-2xl p-7 flex flex-col gap-3" style="box-shadow: var(--shadow-sm);">
-          <span class="self-start bg-[#EFF2F7] text-[#0F2557] text-[11.5px] font-bold px-3.5 py-1 rounded-full">{t.tag}</span>
-          <div class="text-[17px] font-black text-[#0F2557]">{t.title}</div>
-          <div class="text-[13.5px] leading-[1.9] text-[#44536E]">{t.desc}</div>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-
-
-<!-- ===== 4. できること（3本柱） ===== -->
-<section class="bg-white bg-dots">
-  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
-    <div class="flex items-center gap-4 reveal">
-      <div class="w-11 h-11 bg-[#0F2557] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">03</div>
-      <h2 class="text-2xl sm:text-[28px] font-black text-[#0F2557]">建設業ツール工房でできること</h2>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 reveal-stagger">
-      {pillars.map(p => (
-        <div class="reveal bg-white border border-[#D8DEE8] rounded-2xl p-8 flex flex-col gap-3" style="box-shadow: var(--shadow-sm); transition:box-shadow 0.2s ease,transform 0.2s ease;">
-          <div class="w-9 h-9 bg-[#F59E0B] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">{p.num}</div>
-          <div class="text-[18px] font-black text-[#0F2557]">{p.title}</div>
-          <div class="text-[13.5px] leading-[1.9] text-[#5A6B85]">{p.desc}</div>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-
-
-<!-- ===== 5. 注目の商品 ===== -->
-<section id="products" class="bg-[#EFF2F7]">
-  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
-    <div class="flex items-center gap-4 reveal">
-      <div class="w-11 h-11 bg-[#0F2557] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">04</div>
-      <h2 class="text-2xl sm:text-[28px] font-black text-[#0F2557]">注目の商品</h2>
-    </div>
-
-    <div class="bg-white rounded-3xl p-8 sm:p-12 relative reveal" style="box-shadow: var(--shadow-md);">
-      <!-- バッジ -->
-      <div class="sm:absolute sm:top-9 sm:right-11 inline-block sm:hidden bg-[#F59E0B] text-white text-[13px] font-black px-5 py-2 rounded-full mb-6">第1弾・発売中</div>
-      <div class="hidden sm:block absolute top-9 right-11 bg-[#F59E0B] text-white text-[13px] font-black px-5 py-2 rounded-full rotate-[4deg]">第1弾・発売中</div>
-
-      <div class="flex flex-col lg:flex-row gap-10 lg:gap-14">
-        <!-- 左：説明 -->
-        <div class="flex-[1.2] flex flex-col gap-4 sm:gap-[18px]">
-          <h3 class="text-2xl sm:text-[26px] font-black text-[#0F2557]">{PRODUCT.name}</h3>
-          <p class="text-[14.5px] leading-[1.9] text-[#44536E]">
-            工事ごとの入金と支出を入力するだけで、確定申告に使える収支がまとまる、Excelの工事台帳です。むずかしい設定や説明書は要りません。
-          </p>
-          <ul class="flex flex-col gap-2.5">
-            {productHighlights.map(h => (
-              <li class="flex items-center gap-2.5 text-sm">
-                <span class="text-[#F59E0B] font-black flex-shrink-0">✓</span>{h}
-              </li>
-            ))}
-          </ul>
-          <div class="flex items-center gap-4 mt-1.5">
-            <a href={PRODUCT.slug} class="bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold text-[15px] px-8 py-3.5 rounded-full btn-press">商品ページを見る</a>
-            <div class="text-[12.5px] text-[#5A6B85]">追加費用・更新料はありません</div>
-          </div>
-        </div>
-
-        <!-- 右：SPEC表 -->
-        <div class="flex-1 flex flex-col gap-3.5 justify-center">
-          <div class="font-mono text-[11px] tracking-widest text-[#8FA1C4]">SPEC — 仕様</div>
-          <div class="border border-[#D8DEE8] rounded-2xl overflow-hidden">
-            <div class="grid grid-cols-[100px_1fr] sm:grid-cols-[120px_1fr] text-[13px]">
-              <div class="px-4 sm:px-5 py-3 bg-[#EFF2F7] font-bold text-[#0F2557] border-b border-[#E3E8F0]">価格</div>
-              <div class="px-4 sm:px-5 py-3 border-b border-[#E9EDF3] flex items-baseline gap-2">
-                <span class="text-[20px] font-black text-[#0F2557]">¥{PRODUCT.price.toLocaleString()}</span>
-                <span class="text-xs text-[#5A6B85]">税込</span>
-              </div>
-              <div class="px-4 sm:px-5 py-3 bg-[#EFF2F7] font-bold text-[#0F2557] border-b border-[#E3E8F0]">販売形態</div>
-              <div class="px-4 sm:px-5 py-3 border-b border-[#E9EDF3] text-[#44536E]">買い切り（月額・更新料なし）</div>
-              <div class="px-4 sm:px-5 py-3 bg-[#EFF2F7] font-bold text-[#0F2557] border-b border-[#E3E8F0]">形式</div>
-              <div class="px-4 sm:px-5 py-3 border-b border-[#E9EDF3] text-[#44536E]">Excel（.xlsx）／マクロ不使用</div>
-              <div class="px-4 sm:px-5 py-3 bg-[#EFF2F7] font-bold text-[#0F2557] border-b border-[#E3E8F0]">用途</div>
-              <div class="px-4 sm:px-5 py-3 border-b border-[#E9EDF3] text-[#44536E]">工事ごとの収支管理・確定申告の準備</div>
-              <div class="px-4 sm:px-5 py-3 bg-[#EFF2F7] font-bold text-[#0F2557]">サポート</div>
-              <div class="px-4 sm:px-5 py-3 text-[#44536E]">お問い合わせフォームにて対応</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ===== 6. 今後のラインナップ ===== -->
-<section id="roadmap" class="bg-white bg-dots">
-  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
-    <div class="flex items-center gap-4 reveal">
-      <div class="w-11 h-11 bg-[#0F2557] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">05</div>
-      <h2 class="text-2xl sm:text-[28px] font-black text-[#0F2557]">今後のラインナップ</h2>
-    </div>
-    <div class="border border-dashed border-[#B9C4D6] rounded-3xl p-8 sm:p-10 sm:px-12 flex flex-col sm:flex-row items-start sm:items-center gap-8 sm:gap-11 reveal">
-      <div class="flex-1 flex flex-col gap-3">
-        <div class="flex flex-wrap gap-2 items-center">
-          <span class="border border-[#5A6B85] text-[#5A6B85] text-xs font-bold px-3.5 py-0.5 rounded-full">準備中</span>
-          <span class="border border-[#0F2557] text-[#0F2557] text-xs font-bold px-3.5 py-0.5 rounded-full">第2弾</span>
-        </div>
-        <h3 class="text-xl sm:text-[22px] font-black text-[#0F2557]">シンプル安全台帳</h3>
-        <p class="text-sm leading-[1.9] text-[#5A6B85] max-w-[620px]">
-          作業員の資格・健康診断、車両の車検・保険といった「期限もの」をひと目で管理し、安全書類づくりまでつなげるツールです。発売時期が決まりましたら、ブログとお知らせでご案内します。
+      <!-- ネイビーアクセントカード -->
+      <div class="reveal rounded-[18px] p-7 flex flex-col justify-center items-center" style="background:#0F2557;">
+        <p class="text-[15px] font-black text-white leading-[1.7] text-center">
+          ひとつでも当てはまった方へ。<br>その負担、道具で軽くできます。
         </p>
       </div>
-      <a href="/blog/" class="flex-none border border-[#0F2557] text-[#0F2557] hover:bg-[#0F2557] hover:text-white font-bold text-sm px-6 py-3 rounded-full transition-colors whitespace-nowrap">お知らせを待つ →</a>
+
     </div>
   </div>
 </section>
 
 
-<!-- ===== 7. 最新の記事 ===== -->
-<section id="blog" class="bg-[#EFF2F7]">
-  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-9">
-    <div class="flex items-center gap-4 reveal">
-      <div class="w-11 h-11 bg-[#0F2557] rounded-full text-white font-mono text-[13px] flex items-center justify-center flex-shrink-0">06</div>
-      <h2 class="text-2xl sm:text-[28px] font-black text-[#0F2557]">最新の記事</h2>
-      <a href="/blog/" class="ml-auto text-sm font-bold text-[#0F2557] hover:underline transition-colors whitespace-nowrap hidden sm:block">記事一覧を見る →</a>
+<!-- ===== S3. こんな方 ===== -->
+<section id="about" class="bg-white pb-[80px]">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- セクションヘッダー -->
+    <div class="flex flex-col items-center gap-5 mb-12 reveal">
+      <span
+        class="inline-block font-bold"
+        style="border:1.5px solid #0F2557; color:#0F2557; font-size:13px; font-weight:700; padding:8px 26px; border-radius:999px;"
+      >FOR — どんな方に向いているか</span>
+      <h2 style="font-size:31px; font-weight:900; color:#0F2557; letter-spacing:0.04em;" class="text-center">
+        小さな建設業の、事務まわりの味方に。
+      </h2>
     </div>
 
+    <!-- カードグリッド -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[18px] reveal-stagger">
+      {targetTypes.map(t => (
+        <div class="reveal border border-[#E3E8F0] rounded-[18px] p-8 flex flex-col gap-3">
+          <span class="self-start bg-[#EFF2F7] text-[#0F2557] text-[11.5px] font-bold px-3.5 py-1 rounded-full">{t.tag}</span>
+          <div class="text-[17px] font-black text-[#0F2557]">{t.title}</div>
+          <div class="text-[13.5px] leading-[2] text-[#5A6B85]">{t.desc}</div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ===== S4. できること ===== -->
+<section class="relative overflow-clip" style="background:#0F2557; border-radius:80px 80px 0 0;">
+
+  <!-- 装飾リング -->
+  <div
+    class="absolute pointer-events-none"
+    aria-hidden="true"
+    style="bottom:-200px; left:-180px; width:560px; height:560px; border:70px solid #14305F; border-radius:50%; z-index:0;"
+  ></div>
+
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-[88px] relative" style="z-index:1;">
+
+    <!-- セクションヘッダー -->
+    <div class="flex flex-col items-center gap-5 mb-12 reveal">
+      <span
+        class="inline-block font-bold"
+        style="border:1px solid #4A5E8C; color:#DCE4F1; font-size:13px; font-weight:700; padding:8px 26px; border-radius:999px;"
+      >SERVICE — 工房でできること</span>
+      <h2 class="text-[31px] font-black text-white text-center" style="letter-spacing:0.04em;">
+        道具と、ひな形と、情報の3本柱。
+      </h2>
+    </div>
+
+    <!-- カードグリッド -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[18px] reveal-stagger">
+      {pillars.map(p => (
+        <div class="reveal rounded-[18px] p-8 flex flex-col gap-3" style="background:#14305F;">
+          <div class="font-mono text-[12px] text-[#F59E0B] font-medium">{p.num}</div>
+          <div class="text-[18px] font-black text-white">{p.title}</div>
+          <div class="text-[13.5px] leading-[2] text-[#C7D2E5]">{p.desc}</div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ===== S5. 注目の商品 ===== -->
+<section id="products" class="bg-white rounded-t-[40px] sm:rounded-t-[80px] mt-[-40px]">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-[88px]">
+
+    <!-- セクションヘッダー -->
+    <div class="flex flex-col items-center gap-5 mb-12 reveal">
+      <span
+        class="inline-block font-bold"
+        style="border:1.5px solid #0F2557; color:#0F2557; font-size:13px; font-weight:700; padding:8px 26px; border-radius:999px;"
+      >PRODUCT — ツール・ラインナップ</span>
+      <h2 style="font-size:31px; font-weight:900; color:#0F2557; letter-spacing:0.04em;" class="text-center">
+        道具をそろえて、現場をシンプルに。
+      </h2>
+    </div>
+
+    <!-- 3列ラインナップ -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-[18px] reveal-stagger">
+
+      <!-- 第1弾: 発売中 -->
+      <div class="reveal border border-[#0F2557] rounded-[18px] p-7 flex flex-col gap-3">
+        <div class="flex gap-2 flex-wrap">
+          <span class="bg-[#F59E0B] text-white text-[11px] font-bold px-3 py-0.5 rounded-full">発売中</span>
+          <span class="border border-[#0F2557] text-[#0F2557] text-[11px] font-bold px-3 py-0.5 rounded-full">第1弾</span>
+        </div>
+        <div class="text-[17px] font-black text-[#0F2557]">シンプル工事台帳 ライト版</div>
+        <div class="text-[13px] leading-[1.9] text-[#5A6B85]">
+          工事の収支を記録・集計し、確定申告の準備までつながるExcel工事台帳。マクロなし・買い切り。
+        </div>
+        <div class="mt-auto pt-3 border-t border-[#E3E8F0] flex items-baseline gap-2">
+          <span class="text-[22px] font-black text-[#0F2557]">¥{PRODUCT.price.toLocaleString()}</span>
+          <span class="text-[12px] text-[#5A6B85]">税込・買い切り</span>
+        </div>
+        <a href="/products/koji-daicho/" class="mt-1 bg-[#0F2557] hover:bg-[#1B3463] text-white font-bold text-[14px] px-5 py-3 rounded-lg text-center btn-press transition-colors">商品ページを見る →</a>
+      </div>
+
+      <!-- 第2弾: 準備中 -->
+      <a href="/products/" class="reveal border border-dashed border-[#B9C4D6] rounded-[18px] p-7 flex flex-col gap-3 no-underline text-inherit">
+        <div class="flex gap-2 flex-wrap">
+          <span class="border border-[#5A6B85] text-[#5A6B85] text-[11px] font-bold px-3 py-0.5 rounded-full">準備中</span>
+          <span class="border border-[#0F2557] text-[#0F2557] text-[11px] font-bold px-3 py-0.5 rounded-full">第2弾</span>
+        </div>
+        <div class="text-[17px] font-black text-[#0F2557]">シンプル安全台帳</div>
+        <div class="text-[13px] leading-[1.9] text-[#5A6B85]">
+          作業員の資格・健康診断、車両の車検・保険といった「期限もの」をひと目で管理し、安全書類づくりまでつなげるツール。
+        </div>
+        <div class="mt-auto pt-3 border-t border-[#E3E8F0]">
+          <span class="text-[12px] text-[#8FA1C4]">発売時期はブログでお知らせします</span>
+        </div>
+      </a>
+
+      <!-- 第3弾: 構想中 -->
+      <div class="reveal border border-dashed border-[#B9C4D6] rounded-[18px] p-7 flex flex-col gap-3">
+        <div class="flex gap-2 flex-wrap">
+          <span class="border border-[#5A6B85] text-[#5A6B85] text-[11px] font-bold px-3 py-0.5 rounded-full">構想中</span>
+          <span class="border border-[#0F2557] text-[#0F2557] text-[11px] font-bold px-3 py-0.5 rounded-full">第3弾</span>
+        </div>
+        <div class="text-[17px] font-black text-[#0F2557]">次の道具は、現場の声から</div>
+        <div class="text-[13px] leading-[1.9] text-[#5A6B85]">
+          「こんな道具がほしい」という声を、次のツールづくりの材料にしています。お問い合わせからお気軽にどうぞ。
+        </div>
+        <div class="mt-auto pt-3 border-t border-[#E3E8F0]">
+          <a href="/contact/" class="text-[13px] font-bold text-[#0F2557] hover:underline">声を届ける →</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ===== S6. 最新の記事 ===== -->
+<section id="blog" class="bg-[#F3F6FB]">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-[88px]">
+
+    <!-- セクションヘッダー -->
+    <div class="flex flex-col items-center gap-5 mb-12 reveal">
+      <span
+        class="inline-block font-bold"
+        style="border:1.5px solid #0F2557; color:#0F2557; font-size:13px; font-weight:700; padding:8px 26px; border-radius:999px;"
+      >BLOG — 最新の記事</span>
+      <h2 style="font-size:31px; font-weight:900; color:#0F2557; letter-spacing:0.04em;" class="text-center">
+        実務に効く情報を、無料で。
+      </h2>
+    </div>
+
+    <!-- 記事グリッド -->
     {posts.length > 0 && (
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 reveal-stagger">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[18px] reveal-stagger mb-10">
         {posts.map(post => (
           <a
             href={`/blog/${post.slug}/`}
-            class="reveal group bg-white rounded-2xl p-6 sm:p-7 flex flex-col gap-3 no-underline text-inherit hover-lift"
-            style="box-shadow: var(--shadow-sm); transition:box-shadow 0.2s ease,transform 0.2s ease,outline-color 0.2s ease;"
+            class="reveal group bg-white rounded-[18px] overflow-hidden flex flex-col no-underline text-inherit"
+            style="box-shadow: var(--shadow-sm); transition:box-shadow 0.2s ease,transform 0.2s ease;"
           >
-            <div class="flex gap-2.5 items-center text-xs text-[#5A6B85]">
-              {post.data.category && (
-                <span class="bg-[#EFF2F7] rounded-full px-3 py-0.5 font-bold text-[#0F2557]">{post.data.category}</span>
-              )}
-              <span class="font-mono">
-                {post.data.publishedAt.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.')}
-              </span>
+            <!-- コンテンツ -->
+            <div class="p-6 flex flex-col gap-2.5 flex-1">
+              <div class="flex gap-2.5 items-center text-xs text-[#5A6B85]">
+                {post.data.category && (
+                  <span class="bg-[#EFF2F7] rounded-full px-3 py-0.5 font-bold text-[#0F2557]">{post.data.category}</span>
+                )}
+                <span class="font-mono">
+                  {post.data.publishedAt.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.')}
+                </span>
+              </div>
+              <div class="text-[15px] font-bold leading-[1.7] text-[#0F2557]">{post.data.title}</div>
+              <div class="text-[13px] font-bold text-[#F59E0B] mt-auto">読む →</div>
             </div>
-            <div class="text-[15px] font-bold leading-[1.7] text-[#0F2557]">{post.data.title}</div>
-            <div class="text-[13px] font-bold text-[#F59E0B] mt-auto">読む →</div>
           </a>
         ))}
       </div>
     )}
 
-    <!-- モバイル用「記事一覧を見る」 -->
-    <div class="sm:hidden text-center">
-      <a href="/blog/" class="text-sm font-bold text-[#0F2557] hover:underline">記事一覧を見る →</a>
+    <!-- 記事一覧リンク -->
+    <div class="flex justify-center mb-12 reveal">
+      <a
+        href="/blog/"
+        class="font-bold text-[14px] transition-colors hover:bg-[#0F2557] hover:text-white"
+        style="border:1.5px solid #0F2557; color:#0F2557; padding:13px 36px; border-radius:999px;"
+      >記事一覧を見る →</a>
     </div>
 
-    <!-- お客様の声（準備中） -->
-    <div class="border border-dashed border-[#B9C4D6] rounded-2xl p-5 sm:p-6 flex items-start sm:items-center gap-4 bg-white reveal">
-      <span class="border border-[#5A6B85] text-[#5A6B85] text-xs font-bold px-3.5 py-0.5 rounded-full flex-shrink-0">準備中</span>
-      <div class="text-[13.5px] leading-[1.8] text-[#5A6B85]">
-        <strong class="text-[#0F2557]">お客様の声</strong> — ご利用いただいた方の感想を、許可をいただいたうえでこの場所に掲載していく予定です。
+
+  </div>
+</section>
+
+
+<!-- ===== 工房について ===== -->
+<section class="bg-[#F3F6FB] pb-[80px]">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 reveal">
+    <div class="bg-white border border-[#D8DEE8] rounded-[18px] flex flex-col sm:flex-row sm:items-center gap-6" style="padding:28px 36px;">
+
+      <!-- キャラクター -->
+      <div class="flex items-center gap-3 flex-shrink-0">
+        <img
+          src="/images/characters/uta_product.png"
+          alt="黒猫のウタ"
+          width="88"
+          height="88"
+          class="rounded-full"
+          loading="lazy"
+        />
+        <img
+          src="/images/characters/natu_product.png"
+          alt="三毛猫のナツ"
+          width="88"
+          height="88"
+          class="rounded-full"
+          loading="lazy"
+        />
       </div>
+
+      <!-- テキスト -->
+      <div class="text-[13.5px] leading-[1.9] text-[#44536E] flex-1">
+        <strong class="text-[#0F2557]">ウタ</strong>と<strong class="text-[#0F2557]">ナツ</strong>が案内する「建設業ツール工房」は、一人親方や小規模な建設業の方が、事務まわりをもう少しらくにできるよう、道具と情報をつくっています。
+      </div>
+
+      <!-- CTAリンク -->
+      <a
+        href="/about/"
+        class="flex-none font-bold text-[13.5px] text-[#0F2557] transition-colors hover:bg-[#0F2557] hover:text-white whitespace-nowrap"
+        style="border:1.5px solid #0F2557; border-radius:999px; padding:11px 24px;"
+      >工房について →</a>
+
     </div>
   </div>
 </section>
