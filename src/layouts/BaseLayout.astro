@@ -151,6 +151,7 @@ const websiteSchema = JSON.stringify({
           el.classList.add('is-visible');
         });
       } else {
+        // 通常の .reveal（stagger外）を個別観測
         var observer = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
@@ -158,10 +159,28 @@ const websiteSchema = JSON.stringify({
               observer.unobserve(entry.target);
             }
           });
-        }, { threshold: 0.15 });
+        }, { threshold: 0.1 });
+
+        // .reveal-stagger の親コンテナを観測し、入ったら子を一斉発火
+        var staggerObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.querySelectorAll(':scope > .reveal').forEach(function (child) {
+                child.classList.add('is-visible');
+              });
+              staggerObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(function (el) {
-          observer.observe(el);
+          if (!el.closest('.reveal-stagger')) {
+            observer.observe(el);
+          }
+        });
+
+        document.querySelectorAll('.reveal-stagger').forEach(function (el) {
+          staggerObserver.observe(el);
         });
       }
 
