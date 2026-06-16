@@ -13,14 +13,12 @@ const categories = [...new Set(allPosts.map(p => p.data.category).filter(Boolean
   title="ブログ"
   description="法令対応・確定申告・実務ノウハウなど、建設業の現場で役立つ情報をお届けします。"
 >
-  <div class="w-full bg-white border-b border-[#D8DEE8]">
-    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
-      <nav class="text-sm text-[#5A6B85]" aria-label="パンくずリスト">
-        <a href="/" class="hover:text-[#0F2557] transition-colors">ホーム</a>
-        <span class="mx-2">/</span>
-        <span class="text-[#1A2B4A]">ブログ</span>
-      </nav>
-    </div>
+  <div class="w-full px-4 sm:px-6 lg:px-10 py-3 bg-white border-b border-slate-100">
+    <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
+      <a href="/" class="hover:text-[#0F2557] transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <span class="text-[#1A2B4A]">ブログ</span>
+    </nav>
   </div>
 
   <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
