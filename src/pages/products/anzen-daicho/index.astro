@@ -50,7 +50,7 @@ const features = [
   {
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
     title: '作業員・資格管理',
-    desc: '作業員を登録し、資格の有効期限もセットで管理。健康診断の期限も自動アラート。',
+    desc: '作業員を登録し、保有資格を記録。健康診断や免許など期限のあるものは自動アラートで管理。',
   },
   {
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`,
@@ -65,7 +65,7 @@ const features = [
   {
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
     title: '作業員名簿 PDF出力',
-    desc: '全建統一様式準拠の作業員名簿をワンクリックでPDF生成。期限切れ者は赤くハイライト。',
+    desc: '全建統一様式準拠の作業員名簿をワンクリックでPDF生成。健診・免許など期限切れがある人は赤くハイライト。',
   },
   {
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="12" y1="17" x2="8" y2="17"/></svg>`,
@@ -115,8 +115,8 @@ const comparisonRows = [
       </h1>
       <p class="text-sm text-slate-500 mb-2">非グリーンサイトの小規模下請（数人規模）向け</p>
       <p class="text-xl md:text-2xl text-slate-600 mb-6 leading-relaxed">
-        資格・車検の期限切れを見逃さない。<br>
-        安全書類をその場でPDF出力できる。
+        健診・車検・保険の期限切れを見逃さない。<br>
+        資格も作業員名簿もまとめて管理、その場でPDF出力。
       </p>
       <div class="inline-flex items-center gap-2 bg-slate-100 text-slate-500 font-bold px-8 py-4 rounded-xl text-lg cursor-default select-none">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -140,7 +140,7 @@ const comparisonRows = [
       <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">こんな悩みありませんか？</h2>
       <ul class="space-y-4">
         {[
-          '資格・車検の期限をExcelで管理していて、気づいたら切れていた',
+          '健診や車検の期限をExcelで管理していて、気づいたら切れていた',
           '作業員名簿を書くたびに、手書きやコピペで1時間かかる',
           'グリーンサイトは元請に言われないと使わない。月額を払うのが惜しい',
           '現場の朝、急に安全書類を求められてあわてる',
@@ -278,7 +278,7 @@ const comparisonRows = [
     <div class="container-base max-w-2xl mx-auto">
       <CharaDialogue
         chara="mikeru"
-        text="期限切れの資格者を現場に入れてしまったら、元請に怒られるだけじゃなくて、労基にも引っかかることがある。台帳で管理しておけば防げる話なんだけどな。"
+        text="健診切れや、必要な資格・教育を持たない作業員を現場に入れてしまうと、元請に怒られるだけじゃなくて労基に引っかかることもある。誰が何を持っているか台帳で押さえておけば防げる話なんだけどな。"
         direction="left"
         expression="tati"
       />
