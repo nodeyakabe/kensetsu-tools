@@ -15,7 +15,7 @@ const breadcrumbSchema = {
 
 <BaseLayout
   title="このサイトについて | 建設業ツール工房"
-  description="建設業ツール工房は、一人親方から10人規模の建設事業者向けに、買い切り（月額なし）の業務ツールと実務情報を届ける個人運営の工房です。"
+  description="建設業ツール工房は、一人親方から10人規模の建設事業者向けに、買い切り（月額なし）の業務ツールと実務情報を届ける個人運営の工房です。サブスクなし・完全オフライン・ITが苦手な方でも使えるシンプルさを大切にしています。"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -114,8 +114,8 @@ const breadcrumbSchema = {
               { label: '所在地',         value: '特定商取引法に基づく表記に記載' },
               { label: 'お問い合わせ',   value: 'お問い合わせフォームにて受付' },
               { label: 'サイト開設',     value: '2026年' },
-            ].map((row, i) => (
-              <tr class={i !== 5 ? 'border-b border-[#E3E8F0]' : ''}>
+            ].map((row, i, arr) => (
+              <tr class={i !== arr.length - 1 ? 'border-b border-[#E3E8F0]' : ''}>
                 <th class="w-[180px] px-6 py-4 bg-[#F4F6F9] text-left font-bold text-[#0F2557] align-top">{row.label}</th>
                 <td class="px-6 py-4 text-[#44536E]">{row.value}</td>
               </tr>
