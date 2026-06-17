@@ -390,35 +390,37 @@ const breadcrumbSchema = JSON.stringify({
     margin-bottom: 2.25rem !important;
   }
 
-  /* 番号付きリスト（ステップカード） */
-  .blog-prose ol {
-    list-style: none;
-    padding: 0;
+  /* 番号付きリスト（ステップカード）— 直接の子のみ対象 */
+  .blog-prose > ol {
+    list-style: none !important;
+    padding: 0 !important;
     margin: 0 0 2.5rem !important;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
     counter-reset: step-counter;
   }
-  .blog-prose ol li {
+  .blog-prose > ol > li {
     counter-increment: step-counter;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 1rem;
     background: #F3F6FB;
     border-radius: 0.75rem;
     padding: 1rem 1.25rem;
+    padding-left: 1.25rem !important;
     font-size: 15.5px;
     line-height: 1.7;
     color: #2A3852;
     margin: 0;
   }
-  .blog-prose ol li::before {
+  .blog-prose > ol > li::before {
     content: counter(step-counter);
     background: #0F2557;
     color: white;
     font-weight: 700;
     font-family: monospace;
+    font-size: 14px;
     min-width: 38px;
     height: 38px;
     border-radius: 10px;
@@ -426,15 +428,16 @@ const breadcrumbSchema = JSON.stringify({
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    margin-top: 2px;
   }
-  .blog-prose ol li strong {
+  .blog-prose > ol > li strong {
     color: #0F2557;
   }
 
-  /* 箇条書きリスト（チェックリスト） */
-  .blog-prose ul {
-    list-style: none;
-    padding: 0;
+  /* 箇条書きリスト（チェックリスト）— 直接の子のみ対象 */
+  .blog-prose > ul {
+    list-style: none !important;
+    padding: 0 !important;
     margin: 0 0 2.5rem !important;
     display: flex;
     flex-direction: column;
@@ -442,26 +445,29 @@ const breadcrumbSchema = JSON.stringify({
     border-radius: 1rem;
     overflow: hidden;
   }
-  .blog-prose ul li {
+  .blog-prose > ul > li {
     display: flex;
     gap: 0.75rem;
     align-items: flex-start;
     padding: 1rem 1.25rem;
+    padding-left: 1.25rem !important;
     border-bottom: 1px solid #EFF2F7;
     font-size: 15px;
     line-height: 1.8;
     color: #3A4860;
     margin: 0;
   }
-  .blog-prose ul li:last-child {
+  .blog-prose > ul > li:last-child {
     border-bottom: none;
   }
-  .blog-prose ul li::before {
-    content: "✓";
+  .blog-prose > ul > li::before {
+    content: "\2713";
     color: #F59E0B;
     font-weight: 900;
+    font-size: 14px;
+    line-height: 1;
     flex-shrink: 0;
-    margin-top: 1px;
+    margin-top: 3px;
   }
 
   /* ブロッククォート（注意書きボックス） */
@@ -472,6 +478,12 @@ const breadcrumbSchema = JSON.stringify({
     border-radius: 0.75rem;
     padding: 1.25rem 1.5rem;
     margin: 2rem 0 !important;
+    font-style: normal !important;
+    quotes: none !important;
+  }
+  .blog-prose blockquote::before,
+  .blog-prose blockquote::after {
+    content: none !important;
   }
   .blog-prose blockquote p {
     color: #5A6B85 !important;
