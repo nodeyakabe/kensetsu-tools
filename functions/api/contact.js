@@ -127,7 +127,7 @@ export async function onRequestPost({ request, env }) {
     'contact@kensetsu-tools.com',
     '──────────────────────',
     '',
-    '※ このメールは自動送信です。このアドレスへの返信は届きません。',
+    '※ このメールは自動送信です。ご返信いただいた場合も確認しております。',
   ].join('\n');
 
   // 自動返信は失敗しても本体の成功に影響させない

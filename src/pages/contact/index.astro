@@ -364,6 +364,9 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
       formError?.classList.remove('hidden');
     } finally {
       setLoading(false);
+      if (typeof turnstile !== 'undefined') {
+        turnstile.reset();
+      }
     }
   });
 </script>
