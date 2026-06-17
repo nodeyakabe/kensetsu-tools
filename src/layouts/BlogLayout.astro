@@ -92,22 +92,25 @@ const breadcrumbSchema = JSON.stringify({
     <script type="application/ld+json" set:html={breadcrumbSchema} />
   </Fragment>
 
+  <!-- パンくず（他ページと共通スタイル） -->
+  <div class="w-full px-4 sm:px-6 lg:px-10 py-3 bg-white border-b border-slate-100">
+    <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
+      <a href="/" class="hover:text-[#0F2557] transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <a href="/blog/" class="hover:text-[#0F2557] transition-colors">ブログ</a>
+      {category && (
+        <>
+          <span class="mx-2">/</span>
+          <span class="text-[#1A2B4A]">{category}</span>
+        </>
+      )}
+    </nav>
+  </div>
+
   <!-- 記事ヘッダー（ネイビー） -->
   <section class="bg-[#0F2557] relative overflow-hidden">
     <div class="absolute -top-[180px] -right-[220px] w-[620px] h-[620px] border-[76px] border-[#14305F] rounded-full pointer-events-none"></div>
     <div class="article-header relative flex flex-col gap-5">
-      <!-- パンくず -->
-      <nav class="font-mono text-[12px] tracking-[0.12em] text-[#8FA1C4]" aria-label="パンくずリスト">
-        <a href="/" class="hover:text-[#C7D2E5] transition-colors">HOME</a>
-        <span class="mx-2">/</span>
-        <a href="/blog/" class="hover:text-[#C7D2E5] transition-colors">BLOG</a>
-        {category && (
-          <>
-            <span class="mx-2">/</span>
-            <span>{category}</span>
-          </>
-        )}
-      </nav>
       <!-- カテゴリ・タグ -->
       <div class="flex gap-2 flex-wrap">
         {category && (
