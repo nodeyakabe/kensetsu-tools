@@ -1,7 +1,5 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import ComingSoonCard from '@/components/ComingSoonCard.astro';
-import { comingSoonItems } from '@/data/coming-soon';
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -21,6 +19,22 @@ const breadcrumbSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
 
+  <style is:global>
+    .product-card { transition: box-shadow 0.18s ease, transform 0.18s ease; }
+    .product-card:hover { box-shadow: 0 6px 28px rgba(15,37,87,0.13); transform: translateY(-2px); }
+    .coming-card { transition: box-shadow 0.18s ease; }
+    .coming-card:hover { box-shadow: 0 4px 18px rgba(15,37,87,0.09); }
+    .promise-card { background: #F3F6FB; border-radius: 16px; padding: 26px 28px; display: flex; flex-direction: column; gap: 10px; }
+    .promise-icon { width: 42px; height: 42px; background: #FFFFFF; border: 1px solid #D3DDEC; border-radius: 11px; color: #0F2557; font-weight: 900; font-size: 17px; display: flex; align-items: center; justify-content: center; }
+    .promise-title { font-size: 15.5px; font-weight: 900; color: #0F2557; }
+    .promise-body { font-size: 13px; line-height: 1.85; color: #5A6B85; }
+    .btn-amber { background: #F59E0B; color: #FFFFFF; font-weight: 700; font-size: 14px; padding: 13px 26px; border-radius: 8px; transition: background 0.15s; display: inline-block; text-decoration: none; white-space: nowrap; }
+    .btn-amber:hover { background: #D98908; }
+    .btn-outline { border: 1.5px solid #0F2557; color: #0F2557; font-weight: 700; font-size: 14px; padding: 12px 26px; border-radius: 8px; transition: background 0.15s, color 0.15s; display: inline-block; text-decoration: none; white-space: nowrap; }
+    .btn-outline:hover { background: #0F2557; color: #FFFFFF; }
+  </style>
+
+  <!-- パンくず -->
   <div class="w-full px-4 sm:px-6 lg:px-10 py-3 bg-white border-b border-slate-100">
     <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
       <a href="/" class="hover:text-[#0F2557] transition-colors">ホーム</a>
@@ -29,65 +43,126 @@ const breadcrumbSchema = {
     </nav>
   </div>
 
-  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="mb-12">
-      <h1 class="text-4xl font-black text-[#0F2557] mb-3">ツール・商品</h1>
-      <p class="text-[#44536E] text-lg">建設業の現場で本当に使えるツールをお届けします。</p>
+  <!-- ページ見出し（ネイビー） -->
+  <section style="background: #0F2557; position: relative; overflow: hidden">
+    <div style="position: absolute; top: -180px; right: -220px; width: 620px; height: 620px; border: 76px solid #14305F; border-radius: 50%"></div>
+    <div style="max-width: 1180px; margin: 0 auto; padding: 36px 40px 72px; position: relative; display: flex; flex-direction: column; gap: 14px">
+      <h1 style="margin: 0; font-size: 38px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em">ツール・商品</h1>
+      <p style="margin: 0; font-size: 15px; line-height: 1.9; color: #C7D2E5; max-width: 560px">建設業の現場で本当に使えるツールを、買い切り（月額なし）でお届けします。<br>むずかしい操作はありません。ITが苦手な方でも、今日から使えます。</p>
+    </div>
+  </section>
+
+  <!-- 商品一覧（白の曲面立ち上がり） -->
+  <section style="background: #FFFFFF; border-radius: 60px 60px 0 0; margin-top: -36px; position: relative">
+    <div style="max-width: 1180px; margin: 0 auto; padding: 56px 40px 24px; display: flex; flex-direction: column; gap: 28px">
+
+      <!-- セクション見出し -->
+      <div style="display: flex; align-items: center; gap: 10px">
+        <div style="width: 5px; height: 24px; background: #F59E0B; border-radius: 2px"></div>
+        <h2 style="margin: 0; font-size: 20px; font-weight: 900; color: #0F2557; letter-spacing: 0.04em">発売中のツール</h2>
+      </div>
+
+      <!-- 商品カード -->
+      <div style="display: flex; flex-direction: column; gap: 18px">
+
+        <!-- 工事台帳 -->
+        <a href="/products/koji-daicho/" class="product-card" style="display: block; border: 1px solid #E3E8F0; border-radius: 18px; overflow: hidden; text-decoration: none; color: inherit">
+          <div style="background: #0F2557; padding: 22px 32px; display: flex; align-items: center; gap: 18px; position: relative; overflow: hidden">
+            <div style="position: absolute; top: -60px; right: 260px; width: 150px; height: 150px; border: 26px solid #14305F; border-radius: 50%"></div>
+            <div style="position: relative; display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+              <span style="background: #F59E0B; color: #FFFFFF; font-size: 11.5px; font-weight: 700; padding: 4px 12px; border-radius: 999px">発売中</span>
+              <span style="border: 1px solid #4A5E8C; color: #C7D2E5; font-size: 11.5px; font-weight: 700; padding: 3px 12px; border-radius: 999px">第1弾</span>
+              <h3 style="margin: 0; font-size: 22px; font-weight: 900; color: #FFFFFF">シンプル工事台帳 ライト版</h3>
+            </div>
+            <div style="position: relative; margin-left: auto; display: flex; align-items: baseline; gap: 6px; background: #14305F; border-radius: 10px; padding: 10px 18px; flex: none">
+              <div style="font-size: 24px; font-weight: 900; color: #FFFFFF">¥5,980</div>
+            </div>
+          </div>
+          <div style="padding: 24px 32px; display: flex; align-items: center; gap: 24px">
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.9; color: #44536E; flex: 1">確定申告がラクになる、Excelだけで動く工事管理ツール。工事ごとの入金と支出を入力するだけで、収支が自動で集計されます。</p>
+            <div style="display: flex; gap: 8px; flex: none">
+              <span style="background: #F3F6FB; color: #0F2557; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 8px">マクロなし</span>
+              <span style="background: #F3F6FB; color: #0F2557; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 8px">確定申告サマリー</span>
+            </div>
+            <span class="btn-amber">詳細・購入 →</span>
+          </div>
+        </a>
+
+        <!-- 安全台帳 -->
+        <a href="/products/anzen-daicho/" class="product-card" style="display: block; border: 1px solid #E3E8F0; border-radius: 18px; overflow: hidden; text-decoration: none; color: inherit">
+          <div style="background: #3A4A6A; padding: 22px 32px; display: flex; align-items: center; gap: 18px; position: relative; overflow: hidden">
+            <div style="position: absolute; top: -60px; right: 260px; width: 150px; height: 150px; border: 26px solid #44536A; border-radius: 50%"></div>
+            <div style="position: relative; display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+              <span style="background: #8FA1C4; color: #FFFFFF; font-size: 11.5px; font-weight: 700; padding: 4px 12px; border-radius: 999px">開発中</span>
+              <span style="border: 1px solid #6A7A9A; color: #B0BEDA; font-size: 11.5px; font-weight: 700; padding: 3px 12px; border-radius: 999px">第2弾</span>
+              <h3 style="margin: 0; font-size: 22px; font-weight: 900; color: #D0D8E8">シンプル安全台帳</h3>
+            </div>
+          </div>
+          <div style="padding: 24px 32px; display: flex; align-items: center; gap: 24px">
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.9; color: #44536E; flex: 1">資格・車検の期限管理と安全書類PDF出力。作業員の資格や車両の期限を一覧で管理し、必要な書類づくりまでつなげます。完全オフライン・月額なし。</p>
+            <div style="display: flex; gap: 8px; flex: none">
+              <span style="background: #F3F6FB; color: #0F2557; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 8px">期限を一覧管理</span>
+              <span style="background: #F3F6FB; color: #0F2557; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 8px">安全書類PDF</span>
+            </div>
+            <span class="btn-amber" style="background: #8FA1C4; pointer-events: none">詳細を見る →</span>
+          </div>
+        </a>
+
+        <!-- 次の道具は（構想中） -->
+        <div class="coming-card" style="border: 1.5px dashed #B9C4D6; border-radius: 18px; overflow: hidden">
+          <div style="background: #EAEEF5; padding: 22px 32px; display: flex; align-items: center; gap: 18px">
+            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+              <span style="border: 1px solid #8FA1C4; color: #5A6B85; font-size: 11.5px; font-weight: 700; padding: 3px 12px; border-radius: 999px">構想中</span>
+              <span style="border: 1px solid #B9C4D6; color: #5A6B85; font-size: 11.5px; font-weight: 700; padding: 3px 12px; border-radius: 999px">第3弾</span>
+              <h3 style="margin: 0; font-size: 22px; font-weight: 900; color: #5A6B85">次の道具は、現場の声から</h3>
+            </div>
+          </div>
+          <div style="padding: 24px 32px; display: flex; align-items: center; gap: 24px">
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.9; color: #5A6B85; flex: 1">「こんな道具がほしい」という声を、次のツールづくりの材料にしています。お問い合わせフォームからお気軽にお聞かせください。</p>
+            <a href="/contact/" class="btn-outline">要望を送る →</a>
+          </div>
+        </div>
+
+      </div>
     </div>
 
-    <!-- 発売中 -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-      <a href="/products/koji-daicho/" class="block group">
-        <div class="bg-white border-2 border-[#F59E0B] rounded-2xl p-8 h-full hover-lift" style="box-shadow: var(--shadow-sm); transition:box-shadow 0.2s ease,transform 0.2s ease;">
-          <div class="mb-4">
-            <span class="inline-block bg-[#F59E0B] text-white text-xs font-bold px-3 py-1 rounded-full">発売中</span>
-          </div>
-          <h2 class="text-xl font-black text-[#0F2557] mb-2 group-hover:text-[#1A2B4A] transition-colors">
-            シンプル工事台帳 ライト版
-          </h2>
-          <p class="text-[#44536E] text-base mb-4">
-            確定申告がラクになる、Excelだけで動く工事管理ツール
-          </p>
-          <p class="text-[#F59E0B] text-xl font-bold mb-1">¥5,980（税込・買い切り）</p>
-          <p class="text-[#5A6B85] text-sm mb-6">返金保証なし</p>
-          <span class="text-[#0F2557] font-bold group-hover:text-[#F59E0B] transition-colors">
-            詳細・購入はこちら →
-          </span>
+    <!-- 工房のお約束 -->
+    <div style="max-width: 1180px; margin: 0 auto; padding: 40px 40px 64px">
+      <div style="border-top: 1px solid #E3E8F0; padding-top: 44px; display: flex; flex-direction: column; gap: 22px">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+          <div style="border: 1.5px solid #0F2557; color: #0F2557; font-size: 12px; font-weight: 700; padding: 7px 22px; border-radius: 999px">PROMISE — 工房のお約束</div>
+          <h2 style="margin: 0; font-size: 22px; font-weight: 900; color: #0F2557; letter-spacing: 0.04em">どのツールにも、共通すること</h2>
         </div>
-      </a>
-
-      <a href="/products/anzen-daicho/" class="block group">
-        <div class="bg-white border-2 border-[#F59E0B] rounded-2xl p-8 h-full hover-lift" style="box-shadow: var(--shadow-sm); transition:box-shadow 0.2s ease,transform 0.2s ease;">
-          <div class="mb-4 flex items-center gap-2">
-            <span class="inline-block bg-[#F59E0B] text-white text-xs font-bold px-3 py-1 rounded-full">発売中</span>
-            <span class="inline-block bg-[#FDEBC8] text-[#B45309] text-xs font-bold px-3 py-1 rounded-full">NEW</span>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px">
+          <div class="promise-card">
+            <div class="promise-icon">¥</div>
+            <div class="promise-title">買い切り・月額なし</div>
+            <div class="promise-body">一度のお支払いで、ずっと使えます。更新料や追加費用はいただきません。</div>
           </div>
-          <h2 class="text-xl font-black text-[#0F2557] mb-2 group-hover:text-[#1A2B4A] transition-colors">
-            シンプル安全台帳
-          </h2>
-          <p class="text-[#44536E] text-base mb-4">
-            資格・車検の期限管理と安全書類PDF出力。完全オフライン・月額なし
-          </p>
-          <p class="text-[#F59E0B] text-xl font-bold mb-1">¥9,800（税込・買い切り）</p>
-          <p class="text-[#5A6B85] text-sm mb-6">返金保証なし</p>
-          <span class="text-[#0F2557] font-bold group-hover:text-[#F59E0B] transition-colors">
-            詳細・購入はこちら →
-          </span>
-        </div>
-      </a>
-    </div>
-
-    <!-- 今後のラインナップ -->
-    {comingSoonItems.length > 0 && (
-      <div>
-        <h2 class="text-2xl font-black text-[#0F2557] mb-2">今後のラインナップ</h2>
-        <p class="text-[#5A6B85] text-sm mb-8">順次提供予定です（提供時期は未定）。</p>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {comingSoonItems.map(card => (
-            <ComingSoonCard title={card.title} desc={card.desc} />
-          ))}
+          <div class="promise-card">
+            <div class="promise-icon">✓</div>
+            <div class="promise-title">説明書いらずの設計</div>
+            <div class="promise-body">ITが苦手な方を基準に、開いたその日から迷わず使えるようにしています。</div>
+          </div>
+          <div class="promise-card">
+            <div class="promise-icon" style="font-size: 13px">PC</div>
+            <div class="promise-title">データはお手元に</div>
+            <div class="promise-body">クラウド送信なし。あなたのPCの中だけで完結します。</div>
+          </div>
         </div>
       </div>
-    )}
-  </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background: #0F2557">
+    <div style="max-width: 1180px; margin: 0 auto; padding: 56px 40px; display: flex; align-items: center; gap: 32px">
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <h2 style="margin: 0; font-size: 24px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em">ご質問・ご要望をお聞かせください</h2>
+        <p style="margin: 0; font-size: 13.5px; line-height: 1.9; color: #C7D2E5">購入前のご不明点も、お気軽にお問い合わせください。</p>
+      </div>
+      <a href="/contact/" style="margin-left: auto; flex: none; background: #F59E0B; color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 15px; padding: 15px 34px; border-radius: 8px; transition: background 0.15s">お問い合わせフォームへ</a>
+    </div>
+  </section>
+
 </BaseLayout>
