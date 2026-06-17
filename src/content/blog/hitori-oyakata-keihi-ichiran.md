@@ -59,3 +59,11 @@ tags: ["経費", "確定申告", "一人親方", "勘定科目"]
 経費の判断基準は「事業に必要かどうか」。建設業では材料費・外注費・車両費・工具費などが代表的で、私用と共用するものは家事按分します。領収書をきちんと残し、日々こまめに記録しておけば、経費もれも申告時の手間もぐっと減らせます。
 
 > 本記事は一般的な情報をまとめたものです。経費の判断基準・保存ルール・金額などは改正される場合があり、個別の判断は税理士や最寄りの税務署にご確認ください。
+
+<div class="not-prose my-8 p-6 border-2 border-accent-500 rounded-xl bg-slate-50">
+  <p class="text-xs font-bold text-accent-600 uppercase tracking-wider mb-2">関連商品</p>
+  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳 ライト版</p>
+  <p class="text-slate-600 text-sm mb-3">一人親方向けのExcel工事台帳。工事ごとの収支入力・確定申告サマリー出力まで対応。マクロ不使用・買い切り。</p>
+  <p class="text-accent-500 font-semibold mb-4">¥5,980（税込・買い切り）</p>
+  <a href="/products/koji-daicho/" class="inline-block bg-accent-500 text-white font-bold py-2 px-5 rounded-lg text-sm">詳細を見る →</a>
+</div>

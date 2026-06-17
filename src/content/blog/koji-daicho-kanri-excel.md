@@ -70,6 +70,8 @@ Excelで工事台帳を自作することは可能ですが、工事数が増え
 
 工事台帳を運用すると、年末の確定申告作業が大幅に楽になります。記録すべき5項目（工事情報・材料費・外注費・直接費用・粗利）をExcelで管理し、**工事が終わるたびに入力する習慣をつけること**が最大のポイントです。Excelが苦手な方や自作で挫折した経験のある方は、専用ツールの活用も検討してみてください。
 
+> 本記事は一般的な情報をまとめたものです。確定申告や経費の取り扱いについては、税理士や最寄りの税務署にご確認ください。
+
 <div class="not-prose my-8 p-6 border-2 border-accent-500 rounded-xl bg-slate-50">
   <p class="text-xs font-bold text-accent-600 uppercase tracking-wider mb-2">関連商品</p>
   <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳 ライト版</p>
