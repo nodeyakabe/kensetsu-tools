@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { getCollection } from 'astro:content';
 
 interface Props {
   title: string;
@@ -21,13 +22,20 @@ const formattedDate = publishedAt.toLocaleDateString('ja-JP', {
   year: 'numeric',
   month: '2-digit',
   day: '2-digit',
-}).replace(/\//g, '-');
+}).replace(/\//g, '.');
 
 const updatedFormatted = updatedAt?.toLocaleDateString('ja-JP', {
   year: 'numeric',
   month: '2-digit',
   day: '2-digit',
-}).replace(/\//g, '-');
+}).replace(/\//g, '.');
+
+// 関連記事（最新3件、自記事除く）
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const related = allPosts
+  .filter(p => p.slug !== slug)
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .slice(0, 3);
 
 // BlogPosting 構造化データ
 const articleSchema = JSON.stringify({
@@ -65,24 +73,9 @@ const breadcrumbSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'ホーム',
-      item: siteUrl,
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'ブログ',
-      item: `${siteUrl}/blog/`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: title,
-      item: canonicalUrl,
-    },
+    { '@type': 'ListItem', position: 1, name: 'ホーム', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'ブログ', item: `${siteUrl}/blog/` },
+    { '@type': 'ListItem', position: 3, name: title, item: canonicalUrl },
   ],
 });
 ---
@@ -99,63 +92,357 @@ const breadcrumbSchema = JSON.stringify({
     <script type="application/ld+json" set:html={breadcrumbSchema} />
   </Fragment>
 
-  <div class="w-full px-4 sm:px-6 lg:px-10 py-3 bg-white border-b border-slate-100">
-    <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
-      <a href="/" class="hover:text-[#0F2557] transition-colors">ホーム</a>
-      <span class="mx-2">/</span>
-      <a href="/blog/" class="hover:text-[#0F2557] transition-colors">ブログ</a>
-      <span class="mx-2">/</span>
-      <span class="text-[#1A2B4A]">{title}</span>
-    </nav>
-  </div>
-
-  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <article class="max-w-3xl mx-auto">
-      <!-- Category & Tags -->
-      <div class="flex flex-wrap items-center gap-2 mb-4">
+  <!-- 記事ヘッダー（ネイビー） -->
+  <section class="bg-[#0F2557] relative overflow-hidden">
+    <div class="absolute -top-[180px] -right-[220px] w-[620px] h-[620px] border-[76px] border-[#14305F] rounded-full pointer-events-none"></div>
+    <div class="article-header relative flex flex-col gap-5">
+      <!-- パンくず -->
+      <nav class="font-mono text-[12px] tracking-[0.12em] text-[#8FA1C4]" aria-label="パンくずリスト">
+        <a href="/" class="hover:text-[#C7D2E5] transition-colors">HOME</a>
+        <span class="mx-2">/</span>
+        <a href="/blog/" class="hover:text-[#C7D2E5] transition-colors">BLOG</a>
         {category && (
-          <span class="text-[11px] font-bold bg-[#FDEBC8] text-[#B45309] px-3 py-1 rounded-full">
-            {category}
-          </span>
+          <>
+            <span class="mx-2">/</span>
+            <span>{category}</span>
+          </>
+        )}
+      </nav>
+      <!-- カテゴリ・タグ -->
+      <div class="flex gap-2 flex-wrap">
+        {category && (
+          <span class="bg-[#F59E0B] text-white text-xs font-bold px-4 py-1 rounded-full">{category}</span>
         )}
         {tags.map(tag => (
-          <span class="text-xs font-medium bg-[#EFF2F7] text-[#44536E] px-3 py-1 rounded-full">
-            #{tag}
-          </span>
+          <span class="border border-[#4A5E8C] text-[#C7D2E5] text-xs font-medium px-4 py-[3px] rounded-full">#{tag}</span>
         ))}
       </div>
-
-      <h1 class="text-3xl md:text-4xl font-black text-[#0F2557] leading-tight mb-4">
+      <!-- h1 -->
+      <h1 class="article-h1 m-0 font-black leading-[1.5] text-white tracking-[0.03em]">
         {title}
       </h1>
-
-      <div class="flex items-center gap-4 font-mono text-sm text-[#5A6B85] mb-8 pb-8 border-b border-[#D8DEE8]">
-        <time datetime={publishedAt.toISOString()}>公開: {formattedDate}</time>
+      <!-- サブタイトル（description） -->
+      <p class="m-0 text-base leading-relaxed text-[#C7D2E5] font-medium">{description}</p>
+      <!-- 日付 -->
+      <div class="flex gap-4 items-center border-t border-[#1F3A6B] pt-4">
+        <div class="flex items-center gap-2 text-[12.5px] text-[#8FA1C4]">
+          <span class="font-mono">公開</span>
+          <time datetime={publishedAt.toISOString()} class="text-[#DCE4F1]">{formattedDate}</time>
+        </div>
         {updatedAt && (
-          <time datetime={updatedAt.toISOString()}>更新: {updatedFormatted}</time>
+          <div class="flex items-center gap-2 text-[12.5px] text-[#8FA1C4]">
+            <span class="font-mono">更新</span>
+            <time datetime={updatedAt.toISOString()} class="text-[#DCE4F1]">{updatedFormatted}</time>
+          </div>
         )}
       </div>
+    </div>
+  </section>
 
-      {heroImage && (
-        <img
-          src={heroImage}
-          alt={`${title} のアイキャッチ画像`}
-          class="w-full rounded-2xl mb-10"
-          loading="eager"
-        />
-      )}
+  <!-- 本文 + 追従目次 -->
+  <section class="article-body-section bg-white -mt-9 relative">
+    <div class="article-grid">
 
-      <!-- Article body -->
-      <div class="prose prose-slate prose-base sm:prose-lg max-w-none">
-        <slot />
+      <!-- 記事本文 -->
+      <article class="article-main flex flex-col min-w-0">
+        {heroImage && (
+          <img
+            src={heroImage}
+            alt={`${title} のアイキャッチ画像`}
+            class="w-full rounded-2xl mb-10"
+            loading="eager"
+          />
+        )}
+        <div class="prose prose-slate prose-base sm:prose-lg max-w-none blog-prose">
+          <slot />
+        </div>
+        <!-- 著者 -->
+        <div class="flex gap-4 items-center border-t border-[#E3E8F0] pt-7 mt-12">
+          <div class="flex gap-2 flex-none">
+            <div class="w-12 h-12 shrink-0 overflow-hidden">
+              <img src="/images/characters/uta_product.png" alt="ウタ" class="w-full h-full object-contain" loading="lazy">
+            </div>
+            <div class="w-12 h-12 shrink-0 overflow-hidden">
+              <img src="/images/characters/natu_product.png" alt="ナツ" class="w-full h-full object-contain" loading="lazy">
+            </div>
+          </div>
+          <p class="text-[13px] leading-[1.85] text-[#5A6B85] m-0">
+            <strong class="text-[#0F2557]">建設業ツール工房</strong> ／ 案内役の<strong class="text-[#0F2557]">ウタ</strong>・<strong class="text-[#0F2557]">ナツ</strong>。小さな建設業の事務まわりを、買い切りの道具と実務情報でやさしく支えます。
+          </p>
+        </div>
+      </article>
+
+      <!-- 追従目次（デスクトップのみ・JS自動生成） -->
+      <aside class="article-toc article-toc-sticky" id="toc-aside">
+        <div class="font-mono text-[11px] tracking-[0.16em] text-[#8FA1C4] pb-3 pl-3">目次 / CONTENTS</div>
+        <nav id="toc-nav" class="flex flex-col gap-0.5"></nav>
+        <!-- ミニCTA -->
+        <div class="mt-4 bg-[#F3F6FB] rounded-xl p-4 flex flex-col gap-2">
+          <p class="text-[12.5px] leading-[1.7] font-bold text-[#0F2557] m-0">毎年の集計をラクに</p>
+          <p class="text-xs leading-[1.7] text-[#5A6B85] m-0">シンプル工事台帳 ライト版</p>
+          <a href="/products/koji-daicho/" class="bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold text-[12.5px] px-3 py-2 rounded-lg text-center transition-colors no-underline">シンプル工事台帳を見る</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 関連記事 -->
+  {related.length > 0 && (
+    <section class="bg-[#F3F6FB]">
+      <div class="related-inner flex flex-col gap-7">
+        <div class="flex items-center gap-3">
+          <div class="w-[5px] h-7 bg-[#F59E0B] rounded-sm flex-none"></div>
+          <h2 class="m-0 text-[22px] font-black text-[#0F2557] tracking-[0.04em]">あわせて読みたい</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {related.map(post => (
+            <a href={`/blog/${post.slug}/`} class="related-card no-underline bg-white rounded-2xl overflow-hidden flex flex-col transition-all">
+              <div class="p-5 flex flex-col gap-2">
+                {post.data.category && (
+                  <span class="self-start bg-[#EFF2F7] rounded-full px-3 py-0.5 font-bold text-[11.5px] text-[#0F2557]">{post.data.category}</span>
+                )}
+                <p class="text-[14.5px] font-bold leading-[1.7] text-[#0F2557] m-0">{post.data.title}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+        <a href="/blog/" class="self-center border-[1.5px] border-[#0F2557] text-[#0F2557] font-bold text-sm px-8 py-3 rounded-full hover:bg-[#0F2557] hover:text-white transition-colors no-underline mt-1">← ブログ一覧に戻る</a>
       </div>
-
-      <!-- Back link -->
-      <div class="mt-16 pt-8 border-t border-[#D8DEE8]">
-        <a href="/blog/" class="text-[#0F2557] hover:text-[#F59E0B] font-bold transition-colors">
-          ← ブログ一覧に戻る
-        </a>
+    </section>
+  )}
+  {related.length === 0 && (
+    <section class="bg-[#F3F6FB]">
+      <div class="related-inner">
+        <a href="/blog/" class="inline-block border-[1.5px] border-[#0F2557] text-[#0F2557] font-bold text-sm px-8 py-3 rounded-full hover:bg-[#0F2557] hover:text-white transition-colors no-underline">← ブログ一覧に戻る</a>
       </div>
-    </article>
-  </div>
+    </section>
+  )}
+
 </BaseLayout>
+
+<style is:global>
+  /* 本文セクション（角丸） */
+  .article-body-section {
+    border-radius: 60px 60px 0 0;
+  }
+
+  /* 関連記事カードホバー */
+  .related-card:hover {
+    outline: 1.5px solid #0F2557;
+  }
+
+  /* TOCリンク共通（border-left幅はCSS管理） */
+  .toc-link {
+    border-left-width: 3px;
+    border-left-style: solid;
+  }
+
+  /* H1サイズ */
+  .article-h1 { font-size: 30px; }
+  @media (min-width: 640px) { .article-h1 { font-size: 40px; } }
+  @media (min-width: 960px) { .article-h1 { font-size: 48px; } }
+
+  /* ネイビーヘッダー内コンテナ */
+  .article-header {
+    padding: 4rem 1.5rem;
+    box-sizing: border-box;
+  }
+  @media (min-width: 640px) {
+    .article-header {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+  }
+  @media (min-width: 960px) {
+    .article-header {
+      max-width: 1120px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 2.5rem;
+      padding-bottom: 4rem;
+    }
+  }
+
+  /* 2カラムレイアウト（記事本文 + 追従目次） */
+  .article-grid {
+    display: block;
+    padding: 4rem 1.5rem 5rem;
+    box-sizing: border-box;
+  }
+  .article-toc {
+    display: none;
+  }
+  @media (min-width: 640px) {
+    .article-grid {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+  }
+  @media (min-width: 960px) {
+    .article-grid {
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 3.5rem;
+      align-items: start;
+      max-width: 1120px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .article-toc {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .article-main {
+      max-width: 720px;
+    }
+  }
+
+  /* TOC sticky（announcement bar + header = ~100px） */
+  .article-toc-sticky {
+    position: sticky;
+    top: 100px;
+  }
+
+  /* 関連記事セクション inner */
+  .related-inner {
+    padding: 4rem 1.5rem;
+    box-sizing: border-box;
+  }
+  @media (min-width: 640px) {
+    .related-inner {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+  }
+  @media (min-width: 960px) {
+    .related-inner {
+      max-width: 1120px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+  }
+
+  /* TOC アクティブ / 非アクティブ状態 */
+  .toc-link-active {
+    border-left-color: #0F2557 !important;
+    background-color: #F3F6FB;
+    font-weight: 700;
+    color: #0F2557;
+  }
+  .toc-link-inactive {
+    border-left-color: transparent !important;
+    background-color: transparent;
+    font-weight: 500;
+    color: #44536E;
+  }
+
+  /* prose（markdown本文）のh2スタイル上書き */
+  .blog-prose h2 {
+    font-size: 22px !important;
+    font-weight: 900 !important;
+    color: #0F2557 !important;
+    letter-spacing: 0.02em;
+    line-height: 1.5 !important;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #EAEFF7;
+    margin-top: 2.5rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+  .blog-prose h3 {
+    font-size: 17px !important;
+    font-weight: 800 !important;
+    color: #1A2B4A !important;
+  }
+  .blog-prose p {
+    line-height: 2.1 !important;
+    color: #3A4860;
+  }
+  .blog-prose a {
+    color: #B45309;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid #F5C77E;
+  }
+  .blog-prose a:hover {
+    border-bottom-color: #B45309;
+  }
+  .blog-prose strong {
+    color: #0F2557;
+    font-weight: 700;
+  }
+</style>
+
+<script>
+  const HEADER_OFFSET = 116;
+
+  // TOC 自動生成
+  const article = document.querySelector('.article-main');
+  const tocNav = document.getElementById('toc-nav');
+  const tocAside = document.getElementById('toc-aside');
+
+  if (article && tocNav) {
+    const headings = Array.from(article.querySelectorAll('h2[id]'));
+
+    if (headings.length === 0) {
+      // h2がなければTOCを非表示
+      if (tocAside) tocAside.style.display = 'none';
+    } else {
+      headings.forEach((h, i) => {
+        const id = h.id;
+        const text = h.textContent ?? '';
+        const link = document.createElement('a');
+        link.href = `#${id}`;
+        link.id = `toc-link-${id}`;
+        link.textContent = text;
+        link.className = `toc-link text-sm pl-3 py-2 rounded-r-lg leading-snug transition-all no-underline ${i === 0 ? 'toc-link-active' : 'toc-link-inactive'}`;
+        tocNav.appendChild(link);
+      });
+
+      const tocIds = headings.map(h => h.id);
+
+      // クリック時オフセットスクロール
+      tocIds.forEach(id => {
+        const link = document.getElementById(`toc-link-${id}`);
+        link?.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = document.getElementById(id);
+          if (!target) return;
+          const y = target.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        });
+      });
+
+      // アクティブ状態の更新
+      function setActive(id: string) {
+        tocIds.forEach(tid => {
+          const link = document.getElementById(`toc-link-${tid}`);
+          if (!link) return;
+          if (tid === id) {
+            link.classList.add('toc-link-active');
+            link.classList.remove('toc-link-inactive');
+          } else {
+            link.classList.remove('toc-link-active');
+            link.classList.add('toc-link-inactive');
+          }
+        });
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) setActive(entry.target.id);
+          });
+        },
+        { rootMargin: '-10% 0px -70% 0px', threshold: 0 }
+      );
+
+      tocIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+    }
+  }
+</script>
