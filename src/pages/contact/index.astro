@@ -1,11 +1,20 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+
+// Turnstile サイトキー（公開値・Cloudflare Pages 環境変数 PUBLIC_TURNSTILE_SITE_KEY で設定）
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
 ---
 
 <BaseLayout
   title="お問い合わせ"
-  description="建設業ツール工房へのお問い合わせページです。ご質問・ご要望はメールにてお気軽にどうぞ。"
+  description="建設業ツール工房へのお問い合わせページです。フォームからお気軽にご質問・ご要望をお送りください。"
 >
+  <!-- Cloudflare Turnstile スクリプト -->
+  <Fragment slot="head">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  </Fragment>
+
+  <!-- パンくず -->
   <div class="w-full px-4 sm:px-6 lg:px-10 py-3 bg-white border-b border-slate-100">
     <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
       <a href="/" class="hover:text-[#0F2557] transition-colors">ホーム</a>
@@ -16,39 +25,345 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
   <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="max-w-2xl mx-auto">
+
       <h1 class="text-4xl font-black text-[#0F2557] mb-4">お問い合わせ</h1>
       <p class="text-[#44536E] text-lg mb-12 pb-12 border-b border-[#D8DEE8]">
         ご質問・ご要望・ご意見をお気軽にお寄せください。<br>
-        個人運営のため、返答にお時間をいただく場合があります。
+        数日以内のご返信を心がけています（個人運営のため前後する場合があります）。
       </p>
 
-      <div class="bg-white border border-[#D8DEE8] rounded-2xl p-8">
-        <h2 class="font-black text-[#0F2557] text-lg mb-4">メールでのお問い合わせ</h2>
-        <p class="text-[#44536E] mb-6 leading-relaxed">
-          以下のメールアドレスへ直接ご連絡ください。営業日2〜3日以内にご返信いたします。
-        </p>
-        <a
-          href="mailto:contact@kensetsu-tools.com"
-          class="inline-flex items-center gap-3 min-h-[44px] bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold px-6 py-4 rounded-full transition-colors"
-        >
-          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+      <!-- ===== フォーム ===== -->
+      <form id="contact-form" novalidate class="flex flex-col gap-7">
+
+        <!-- ハニーポット（Botトラップ・ユーザーには非表示） -->
+        <div aria-hidden="true" style="display:none">
+          <input type="text" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <!-- お問い合わせの種類（必須） -->
+        <div class="form-field">
+          <label class="form-label" for="inquiryType">
+            お問い合わせの種類 <span class="required-mark">必須</span>
+          </label>
+          <select id="inquiryType" name="inquiryType" class="form-select" required>
+            <option value="">--- 選択してください ---</option>
+            <option value="商品について">商品について</option>
+            <option value="購入・お支払い">購入・お支払い</option>
+            <option value="不具合・トラブル">不具合・トラブル</option>
+            <option value="ご要望・ご提案">ご要望・ご提案</option>
+            <option value="その他">その他</option>
+          </select>
+          <p class="field-error hidden" id="error-inquiryType">種類を選択してください。</p>
+        </div>
+
+        <!-- お名前（必須） -->
+        <div class="form-field">
+          <label class="form-label" for="name">
+            お名前 <span class="required-mark">必須</span>
+          </label>
+          <input type="text" id="name" name="name" class="form-input" required autocomplete="name" placeholder="例：山田 太郎">
+          <p class="field-error hidden" id="error-name">お名前を入力してください。</p>
+        </div>
+
+        <!-- メールアドレス（必須） -->
+        <div class="form-field">
+          <label class="form-label" for="email">
+            メールアドレス <span class="required-mark">必須</span>
+          </label>
+          <input type="email" id="email" name="email" class="form-input" required autocomplete="email" placeholder="例：taro@example.com">
+          <p class="form-hint">ご返信先となります。お間違いのないようご確認ください。</p>
+          <p class="field-error hidden" id="error-email">正しいメールアドレスを入力してください。</p>
+        </div>
+
+        <!-- 対象商品（任意） -->
+        <div class="form-field">
+          <label class="form-label" for="product">
+            対象商品 <span class="optional-mark">任意</span>
+          </label>
+          <select id="product" name="product" class="form-select">
+            <option value="">--- 選択してください ---</option>
+            <option value="シンプル工事台帳 ライト版">シンプル工事台帳 ライト版</option>
+            <option value="シンプル安全台帳">シンプル安全台帳</option>
+            <option value="その他・購入前">その他・購入前</option>
+          </select>
+        </div>
+
+        <!-- 購入情報（任意） -->
+        <div class="form-field">
+          <label class="form-label" for="purchaseEmail">
+            ご購入時のメールアドレス または 注文番号 <span class="optional-mark">任意</span>
+          </label>
+          <input type="text" id="purchaseEmail" name="purchaseEmail" class="form-input" autocomplete="off" placeholder="例：taro@example.com または ch_xxxxxxxx">
+          <p class="form-hint">「購入・お支払い」「不具合・トラブル」のお問い合わせの場合にご記入ください。Stripeの領収書メールに記載されています。</p>
+        </div>
+
+        <!-- ご利用環境（任意） -->
+        <div class="form-field">
+          <label class="form-label" for="environment">
+            ご利用環境 <span class="optional-mark">任意</span>
+          </label>
+          <input type="text" id="environment" name="environment" class="form-input" autocomplete="off" placeholder="例：Windows 11 / Excel 2021">
+          <p class="form-hint">商品に関するお問い合わせの場合、Windowsのバージョン・Excelのバージョンをご記入ください。</p>
+        </div>
+
+        <!-- お問い合わせ内容（必須） -->
+        <div class="form-field">
+          <label class="form-label" for="message">
+            お問い合わせ内容 <span class="required-mark">必須</span>
+          </label>
+          <textarea id="message" name="message" class="form-textarea" required rows="7" placeholder="お問い合わせの内容をできるだけ詳しくご記入ください。"></textarea>
+          <p class="field-error hidden" id="error-message">お問い合わせ内容を入力してください。</p>
+        </div>
+
+        <!-- Turnstile -->
+        <div class="form-field">
+          <div
+            class="cf-turnstile"
+            data-sitekey={turnstileSiteKey}
+            data-theme="light"
+            data-language="ja"
+          ></div>
+          <p class="field-error hidden" id="error-turnstile">認証を完了してください。</p>
+        </div>
+
+        <!-- プライバシーポリシー同意（必須） -->
+        <div class="form-field">
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" id="privacyAgreed" name="privacyAgreed" class="mt-1 w-5 h-5 flex-shrink-0 accent-[#F59E0B]" required>
+            <span class="text-[#44536E] text-sm leading-relaxed">
+              <a href="/privacy/" class="text-[#0F2557] font-bold underline hover:text-[#F59E0B] transition-colors" target="_blank">プライバシーポリシー</a>
+              を読み、内容に同意します。<span class="required-mark ml-1">必須</span>
+            </span>
+          </label>
+          <p class="field-error hidden" id="error-privacy">プライバシーポリシーへの同意が必要です。</p>
+        </div>
+
+        <!-- 送信ボタン -->
+        <div>
+          <button
+            type="submit"
+            id="submit-btn"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 min-h-[52px] bg-[#F59E0B] hover:bg-[#D98908] disabled:bg-[#D8A84A] disabled:cursor-not-allowed text-white font-bold text-base px-10 py-3 rounded-full transition-colors"
+          >
+            <span id="btn-label">送信する</span>
+            <svg id="btn-spinner" class="hidden animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
+            </svg>
+          </button>
+        </div>
+      </form>
+
+      <!-- ===== 送信成功 ===== -->
+      <div id="form-success" class="hidden mt-2">
+        <div class="bg-[#F0FDF4] border border-[#86EFAC] rounded-2xl p-8 text-center">
+          <svg class="w-12 h-12 mx-auto mb-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
           </svg>
-          contact@kensetsu-tools.com
-        </a>
-        <p class="mt-4 text-[#5A6B85] text-sm">
-          ※ クリックすると既定のメールアプリが開きます
+          <h2 class="text-xl font-black text-[#0F2557] mb-3">お問い合わせを受け付けました</h2>
+          <p class="text-[#44536E] leading-relaxed">
+            数日以内のご返信を心がけています（個人運営のため前後する場合があります）。<br>
+            受付確認メールをお送りしました。届いていない場合は迷惑メールフォルダをご確認ください。
+          </p>
+        </div>
+      </div>
+
+      <!-- ===== 送信失敗 ===== -->
+      <div id="form-error" class="hidden mt-2">
+        <div class="bg-[#FFF7ED] border border-[#FDBA74] rounded-2xl p-8">
+          <h2 class="text-lg font-black text-[#B45309] mb-3">送信できませんでした</h2>
+          <p class="text-[#44536E] leading-relaxed mb-4">
+            申し訳ありません。一時的なエラーが発生しました。<br>
+            時間をおいて再送するか、メールで直接ご連絡ください。
+          </p>
+          <a
+            href="mailto:contact@kensetsu-tools.com"
+            class="inline-flex items-center gap-2 min-h-[44px] bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold px-6 py-3 rounded-full transition-colors text-sm"
+          >
+            <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            contact@kensetsu-tools.com へメールする
+          </a>
+        </div>
+      </div>
+
+      <!-- メール直送案内（常時表示） -->
+      <div class="mt-12 pt-8 border-t border-[#D8DEE8]">
+        <p class="text-sm text-[#5A6B85] leading-relaxed">
+          フォームが使えない場合は
+          <a href="mailto:contact@kensetsu-tools.com" class="text-[#0F2557] font-bold hover:text-[#F59E0B] transition-colors">
+            contact@kensetsu-tools.com
+          </a>
+          へ直接ご連絡ください。
         </p>
       </div>
 
-      <div class="mt-8 bg-[#EFF2F7] border border-[#D8DEE8] rounded-2xl p-6 text-sm text-[#44536E] leading-relaxed">
-        <p class="font-bold text-[#1A2B4A] mb-2">お問い合わせの際にご記載ください</p>
-        <ul class="space-y-1 list-disc list-inside">
-          <li>お名前</li>
-          <li>ご質問・ご要望の内容</li>
-          <li>商品に関するお問い合わせの場合：ご購入日・ご利用環境（Windows / Mac、Excelのバージョン）</li>
-        </ul>
-      </div>
     </div>
   </div>
 </BaseLayout>
+
+<style is:global>
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+  .form-label {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #1A2B4A;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .required-mark {
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    background: #EF4444;
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+  .optional-mark {
+    font-size: 11px;
+    font-weight: 600;
+    color: #8FA1C4;
+    background: #EFF2F7;
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+  .form-input,
+  .form-select,
+  .form-textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #D8DEE8;
+    border-radius: 0.75rem;
+    font-size: 15px;
+    color: #1A2B4A;
+    background: white;
+    transition: border-color 0.15s;
+    outline: none;
+    font-family: inherit;
+    box-sizing: border-box;
+  }
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    border-color: #0F2557;
+    box-shadow: 0 0 0 3px rgba(15, 37, 87, 0.08);
+  }
+  .form-input.error,
+  .form-select.error,
+  .form-textarea.error {
+    border-color: #EF4444;
+  }
+  .form-textarea {
+    resize: vertical;
+    min-height: 160px;
+  }
+  .form-hint {
+    font-size: 12.5px;
+    color: #8FA1C4;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .field-error {
+    font-size: 13px;
+    color: #EF4444;
+    font-weight: 600;
+    margin: 0;
+  }
+  .field-error.hidden { display: none; }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const btnLabel = document.getElementById('btn-label');
+  const btnSpinner = document.getElementById('btn-spinner');
+  const formSuccess = document.getElementById('form-success');
+  const formError = document.getElementById('form-error');
+
+  function showError(id: string, inputId?: string) {
+    const el = document.getElementById(id);
+    el?.classList.remove('hidden');
+    if (inputId) {
+      document.getElementById(inputId)?.classList.add('error');
+    }
+  }
+  function clearErrors() {
+    document.querySelectorAll('.field-error').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(el => el.classList.remove('error'));
+  }
+  function setLoading(loading: boolean) {
+    if (!submitBtn || !btnLabel || !btnSpinner) return;
+    submitBtn.disabled = loading;
+    btnLabel.textContent = loading ? '送信中…' : '送信する';
+    btnSpinner.classList.toggle('hidden', !loading);
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearErrors();
+
+    // フィールド取得
+    const inquiryType = (document.getElementById('inquiryType') as HTMLSelectElement)?.value.trim();
+    const name = (document.getElementById('name') as HTMLInputElement)?.value.trim();
+    const email = (document.getElementById('email') as HTMLInputElement)?.value.trim();
+    const product = (document.getElementById('product') as HTMLSelectElement)?.value;
+    const purchaseEmail = (document.getElementById('purchaseEmail') as HTMLInputElement)?.value.trim();
+    const environment = (document.getElementById('environment') as HTMLInputElement)?.value.trim();
+    const message = (document.getElementById('message') as HTMLTextAreaElement)?.value.trim();
+    const privacyAgreed = (document.getElementById('privacyAgreed') as HTMLInputElement)?.checked;
+    const honeypot = (form?.querySelector('[name="website"]') as HTMLInputElement)?.value ?? '';
+
+    // Turnstile トークン取得
+    const turnstileInput = form?.querySelector('[name="cf-turnstile-response"]') as HTMLInputElement | null;
+    const turnstileToken = turnstileInput?.value ?? '';
+
+    // バリデーション
+    let hasError = false;
+    if (!inquiryType) { showError('error-inquiryType', 'inquiryType'); hasError = true; }
+    if (!name) { showError('error-name', 'name'); hasError = true; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('error-email', 'email'); hasError = true; }
+    if (!message) { showError('error-message', 'message'); hasError = true; }
+    if (!privacyAgreed) { showError('error-privacy'); hasError = true; }
+    if (!turnstileToken) { showError('error-turnstile'); hasError = true; }
+    if (hasError) return;
+
+    setLoading(true);
+    formError?.classList.add('hidden');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          turnstileToken,
+          honeypot,
+          inquiryType,
+          name,
+          email,
+          product,
+          purchaseEmail,
+          environment,
+          message,
+          privacyAgreed,
+        }),
+      });
+
+      if (res.ok) {
+        form.classList.add('hidden');
+        formSuccess?.classList.remove('hidden');
+      } else {
+        formError?.classList.remove('hidden');
+      }
+    } catch {
+      formError?.classList.remove('hidden');
+    } finally {
+      setLoading(false);
+    }
+  });
+</script>
