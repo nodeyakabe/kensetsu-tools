@@ -80,7 +80,7 @@ const comparisonRows = [
   { label: '個人情報の扱い',   vals: ['自己管理', 'クラウド保存', 'クラウド保存', 'PC内のみ（外部送信なし）'] },
   { label: '期限自動アラート', vals: ['× 自分で管理', '○', '○', '◎ 起動直後に一覧表示'] },
   { label: 'PDF帳票出力',     vals: ['× テンプレなし', '○', '○（元請指定様式）', '○（作業員名簿・車両届）'] },
-  { label: 'サポート',         vals: ['なし', 'あり', 'あり', '60日メールサポート'] },
+  { label: 'サポート',         vals: ['なし', 'あり', 'あり', 'メールサポート'] },
 ];
 ---
 
@@ -124,7 +124,7 @@ const comparisonRows = [
       </div>
       <!-- 信頼チップ -->
       <div class="flex flex-wrap justify-center gap-2 mt-6">
-        {['買い切り・月額なし', '完全オフライン', 'ダブルクリックで起動', '個人情報クラウド不送信', '60日メールサポート'].map(chip => (
+        {['買い切り・月額なし', '完全オフライン', 'ダブルクリックで起動', '個人情報クラウド不送信'].map(chip => (
           <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium bg-primary-50 text-primary-800 border border-primary-200">
             <span aria-hidden="true">✓</span>
             {chip}
@@ -321,8 +321,8 @@ const comparisonRows = [
             {[
               '永続ライセンス',
               '同一事業者内の複数PCで利用可',
-              '60日間メールサポート',
-              '不具合の無償対応（60日以内）',
+              'メールサポート',
+              '不具合の無償対応',
               'ダブルクリックで起動（インストール不要）',
               'ランタイム別途インストール不要',
               'データはあなたのPCだけに保存',
@@ -357,7 +357,7 @@ const comparisonRows = [
             <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>シンプル工事台帳 ライト版（確定申告）</li>
             <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>シンプル安全台帳（資格・書類管理）</li>
             <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>両製品の永続ライセンス</li>
-            <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>60日間メールサポート</li>
+            <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>メールサポート</li>
           </ul>
           <div class="w-full bg-slate-100 text-slate-400 font-bold py-3 rounded-lg text-sm text-center cursor-default select-none">
             現在準備中です
