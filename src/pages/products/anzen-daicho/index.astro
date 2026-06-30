@@ -426,21 +426,6 @@ const comparisonRows = [
     </p>
   </div>
 
-  <!-- S9：CTA -->
-  <section class="py-20 bg-primary-900">
-    <div class="container-base text-center max-w-2xl mx-auto">
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-        今日から、期限切れを見逃さない。
-      </h2>
-      <button
-        id="buy-btn-cta"
-        type="button"
-        class="bg-accent-500 hover:bg-accent-600 text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors"
-      >
-        今すぐ購入する（¥9,800）→
-      </button>
-    </div>
-  </section>
 
 
 
@@ -455,7 +440,7 @@ const comparisonRows = [
   }
 
   async function handleAnzenBuy(btn: HTMLButtonElement) {
-    const allBtns = ['buy-btn-hero','buy-btn-anzen','buy-btn-cta']
+    const allBtns = ['buy-btn-hero','buy-btn-anzen']
       .map(id => document.getElementById(id) as HTMLButtonElement | null)
       .filter(Boolean) as HTMLButtonElement[];
     allBtns.forEach(b => { b.disabled = true; });
@@ -492,7 +477,7 @@ const comparisonRows = [
   }
 
   function initAnzenBuyButtons() {
-    ['buy-btn-hero','buy-btn-anzen','buy-btn-cta'].forEach(id => {
+    ['buy-btn-hero','buy-btn-anzen'].forEach(id => {
       const b = document.getElementById(id) as HTMLButtonElement | null;
       if (!b || b.dataset.buyInit) return;
       b.dataset.buyInit = '1';
