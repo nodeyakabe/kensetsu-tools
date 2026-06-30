@@ -325,15 +325,15 @@ const comparisonRows = [
     <div class="container-base">
       <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">価格</h2>
 
-      <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+      <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
 
         <!-- 単品カード -->
-        <div class="border-2 border-accent-400 rounded-2xl p-8 shadow-lg text-center">
+        <div class="border-2 border-accent-400 rounded-2xl p-8 shadow-lg text-center flex flex-col">
           <p class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1">シンプル安全台帳</p>
           <p class="text-5xl font-bold text-accent-500 mb-1">¥{PRODUCT.price.toLocaleString()}</p>
           <p class="text-sm text-slate-400 mb-6">税込・買い切り</p>
           <hr class="border-slate-200 mb-6" />
-          <ul class="space-y-3 text-left mb-8">
+          <ul class="space-y-3 text-left mb-8 flex-1">
             {[
               '永続ライセンス',
               '同一事業者内の複数PCで利用可',
@@ -360,7 +360,7 @@ const comparisonRows = [
         </div>
 
         <!-- セットカード -->
-        <div class="border-2 border-primary-300 rounded-2xl p-8 text-center relative">
+        <div class="border-2 border-primary-300 rounded-2xl p-8 text-center relative flex flex-col">
           <div class="absolute -top-3 left-1/2 -translate-x-1/2">
             <span class="bg-primary-700 text-white text-xs font-bold px-4 py-1 rounded-full">おトクなセット</span>
           </div>
@@ -373,7 +373,7 @@ const comparisonRows = [
             通常 ¥{(PRODUCT.price + KOJI_PRODUCT.price).toLocaleString()} → ¥{(PRODUCT.price + KOJI_PRODUCT.price - PRODUCT.priceSet).toLocaleString()} お得
           </p>
           <hr class="border-slate-200 mb-6" />
-          <ul class="space-y-2 text-left mb-8 text-sm text-slate-600">
+          <ul class="space-y-2 text-left mb-8 text-sm text-slate-600 flex-1">
             <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>シンプル工事台帳 ライト版（確定申告）</li>
             <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>シンプル安全台帳（資格・書類管理）</li>
             <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>両製品の永続ライセンス</li>
