@@ -27,7 +27,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       </h1>
       <p id="product-label" class="text-slate-500 text-base mb-10">シンプル安全台帳</p>
 
-      <!-- ダウンロードボタン（安全台帳） -->
+      <!-- ダウンロードボタン（安全台帳 単品） -->
       <div class="mb-4">
         <a
           id="dl-anzen"
@@ -37,21 +37,21 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
           </svg>
-          シンプル安全台帳をダウンロード（.exe）
+          シンプル安全台帳をダウンロード（.zip）
         </a>
       </div>
 
-      <!-- ダウンロードボタン（工事台帳 — セット購入時のみ表示） -->
+      <!-- ダウンロードボタン（セット専用zip — セット購入時のみ表示） -->
       <div class="mb-8">
         <a
-          id="dl-koji"
-          class="inline-flex items-center gap-2 bg-primary-700 hover:bg-primary-800 text-white font-bold px-8 py-4 rounded-xl transition-colors text-base shadow-md"
+          id="dl-set"
+          class="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl transition-colors text-base shadow-md"
           style="display:none"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
           </svg>
-          シンプル工事台帳 ライト版をダウンロード（.xlsx）
+          工事台帳＋安全台帳セットをダウンロード（.zip）
         </a>
       </div>
 
@@ -121,20 +121,25 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     const id       = params.get("session_id");
     const isSet    = params.get("set") === "1";
 
-    const dlAnzen  = document.getElementById("dl-anzen")  as HTMLAnchorElement | null;
-    const dlKoji   = document.getElementById("dl-koji")   as HTMLAnchorElement | null;
+    const dlAnzen  = document.getElementById("dl-anzen") as HTMLAnchorElement | null;
+    const dlSet    = document.getElementById("dl-set")   as HTMLAnchorElement | null;
     const note     = document.getElementById("dl-note");
     const label    = document.getElementById("product-label");
 
     if (id) {
-      if (dlAnzen) {
-        dlAnzen.href = "/api/download-anzen?session_id=" + encodeURIComponent(id);
-        dlAnzen.style.display = "inline-flex";
-      }
-      if (isSet && dlKoji) {
-        dlKoji.href = "/api/download?session_id=" + encodeURIComponent(id);
-        dlKoji.style.display = "inline-flex";
+      if (isSet) {
+        // セット購入：セット専用zipの1ボタンを表示
+        if (dlSet) {
+          dlSet.href = "/api/download-set?session_id=" + encodeURIComponent(id);
+          dlSet.style.display = "inline-flex";
+        }
         if (label) label.textContent = "工事台帳 ＋ 安全台帳 セット";
+      } else {
+        // 安全台帳 単品：安全台帳ボタンのみ表示
+        if (dlAnzen) {
+          dlAnzen.href = "/api/download-anzen?session_id=" + encodeURIComponent(id);
+          dlAnzen.style.display = "inline-flex";
+        }
       }
       if (note) note.textContent = "同じリンクをメールにもお送りしています。";
     } else {

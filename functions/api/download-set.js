@@ -1,12 +1,13 @@
 /**
- * Cloudflare Pages Function: GET /api/download-anzen?session_id=...
- * Stripe session を検証し、支払い済みの場合のみ R2 から exe をストリーム配信する
+ * Cloudflare Pages Function: GET /api/download-set?session_id=...
+ * セット（工事台帳＋安全台帳）専用。
+ * Stripe session を検証し、支払い済みのセット購入者にのみ R2 から zip を配信する。
  *
  * 環境変数（Cloudflare Pages ダッシュボードで設定）:
- *   STRIPE_SECRET_KEY         — Stripe シークレットキー
- *   STRIPE_PRICE_ID_ANZEN     — 対象商品の price ID（任意。商品一致検証用）
- *   PRODUCT_BUCKET            — R2 バインディング名（既存と共用可）
- *   DOWNLOAD_OBJECT_KEY_ANZEN — R2 オブジェクトキー（例: anzen-daicho-v1.exe）
+ *   STRIPE_SECRET_KEY      — Stripe シークレットキー
+ *   STRIPE_PRICE_ID_SET    — セット専用 price ID（検証用）
+ *   PRODUCT_BUCKET         — R2 バインディング名（既存と共用）
+ *   DOWNLOAD_OBJECT_KEY_SET — R2 オブジェクトキー（例: set-koji-anzen-v1.zip）
  */
 
 import Stripe from "stripe";
@@ -29,10 +30,10 @@ export async function onRequestGet({ request, env }) {
     return new Response("not paid", { status: 403 });
   }
 
-  // 当該商品か検証
-  if (env.STRIPE_PRICE_ID_ANZEN) {
+  // セット購入者のみ通過
+  if (env.STRIPE_PRICE_ID_SET) {
     const ok = (session.line_items?.data || []).some(
-      (li) => li.price?.id === env.STRIPE_PRICE_ID_ANZEN
+      (li) => li.price?.id === env.STRIPE_PRICE_ID_SET
     );
     if (!ok) return new Response("product mismatch", { status: 403 });
   }
@@ -43,14 +44,14 @@ export async function onRequestGet({ request, env }) {
   }
 
   // R2 からストリーム配信
-  const obj = await env.PRODUCT_BUCKET.get(env.DOWNLOAD_OBJECT_KEY_ANZEN);
+  const obj = await env.PRODUCT_BUCKET.get(env.DOWNLOAD_OBJECT_KEY_SET);
   if (!obj) return new Response("file not found", { status: 404 });
 
   return new Response(obj.body, {
     headers: {
       "Content-Type": "application/zip",
       "Content-Disposition":
-        "attachment; filename=\"anzen-daicho.zip\"; filename*=UTF-8''%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E5%AE%89%E5%85%A8%E5%8F%B0%E5%B8%B3.zip",
+        "attachment; filename=\"set.zip\"; filename*=UTF-8''%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E5%B7%A5%E4%BA%8B%E5%8F%B0%E5%B8%B3%EF%BC%8B%E5%AE%89%E5%85%A8%E5%8F%B0%E5%B8%B3%E3%82%BB%E3%83%83%E3%83%88.zip",
       "Cache-Control": "no-store",
     },
   });

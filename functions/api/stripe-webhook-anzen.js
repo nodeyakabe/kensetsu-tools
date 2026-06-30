@@ -51,26 +51,20 @@ export async function onRequestPost({ request, env }) {
 
     const email = s.customer_details?.email || s.customer_email;
     const dlAnzenUrl = `${env.SITE_ORIGIN}/api/download-anzen?session_id=${encodeURIComponent(s.id)}`;
-    const dlKojiUrl  = `${env.SITE_ORIGIN}/api/download?session_id=${encodeURIComponent(s.id)}`;
+    const dlSetUrl   = `${env.SITE_ORIGIN}/api/download-set?session_id=${encodeURIComponent(s.id)}`;
 
     if (email) {
       const subject = isSet
-        ? "【建設業ツール工房】セット購入のダウンロードのご案内"
+        ? "【建設業ツール工房】シンプル工事台帳＋安全台帳セット ダウンロードのご案内"
         : "【シンプル安全台帳】ダウンロードのご案内";
 
       const downloadSection = isSet
         ? `
-    <p>下記のボタンから各アプリ・ファイルをダウンロードしてください。</p>
-    <div style="text-align:center;margin:20px 0">
-      <a href="${dlAnzenUrl}"
-         style="display:inline-block;background:#F59E0B;color:#fff;font-weight:bold;padding:12px 28px;border-radius:8px;text-decoration:none;font-size:15px;margin-bottom:12px">
-        シンプル安全台帳をダウンロード（.exe）
-      </a>
-    </div>
-    <div style="text-align:center;margin:20px 0">
-      <a href="${dlKojiUrl}"
-         style="display:inline-block;background:#0F2557;color:#fff;font-weight:bold;padding:12px 28px;border-radius:8px;text-decoration:none;font-size:15px">
-        シンプル工事台帳 ライト版をダウンロード（.xlsx）
+    <p>下記のボタンからセット一括zipをダウンロードしてください。</p>
+    <div style="text-align:center;margin:28px 0">
+      <a href="${dlSetUrl}"
+         style="display:inline-block;background:#F59E0B;color:#fff;font-weight:bold;padding:14px 32px;border-radius:8px;text-decoration:none;font-size:16px">
+        工事台帳＋安全台帳セットをダウンロード（.zip）
       </a>
     </div>`
         : `
@@ -78,7 +72,7 @@ export async function onRequestPost({ request, env }) {
     <div style="text-align:center;margin:28px 0">
       <a href="${dlAnzenUrl}"
          style="display:inline-block;background:#F59E0B;color:#fff;font-weight:bold;padding:14px 32px;border-radius:8px;text-decoration:none;font-size:16px">
-        シンプル安全台帳をダウンロード
+        シンプル安全台帳をダウンロード（.zip）
       </a>
     </div>`;
 

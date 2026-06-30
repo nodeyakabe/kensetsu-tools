@@ -109,7 +109,7 @@ const comparisonRows = [
   <!-- S1：ヒーロー -->
   <section class="bg-slate-50 py-12 md:py-16">
     <div class="container-base text-center max-w-3xl mx-auto">
-      <span class="inline-block bg-amber-100 text-amber-700 text-sm font-bold px-4 py-1 rounded-full border border-amber-300 mb-4">準備中</span>
+      <span class="inline-block bg-green-100 text-green-700 text-sm font-bold px-4 py-1 rounded-full border border-green-300 mb-4">発売中</span>
       <h1 class="text-4xl md:text-5xl font-bold text-primary-900 mb-4">
         シンプル安全台帳
       </h1>
@@ -118,10 +118,13 @@ const comparisonRows = [
         健診・車検・保険の期限切れを見逃さない。<br>
         資格も作業員名簿もまとめて管理、その場でPDF出力。
       </p>
-      <div class="inline-flex items-center gap-2 bg-slate-100 text-slate-500 font-bold px-8 py-4 rounded-xl text-lg cursor-default select-none">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        現在準備中です
-      </div>
+      <button
+        id="buy-btn-hero"
+        type="button"
+        class="bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-full text-lg transition-colors"
+      >
+        今すぐ購入する →
+      </button>
       <!-- 信頼チップ -->
       <div class="flex flex-wrap justify-center gap-2 mt-6">
         {['買い切り・月額なし', '完全オフライン', 'ダブルクリックで起動', '個人情報クラウド不送信'].map(chip => (
@@ -347,9 +350,13 @@ const comparisonRows = [
               </li>
             ))}
           </ul>
-          <div class="w-full bg-slate-100 text-slate-400 font-bold py-3 rounded-lg text-sm text-center cursor-default select-none">
-            現在準備中です
-          </div>
+          <button
+            id="buy-btn-anzen"
+            type="button"
+            class="w-full bg-accent-500 hover:bg-accent-600 text-white font-bold py-4 rounded-xl text-base transition-colors"
+          >
+            今すぐ購入する →
+          </button>
         </div>
 
         <!-- セットカード -->
@@ -372,9 +379,13 @@ const comparisonRows = [
             <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>両製品の永続ライセンス</li>
             <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>メールサポート</li>
           </ul>
-          <div class="w-full bg-slate-100 text-slate-400 font-bold py-3 rounded-lg text-sm text-center cursor-default select-none">
-            現在準備中です
-          </div>
+          <button
+            id="buy-btn-set"
+            type="button"
+            class="w-full bg-primary-700 hover:bg-primary-800 text-white font-bold py-4 rounded-xl text-base transition-colors"
+          >
+            セットで購入する →
+          </button>
           <p class="text-xs text-slate-400 mt-3">工事台帳のみの購入は<a href="/products/koji-daicho/" class="underline hover:text-slate-600">こちら</a></p>
         </div>
 
@@ -415,20 +426,97 @@ const comparisonRows = [
     </p>
   </div>
 
-  <!-- S9：CTA（準備中） -->
+  <!-- S9：CTA -->
   <section class="py-20 bg-primary-900">
     <div class="container-base text-center max-w-2xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
         今日から、期限切れを見逃さない。
       </h2>
-      <div class="inline-flex items-center gap-2 bg-primary-700 text-primary-200 font-bold px-10 py-4 rounded-xl text-lg cursor-default select-none">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        現在準備中です
-      </div>
-      <p class="text-primary-400 text-sm mt-4">リリース時にお知らせします</p>
+      <button
+        id="buy-btn-cta"
+        type="button"
+        class="bg-accent-500 hover:bg-accent-600 text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors"
+      >
+        今すぐ購入する（¥9,800）→
+      </button>
     </div>
   </section>
 
 
+
+<script>
+  // 購入ボタン：Stripe Checkout へリダイレクト
+  function showAnzenToast() {
+    const t = document.getElementById('anzen-buy-toast');
+    if (!t) return;
+    t.classList.remove('hidden');
+    t.classList.add('flex');
+    setTimeout(() => { t.classList.add('hidden'); t.classList.remove('flex'); }, 4000);
+  }
+
+  async function handleAnzenBuy(btn: HTMLButtonElement) {
+    const allBtns = ['buy-btn-hero','buy-btn-anzen','buy-btn-cta']
+      .map(id => document.getElementById(id) as HTMLButtonElement | null)
+      .filter(Boolean) as HTMLButtonElement[];
+    allBtns.forEach(b => { b.disabled = true; });
+    const orig = btn.textContent;
+    btn.textContent = '読み込み中…';
+    try {
+      const res = await fetch('/api/create-checkout-anzen', { method: 'POST' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if (!data?.url) throw new Error('no url');
+      window.location.href = data.url;
+    } catch {
+      showAnzenToast();
+      allBtns.forEach(b => { b.disabled = false; });
+      btn.textContent = orig ?? '';
+    }
+  }
+
+  async function handleSetBuy(btn: HTMLButtonElement) {
+    const orig = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = '読み込み中…';
+    try {
+      const res = await fetch('/api/create-checkout-set', { method: 'POST' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if (!data?.url) throw new Error('no url');
+      window.location.href = data.url;
+    } catch {
+      showAnzenToast();
+      btn.disabled = false;
+      btn.textContent = orig ?? '';
+    }
+  }
+
+  function initAnzenBuyButtons() {
+    ['buy-btn-hero','buy-btn-anzen','buy-btn-cta'].forEach(id => {
+      const b = document.getElementById(id) as HTMLButtonElement | null;
+      if (!b || b.dataset.buyInit) return;
+      b.dataset.buyInit = '1';
+      b.addEventListener('click', () => handleAnzenBuy(b!));
+    });
+    const setBtn = document.getElementById('buy-btn-set') as HTMLButtonElement | null;
+    if (setBtn && !setBtn.dataset.buyInit) {
+      setBtn.dataset.buyInit = '1';
+      setBtn.addEventListener('click', () => handleSetBuy(setBtn));
+    }
+  }
+
+  initAnzenBuyButtons();
+  document.addEventListener('astro:page-load', initAnzenBuyButtons);
+</script>
+
+<!-- エラートースト -->
+<div
+  id="anzen-buy-toast"
+  class="hidden fixed top-4 left-1/2 -translate-x-1/2 z-50 items-center gap-3 bg-red-600 text-white font-bold px-6 py-4 rounded-xl shadow-lg text-sm"
+  role="alert"
+>
+  <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+  決済画面の読み込みに失敗しました。もう一度お試しください。
+</div>
 
 </BaseLayout>
