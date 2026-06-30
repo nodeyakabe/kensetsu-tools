@@ -83,14 +83,48 @@ const comparisonRows = [
   </Fragment>
 
   <style is:global>
-    @keyframes anzen-rise {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: none; }
-    }
-    .anzen-rise {
-      animation: anzen-rise 0.65s ease-out both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 28%;
+    /* ===== 安全台帳ページ アニメーション（上昇フェード） ===== */
+    @media (prefers-reduced-motion: no-preference) {
+      /* 通常：下から上昇しながらフェードイン（工事台帳のscaleとは逆） */
+      .az-reveal {
+        opacity: 0;
+        transform: translateY(32px);
+        transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .az-reveal.az-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      /* ヒーロー左カラム：右からスライドイン */
+      .az-reveal-from-left {
+        opacity: 0;
+        transform: translateX(-28px);
+        transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .az-reveal-from-left.az-visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      /* ヒーロー右カラム：左からスライドイン */
+      .az-reveal-from-right {
+        opacity: 0;
+        transform: translateX(28px);
+        transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .az-reveal-from-right.az-visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      /* カードスタガー遅延 */
+      .az-stagger > .az-reveal:nth-child(1) { transition-delay:   0ms; }
+      .az-stagger > .az-reveal:nth-child(2) { transition-delay:  70ms; }
+      .az-stagger > .az-reveal:nth-child(3) { transition-delay: 140ms; }
+      .az-stagger > .az-reveal:nth-child(4) { transition-delay: 210ms; }
+      .az-stagger > .az-reveal:nth-child(5) { transition-delay: 280ms; }
+      .az-stagger > .az-reveal:nth-child(6) { transition-delay: 350ms; }
     }
     .az-mono { font-family: 'JetBrains Mono', monospace; }
     .az-pill {
@@ -163,7 +197,7 @@ const comparisonRows = [
       <div class="az-hero-grid">
 
         <!-- 左：スクリーンショット -->
-        <div style="position: relative;">
+        <div class="az-reveal-from-left" style="position: relative;">
           <div style="position: absolute; top: -16px; left: -16px; width: 180px; height: 180px; background: #E4F1EA; border-radius: 50%; z-index: 0;"></div>
           <div style="position: absolute; bottom: -14px; right: -14px; width: 80px; height: 80px; background: #CDE6D8; border-radius: 50%; z-index: 0;"></div>
           <div style="position: relative; z-index: 1; background: #FFFFFF; border: 1.5px solid #D8DEE8; border-radius: 18px; overflow: hidden; box-shadow: 0 22px 52px rgba(15,37,87,0.14);">
@@ -184,7 +218,7 @@ const comparisonRows = [
         </div>
 
         <!-- 右：テキスト -->
-        <div style="display: flex; flex-direction: column; gap: 22px;">
+        <div class="az-reveal-from-right" style="display: flex; flex-direction: column; gap: 22px;">
           <span class="az-mono" style="font-size: 11.5px; letter-spacing: 0.14em; color: #44536E;">KENSETSU-TOOLS</span>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             <span style="background: #E4F1EA; color: #11512F; font-size: 12px; font-weight: 700; padding: 5px 16px; border-radius: 999px;">発売中</span>
@@ -226,14 +260,14 @@ const comparisonRows = [
   <!-- S2: 悩み -->
   <section class="az-wave" style="background: #E4EBF6; position: relative; overflow: hidden;">
     <div style="position: absolute; top: -200px; right: -240px; width: 680px; height: 680px; background: #EDF2F9; border-radius: 50%; pointer-events: none;"></div>
-    <div class="container-base anzen-rise" style="padding-top: 80px; padding-bottom: 72px; position: relative; display: flex; flex-direction: column; gap: 36px;">
+    <div class="container-base az-reveal" style="padding-top: 80px; padding-bottom: 72px; position: relative; display: flex; flex-direction: column; gap: 36px;">
       <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
         <span class="az-pill">PROBLEM — こんな悩みありませんか？</span>
         <h2 style="margin: 0; font-size: 30px; font-weight: 900; color: #0F2557; letter-spacing: 0.04em;">「期限切れ」と「安全書類」が、頭から離れない。</h2>
       </div>
-      <div class="az-prob-grid">
+      <div class="az-prob-grid az-stagger">
         {problems.map(item => (
-          <div class="az-prob-card">
+          <div class="az-prob-card az-reveal">
             <div style="width: 38px; height: 38px; background: #FDEBC8; border-radius: 50%; color: #B45309; font-weight: 900; font-size: 16px; display: flex; align-items: center; justify-content: center; flex: none;">!</div>
             <div style="font-size: 15px; font-weight: 900; color: #0F2557;">{item.title}</div>
             <div style="font-size: 13.5px; line-height: 1.95; color: #5A6B85;">{item.body}</div>
@@ -249,14 +283,14 @@ const comparisonRows = [
 
   <!-- S3: 機能 -->
   <section class="az-wave az-wave-pull" style="background: #FFFFFF; position: relative;">
-    <div class="container-base anzen-rise" style="padding-top: 80px; padding-bottom: 64px; display: flex; flex-direction: column; gap: 36px;">
+    <div class="container-base az-reveal" style="padding-top: 80px; padding-bottom: 64px; display: flex; flex-direction: column; gap: 36px;">
       <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
         <span class="az-pill">FUNCTION — 主な機能</span>
         <h2 style="margin: 0; font-size: 30px; font-weight: 900; color: #0F2557; letter-spacing: 0.04em;">必要な機能だけを、ぜんぶ。</h2>
       </div>
-      <div class="az-feat-grid">
+      <div class="az-feat-grid az-stagger">
         {features.map((f, i) => (
-          <div class="az-feat-card">
+          <div class="az-feat-card az-reveal">
             <span class="az-mono" style="font-size: 12px; color: #F59E0B; font-weight: 500;">{String(i + 1).padStart(2, '0')}</span>
             <div style="font-size: 15.5px; font-weight: 900; color: #0F2557;">{f.title}</div>
             <div style="font-size: 13.5px; line-height: 1.95; color: #5A6B85;">{f.desc}</div>
@@ -269,7 +303,7 @@ const comparisonRows = [
   <!-- S4: 比較 + キャラ -->
   <section class="az-wave" style="background: #E4EBF6; position: relative; overflow: hidden;">
     <div style="position: absolute; bottom: -180px; left: -160px; width: 520px; height: 520px; background: #EDF2F9; border-radius: 50%; pointer-events: none;"></div>
-    <div class="container-base anzen-rise" style="padding-top: 80px; padding-bottom: 72px; position: relative; display: flex; flex-direction: column; gap: 40px;">
+    <div class="container-base az-reveal" style="padding-top: 80px; padding-bottom: 72px; position: relative; display: flex; flex-direction: column; gap: 40px;">
 
       <!-- 比較見出し -->
       <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
@@ -350,19 +384,19 @@ const comparisonRows = [
 
   <!-- S5: 画面イメージ -->
   <section class="az-wave az-wave-pull" style="background: #FFFFFF; position: relative;">
-    <div class="container-base anzen-rise" style="padding-top: 80px; padding-bottom: 64px; display: flex; flex-direction: column; gap: 32px;">
+    <div class="container-base az-reveal" style="padding-top: 80px; padding-bottom: 64px; display: flex; flex-direction: column; gap: 32px;">
       <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
         <span class="az-pill">SCREENSHOT — 画面イメージ</span>
         <h2 style="margin: 0; font-size: 30px; font-weight: 900; color: #0F2557; letter-spacing: 0.04em;">実際の動作画面</h2>
       </div>
-      <div class="az-screen-grid">
+      <div class="az-screen-grid az-stagger">
         {[
           { src: '/images/screens/anzen/screen_dashboard.png',      caption: '期限管理ダッシュボード', sub: '起動直後に期限切れ・30日以内が一覧表示' },
           { src: '/images/screens/anzen/screen_worker_list.png',    caption: '作業員管理',             sub: '一覧から選択してそのまま編集・削除' },
           { src: '/images/screens/anzen/screen_worker_roster.png',  caption: '作業員名簿（PDF出力）',  sub: '全建統一様式に準拠した独自様式' },
           { src: '/images/screens/anzen/screen_vehicle_report.png', caption: '工事・通勤用車両届（PDF出力）', sub: '車検・保険切れ車両は赤く警告' },
         ].map(item => (
-          <figure style="background: #FFFFFF; border: 1.5px solid #D8DEE8; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 28px rgba(15,37,87,0.08); margin: 0;">
+          <figure class="az-reveal" style="background: #FFFFFF; border: 1.5px solid #D8DEE8; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 28px rgba(15,37,87,0.08); margin: 0;">
             <img src={item.src} alt={item.caption} style="width: 100%; height: auto; display: block;" loading="lazy" />
             <figcaption style="padding: 12px 16px; border-top: 1px solid #E3E8F0; display: flex; flex-direction: column; gap: 2px;">
               <span style="font-size: 13px; font-weight: 700; color: #0F2557;">{item.caption}</span>
@@ -377,7 +411,7 @@ const comparisonRows = [
   <!-- S6: 価格 -->
   <section class="az-wave" style="background: #E4EBF6; position: relative; overflow: hidden;">
     <div style="position: absolute; top: -180px; right: -160px; width: 520px; height: 520px; background: #EDF2F9; border-radius: 50%; pointer-events: none;"></div>
-    <div class="container-base anzen-rise" style="padding-top: 80px; padding-bottom: 72px; position: relative; display: flex; flex-direction: column; gap: 36px;">
+    <div class="container-base az-reveal" style="padding-top: 80px; padding-bottom: 72px; position: relative; display: flex; flex-direction: column; gap: 36px;">
       <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
         <span class="az-pill">PRICE — 価格</span>
         <h2 style="margin: 0; font-size: 30px; font-weight: 900; color: #0F2557; letter-spacing: 0.04em;">買い切り・月額なし</h2>
@@ -462,7 +496,7 @@ const comparisonRows = [
 
   <!-- S7: 動作環境 -->
   <section class="az-wave az-wave-pull" style="background: #FFFFFF; position: relative;">
-    <div class="container-base anzen-rise" style="padding-top: 72px; padding-bottom: 56px; display: flex; flex-direction: column; gap: 28px; max-width: 760px;">
+    <div class="container-base az-reveal" style="padding-top: 72px; padding-bottom: 56px; display: flex; flex-direction: column; gap: 28px; max-width: 760px;">
       <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
         <span class="az-pill">ENVIRONMENT — 動作環境</span>
         <h2 style="margin: 0; font-size: 28px; font-weight: 900; color: #0F2557;">動作環境</h2>
@@ -557,6 +591,35 @@ const comparisonRows = [
 
   initAnzenBuyButtons();
   document.addEventListener('astro:page-load', initAnzenBuyButtons);
+
+  // ===== 安全台帳ページ アニメーション =====
+  var _azObservers: IntersectionObserver[] = (window as any)._azObservers || [];
+
+  function initAzAnimations() {
+    _azObservers.forEach(function(o) { o.disconnect(); });
+    _azObservers = [];
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('az-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.az-reveal, .az-reveal-from-left, .az-reveal-from-right').forEach(function(el) {
+      obs.observe(el);
+    });
+    _azObservers.push(obs);
+    (window as any)._azObservers = _azObservers;
+  }
+
+  initAzAnimations();
+  document.addEventListener('astro:page-load', initAzAnimations);
 </script>
 
 <!-- エラートースト -->
