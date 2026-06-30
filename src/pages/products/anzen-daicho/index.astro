@@ -434,9 +434,8 @@ const comparisonRows = [
   function showAnzenToast() {
     const t = document.getElementById('anzen-buy-toast');
     if (!t) return;
-    t.classList.remove('hidden');
-    t.classList.add('flex');
-    setTimeout(() => { t.classList.add('hidden'); t.classList.remove('flex'); }, 4000);
+    t.style.display = 'flex';
+    setTimeout(() => { t.style.display = 'none'; }, 4000);
   }
 
   async function handleAnzenBuy(btn: HTMLButtonElement) {
@@ -497,8 +496,9 @@ const comparisonRows = [
 <!-- エラートースト -->
 <div
   id="anzen-buy-toast"
-  class="hidden fixed top-4 left-1/2 -translate-x-1/2 z-50 items-center gap-3 bg-red-600 text-white font-bold px-6 py-4 rounded-xl shadow-lg text-sm"
+  class="fixed top-4 left-1/2 -translate-x-1/2 z-50 items-center gap-3 bg-red-600 text-white font-bold px-6 py-4 rounded-xl shadow-lg text-sm"
   role="alert"
+  style="display:none"
 >
   <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
   決済画面の読み込みに失敗しました。もう一度お試しください。
