@@ -42,36 +42,20 @@ const breadcrumbSchema = {
 };
 
 const features = [
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>`,
-    title: '期限管理ダッシュボード',
-    desc: '起動直後に「誰の何がいつ切れる」が一画面で分かる。赤・橙・黄で色分け表示。',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-    title: '作業員・資格管理',
-    desc: '作業員を登録し、保有資格を記録。健康診断や免許など期限のあるものは自動アラートで管理。',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`,
-    title: '車両管理',
-    desc: '車検・自賠責・任意保険の期限を登録。期限切れ直前に自動で警告表示。',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
-    title: '現場管理',
-    desc: '現場ごとに入場作業員・持込車両を選択。チームの状況をひとまとめに。',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
-    title: '作業員名簿 PDF出力',
-    desc: '全建統一様式の記載項目に準拠した作業員名簿（独自様式）をワンクリックでPDF生成。健診・免許など期限切れがある人は赤くハイライト。',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="12" y1="17" x2="8" y2="17"/></svg>`,
-    title: '工事・通勤用車両届 PDF出力',
-    desc: '工事・通勤用車両届を車両ごとにPDF生成。車検・保険切れ車両は赤く警告表示。',
-  },
+  { title: '期限管理ダッシュボード',       desc: '起動直後に「誰の何がいつ切れる」が一画面で分かる。赤・橙・黄で色分け表示。' },
+  { title: '作業員・資格管理',             desc: '作業員を登録し、保有資格を記録。健康診断や免許など期限のあるものは自動アラートで管理。' },
+  { title: '車両管理',                     desc: '車検・自賠責・任意保険の期限を登録。期限切れ直前に自動で警告表示。' },
+  { title: '現場管理',                     desc: '現場ごとに入場作業員・持込車両を選択。チームの状況をひとまとめに。' },
+  { title: '作業員名簿 PDF出力',           desc: '全建統一様式の記載項目に準拠した作業員名簿（独自様式）をワンクリックでPDF生成。健診・免許など期限切れがある人は赤くハイライト。' },
+  { title: '工事・通勤用車両届 PDF出力',   desc: '工事・通勤用車両届を車両ごとにPDF生成。車検・保険切れ車両は赤く警告表示。' },
+];
+
+const problems = [
+  { title: '資格・免許の期限管理が大変',     body: '玉掛け・フォーク・各種講習。誰がいつまでか、把握しきれない。' },
+  { title: '車検・保険をうっかり切らす',     body: '複数の車両があると、車検や任意保険の更新を見落としがち。' },
+  { title: '健康診断の時期が分からない',     body: '作業員ごとの受診時期。気づいたら1年以上空いていることも。' },
+  { title: '安全書類づくりが毎回手間',       body: '現場ごとに作業員名簿。同じ情報を、何度も書き写している。' },
+  { title: 'クラウドへの個人情報送信が不安', body: 'クラウドサービスに作業員の個人情報・免許証番号を上げるのが気になる。' },
 ];
 
 const comparisonRows = [
@@ -79,7 +63,7 @@ const comparisonRows = [
   { label: 'ネット接続',       vals: ['不要', '必要', '必要（グリーンサイト登録）', '完全不要'] },
   { label: '個人情報の扱い',   vals: ['自己管理', 'クラウド保存', 'クラウド保存', 'PC内のみ（外部送信なし）'] },
   { label: '期限自動アラート', vals: ['× 自分で管理', '○', '○', '◎ 起動直後に一覧表示'] },
-  { label: 'PDF帳票出力',     vals: ['× テンプレなし', '○', '○（元請指定様式）', '○（作業員名簿・車両届）'] },
+  { label: 'PDF帳票出力',      vals: ['× テンプレなし', '○', '○（元請指定様式）', '○（作業員名簿・車両届）'] },
   { label: 'サポート',         vals: ['なし', 'あり', 'あり', 'メールサポート'] },
 ];
 ---
@@ -91,9 +75,72 @@ const comparisonRows = [
   ogType="product"
 >
   <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
+
+  <style is:global>
+    @keyframes anzen-rise {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .anzen-rise {
+      animation: anzen-rise 0.65s ease-out both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 28%;
+    }
+    .az-mono { font-family: 'JetBrains Mono', monospace; }
+    .az-pill {
+      display: inline-block;
+      border: 1.5px solid #0F2557;
+      color: #0F2557;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 7px 26px;
+      border-radius: 999px;
+    }
+    /* グリッド */
+    .az-hero-grid    { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    .az-prob-grid    { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .az-feat-grid    { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .az-screen-grid  { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .az-price-grid   { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+    .az-chara-grid   { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    /* カード */
+    .az-prob-card { background: #FFFFFF; border-radius: 20px; padding: 28px 24px; display: flex; flex-direction: column; gap: 10px; }
+    .az-feat-card { background: #F3F6FB; border-radius: 20px; padding: 28px 24px; display: flex; flex-direction: column; gap: 10px; }
+    /* セクション遷移 */
+    .az-wave { border-radius: 80px 80px 0 0; }
+    .az-wave-pull { margin-top: -40px; }
+    /* 価格カード等高 */
+    .az-price-card { display: flex; flex-direction: column; }
+    .az-price-list { flex: 1; }
+    /* レスポンシブ */
+    @media (max-width: 767px) {
+      .az-hero-grid   { grid-template-columns: 1fr; gap: 28px; }
+      .az-prob-grid   { grid-template-columns: 1fr; }
+      .az-feat-grid   { grid-template-columns: 1fr; }
+      .az-screen-grid { grid-template-columns: 1fr; }
+      .az-price-grid  { grid-template-columns: 1fr; }
+      .az-chara-grid  { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .az-prob-grid { grid-template-columns: repeat(2, 1fr); }
+      .az-feat-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+
+  <!-- 製品識別バンド -->
+  <div style="background: #11512F; padding: 9px 0;">
+    <div class="container-base" style="display: flex; align-items: center; gap: 10px;">
+      <span style="width: 8px; height: 8px; border-radius: 50%; background: #5FD39A; flex: none;"></span>
+      <span class="az-mono" style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; color: #BFE8D2;">SAFETY &amp; DEADLINE MANAGEMENT — 第2弾</span>
+      <span class="az-mono" style="margin-left: auto; font-size: 11px; color: #6FB897;">ANZEN-DAICHO</span>
+    </div>
+  </div>
 
   <!-- パンくず -->
   <div class="w-full px-4 sm:px-6 lg:px-10 py-3 bg-white border-b border-slate-100">
@@ -106,137 +153,142 @@ const comparisonRows = [
     </nav>
   </div>
 
-  <!-- S1：ヒーロー -->
-  <section class="bg-slate-50 py-12 md:py-16">
-    <div class="container-base text-center max-w-3xl mx-auto">
-      <span class="inline-block bg-green-100 text-green-700 text-sm font-bold px-4 py-1 rounded-full border border-green-300 mb-4">発売中</span>
-      <h1 class="text-4xl md:text-5xl font-bold text-primary-900 mb-4">
-        シンプル安全台帳
-      </h1>
-      <p class="text-sm text-slate-500 mb-2">非グリーンサイトの小規模下請（数人規模）向け</p>
-      <p class="text-xl md:text-2xl text-slate-600 mb-6 leading-relaxed">
-        健診・車検・保険の期限切れを見逃さない。<br>
-        資格も作業員名簿もまとめて管理、その場でPDF出力。
-      </p>
-      <button
-        id="buy-btn-hero"
-        type="button"
-        class="bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-full text-lg transition-colors"
-      >
-        今すぐ購入する →
-      </button>
-      <!-- 信頼チップ -->
-      <div class="flex flex-wrap justify-center gap-2 mt-6">
-        {['買い切り・月額なし', '完全オフライン', 'ダブルクリックで起動', '個人情報クラウド不送信'].map(chip => (
-          <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium bg-primary-50 text-primary-800 border border-primary-200">
-            <span aria-hidden="true">✓</span>
-            {chip}
-          </span>
-        ))}
-      </div>
-    </div>
-  </section>
+  <!-- S1: ヒーロー -->
+  <section style="background: #FFFFFF; position: relative; overflow: hidden;">
+    <!-- 装飾 -->
+    <div style="position: absolute; top: -280px; right: -280px; width: 760px; height: 760px; border: 110px solid #E4F1EA; border-radius: 50%; pointer-events: none;"></div>
+    <div style="position: absolute; bottom: -60px; left: -80px; width: 280px; height: 280px; background: #F1F7F3; border-radius: 50%; pointer-events: none;"></div>
 
-  <!-- S2：悩み -->
-  <section class="py-16 bg-white">
-    <div class="container-base max-w-3xl mx-auto">
-      <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">こんな悩みありませんか？</h2>
-      <ul class="space-y-4">
-        {[
-          '健診や車検の期限をExcelで管理していて、気づいたら切れていた',
-          '作業員名簿を書くたびに、手書きやコピペで1時間かかる',
-          'グリーンサイトは元請に言われないと使わない。月額を払うのが惜しい',
-          '現場の朝、急に安全書類を求められてあわてる',
-          'クラウドに作業員の個人情報を上げるのが不安',
-        ].map(item => (
-          <li class="flex items-start gap-4 text-lg text-slate-700">
-            <span class="text-red-400 font-black text-xl flex-shrink-0 mt-0.5" aria-hidden="true">!</span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
+    <div class="container-base" style="padding-top: 56px; padding-bottom: 88px; position: relative;">
+      <div class="az-hero-grid">
 
-  <!-- S3：こう変わる -->
-  <section class="py-16 bg-slate-50">
-    <div class="container-base">
-      <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">シンプル安全台帳なら、こう変わる</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-        {[
-          {
-            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>`,
-            title: '一目で分かる',
-            desc: '起動すると「あと○日で期限切れ」が色分け一覧で即表示。見逃しがなくなります。',
-          },
-          {
-            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`,
-            title: '個人情報はPC内だけ',
-            desc: '完全オフライン動作。作業員の個人情報・免許証番号が外部に出ません。',
-          },
-          {
-            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`,
-            title: '書類作成が数秒に',
-            desc: '作業員を選ぶだけで作業員名簿がPDF化。現場でも印刷してすぐ提出。',
-          },
-        ].map(card => (
-          <div class="bg-white border border-slate-200 rounded-xl p-8 text-center">
-            <div class="text-accent-500 flex justify-center mb-4" set:html={card.icon} />
-            <h3 class="text-xl font-bold text-primary-900 mb-3">{card.title}</h3>
-            <p class="text-slate-600 leading-relaxed text-sm">{card.desc}</p>
+        <!-- 左：スクリーンショット -->
+        <div style="position: relative;">
+          <div style="position: absolute; top: -16px; left: -16px; width: 180px; height: 180px; background: #E4F1EA; border-radius: 50%; z-index: 0;"></div>
+          <div style="position: absolute; bottom: -14px; right: -14px; width: 80px; height: 80px; background: #CDE6D8; border-radius: 50%; z-index: 0;"></div>
+          <div style="position: relative; z-index: 1; background: #FFFFFF; border: 1.5px solid #D8DEE8; border-radius: 18px; overflow: hidden; box-shadow: 0 22px 52px rgba(15,37,87,0.14); transform: rotate(-1.5deg);">
+            <div style="background: #F4F7F5; padding: 10px 16px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #E3E8F0;">
+              <span style="font-size: 12.5px; font-weight: 900; color: #0F2557;">期限管理ダッシュボード</span>
+              <span class="az-mono" style="margin-left: auto; font-size: 10.5px; color: #8FA1C4;">ANZEN-DAICHO</span>
+            </div>
+            <img
+              src="/images/screens/anzen/screen_dashboard.png"
+              alt="期限管理ダッシュボード画面"
+              style="width: 100%; height: auto; display: block;"
+              loading="eager"
+            />
           </div>
-        ))}
-      </div>
-    </div>
-  </section>
+        </div>
 
-  <!-- S4：機能 -->
-  <section class="py-16 bg-white">
-    <div class="container-base max-w-5xl mx-auto">
-      <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">主な機能</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {features.map(f => (
-          <div class="flex items-start gap-3 bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-            <div class="text-accent-500 flex-shrink-0" set:html={f.icon} />
-            <div>
-              <h3 class="text-base font-bold text-primary-900 mb-1">{f.title}</h3>
-              <p class="text-slate-600 text-sm leading-relaxed">{f.desc}</p>
+        <!-- 右：テキスト -->
+        <div style="display: flex; flex-direction: column; gap: 22px;">
+          <span class="az-mono" style="font-size: 11.5px; letter-spacing: 0.14em; color: #44536E;">KENSETSU-TOOLS</span>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <span style="background: #E4F1EA; color: #11512F; font-size: 12px; font-weight: 700; padding: 5px 16px; border-radius: 999px;">発売中</span>
+            <span style="border: 1px solid #5A6B85; color: #5A6B85; font-size: 12px; font-weight: 700; padding: 4px 14px; border-radius: 999px;">第2弾</span>
+            <span style="border: 1px solid #5A6B85; color: #5A6B85; font-size: 12px; font-weight: 700; padding: 4px 14px; border-radius: 999px;">小規模建設業向け</span>
+          </div>
+          <h1 style="margin: 0; font-size: 36px; font-weight: 900; line-height: 1.65; color: #1A2B4A; letter-spacing: 0.04em;">
+            資格と車両の期限を、<br>
+            ひと目で、<span style="color: #11512F;">もう切らさない。</span>
+          </h1>
+          <p style="margin: 0; font-size: 14.5px; line-height: 2.1; color: #44536E; max-width: 500px;">
+            作業員の資格・健康診断、車両の車検・保険といった「期限もの」をまとめて管理し、安全書類づくりまでつなげるツールです。完全オフライン・買い切り・月額なし。
+          </p>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            {['✓ 期限アラート', '✓ 作業員名簿PDF', '✓ 完全オフライン', '✓ 買い切り'].map(chip => (
+              <span style="background: #E4F1EA; border-radius: 999px; padding: 6px 16px; font-size: 12.5px; font-weight: 700; color: #11512F;">{chip}</span>
+            ))}
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+            <button
+              id="buy-btn-hero"
+              type="button"
+              class="bg-accent-500 hover:bg-accent-600 text-white font-bold transition-colors"
+              style="font-size: 15px; padding: 15px 34px; border-radius: 999px; border: none; cursor: pointer;"
+            >
+              今すぐ購入する →
+            </button>
+            <div style="display: flex; align-items: baseline; gap: 4px;">
+              <span style="font-size: 26px; font-weight: 900; color: #0F2557;">¥{PRODUCT.price.toLocaleString()}</span>
+              <span style="font-size: 12px; color: #5A6B85;">税込・買い切り</span>
             </div>
           </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- S2: 悩み -->
+  <section class="az-wave" style="background: #E4EBF6; position: relative; overflow: hidden;">
+    <div style="position: absolute; top: -200px; right: -240px; width: 680px; height: 680px; background: #EDF2F9; border-radius: 50%; pointer-events: none;"></div>
+    <div class="container-base anzen-rise" style="padding-top: 80px; padding-bottom: 72px; position: relative; display: flex; flex-direction: column; gap: 36px;">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
+        <span class="az-pill">PROBLEM — こんな悩みありませんか？</span>
+        <h2 style="margin: 0; font-size: 30px; font-weight: 900; color: #0F2557; letter-spacing: 0.04em;">「期限切れ」と「安全書類」が、頭から離れない。</h2>
+      </div>
+      <div class="az-prob-grid">
+        {problems.map(item => (
+          <div class="az-prob-card">
+            <div style="width: 38px; height: 38px; background: #FDEBC8; border-radius: 50%; color: #B45309; font-weight: 900; font-size: 16px; display: flex; align-items: center; justify-content: center; flex: none;">!</div>
+            <div style="font-size: 15px; font-weight: 900; color: #0F2557;">{item.title}</div>
+            <div style="font-size: 13.5px; line-height: 1.95; color: #5A6B85;">{item.body}</div>
+          </div>
+        ))}
+        <div style="background: #0F2557; border-radius: 20px; padding: 28px 24px; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
+          <div style="font-size: 15.5px; font-weight: 900; color: #FFFFFF; line-height: 1.75;">その「期限」と「名簿」、<br>ひとつの台帳にまとめます。</div>
+          <div style="font-size: 13px; line-height: 1.9; color: #C7D2E5;">入れておくのは、人と資格と車両だけ。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S3: 機能 -->
+  <section class="az-wave az-wave-pull" style="background: #FFFFFF; position: relative;">
+    <div class="container-base anzen-rise" style="padding-top: 80px; padding-bottom: 64px; display: flex; flex-direction: column; gap: 36px;">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
+        <span class="az-pill">FUNCTION — 主な機能</span>
+        <h2 style="margin: 0; font-size: 30px; font-weight: 900; color: #0F2557; letter-spacing: 0.04em;">必要な機能だけを、ぜんぶ。</h2>
+      </div>
+      <div class="az-feat-grid">
+        {features.map((f, i) => (
+          <div class="az-feat-card">
+            <span class="az-mono" style="font-size: 12px; color: #F59E0B; font-weight: 500;">{String(i + 1).padStart(2, '0')}</span>
+            <div style="font-size: 15.5px; font-weight: 900; color: #0F2557;">{f.title}</div>
+            <div style="font-size: 13.5px; line-height: 1.95; color: #5A6B85;">{f.desc}</div>
+          </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- S4c：他社比較 -->
-  <section class="py-16 bg-white">
-    <div class="container-base mx-auto">
-      <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">他のツールと比べてみると</h2>
-      <p class="text-slate-500 text-center mb-10 text-sm">用途が違うだけで、どれも正解です。本品が合うかどうか確認してください。</p>
+  <!-- S4: 比較 + キャラ -->
+  <section class="az-wave" style="background: #E4EBF6; position: relative; overflow: hidden;">
+    <div style="position: absolute; bottom: -180px; left: -160px; width: 520px; height: 520px; background: #EDF2F9; border-radius: 50%; pointer-events: none;"></div>
+    <div class="container-base anzen-rise" style="padding-top: 80px; padding-bottom: 72px; position: relative; display: flex; flex-direction: column; gap: 40px;">
+
+      <!-- 比較見出し -->
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
+        <span class="az-pill">COMPARISON — 比較</span>
+        <h2 style="margin: 0; font-size: 30px; font-weight: 900; color: #0F2557; letter-spacing: 0.04em;">他のツールと比べてみると</h2>
+        <p style="margin: 0; font-size: 13.5px; color: #5A6B85;">用途が違うだけで、どれも正解です。本品が合うかどうか確認してください。</p>
+      </div>
 
       <!-- モバイル比較カード -->
-      <div class="md:hidden space-y-2 mb-6">
+      <div class="md:hidden space-y-2">
         {comparisonRows.map(row => (
-          <div class="rounded-xl border border-slate-200 overflow-hidden">
-            <div class="bg-slate-100 px-4 py-2.5 text-sm font-semibold text-slate-700">{row.label}</div>
-            <div class="p-4 space-y-3">
-              <div class="flex items-start gap-2 rounded-lg px-3 py-2.5" style="background:#FFF7ED; border-left: 3px solid #F59E0B;">
-                <span class="text-xs font-bold text-accent-600 flex-shrink-0 pt-0.5">本品</span>
-                <span class="text-sm font-semibold text-primary-900">{row.vals[3]}</span>
+          <div style="border-radius: 14px; border: 1px solid #D8DEE8; overflow: hidden;">
+            <div style="background: #DDE4F0; padding: 10px 16px; font-size: 13.5px; font-weight: 700; color: #0F2557;">{row.label}</div>
+            <div style="padding: 14px 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: flex-start; gap: 8px; background: #FFF9EF; border-left: 3px solid #F59E0B; border-radius: 6px; padding: 10px 12px;">
+                <span style="font-size: 11.5px; font-weight: 700; color: #F59E0B; flex: none; padding-top: 2px;">本品</span>
+                <span style="font-size: 13.5px; font-weight: 700; color: #0F2557;">{row.vals[3]}</span>
               </div>
-              <div class="grid grid-cols-3 gap-2 text-xs text-center text-slate-500">
-                <div>
-                  <p class="font-medium text-slate-400 mb-1 leading-tight">Excel手動</p>
-                  <p class="leading-tight">{row.vals[0]}</p>
-                </div>
-                <div>
-                  <p class="font-medium text-slate-400 mb-1 leading-tight">月額ソフト</p>
-                  <p class="leading-tight">{row.vals[1]}</p>
-                </div>
-                <div>
-                  <p class="font-medium text-slate-400 mb-1 leading-tight">グリーンサイト</p>
-                  <p class="leading-tight">{row.vals[2]}</p>
-                </div>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; font-size: 11.5px; text-align: center; color: #5A6B85;">
+                <div><p style="margin: 0 0 4px; font-weight: 600; color: #8FA1C4;">Excel手動</p><p style="margin: 0;">{row.vals[0]}</p></div>
+                <div><p style="margin: 0 0 4px; font-weight: 600; color: #8FA1C4;">月額ソフト</p><p style="margin: 0;">{row.vals[1]}</p></div>
+                <div><p style="margin: 0 0 4px; font-weight: 600; color: #8FA1C4;">グリーンサイト</p><p style="margin: 0;">{row.vals[2]}</p></div>
               </div>
             </div>
           </div>
@@ -244,96 +296,99 @@ const comparisonRows = [
       </div>
 
       <!-- デスクトップ比較テーブル -->
-      <div class="hidden md:block overflow-x-auto -mx-4 px-4">
-        <table class="w-full text-sm border-collapse min-w-[900px]">
-          <thead>
-            <tr>
-              <th scope="col" class="text-left px-4 py-3 bg-slate-100 text-slate-600 font-medium rounded-tl-xl border-b border-slate-200 w-44">比較項目</th>
-              <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">Excel手動管理</th>
-              <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">月額型クラウドソフト</th>
-              <th scope="col" class="px-4 py-3 bg-slate-100 text-slate-600 font-medium border-b border-slate-200 text-center">グリーンサイト<br class="hidden sm:inline"/><span class="text-xs font-normal">（クラウド）</span></th>
-              <th scope="col" class="px-4 py-3 font-bold text-center text-white rounded-tr-xl" style="background: #F59E0B; border: 2px solid #F59E0B;">本品</th>
-            </tr>
-          </thead>
-          <tbody>
-            {comparisonRows.map((row, i) => (
-              <tr class={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
-                <td class="px-4 py-3 text-slate-500 font-medium border-b border-slate-100">{row.label}</td>
-                {row.vals.map((v, j) => (
-                  <td
-                    class={`px-4 py-3 text-center ${j === 3 ? 'text-primary-900 font-semibold' : 'text-slate-600 border-b border-slate-100'}`}
-                    style={j === 3 ? `background: #FFF7ED; border-left: 2px solid #F59E0B; border-right: 2px solid #F59E0B; border-bottom: ${i === comparisonRows.length - 1 ? '2px solid #F59E0B' : '1px solid #FED7AA'};` : ''}
-                  >
-                    {v}
-                  </td>
-                ))}
+      <div class="hidden md:block overflow-x-auto">
+        <div style="border: 1px solid #C8D3E8; border-radius: 16px; overflow: hidden;">
+          <table style="width: 100%; font-size: 13.5px; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th style="text-align: left; padding: 14px 20px; background: #DDE4F0; color: #5A6B85; font-weight: 700; border-bottom: 2px solid #0F2557; width: 160px;">比較項目</th>
+                <th style="padding: 14px 14px; background: #DDE4F0; color: #5A6B85; font-weight: 700; border-bottom: 2px solid #0F2557; text-align: center;">Excel手動管理</th>
+                <th style="padding: 14px 14px; background: #DDE4F0; color: #5A6B85; font-weight: 700; border-bottom: 2px solid #0F2557; text-align: center;">月額型クラウドソフト</th>
+                <th style="padding: 14px 14px; background: #DDE4F0; color: #5A6B85; font-weight: 700; border-bottom: 2px solid #0F2557; text-align: center;">グリーンサイト<br/><span style="font-size: 11px; font-weight: 400;">（クラウド）</span></th>
+                <th style="padding: 14px 14px; background: #0F2557; color: #FFFFFF; font-weight: 900; border-bottom: 2px solid #0F2557; text-align: center;">本品</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {comparisonRows.map((row, i) => (
+                <tr style={`background: ${i % 2 === 0 ? '#FFFFFF' : '#F5F7FC'};`}>
+                  <td style="padding: 13px 20px; color: #44536E; font-weight: 700; border-bottom: 1px solid #D8DEE8;">{row.label}</td>
+                  {row.vals.map((v, j) => (
+                    <td
+                      style={`padding: 13px 14px; text-align: center; ${j === 3 ? 'font-weight: 700; color: #0F2557; background: #FFF9EF; border-left: 2px solid #F59E0B; border-right: 2px solid #F59E0B; border-bottom: ' + (i === comparisonRows.length - 1 ? '2px solid #F59E0B' : '1px solid #FED7AA') + ';' : 'color: #5A6B85; border-bottom: 1px solid #D8DEE8;'}`}
+                    >{v}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size: 11.5px; color: #8FA1C4; text-align: center; margin-top: 12px;">※ 価格・機能は2026年時点の各社公開情報に基づく参考比較です。<br>※ 同種の買い切り型パッケージソフトは数万円〜が一般的です。</p>
       </div>
-      <p class="text-xs text-slate-400 text-center mt-4">※ 価格・機能は2026年時点の各社公開情報に基づく参考比較です。<br>※ 同種の買い切り型パッケージソフトは数万円〜が一般的です。</p>
+
+      <!-- キャラクターコメント -->
+      <div class="az-chara-grid">
+        <div style="background: #FFFFFF; border-radius: 20px; padding: 22px 24px; display: flex; gap: 16px; align-items: center;">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; flex: none;">
+            <img src="/images/characters/uta_tati.png" alt="" aria-hidden="true" style="width: 68px; height: 68px; object-fit: contain;">
+            <span style="font-size: 11.5px; font-weight: 700; color: #0F2557;">ウタ</span>
+          </div>
+          <div style="background: #F3F6FB; border-radius: 14px; padding: 14px 18px; font-size: 13.5px; line-height: 1.9; color: #44536E;">健診切れや、必要な資格を持たない作業員を現場に入れると、元請に怒られるだけじゃなくて労基に引っかかることもある。台帳で押さえておけば防げる話なんだけどな。</div>
+        </div>
+        <div style="background: #FFFFFF; border-radius: 20px; padding: 22px 24px; display: flex; gap: 16px; align-items: center;">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; flex: none;">
+            <img src="/images/characters/natu_tati.png" alt="" aria-hidden="true" style="width: 68px; height: 68px; object-fit: contain;">
+            <span style="font-size: 11.5px; font-weight: 700; color: #0F2557;">ナツ</span>
+          </div>
+          <div style="background: #FDEBC8; border-radius: 14px; padding: 14px 18px; font-size: 13.5px; line-height: 1.9; color: #44536E;">グリーンサイトは元請が使ってる現場だけ登録すればいい。毎月払い続けるのは、コスパが悪いのだ。自社の台帳は自社で持つのが一番シンプルなのだ。</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- S4d：キャラクターコメント -->
-  <section class="pt-4 pb-16 bg-white">
-    <div class="container-base max-w-2xl mx-auto">
-      <CharaDialogue
-        chara="mikeru"
-        text="健診切れや、必要な資格・教育を持たない作業員を現場に入れてしまうと、元請に怒られるだけじゃなくて労基に引っかかることもある。誰が何を持っているか台帳で押さえておけば防げる話なんだけどな。"
-        direction="left"
-        expression="tati"
-      />
-      <CharaDialogue
-        chara="kuroe"
-        text="グリーンサイトは元請が使ってる現場だけ登録すればいい。毎月払い続けるのは、コスパが悪いのだ。自社の台帳は自社で持つのが一番シンプルなのだ。"
-        direction="right"
-        expression="tati"
-      />
-    </div>
-  </section>
-
-  <!-- S5：画面イメージ -->
-  <section class="py-16 bg-slate-50">
-    <div class="container-base max-w-5xl mx-auto">
-      <h2 class="text-3xl font-bold text-primary-900 mb-4 text-center">画面イメージ</h2>
-      <p class="text-slate-500 text-center mb-10">実際の動作画面です。</p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <!-- S5: 画面イメージ -->
+  <section class="az-wave az-wave-pull" style="background: #FFFFFF; position: relative;">
+    <div class="container-base anzen-rise" style="padding-top: 80px; padding-bottom: 64px; display: flex; flex-direction: column; gap: 32px;">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
+        <span class="az-pill">SCREENSHOT — 画面イメージ</span>
+        <h2 style="margin: 0; font-size: 30px; font-weight: 900; color: #0F2557; letter-spacing: 0.04em;">実際の動作画面</h2>
+      </div>
+      <div class="az-screen-grid">
         {[
-          { src: '/images/screens/anzen/screen_dashboard.png',      caption: '期限管理ダッシュボード｜起動直後に期限切れ・30日以内が一覧表示' },
-          { src: '/images/screens/anzen/screen_worker_list.png',    caption: '作業員管理｜一覧から選択してそのまま編集・削除' },
-          { src: '/images/screens/anzen/screen_worker_roster.png',  caption: '作業員名簿（PDF出力）｜全建統一様式に準拠した独自様式' },
-          { src: '/images/screens/anzen/screen_vehicle_report.png', caption: '工事・通勤用車両届（PDF出力）｜車検・保険切れ車両は赤く警告' },
+          { src: '/images/screens/anzen/screen_dashboard.png',      caption: '期限管理ダッシュボード', sub: '起動直後に期限切れ・30日以内が一覧表示' },
+          { src: '/images/screens/anzen/screen_worker_list.png',    caption: '作業員管理',             sub: '一覧から選択してそのまま編集・削除' },
+          { src: '/images/screens/anzen/screen_worker_roster.png',  caption: '作業員名簿（PDF出力）',  sub: '全建統一様式に準拠した独自様式' },
+          { src: '/images/screens/anzen/screen_vehicle_report.png', caption: '工事・通勤用車両届（PDF出力）', sub: '車検・保険切れ車両は赤く警告' },
         ].map(item => (
-          <figure class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
-            <img
-              src={item.src}
-              alt={item.caption}
-              class="w-full h-auto block"
-              loading="lazy"
-            />
-            <figcaption class="px-4 py-3 text-xs text-slate-500 border-t border-slate-100">{item.caption}</figcaption>
+          <figure style="background: #FFFFFF; border: 1.5px solid #D8DEE8; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 28px rgba(15,37,87,0.08); margin: 0;">
+            <img src={item.src} alt={item.caption} style="width: 100%; height: auto; display: block;" loading="lazy" />
+            <figcaption style="padding: 12px 16px; border-top: 1px solid #E3E8F0; display: flex; flex-direction: column; gap: 2px;">
+              <span style="font-size: 13px; font-weight: 700; color: #0F2557;">{item.caption}</span>
+              <span style="font-size: 11.5px; color: #5A6B85;">{item.sub}</span>
+            </figcaption>
           </figure>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- S7：価格 -->
-  <section class="py-16 bg-white">
-    <div class="container-base">
-      <h2 class="text-3xl font-bold text-primary-900 mb-10 text-center">価格</h2>
+  <!-- S6: 価格 -->
+  <section class="az-wave" style="background: #E4EBF6; position: relative; overflow: hidden;">
+    <div style="position: absolute; top: -180px; right: -160px; width: 520px; height: 520px; background: #EDF2F9; border-radius: 50%; pointer-events: none;"></div>
+    <div class="container-base anzen-rise" style="padding-top: 80px; padding-bottom: 72px; position: relative; display: flex; flex-direction: column; gap: 36px;">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
+        <span class="az-pill">PRICE — 価格</span>
+        <h2 style="margin: 0; font-size: 30px; font-weight: 900; color: #0F2557; letter-spacing: 0.04em;">買い切り・月額なし</h2>
+      </div>
 
-      <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+      <div class="az-price-grid" style="max-width: 760px; margin: 0 auto; width: 100%;">
 
         <!-- 単品カード -->
-        <div class="border-2 border-accent-400 rounded-2xl p-8 shadow-lg text-center flex flex-col">
-          <p class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1">シンプル安全台帳</p>
-          <p class="text-5xl font-bold text-accent-500 mb-1">¥{PRODUCT.price.toLocaleString()}</p>
-          <p class="text-sm text-slate-400 mb-6">税込・買い切り</p>
-          <hr class="border-slate-200 mb-6" />
-          <ul class="space-y-3 text-left mb-8 flex-1">
+        <div class="az-price-card" style="background: #FFFFFF; border: 2px solid #F59E0B; border-radius: 24px; padding: 32px 28px; box-shadow: 0 8px 28px rgba(245,158,11,0.12); text-align: center;">
+          <p style="margin: 0 0 4px; font-size: 12.5px; font-weight: 700; color: #5A6B85; letter-spacing: 0.08em;">シンプル安全台帳</p>
+          <p style="margin: 0 0 2px; font-size: 44px; font-weight: 900; color: #F59E0B;">¥{PRODUCT.price.toLocaleString()}</p>
+          <p style="margin: 0 0 22px; font-size: 12px; color: #8FA1C4;">税込・買い切り</p>
+          <hr style="border: none; border-top: 1px solid #E3E8F0; margin-bottom: 22px;" />
+          <ul class="az-price-list" style="list-style: none; margin: 0 0 24px; padding: 0; display: flex; flex-direction: column; gap: 10px; text-align: left;">
             {[
               '永続ライセンス',
               '同一事業者内の複数PCで利用可',
@@ -344,8 +399,8 @@ const comparisonRows = [
               'データはあなたのPCだけに保存',
               '個人情報のクラウド送信なし',
             ].map(item => (
-              <li class="flex items-center gap-3 text-slate-700 text-sm">
-                <span class="text-accent-500 font-bold flex-shrink-0">✓</span>
+              <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; color: #44536E;">
+                <span style="color: #F59E0B; font-weight: 900; flex: none; margin-top: 1px;">✓</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -353,51 +408,63 @@ const comparisonRows = [
           <button
             id="buy-btn-anzen"
             type="button"
-            class="w-full bg-accent-500 hover:bg-accent-600 text-white font-bold py-4 rounded-xl text-base transition-colors"
+            class="bg-accent-500 hover:bg-accent-600 text-white transition-colors"
+            style="width: 100%; font-weight: 700; font-size: 15px; padding: 15px; border-radius: 12px; border: none; cursor: pointer;"
           >
             今すぐ購入する →
           </button>
         </div>
 
         <!-- セットカード -->
-        <div class="border-2 border-primary-300 rounded-2xl p-8 text-center relative flex flex-col">
-          <div class="absolute -top-3 left-1/2 -translate-x-1/2">
-            <span class="bg-primary-700 text-white text-xs font-bold px-4 py-1 rounded-full">おトクなセット</span>
+        <div class="az-price-card" style="background: #FFFFFF; border: 2px solid #0F2557; border-radius: 24px; padding: 32px 28px; text-align: center; position: relative;">
+          <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); white-space: nowrap;">
+            <span style="background: #0F2557; color: #FFFFFF; font-size: 12px; font-weight: 700; padding: 5px 18px; border-radius: 999px;">おトクなセット</span>
           </div>
-          <p class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1 mt-2">工事台帳 ＋ 安全台帳 セット</p>
-          <div class="mb-1">
-            <span class="text-3xl font-bold text-primary-900">¥{PRODUCT.priceSet.toLocaleString()}</span>
-          </div>
-          <p class="text-sm text-slate-400 mb-1">税込・買い切り</p>
-          <p class="text-xs text-accent-600 font-semibold mb-6">
+          <p style="margin: 8px 0 4px; font-size: 12.5px; font-weight: 700; color: #5A6B85; letter-spacing: 0.08em;">工事台帳 ＋ 安全台帳 セット</p>
+          <p style="margin: 0 0 2px; font-size: 44px; font-weight: 900; color: #0F2557;">¥{PRODUCT.priceSet.toLocaleString()}</p>
+          <p style="margin: 0 0 4px; font-size: 12px; color: #8FA1C4;">税込・買い切り</p>
+          <p style="margin: 0 0 22px; font-size: 12px; font-weight: 700; color: #F59E0B;">
             通常 ¥{(PRODUCT.price + KOJI_PRODUCT.price).toLocaleString()} → ¥{(PRODUCT.price + KOJI_PRODUCT.price - PRODUCT.priceSet).toLocaleString()} お得
           </p>
-          <hr class="border-slate-200 mb-6" />
-          <ul class="space-y-2 text-left mb-8 text-sm text-slate-600 flex-1">
-            <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>シンプル工事台帳 ライト版（確定申告）</li>
-            <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>シンプル安全台帳（資格・書類管理）</li>
-            <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>両製品の永続ライセンス</li>
-            <li class="flex items-center gap-2"><span class="text-primary-600 font-bold flex-shrink-0">✓</span>メールサポート</li>
+          <hr style="border: none; border-top: 1px solid #E3E8F0; margin-bottom: 22px;" />
+          <ul class="az-price-list" style="list-style: none; margin: 0 0 24px; padding: 0; display: flex; flex-direction: column; gap: 10px; text-align: left;">
+            {[
+              'シンプル工事台帳 ライト版（確定申告）',
+              'シンプル安全台帳（資格・書類管理）',
+              '両製品の永続ライセンス',
+              'メールサポート',
+            ].map(item => (
+              <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; color: #44536E;">
+                <span style="color: #0F2557; font-weight: 900; flex: none; margin-top: 1px;">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
           </ul>
           <button
             id="buy-btn-set"
             type="button"
-            class="w-full bg-primary-700 hover:bg-primary-800 text-white font-bold py-4 rounded-xl text-base transition-colors"
+            class="bg-primary-700 hover:bg-primary-800 text-white transition-colors"
+            style="width: 100%; font-weight: 700; font-size: 15px; padding: 15px; border-radius: 12px; border: none; cursor: pointer;"
           >
             セットで購入する →
           </button>
-          <p class="text-xs text-slate-400 mt-3">工事台帳のみの購入は<a href="/products/koji-daicho/" class="underline hover:text-slate-600">こちら</a></p>
+          <p style="margin: 12px 0 0; font-size: 11.5px; color: #8FA1C4;">
+            工事台帳のみの購入は<a href="/products/koji-daicho/" style="color: #5A6B85; text-decoration: underline;">こちら</a>
+          </p>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- S8：動作環境 -->
-  <section class="py-16 bg-slate-50">
-    <div class="container-base max-w-2xl mx-auto">
-      <h2 class="text-3xl font-bold text-primary-900 mb-8 text-center">動作環境</h2>
-      <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+  <!-- S7: 動作環境 -->
+  <section class="az-wave az-wave-pull" style="background: #FFFFFF; position: relative;">
+    <div class="container-base anzen-rise" style="padding-top: 72px; padding-bottom: 56px; display: flex; flex-direction: column; gap: 28px; max-width: 760px;">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
+        <span class="az-pill">ENVIRONMENT — 動作環境</span>
+        <h2 style="margin: 0; font-size: 28px; font-weight: 900; color: #0F2557;">動作環境</h2>
+      </div>
+      <div style="background: #F3F6FB; border-radius: 20px; overflow: hidden;">
         {[
           { label: 'OS',          value: 'Windows 10 / 11（64bit）' },
           { label: '起動方法',    value: 'exe ファイルをダブルクリックするだけ（インストール不要）' },
@@ -407,30 +474,26 @@ const comparisonRows = [
           { label: '推奨環境',    value: 'メモリ 4GB以上、ストレージ空き 500MB以上' },
           { label: '対応言語',    value: '日本語のみ' },
         ].map((row, i) => (
-          <div class={`flex gap-4 px-6 py-4 ${i !== 0 ? 'border-t border-slate-100' : ''}`}>
-            <span class="text-slate-500 text-sm w-32 flex-shrink-0 pt-0.5">{row.label}</span>
-            <span class="text-slate-800 font-medium text-sm">{row.value}</span>
+          <div style={`display: flex; gap: 16px; padding: 14px 22px; ${i !== 0 ? 'border-top: 1px solid #E3E8F0;' : ''}`}>
+            <span style="font-size: 13px; color: #5A6B85; width: 110px; flex: none; padding-top: 1px;">{row.label}</span>
+            <span style="font-size: 13px; font-weight: 600; color: #1A2B4A;">{row.value}</span>
           </div>
         ))}
       </div>
-      <p class="text-xs text-slate-400 text-center mt-4">※ Mac・Linux は非対応です。</p>
+      <p style="font-size: 11.5px; color: #8FA1C4; text-align: center; margin: 0;">※ Mac・Linux は非対応です。</p>
     </div>
   </section>
 
   <!-- FAQ導線 -->
-  <div class="py-6 bg-white text-center border-t border-slate-100">
-    <p class="text-slate-500 text-sm">
+  <div style="padding: 20px 0 40px; background: #FFFFFF; text-align: center; border-top: 1px solid #E3E8F0;">
+    <p style="margin: 0; font-size: 13.5px; color: #5A6B85;">
       ご購入前のご不明点は
-      <a href="/faq/" class="text-primary-600 hover:text-primary-800 font-semibold underline transition-colors">よくある質問</a>
+      <a href="/faq/" style="color: #0F2557; font-weight: 700; text-decoration: underline;">よくある質問</a>
       もあわせてご確認ください。
     </p>
   </div>
 
-
-
-
 <script>
-  // 購入ボタン：Stripe Checkout へリダイレクト
   function showAnzenToast() {
     const t = document.getElementById('anzen-buy-toast');
     if (!t) return;
