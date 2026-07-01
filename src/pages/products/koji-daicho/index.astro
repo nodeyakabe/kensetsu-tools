@@ -477,18 +477,19 @@ const comparisonRows = [
       </div>
       <h2 class="text-[28px] sm:text-[34px] font-black text-[#0F2557] text-center mb-12 leading-snug p-reveal">一度買えば、ずっと使えます。</h2>
 
-      <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-8 items-start">
+      <!-- 価格カード2列 -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch max-w-[860px] mx-auto">
 
-        <!-- 左：価格カード（濃紺） -->
-        <div class="p-reveal">
-          <div class="rounded-3xl p-10 sm:p-12" style="background:#0F2557; box-shadow:0 8px 32px rgba(15,37,87,0.2);">
+        <!-- 左：単品カード -->
+        <div class="p-reveal flex flex-col">
+          <div class="rounded-3xl p-10 sm:p-12 flex flex-col flex-1" style="background:#0F2557; box-shadow:0 8px 32px rgba(15,37,87,0.2);">
             <p class="font-mono text-[13px] tracking-[0.22em] text-[#8FA1C4] mb-7">BUY ONCE, USE FOREVER</p>
             <div class="flex items-baseline gap-3 mb-2">
               <span class="text-[18px] font-bold text-white">買い切り</span>
               <span class="text-[56px] font-black text-white" style="border-bottom:5px solid #F59E0B;">¥{PRODUCT.price.toLocaleString()}</span>
             </div>
             <p class="text-[#8FA1C4] text-[17px] mb-10">税込・月額なし</p>
-            <div class="grid grid-cols-2 gap-x-6 gap-y-4 mb-10">
+            <div class="grid grid-cols-2 gap-x-6 gap-y-4 mb-10 flex-1">
               {[
                 '永続ライセンス',
                 '複数PCで利用可',
@@ -514,8 +515,46 @@ const comparisonRows = [
           </div>
         </div>
 
-        <!-- 右：動作環境カード -->
-        <div class="p-reveal">
+        <!-- 右：セットカード -->
+        <div class="p-reveal flex flex-col" style="position: relative;">
+          <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); white-space: nowrap; z-index: 1;">
+            <span style="background: #0F2557; color: #FFFFFF; font-size: 12px; font-weight: 700; padding: 5px 18px; border-radius: 999px;">おトクなセット</span>
+          </div>
+          <div class="rounded-3xl p-10 sm:p-12 flex flex-col flex-1" style="background:#FFFFFF; border: 2px solid #0F2557; box-shadow:0 8px 28px rgba(15,37,87,0.10);">
+            <p class="font-mono text-[13px] tracking-[0.22em] text-[#8FA1C4] mb-4 mt-2">工事台帳 ＋ 安全台帳 セット</p>
+            <div class="flex items-baseline gap-2 mb-1">
+              <span class="text-[56px] font-black text-[#0F2557]">¥13,800</span>
+            </div>
+            <p class="text-[#8FA1C4] text-[14px] mb-1">税込・買い切り</p>
+            <p class="text-[#F59E0B] font-bold text-[13px] mb-8">通常 ¥15,780 → ¥1,980 お得</p>
+            <div class="flex flex-col gap-3 mb-10 flex-1">
+              {[
+                'シンプル工事台帳 ライト版（確定申告）',
+                'シンプル安全台帳（資格・書類管理）',
+                '両製品の永続ライセンス',
+              ].map(item => (
+                <div class="flex items-start gap-2 text-[#44536E] text-[15px]">
+                  <span class="text-[#0F2557] font-bold flex-shrink-0 mt-0.5">✓</span>
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+            <p class="text-center text-[12px] text-[#8FA1C4] mb-3">
+              安全台帳のみの購入は<a href="/products/anzen-daicho/" class="text-[#5A6B85] underline">こちら</a>
+            </p>
+            <button
+              id="buy-btn-set"
+              type="button"
+              class="w-full bg-[#0F2557] hover:bg-[#1A3A6A] text-white font-bold py-5 rounded-full text-lg transition-colors btn-press"
+            >
+              セットで購入する →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 動作環境 -->
+      <div class="p-reveal mt-10 max-w-[860px] mx-auto">
         <div class="rounded-3xl p-10 sm:p-12" style="background:#F3F6FB;">
           <p class="font-mono text-[13px] tracking-[0.22em] text-[#8FA1C4] mb-7">REQUIREMENTS</p>
           <div>
@@ -536,7 +575,6 @@ const comparisonRows = [
           <a href="/faq/" class="block text-center text-[#0F2557] text-[17px] font-semibold hover:underline">
             よくある質問を見る →
           </a>
-        </div>
         </div>
       </div>
     </div>
@@ -678,6 +716,23 @@ const comparisonRows = [
     }
   }
 
+  async function handleSetBuy(btn: HTMLButtonElement) {
+    const orig = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = '読み込み中…';
+    try {
+      const res = await fetch('/api/create-checkout-set', { method: 'POST' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if (!data?.url) throw new Error('no url');
+      window.location.href = data.url;
+    } catch {
+      showToast();
+      btn.disabled = false;
+      btn.textContent = orig ?? '';
+    }
+  }
+
   function initBuyButtons() {
     BUY_IDS.forEach(id => {
       const b = document.getElementById(id) as HTMLButtonElement | null;
@@ -685,6 +740,11 @@ const comparisonRows = [
       b.dataset.buyInit = '1';
       b.addEventListener('click', () => handleBuy(b!));
     });
+    const setBtn = document.getElementById('buy-btn-set') as HTMLButtonElement | null;
+    if (setBtn && !setBtn.dataset.buyInit) {
+      setBtn.dataset.buyInit = '1';
+      setBtn.addEventListener('click', () => handleSetBuy(setBtn));
+    }
   }
 
   initBuyButtons();
