@@ -181,6 +181,17 @@ const comparisonRows = [
     </nav>
   </div>
 
+  <!-- 製品識別バンド -->
+  <div style="background: #11512F; padding: 9px 0;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: space-between;">
+      <span style="color: #FFFFFF; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; display: flex; align-items: center; gap: 8px;">
+        <span style="width: 7px; height: 7px; background: #5EDF9A; border-radius: 50%; display: inline-block;"></span>
+        SAFETY &amp; DEADLINE MANAGEMENT — 第2弾
+      </span>
+      <span class="az-mono" style="color: #BFE8D2; font-size: 11px; letter-spacing: 0.12em;">ANZEN-DAICHO</span>
+    </div>
+  </div>
+
   <!-- S1: ヒーロー -->
   <section style="background: #FFFFFF; position: relative; overflow: hidden;">
     <!-- 装飾 -->
@@ -190,25 +201,53 @@ const comparisonRows = [
     <div class="container-base" style="padding-top: 56px; padding-bottom: 88px; position: relative;">
       <div class="az-hero-grid">
 
-        <!-- 左：スクリーンショット -->
-        <div class="az-reveal-from-left" style="position: relative;">
-          <div style="position: absolute; top: -16px; left: -16px; width: 180px; height: 180px; background: #E4F1EA; border-radius: 50%; z-index: 0;"></div>
-          <div style="position: absolute; bottom: -14px; right: -14px; width: 80px; height: 80px; background: #CDE6D8; border-radius: 50%; z-index: 0;"></div>
+        <!-- 左：期限ステータスカード UI -->
+        <div class="az-reveal-from-left" style="position: relative; padding: 20px 20px 36px 20px;">
+          <!-- 装飾円 -->
+          <div style="position: absolute; top: -10px; left: -10px; width: 160px; height: 160px; background: #E4F1EA; border-radius: 50%; z-index: 0; pointer-events: none;"></div>
+          <div style="position: absolute; bottom: 10px; right: 10px; width: 70px; height: 70px; background: #CDE6D8; border-radius: 50%; z-index: 0; pointer-events: none;"></div>
+
+          <!-- カード本体 -->
           <div style="position: relative; z-index: 1; background: #FFFFFF; border: 1.5px solid #D8DEE8; border-radius: 18px; overflow: hidden; box-shadow: 0 22px 52px rgba(15,37,87,0.14);">
-            <div style="background: #F4F7F5; padding: 10px 16px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #E3E8F0;">
-              <span style="font-size: 12.5px; font-weight: 900; color: #0F2557;">期限管理ダッシュボード</span>
-              <span class="az-mono" style="margin-left: auto; font-size: 10.5px; color: #8FA1C4;">ANZEN-DAICHO</span>
+            <!-- カードヘッダー -->
+            <div style="background: #F4F7F5; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #E3E8F0;">
+              <span style="font-size: 13px; font-weight: 900; color: #0F2557;">期限ステータス</span>
+              <span class="az-mono" style="font-size: 10.5px; color: #8FA1C4;">2026.06</span>
             </div>
-            <!-- サイドバーを除いてメインコンテンツ部分をズームイン表示 -->
-            <div style="overflow: hidden; height: 300px;">
-              <img
-                src="/images/screens/anzen/screen_dashboard.png"
-                alt="期限管理ダッシュボード画面"
-                style="width: 130%; max-width: none; margin-left: -22%; height: auto; display: block;"
-                loading="eager"
-              />
+            <!-- ステータス行 -->
+            <div>
+              <div style="display: flex; align-items: center; gap: 12px; padding: 13px 18px; border-bottom: 1px solid #F0F4F2;">
+                <div style="width: 10px; height: 10px; border-radius: 50%; background: #22C55E; flex: none;"></div>
+                <span style="font-size: 13.5px; color: #1A2B4A; flex: 1;">玉掛け技能講習</span>
+                <span style="font-size: 12.5px; font-weight: 700; color: #16A34A;">有効</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px; padding: 13px 18px; border-bottom: 1px solid #F0F4F2;">
+                <div style="width: 10px; height: 10px; border-radius: 50%; background: #F59E0B; flex: none;"></div>
+                <span style="font-size: 13.5px; color: #1A2B4A; flex: 1;">車検（2tダンプ）</span>
+                <span style="font-size: 12.5px; font-weight: 700; color: #D97706;">あと18日</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px; padding: 13px 18px; border-bottom: 1px solid #F0F4F2;">
+                <div style="width: 10px; height: 10px; border-radius: 50%; background: #EF4444; flex: none;"></div>
+                <span style="font-size: 13.5px; color: #1A2B4A; flex: 1;">健康診断（山田）</span>
+                <span style="font-size: 12.5px; font-weight: 700; color: #DC2626;">要更新</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px; padding: 13px 18px;">
+                <div style="width: 10px; height: 10px; border-radius: 50%; background: #22C55E; flex: none;"></div>
+                <span style="font-size: 13.5px; color: #1A2B4A; flex: 1;">任意保険（軽トラ）</span>
+                <span style="font-size: 12.5px; font-weight: 700; color: #16A34A;">有効</span>
+              </div>
             </div>
           </div>
+
+          <!-- 大きな緑チェックマーク -->
+          <div style="position: absolute; bottom: -4px; right: -4px; width: 96px; height: 96px; background: #11512F; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 28px rgba(17,81,47,0.38); z-index: 2;">
+            <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+
+          <!-- マスコット -->
+          <img src="/images/characters/nihiki_komarigao.png" alt="マスコットキャラクター" style="position: absolute; bottom: -16px; left: 10px; width: 88px; z-index: 3; pointer-events: none;" loading="eager" />
         </div>
 
         <!-- 右：テキスト -->
