@@ -192,7 +192,7 @@ const screens = [
             ))}
           </div>
           <div>
-            <a href="#price" style="display: inline-flex; align-items: center; gap: 8px; background: #F59E0B; color: #3a2600; font-weight: 900; text-decoration: none; padding: 15px 30px; border-radius: 999px; box-shadow: 0 6px 18px rgba(245,158,11,.35); font-size: 15px;">今すぐ購入する →</a>
+            <span style="display: inline-flex; align-items: center; gap: 8px; background: #9CA3AF; color: #fff; font-weight: 900; padding: 15px 30px; border-radius: 999px; font-size: 15px; cursor: not-allowed;">準備中</span>
           </div>
         </div>
 
@@ -205,8 +205,8 @@ const screens = [
             </div>
           </div>
           <div style="position: absolute; bottom: -20px; right: 0; display: flex; gap: 2px;">
-            <img src="/images/characters/uta_tati.png" alt="ウタ" aria-hidden="true" style="width: 72px; height: auto; filter: drop-shadow(0 8px 12px rgba(0,0,0,.15));">
-            <img src="/images/characters/natu_tati.png" alt="ナツ" aria-hidden="true" style="width: 72px; height: auto; filter: drop-shadow(0 8px 12px rgba(0,0,0,.15));">
+            <img src="/images/characters/uta_product.png" alt="ウタ" aria-hidden="true" style="width: 72px; height: auto; filter: drop-shadow(0 8px 12px rgba(0,0,0,.15));">
+            <img src="/images/characters/natu_product.png" alt="ナツ" aria-hidden="true" style="width: 72px; height: auto; filter: drop-shadow(0 8px 12px rgba(0,0,0,.15));">
           </div>
         </div>
 
@@ -289,14 +289,14 @@ const screens = [
       <!-- キャラクターコメント -->
       <div class="kb-chara-grid">
         <div style="background: #fff; border: 1px solid #E3E8F0; border-radius: 14px; padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start;">
-          <img src="/images/characters/uta_tati.png" alt="" aria-hidden="true" style="width: 56px; height: auto; flex: none;">
+          <img src="/images/characters/uta_product.png" alt="" aria-hidden="true" style="width: 56px; height: auto; flex: none;">
           <div>
             <div style="font-weight: 900; color: #0F2557; font-size: 13px; margin-bottom: 4px;">ウタ（監督）</div>
             <p style="margin: 0; font-size: 13px; color: #5f6b7a; line-height: 1.85;">利益は出てるのに金が足りない、が一番こわい。危険日が先に見えれば、入金の相談も支払いの調整も、手の打ちようがあるんだ。</p>
           </div>
         </div>
         <div style="background: #fff; border: 1px solid #E3E8F0; border-radius: 14px; padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start;">
-          <img src="/images/characters/natu_tati.png" alt="" aria-hidden="true" style="width: 56px; height: auto; flex: none;">
+          <img src="/images/characters/natu_product.png" alt="" aria-hidden="true" style="width: 56px; height: auto; flex: none;">
           <div>
             <div style="font-weight: 900; color: #0F2557; font-size: 13px; margin-bottom: 4px;">ナツ（職人）</div>
             <p style="margin: 0; font-size: 13px; color: #5f6b7a; line-height: 1.85;">月額はずっと払い続けるのだ。買い切りなら一度きり。浮いたぶんは、現場や道具に回せるのだ。</p>
@@ -360,9 +360,10 @@ const screens = [
           <button
             id="buy-btn-kb"
             type="button"
-            style="width: 100%; background: #F59E0B; color: #3a2600; font-weight: 900; font-size: 15px; padding: 15px; border-radius: 999px; border: none; cursor: pointer; box-shadow: 0 6px 18px rgba(245,158,11,.35);"
+            disabled
+            style="width: 100%; background: #9CA3AF; color: #fff; font-weight: 900; font-size: 15px; padding: 15px; border-radius: 999px; border: none; cursor: not-allowed;"
           >
-            今すぐ購入する →
+            準備中
           </button>
         </div>
         <!-- 右：動作環境 -->
@@ -445,7 +446,7 @@ const screens = [
     <div class="container-base kb-reveal" style="padding-top: 76px; padding-bottom: 76px; display: flex; flex-direction: column; align-items: center; gap: 16px;">
       <h2 style="margin: 0; font-size: clamp(1.5rem, 4vw, 2.15rem); font-weight: 900; line-height: 1.35; color: #fff;">今日から、どんぶり勘定を卒業。</h2>
       <p style="margin: 0; font-size: 14.5px; color: #d6def2;">工事の利益も、会社の資金も、見えれば動ける。</p>
-      <a href="#price" style="margin-top: 8px; display: inline-flex; align-items: center; gap: 8px; background: #F59E0B; color: #3a2600; font-weight: 900; text-decoration: none; padding: 15px 30px; border-radius: 999px; box-shadow: 0 6px 18px rgba(245,158,11,.35); font-size: 15px;">建設番頭を購入する →</a>
+      <span style="margin-top: 8px; display: inline-flex; align-items: center; gap: 8px; background: #9CA3AF; color: #fff; font-weight: 900; padding: 15px 30px; border-radius: 999px; font-size: 15px; cursor: not-allowed;">準備中</span>
     </div>
   </section>
 
