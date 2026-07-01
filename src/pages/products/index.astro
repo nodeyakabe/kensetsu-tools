@@ -13,7 +13,7 @@ const breadcrumbSchema = {
 
 <BaseLayout
   title="ツール・商品｜建設業向け買い切りツール"
-  description="一人親方・小規模建設業向けの買い切りツール一覧。Excel工事台帳「シンプル工事台帳 ライト版」（¥5,980）、資格・車検期限管理アプリ「シンプル安全台帳」（¥9,800）を発売中。月額なし・完全買い切り。"
+  description="一人親方・小規模建設業向けの買い切りツール一覧。Excel工事台帳「シンプル工事台帳 ライト版」（¥5,980）、安全書類管理「シンプル安全台帳」（¥9,800）、工事原価・資金繰り管理「建設番頭」（¥19,800）を発売中。月額なし・完全買い切り。"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -128,20 +128,28 @@ const breadcrumbSchema = {
           </div>
         </a>
 
-        <!-- 次の道具は（構想中） -->
-        <div class="coming-card" style="border: 1.5px dashed #B9C4D6; border-radius: 18px; overflow: hidden">
-          <div style="background: #EAEEF5; padding: 22px 32px; display: flex; align-items: center; gap: 18px">
-            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
-              <span style="border: 1px solid #8FA1C4; color: #5A6B85; font-size: 11.5px; font-weight: 700; padding: 3px 12px; border-radius: 999px">構想中</span>
-              <span style="border: 1px solid #B9C4D6; color: #5A6B85; font-size: 11.5px; font-weight: 700; padding: 3px 12px; border-radius: 999px">第3弾</span>
-              <h3 style="margin: 0; font-size: 22px; font-weight: 900; color: #5A6B85">次の道具は、現場の声から</h3>
+        <!-- 建設番頭 -->
+        <a href="/products/kensetsu-banto/" class="product-card" style="display: block; border: 1px solid #E3E8F0; border-radius: 18px; overflow: hidden; text-decoration: none; color: inherit">
+          <div style="background: #0F2557; padding: 22px 32px; display: flex; align-items: center; gap: 18px; position: relative; overflow: hidden">
+            <div style="position: absolute; top: -60px; right: 260px; width: 150px; height: 150px; border: 26px solid #14305F; border-radius: 50%"></div>
+            <div style="position: relative; display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+              <span style="background: #F59E0B; color: #FFFFFF; font-size: 11.5px; font-weight: 700; padding: 4px 12px; border-radius: 999px">発売中</span>
+              <span style="border: 1px solid #4A5E8C; color: #C7D2E5; font-size: 11.5px; font-weight: 700; padding: 3px 12px; border-radius: 999px">第3弾</span>
+              <h3 style="margin: 0; font-size: 22px; font-weight: 900; color: #FFFFFF">建設番頭</h3>
+            </div>
+            <div style="position: relative; margin-left: auto; display: flex; align-items: baseline; gap: 6px; background: #14305F; border-radius: 10px; padding: 10px 18px; flex: none">
+              <div style="font-size: 24px; font-weight: 900; color: #FFFFFF">¥19,800</div>
             </div>
           </div>
-          <div style="padding: 24px 32px; display: flex; align-items: center; gap: 24px">
-            <p style="margin: 0; font-size: 13.5px; line-height: 1.9; color: #5A6B85; flex: 1">「こんな道具がほしい」という声を、次のツールづくりの材料にしています。お問い合わせフォームからお気軽にお聞かせください。</p>
-            <a href="/contact/" class="btn-outline">要望を送る →</a>
+          <div class="card-body">
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.9; color: #44536E; flex: 1">工事原価・資金繰りを一本化する、小規模建設許可業者向けの原価管理ツール。工事台帳・安全台帳との連携で、現場の数字を丸ごと把握できます。</p>
+            <div class="card-tags">
+              <span style="background: #F3F6FB; color: #0F2557; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 8px">工事原価管理</span>
+              <span style="background: #F3F6FB; color: #0F2557; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 8px">資金繰り</span>
+            </div>
+            <span class="btn-amber">詳細・購入 →</span>
           </div>
-        </div>
+        </a>
 
       </div>
     </div>
