@@ -170,21 +170,23 @@ const comparisonRows = [
     }
   </style>
 
-  <!-- パンくず＋製品識別バンド -->
-  <div class="w-full px-4 sm:px-6 lg:px-10 py-3 bg-white border-b border-slate-100">
-    <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
-      <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
-        <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
-        <span class="mx-2">/</span>
-        <a href="/products/" class="hover:text-primary-600 transition-colors">ツール・商品</a>
-        <span class="mx-2">/</span>
-        <span class="text-slate-700">シンプル安全台帳</span>
-      </nav>
-      <div style="display: flex; align-items: center; gap: 7px; background: #11512F; border-radius: 999px; padding: 3px 12px;">
-        <span style="width: 6px; height: 6px; border-radius: 50%; background: #5FD39A; flex: none;"></span>
-        <span class="az-mono" style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; color: #BFE8D2; white-space: nowrap;">SAFETY &amp; DEADLINE MANAGEMENT — 第2弾</span>
-      </div>
+  <!-- 製品識別バンド -->
+  <div style="background: #11512F; padding: 9px 0;">
+    <div class="container-base" style="display: flex; align-items: center; gap: 10px;">
+      <span style="width: 8px; height: 8px; border-radius: 50%; background: #5FD39A; flex: none;"></span>
+      <span class="az-mono" style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; color: #BFE8D2;">SAFETY &amp; DEADLINE MANAGEMENT — 第2弾</span>
     </div>
+  </div>
+
+  <!-- パンくず -->
+  <div class="w-full px-4 sm:px-6 lg:px-10 py-3 bg-white border-b border-slate-100">
+    <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
+      <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <a href="/products/" class="hover:text-primary-600 transition-colors">ツール・商品</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-700">シンプル安全台帳</span>
+    </nav>
   </div>
 
   <!-- S1: ヒーロー -->
