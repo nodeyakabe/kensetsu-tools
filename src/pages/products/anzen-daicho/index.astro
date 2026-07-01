@@ -64,7 +64,7 @@ const comparisonRows = [
   { label: '個人情報の扱い',   vals: ['自己管理', 'クラウド保存', 'クラウド保存', 'PC内のみ（外部送信なし）'] },
   { label: '期限自動アラート', vals: ['× 自分で管理', '○', '○', '◎ 起動直後に一覧表示'] },
   { label: 'PDF帳票出力',      vals: ['× テンプレなし', '○', '○（元請指定様式）', '○（作業員名簿・車両届）'] },
-  { label: 'サポート',         vals: ['なし', 'あり', 'あり', 'メールサポート'] },
+  { label: 'サポート',         vals: ['なし', 'あり', 'あり', 'なし'] },
 ];
 ---
 
@@ -152,6 +152,9 @@ const comparisonRows = [
     /* 価格カード等高 */
     .az-price-card { display: flex; flex-direction: column; }
     .az-price-list { flex: 1; }
+    /* ライトボックス ホバーヒント */
+    .gallery-wrapper:hover .az-lb-overlay-hint { background: rgba(15,37,87,0.18) !important; }
+    .gallery-wrapper:hover .az-lb-overlay-hint span { opacity: 1 !important; }
     /* レスポンシブ */
     @media (max-width: 767px) {
       .az-hero-grid   { grid-template-columns: 1fr; gap: 28px; }
@@ -167,24 +170,21 @@ const comparisonRows = [
     }
   </style>
 
-  <!-- 製品識別バンド -->
-  <div style="background: #11512F; padding: 9px 0;">
-    <div class="container-base" style="display: flex; align-items: center; gap: 10px;">
-      <span style="width: 8px; height: 8px; border-radius: 50%; background: #5FD39A; flex: none;"></span>
-      <span class="az-mono" style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; color: #BFE8D2;">SAFETY &amp; DEADLINE MANAGEMENT — 第2弾</span>
-      <span class="az-mono" style="margin-left: auto; font-size: 11px; color: #6FB897;">ANZEN-DAICHO</span>
-    </div>
-  </div>
-
-  <!-- パンくず -->
+  <!-- パンくず＋製品識別バンド -->
   <div class="w-full px-4 sm:px-6 lg:px-10 py-3 bg-white border-b border-slate-100">
-    <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
-      <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
-      <span class="mx-2">/</span>
-      <a href="/products/" class="hover:text-primary-600 transition-colors">ツール・商品</a>
-      <span class="mx-2">/</span>
-      <span class="text-slate-700">シンプル安全台帳</span>
-    </nav>
+    <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+      <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
+        <a href="/" class="hover:text-primary-600 transition-colors">ホーム</a>
+        <span class="mx-2">/</span>
+        <a href="/products/" class="hover:text-primary-600 transition-colors">ツール・商品</a>
+        <span class="mx-2">/</span>
+        <span class="text-slate-700">シンプル安全台帳</span>
+      </nav>
+      <div style="display: flex; align-items: center; gap: 7px; background: #11512F; border-radius: 999px; padding: 3px 12px;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #5FD39A; flex: none;"></span>
+        <span class="az-mono" style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; color: #BFE8D2; white-space: nowrap;">SAFETY &amp; DEADLINE MANAGEMENT — 第2弾</span>
+      </div>
+    </div>
   </div>
 
   <!-- S1: ヒーロー -->
@@ -397,7 +397,12 @@ const comparisonRows = [
           { src: '/images/screens/anzen/screen_vehicle_report.png', caption: '工事・通勤用車両届（PDF出力）', sub: '車検・保険切れ車両は赤く警告' },
         ].map(item => (
           <figure class="az-reveal" style="background: #FFFFFF; border: 1.5px solid #D8DEE8; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 28px rgba(15,37,87,0.08); margin: 0;">
-            <img src={item.src} alt={item.caption} style="width: 100%; height: auto; display: block;" loading="lazy" />
+            <div class="gallery-wrapper cursor-zoom-in" role="button" tabindex="0" aria-label={`${item.caption}を拡大`} style="position: relative; overflow: hidden;">
+              <img src={item.src} alt={item.caption} style="width: 100%; height: auto; display: block; pointer-events: none;" loading="lazy" />
+              <div class="az-lb-overlay-hint" style="position: absolute; inset: 0; background: rgba(15,37,87,0); display: flex; align-items: center; justify-content: center; transition: background 0.2s;">
+                <span style="background: rgba(15,37,87,0.75); color: #fff; font-size: 12px; font-weight: 700; padding: 7px 16px; border-radius: 999px; opacity: 0; transition: opacity 0.2s; white-space: nowrap;">クリックで拡大</span>
+              </div>
+            </div>
             <figcaption style="padding: 12px 16px; border-top: 1px solid #E3E8F0; display: flex; flex-direction: column; gap: 2px;">
               <span style="font-size: 13px; font-weight: 700; color: #0F2557;">{item.caption}</span>
               <span style="font-size: 11.5px; color: #5A6B85;">{item.sub}</span>
@@ -429,7 +434,6 @@ const comparisonRows = [
             {[
               '永続ライセンス',
               '同一事業者内の複数PCで利用可',
-              'メールサポート',
               '不具合の無償対応',
               'ダブルクリックで起動（インストール不要）',
               'ランタイム別途インストール不要',
@@ -469,7 +473,6 @@ const comparisonRows = [
               'シンプル工事台帳 ライト版（確定申告）',
               'シンプル安全台帳（資格・書類管理）',
               '両製品の永続ライセンス',
-              'メールサポート',
             ].map(item => (
               <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; color: #44536E;">
                 <span style="color: #0F2557; font-weight: 900; flex: none; margin-top: 1px;">✓</span>
@@ -477,6 +480,9 @@ const comparisonRows = [
               </li>
             ))}
           </ul>
+          <p style="margin: 0 0 10px; font-size: 11.5px; color: #8FA1C4;">
+            工事台帳のみの購入は<a href="/products/koji-daicho/" style="color: #5A6B85; text-decoration: underline;">こちら</a>
+          </p>
           <button
             id="buy-btn-set"
             type="button"
@@ -485,9 +491,6 @@ const comparisonRows = [
           >
             セットで購入する →
           </button>
-          <p style="margin: 12px 0 0; font-size: 11.5px; color: #8FA1C4;">
-            工事台帳のみの購入は<a href="/products/koji-daicho/" style="color: #5A6B85; text-decoration: underline;">こちら</a>
-          </p>
         </div>
 
       </div>
@@ -620,7 +623,75 @@ const comparisonRows = [
 
   initAzAnimations();
   document.addEventListener('astro:page-load', initAzAnimations);
+
+  // ===== ライトボックス =====
+  function initAzLightbox() {
+    const lb       = document.getElementById('az-lightbox');
+    const lbImg    = document.getElementById('az-lb-img') as HTMLImageElement | null;
+    const closeBtn = document.getElementById('az-lb-close');
+    const mainEl   = document.querySelector('main');
+    if (!lb || !lbImg || !closeBtn) return;
+
+    // 前回のリスナーを AbortController でまとめて解除
+    const prevAc = (window as any).__azLbAbort;
+    if (prevAc) prevAc.abort();
+    const ac = new AbortController();
+    (window as any).__azLbAbort = ac;
+    const sig = { signal: ac.signal };
+
+    // 初期状態リセット
+    document.body.style.overflow = '';
+    lb.classList.add('hidden');
+    lb.classList.remove('flex');
+    mainEl?.removeAttribute('aria-hidden');
+
+    let lastFocused: HTMLElement | null = null;
+    const preventTouch = (e: Event) => e.preventDefault();
+
+    const open = (src: string, alt: string) => {
+      lastFocused = document.activeElement as HTMLElement;
+      lbImg.src = src; lbImg.alt = alt || '';
+      lb.classList.remove('hidden'); lb.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      lb.addEventListener('touchmove', preventTouch, { passive: false, signal: ac.signal });
+      mainEl?.setAttribute('aria-hidden', 'true');
+      closeBtn.focus();
+    };
+    const close = () => {
+      document.body.style.overflow = '';
+      lb.removeEventListener('touchmove', preventTouch);
+      lb.classList.add('hidden'); lb.classList.remove('flex');
+      lbImg.src = '';
+      mainEl?.removeAttribute('aria-hidden');
+      lastFocused?.focus();
+    };
+
+    lb.addEventListener('keydown', (e: KeyboardEvent) => { if (e.key === 'Tab') { e.preventDefault(); closeBtn.focus(); } }, sig);
+    document.querySelectorAll<HTMLElement>('.gallery-wrapper').forEach((wrapper) => {
+      const img = wrapper.querySelector('img');
+      const handler = () => { if (img) open(img.currentSrc || img.src, img.alt); };
+      wrapper.addEventListener('click', handler, sig);
+      wrapper.addEventListener('keydown', (e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); } }, sig);
+    });
+    lb.addEventListener('click', (e: MouseEvent) => { if (e.target === lb) close(); }, sig);
+    closeBtn.addEventListener('click', close, sig);
+    document.addEventListener('keydown', (e: KeyboardEvent) => { if (e.key === 'Escape') close(); }, sig);
+  }
+
+  initAzLightbox();
+  document.addEventListener('astro:page-load', initAzLightbox);
 </script>
+
+<!-- ライトボックス -->
+<div id="az-lightbox"
+     class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4"
+     role="dialog" aria-modal="true" aria-label="拡大画像">
+  <button id="az-lb-close"
+          class="absolute top-4 right-4 flex items-center justify-center w-11 h-11 text-white text-3xl leading-none rounded-full hover:bg-white/20 transition-colors"
+          aria-label="閉じる">&times;</button>
+  <img id="az-lb-img" src="" alt=""
+       class="max-h-[90vh] max-w-[95vw] object-contain rounded-lg" />
+</div>
 
 <!-- エラートースト -->
 <div
