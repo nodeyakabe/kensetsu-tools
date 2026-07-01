@@ -1,0 +1,516 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const siteUrl = (import.meta.env.SITE ?? 'https://kensetsu-tools.com').replace(/\/$/, '');
+const priceValidUntil = `${new Date().getFullYear() + 1}-12-31`;
+
+const PRODUCT = {
+  name: '建設番頭',
+  price: 19800,
+  currency: 'JPY',
+};
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": PRODUCT.name,
+  "description": "工事ごとの原価・粗利と会社の資金繰りをまとめて見える化。資金ショートの危険日を予測し黒字倒産を防ぐ。任意の事業年度に対応。買い切り¥19,800・月額なし。",
+  "brand": { "@type": "Brand", "name": "建設業ツール工房" },
+  "url": `${siteUrl}/products/kensetsu-banto/`,
+  "image": `${siteUrl}/og/kensetsu-banto.png`,
+  "offers": {
+    "@type": "Offer",
+    "price": String(PRODUCT.price),
+    "priceCurrency": PRODUCT.currency,
+    "availability": "https://schema.org/InStock",
+    "url": `${siteUrl}/products/kensetsu-banto/`,
+    "priceValidUntil": priceValidUntil,
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム",       "item": `${siteUrl}/` },
+    { "@type": "ListItem", "position": 2, "name": "ツール・商品", "item": `${siteUrl}/products/` },
+    { "@type": "ListItem", "position": 3, "name": PRODUCT.name,   "item": `${siteUrl}/products/kensetsu-banto/` },
+  ],
+};
+
+const problems = [
+  { title: '黒字倒産が不安',       body: '入金は先、支払いは今。手元の現金がいつ尽きるのか読めない。' },
+  { title: '赤字工事に後で気づく', body: '現場が終わってから「これ、赤字だった」と分かる。' },
+  { title: '見積がどんぶり勘定',   body: '過去のズレが活かせず、毎回カンで見積もってしまう。' },
+  { title: '請求と入金がバラバラ', body: '誰にいくら請求済みで、どこが未入金なのか分からない。' },
+  { title: 'サブスクは高い',       body: '多機能ソフトは月額ばかり。使う分のわりに高くつく。' },
+  { title: 'ITが苦手',             body: '難しいソフトは続かない。でも、そろそろ何とかしたい。' },
+];
+
+const features = [
+  { no: '01', hero: true, title: '資金繰り予測（黒字倒産を防ぐ）', body: '入金予定と支払予定を並べ、資金が不足する「危険日」を先に警告。家賃や返済などの固定費も含めて、会社の現金の流れを見える化します。' },
+  { no: '02', title: '工事別の原価・粗利',       body: '材料・外注・労務・経費を工事ごとに集計。今この現場でいくら残るかが、その場で分かる。' },
+  { no: '03', title: '赤字工事の早期発見',       body: '全工事を横断して、赤字・薄利の現場を色で警告。手遅れになる前に気づける。' },
+  { no: '04', title: '実行予算 vs 実績（予実）', body: '組んだ予算と実際の原価のズレを、科目ごとに把握。' },
+  { no: '05', title: '見積書（法定福利費つき）', body: '階層見積を作成。法定福利費の内訳も労務費から自動計算して明示できる。' },
+  { no: '06', title: '請求書（人工代・出来高対応）', body: '「人工代（2人×3日）」の書き方や、出来高（中間）請求にそのまま対応。' },
+  { no: '07', title: '見積の精度が育つ',         body: '過去の見積と実績のズレを工種別に学習し、次の見積で「この工種は超過しがち」と教えてくれる。使うほど賢くなる。' },
+  { no: '08', title: '税理士にワンクリック',     body: '工事台帳・原価内訳・CSVを一括出力。決算前の資料集めがラクになる。' },
+];
+
+const comparisonRows = [
+  { label: '価格',         vals: ['無料', '約11万円〜（買い切り）', '月額9,800円〜', `¥${PRODUCT.price.toLocaleString()}（買い切り）`] },
+  { label: '資金繰りの予測', vals: ['×', '○', '○', '◎ 危険日を予測'] },
+  { label: '原価・粗利の管理', vals: ['△ 作り込みが必要', '○', '○', '◎'] },
+  { label: '見積・請求',   vals: ['×', '○', '○', '○ 建設仕様（人工代・法定福利費）'] },
+  { label: '事業年度',     vals: ['—', '対応', '対応', '◎ 任意の事業年度（法人可）'] },
+  { label: '月額費用',     vals: ['なし', 'なし', 'かかり続ける', 'なし（0円）'] },
+  { label: '主な対象',     vals: ['Excelが得意な方', '中〜大規模', '法人・複数人の現場', '個人〜小規模の許可業者'] },
+  { label: 'サポート',     vals: ['なし', 'あり', 'あり', 'なし'] },
+];
+
+const screens = [
+  { caption: 'ホーム — 資金の危険日とやることが一目で' },
+  { caption: '資金繰り — 残高推移とショート予測' },
+  { caption: '工事詳細 — 現場ごとの利益' },
+  { caption: '見積 — 法定福利費を自動計算' },
+  { caption: '請求 — 建設仕様に対応' },
+  { caption: '分析 — 見積のズレを工種別に学習' },
+];
+---
+
+<BaseLayout
+  title="建設番頭｜工事の利益と資金繰りが見える買い切りソフト｜建設業ツール工房"
+  description="個人〜小規模の建設業向け。工事ごとの原価・粗利と会社の資金繰りをまとめて見える化。資金ショートの危険日を予測し「黒字倒産」を防ぎます。法定福利費つき見積・人工代対応の請求も。任意の事業年度に対応。買い切り¥19,800・月額なし。"
+  ogType="product"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <style is:global>
+    /* ===== 建設番頭ページ アニメーション ===== */
+    @media (prefers-reduced-motion: no-preference) {
+      .kb-reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .kb-reveal.kb-visible { opacity: 1; transform: translateY(0); }
+      .kb-reveal-left {
+        opacity: 0; transform: translateX(-28px);
+        transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .kb-reveal-left.kb-visible { opacity: 1; transform: translateX(0); }
+      .kb-reveal-right {
+        opacity: 0; transform: translateX(28px);
+        transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .kb-reveal-right.kb-visible { opacity: 1; transform: translateX(0); }
+      .kb-stagger > .kb-reveal:nth-child(1) { transition-delay:   0ms; }
+      .kb-stagger > .kb-reveal:nth-child(2) { transition-delay:  70ms; }
+      .kb-stagger > .kb-reveal:nth-child(3) { transition-delay: 140ms; }
+      .kb-stagger > .kb-reveal:nth-child(4) { transition-delay: 210ms; }
+      .kb-stagger > .kb-reveal:nth-child(5) { transition-delay: 280ms; }
+      .kb-stagger > .kb-reveal:nth-child(6) { transition-delay: 350ms; }
+      .kb-stagger > .kb-reveal:nth-child(7) { transition-delay: 420ms; }
+      .kb-stagger > .kb-reveal:nth-child(8) { transition-delay: 490ms; }
+    }
+    /* グリッド */
+    .kb-hero-grid   { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 44px; align-items: center; }
+    .kb-prob-grid   { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .kb-feat-grid   { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .kb-screen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    /* カード */
+    .kb-prob-card { background: #FFFFFF; border: 1px solid #E3E8F0; border-radius: 14px; padding: 22px; }
+    .kb-feat-card { background: #FFFFFF; border: 1px solid #E3E8F0; border-radius: 14px; padding: 24px; transition: border-color 0.15s, transform 0.15s; }
+    .kb-feat-card:hover { border-color: #0F2557; transform: translateY(-2px); }
+    .kb-feat-card.kb-hero-feat { grid-column: 1 / -1; background: linear-gradient(120deg, #0F2557, #1b3a7a); color: #fff; border: none; }
+    .kb-feat-card.kb-hero-feat p { color: #d6def2; }
+    /* 波形遷移 */
+    .kb-wave { border-radius: 60px 60px 0 0; }
+    .kb-wave-pull { margin-top: -36px; }
+    /* レスポンシブ */
+    @media (max-width: 860px) {
+      .kb-hero-grid   { grid-template-columns: 1fr; gap: 30px; }
+      .kb-prob-grid   { grid-template-columns: 1fr; }
+      .kb-feat-grid   { grid-template-columns: 1fr; }
+      .kb-screen-grid { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 861px) and (max-width: 1023px) {
+      .kb-prob-grid   { grid-template-columns: repeat(2, 1fr); }
+      .kb-screen-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+
+  <!-- パンくず -->
+  <div class="w-full px-4 sm:px-6 lg:px-10 py-3 bg-white border-b border-slate-100">
+    <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
+      <a href="/" class="hover:text-[#0F2557] transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <a href="/products/" class="hover:text-[#0F2557] transition-colors">ツール・商品</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-700">建設番頭</span>
+    </nav>
+  </div>
+
+  <!-- S1: ヒーロー -->
+  <section style="background: linear-gradient(180deg, #EEF1F8, #FFFFFF); border-bottom: 1px solid #E3E8F0; position: relative; overflow: hidden;">
+    <div class="container-base" style="padding-top: 56px; padding-bottom: 72px;">
+      <div class="kb-hero-grid">
+
+        <!-- 左：テキスト -->
+        <div class="kb-reveal-left" style="display: flex; flex-direction: column; gap: 20px;">
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <span style="display: inline-block; background: #0F2557; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; padding: 5px 14px; border-radius: 999px; width: fit-content;">ONE-TIME PURCHASE</span>
+            <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: #D98708; text-transform: uppercase;">個人〜小規模の建設業向け・経営の見える化</p>
+          </div>
+          <h1 style="margin: 0; font-size: clamp(1.9rem, 5.2vw, 3rem); font-weight: 900; line-height: 1.28; color: #1f2430;">
+            工事の<span style="color: #0F2557; background: linear-gradient(transparent 62%, rgba(245,158,11,0.35) 62%);">利益</span>と、会社の<span style="color: #0F2557; background: linear-gradient(transparent 62%, rgba(245,158,11,0.35) 62%);">資金繰り</span>を、ひと目で。
+          </h1>
+          <p style="margin: 0; font-size: 14.5px; line-height: 2.0; color: #5f6b7a;">「建設番頭」は、工事ごとの原価と利益、そして会社の資金の流れまでをまとめて見える買い切りの経営ツールです。<strong style="color: #1f2430;">「黒字なのにお金が足りない」を、起こる前に気づけます。</strong></p>
+          <div style="display: inline-flex; align-items: baseline; gap: 10px; background: #fff; border: 2px solid #0F2557; border-radius: 14px; padding: 12px 18px; width: fit-content;">
+            <span style="font-size: 1.7rem; font-weight: 900; color: #0F2557;">買い切り ¥{PRODUCT.price.toLocaleString()}</span>
+            <span style="font-size: 0.8rem; color: #5f6b7a;">税込・月額なし</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; font-weight: 700; color: #0F2557;">
+            {['月額0円', '資金ショートを予測', '法人の事業年度に対応'].map(t => (
+              <span><span style="color: #D98708;">✓</span> {t}</span>
+            ))}
+          </div>
+          <div>
+            <a href="#price" style="display: inline-flex; align-items: center; gap: 8px; background: #F59E0B; color: #3a2600; font-weight: 900; text-decoration: none; padding: 15px 30px; border-radius: 999px; box-shadow: 0 6px 18px rgba(245,158,11,.35); font-size: 15px;">今すぐ購入する →</a>
+          </div>
+        </div>
+
+        <!-- 右：スクリーンショットプレースホルダー -->
+        <div class="kb-reveal-right" style="position: relative;">
+          <div style="background: #fff; border: 1px solid #E3E8F0; border-radius: 16px; box-shadow: 0 20px 50px rgba(15,37,87,.14); aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; padding: 20px; background-image: linear-gradient(135deg, #fafbff, #eef1f8);">
+            <div style="border: 2px dashed #b9c2d6; border-radius: 12px; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #8a95ab; font-size: 13px; text-align: center; padding: 16px;">
+              アプリのホーム画面（資金繰りダッシュボード）<br>
+              <span style="font-size: 11px; margin-top: 6px; display: block;">※スクリーンショットは実装後に差し込み</span>
+            </div>
+          </div>
+          <div style="position: absolute; bottom: -20px; right: 0; display: flex; gap: 2px;">
+            <img src="/images/characters/uta_tati.png" alt="ウタ" aria-hidden="true" style="width: 72px; height: auto; filter: drop-shadow(0 8px 12px rgba(0,0,0,.15));">
+            <img src="/images/characters/natu_tati.png" alt="ナツ" aria-hidden="true" style="width: 72px; height: auto; filter: drop-shadow(0 8px 12px rgba(0,0,0,.15));">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- S2: 課題 -->
+  <section class="kb-wave" style="background: #F7F5EF; position: relative;">
+    <div class="container-base kb-reveal" style="padding-top: 76px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 28px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: #D98708; text-transform: uppercase;">PROBLEM — こんな悩みありませんか？</p>
+        <h2 style="margin: 0; font-size: clamp(1.5rem, 4vw, 2.15rem); font-weight: 900; line-height: 1.35; color: #1f2430;">利益は出ているはずなのに、お金が残らない。</h2>
+      </div>
+      <div class="kb-prob-grid kb-stagger">
+        {problems.map(p => (
+          <div class="kb-prob-card kb-reveal">
+            <div style="width: 34px; height: 34px; border-radius: 50%; background: #fdeccd; color: #D98708; font-weight: 900; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; font-size: 16px;">!</div>
+            <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 900; color: #1f2430;">{p.title}</h3>
+            <p style="margin: 0; font-size: 13.5px; color: #5f6b7a; line-height: 1.8;">{p.body}</p>
+          </div>
+        ))}
+      </div>
+      <p style="margin: 0; text-align: center; font-weight: 900; font-size: 17px; color: #0F2557;">その不安、この一本で「見える」ようになります。</p>
+    </div>
+  </section>
+
+  <!-- S3: 機能 -->
+  <section class="kb-wave kb-wave-pull" style="background: #FFFFFF; position: relative;">
+    <div class="container-base kb-reveal" style="padding-top: 76px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 28px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: #D98708; text-transform: uppercase;">FUNCTION — 主な機能</p>
+        <h2 style="margin: 0; font-size: clamp(1.5rem, 4vw, 2.15rem); font-weight: 900; line-height: 1.35; color: #1f2430;">記録するだけで、経営が見えてくる。</h2>
+        <p style="margin: 0; font-size: 14.5px; color: #5f6b7a;">入力するのは、工事・原価・入金・支払だけ。あとは番頭が計算して見せます。</p>
+      </div>
+      <div class="kb-feat-grid kb-stagger">
+        {features.map(f => (
+          <div class={`kb-feat-card kb-reveal${f.hero ? ' kb-hero-feat' : ''}`}>
+            <div style={`font-size: 12px; font-weight: 900; letter-spacing: 0.08em; margin-bottom: 8px; ${f.hero ? 'color: #F59E0B;' : 'color: #D98708;'}`}>{f.no}{f.hero ? ' — 看板機能' : ''}</div>
+            <h3 style={`margin: 0 0 8px; font-size: 16px; font-weight: 900; ${f.hero ? 'color: #fff;' : 'color: #0F2557;'}`}>{f.title}</h3>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.85;">{f.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S4: 比較 -->
+  <section class="kb-wave" style="background: #EEF1F8; position: relative;">
+    <div class="container-base kb-reveal" style="padding-top: 76px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 28px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: #D98708; text-transform: uppercase;">COMPARISON</p>
+        <h2 style="margin: 0; font-size: clamp(1.5rem, 4vw, 2.15rem); font-weight: 900; line-height: 1.35; color: #1f2430;">他のツールと比べてみると</h2>
+        <p style="margin: 0; font-size: 14.5px; color: #5f6b7a;">用途が違うだけで、どれも正解です。本品が合うかどうか確認してください。</p>
+      </div>
+
+      <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+        <table style="width: 100%; border-collapse: collapse; background: #FFFFFF; border-radius: 14px; overflow: hidden; font-size: 13.5px; min-width: 580px;">
+          <thead>
+            <tr>
+              {['比較項目', '無料ツール', '買い切り原価ソフト', 'クラウド型（月額）', '本品 建設番頭'].map((h, i) => (
+                <th style={`padding: 13px 14px; text-align: ${i === 0 ? 'left' : 'center'}; font-size: 12px; font-weight: 700; white-space: nowrap; ${i === 4 ? 'background: #F59E0B; color: #3a2600;' : 'background: #0F2557; color: #fff;'}`}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {comparisonRows.map((row, i) => (
+              <tr>
+                <td style={`padding: 13px 14px; text-align: left; font-weight: 700; color: #0F2557; ${i !== comparisonRows.length - 1 ? 'border-bottom: 1px solid #E3E8F0;' : ''}`}>{row.label}</td>
+                {row.vals.map((v, j) => (
+                  <td style={`padding: 13px 14px; text-align: center; ${j === 3 ? 'background: #FFF9EF; font-weight: 700; color: #0F2557;' : 'color: #5f6b7a;'} ${i !== comparisonRows.length - 1 ? 'border-bottom: 1px solid #E3E8F0;' : ''}`}>{v}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="margin: 0; font-size: 11.5px; color: #8FA1C4; text-align: center;">※ 価格・機能は2026年時点の各社公開情報に基づく参考比較です。月額サービスは年約12万円が目安になります。</p>
+
+      <!-- キャラクターコメント -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 6px;">
+        <div style="background: #fff; border: 1px solid #E3E8F0; border-radius: 14px; padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start;">
+          <img src="/images/characters/uta_tati.png" alt="" aria-hidden="true" style="width: 56px; height: auto; flex: none;">
+          <div>
+            <div style="font-weight: 900; color: #0F2557; font-size: 13px; margin-bottom: 4px;">ウタ（監督）</div>
+            <p style="margin: 0; font-size: 13px; color: #5f6b7a; line-height: 1.85;">利益は出てるのに金が足りない、が一番こわい。危険日が先に見えれば、入金の相談も支払いの調整も、手の打ちようがあるんだ。</p>
+          </div>
+        </div>
+        <div style="background: #fff; border: 1px solid #E3E8F0; border-radius: 14px; padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start;">
+          <img src="/images/characters/natu_tati.png" alt="" aria-hidden="true" style="width: 56px; height: auto; flex: none;">
+          <div>
+            <div style="font-weight: 900; color: #0F2557; font-size: 13px; margin-bottom: 4px;">ナツ（職人）</div>
+            <p style="margin: 0; font-size: 13px; color: #5f6b7a; line-height: 1.85;">月額はずっと払い続けるのだ。買い切りなら一度きり。浮いたぶんは、現場や道具に回せるのだ。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S5: 画面イメージ（スクリーンショット未実装） -->
+  <section class="kb-wave kb-wave-pull" style="background: #F7F5EF; position: relative;">
+    <div class="container-base kb-reveal" style="padding-top: 76px; padding-bottom: 64px; display: flex; flex-direction: column; gap: 28px;">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center;">
+        <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: #D98708; text-transform: uppercase;">中身をお見せします</p>
+        <h2 style="margin: 0; font-size: clamp(1.5rem, 4vw, 2.15rem); font-weight: 900; line-height: 1.35; color: #1f2430;">画面イメージ</h2>
+        <p style="margin: 0; font-size: 14.5px; color: #5f6b7a;">実際のアプリ画面です。（スクリーンショットは実装完成後に差し込みます）</p>
+      </div>
+      <div class="kb-screen-grid kb-stagger">
+        {screens.map(s => (
+          <figure class="kb-reveal" style="margin: 0;">
+            <div style="aspect-ratio: 16/10; border: 2px dashed #b9c2d6; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #8a95ab; font-size: 12px; background: #fff; padding: 12px; text-align: center;">準備中</div>
+            <figcaption style="font-size: 12px; color: #5f6b7a; margin-top: 8px; text-align: center;">{s.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <div style="background: #fff7e9; border: 1px dashed #F59E0B; border-radius: 12px; padding: 12px 16px; color: #D98708; font-size: 12px; font-weight: 700; text-align: center;">
+        ◆ 仕上げ工程：実装後のスクリーンショットをここに差し込みます（この一箇所のみ未完了）
+      </div>
+    </div>
+  </section>
+
+  <!-- S6: 価格 -->
+  <section class="kb-wave kb-wave-pull" id="price" style="background: #FFFFFF; position: relative;">
+    <div class="container-base kb-reveal" style="padding-top: 76px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 32px; max-width: 860px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: #D98708; text-transform: uppercase;">PRICE</p>
+        <h2 style="margin: 0; font-size: clamp(1.5rem, 4vw, 2.15rem); font-weight: 900; line-height: 1.35; color: #1f2430;">一度買えば、ずっと使えます。</h2>
+      </div>
+
+      <div style="border: 2px solid #0F2557; border-radius: 16px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr;">
+        <!-- 左：価格 -->
+        <div style="background: #0F2557; padding: 36px; display: flex; flex-direction: column; gap: 0;">
+          <p style="margin: 0 0 6px; font-size: 2.4rem; font-weight: 900; color: #fff;">買い切り ¥{PRODUCT.price.toLocaleString()}</p>
+          <p style="margin: 0 0 20px; color: #cdd7ef; font-size: 13px;">税込・月額なし ／ BUY ONCE, USE FOREVER</p>
+          <ul style="list-style: none; margin: 0 0 28px; padding: 0; display: flex; flex-direction: column; gap: 10px; flex: 1;">
+            {[
+              '永続ライセンス',
+              '月額0円（更新料なし）',
+              '資金ショート予測',
+              '任意の事業年度に対応（法人・個人）',
+              '複数PCで利用可（ファイル持ち運び）',
+              'ローカル保存（情報を外に出さない）',
+              '不具合無償対応',
+            ].map(item => (
+              <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; color: #fff;">
+                <span style="color: #F59E0B; font-weight: 900; flex: none;">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <button
+            id="buy-btn-kb"
+            type="button"
+            style="width: 100%; background: #F59E0B; color: #3a2600; font-weight: 900; font-size: 15px; padding: 15px; border-radius: 999px; border: none; cursor: pointer; box-shadow: 0 6px 18px rgba(245,158,11,.35);"
+          >
+            今すぐ購入する →
+          </button>
+        </div>
+        <!-- 右：動作環境 -->
+        <div style="padding: 36px; background: #fff; display: flex; flex-direction: column; gap: 0;">
+          <p style="margin: 0 0 16px; font-size: 14px; font-weight: 900; color: #0F2557;">REQUIREMENTS — 動作環境</p>
+          <ul style="list-style: none; margin: 0 0 auto; padding: 0; display: flex; flex-direction: column;">
+            {[
+              { label: 'OS',       value: 'Windows 10 / 11（64bit）' },
+              { label: 'ランタイム', value: '同梱（別途インストール不要）' },
+              { label: 'データ保存', value: 'ローカル（SQLite）' },
+              { label: '事業年度', value: '任意（法人・個人とも対応）' },
+              { label: '税処理',   value: '税抜・税込どちらも' },
+              { label: '導入',     value: '単一ファイル・すぐ起動' },
+            ].map((row, i) => (
+              <li style={`display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; font-size: 13px; ${i !== 5 ? 'border-bottom: 1px dashed #E3E8F0;' : ''}`}>
+                <span style="color: #5f6b7a; flex: none;">{row.label}</span>
+                <span style="color: #1f2430; font-weight: 600; text-align: right;">{row.value}</span>
+              </li>
+            ))}
+          </ul>
+          <p style="margin: 16px 0 0; font-size: 11.5px; color: #8FA1C4; line-height: 1.85;">
+            ※ Mac・Linux・ChromeOS は非対応です。<br>
+            ※ クラウド同期・複数人同時編集は非対応です。<br>
+            ※ 決算書・申告書そのものの作成は行いません。
+          </p>
+          <a href="/faq/" style="display: block; margin-top: 16px; text-align: center; color: #0F2557; font-size: 14px; font-weight: 700; text-decoration: underline;">よくある質問を見る →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S7: ラインアップ -->
+  <section class="kb-wave" style="background: #EEF1F8; position: relative;">
+    <div class="container-base kb-reveal" style="padding-top: 76px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 28px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: #D98708; text-transform: uppercase;">LINEUP — 3つのツールの選び方</p>
+        <h2 style="margin: 0; font-size: clamp(1.5rem, 4vw, 2.15rem); font-weight: 900; line-height: 1.35; color: #1f2430;">目的で選べる、3つの相棒。</h2>
+        <p style="margin: 0; font-size: 14.5px; color: #5f6b7a;">用途が違うので、重なりません。今のあなたに合う一本をどうぞ。</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+        <div style="background: #fff; border: 1px solid #E3E8F0; border-radius: 14px; padding: 22px;">
+          <p style="margin: 0 0 6px; font-size: 11px; font-weight: 900; letter-spacing: 0.08em; color: #D98708;">申告のため</p>
+          <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 900; color: #0F2557;">シンプル工事台帳 ライト版</h3>
+          <p style="margin: 0 0 10px; font-size: 13px; color: #5f6b7a; line-height: 1.75;">一人親方・個人事業主の確定申告用。工事ごとの収支をExcelで記録・集計。</p>
+          <p style="margin: 0 0 10px; font-size: 14px; font-weight: 900; color: #1f2430;">¥5,980（買い切り）</p>
+          <a href="/products/koji-daicho/" style="font-size: 13px; color: #0F2557; font-weight: 700; text-decoration: underline;">詳しく見る →</a>
+        </div>
+        <div style="background: #fff; border: 2px solid #0F2557; border-radius: 14px; padding: 22px;">
+          <p style="margin: 0 0 6px; font-size: 11px; font-weight: 900; letter-spacing: 0.08em; color: #D98708;">経営のため</p>
+          <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 900; color: #0F2557;">建設番頭</h3>
+          <p style="margin: 0 0 10px; font-size: 13px; color: #5f6b7a; line-height: 1.75;">個人〜小規模の許可業者向け。原価・粗利・資金繰りを見える化。見積・請求まで。</p>
+          <p style="margin: 0 0 10px; font-size: 14px; font-weight: 900; color: #1f2430;">¥19,800（買い切り）</p>
+          <a href="#price" style="font-size: 13px; color: #0F2557; font-weight: 700; text-decoration: underline;">このページの商品 ↑</a>
+        </div>
+        <div style="background: #fff; border: 1px solid #E3E8F0; border-radius: 14px; padding: 22px;">
+          <p style="margin: 0 0 6px; font-size: 11px; font-weight: 900; letter-spacing: 0.08em; color: #D98708;">現場のため</p>
+          <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 900; color: #0F2557;">シンプル安全台帳</h3>
+          <p style="margin: 0 0 10px; font-size: 13px; color: #5f6b7a; line-height: 1.75;">作業員・車両の安全書類を管理。名簿・車両届などをかんたんに。</p>
+          <p style="margin: 0 0 10px; font-size: 14px; font-weight: 900; color: #1f2430;">¥9,800（買い切り）</p>
+          <a href="/products/anzen-daicho/" style="font-size: 13px; color: #0F2557; font-weight: 700; text-decoration: underline;">詳しく見る →</a>
+        </div>
+      </div>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 260px; background: #fff; border: 1px dashed #0F2557; border-radius: 12px; padding: 16px 18px; font-size: 13.5px;">
+          <strong style="color: #0F2557;">経営＋安全のセット</strong><br>
+          建設番頭 ＋ シンプル安全台帳を一緒に。<br>
+          単品合計¥29,600 → <strong>セット ¥25,800</strong>
+        </div>
+        <div style="flex: 1; min-width: 260px; background: #fff; border: 1px dashed #0F2557; border-radius: 12px; padding: 16px 18px; font-size: 13.5px;">
+          <strong style="color: #0F2557;">ライト版をお使いの方へ</strong><br>
+          事業が育って利益・資金繰りまで見たくなったら。<br>
+          <strong>¥3,000オフ</strong>で建設番頭へ（実質¥16,800）
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S8: クロージング -->
+  <section style="background: linear-gradient(120deg, #0F2557, #1b3a7a); text-align: center;">
+    <div class="container-base kb-reveal" style="padding-top: 76px; padding-bottom: 76px; display: flex; flex-direction: column; align-items: center; gap: 16px;">
+      <h2 style="margin: 0; font-size: clamp(1.5rem, 4vw, 2.15rem); font-weight: 900; line-height: 1.35; color: #fff;">今日から、どんぶり勘定を卒業。</h2>
+      <p style="margin: 0; font-size: 14.5px; color: #d6def2;">工事の利益も、会社の資金も、見えれば動ける。</p>
+      <a href="#price" style="margin-top: 8px; display: inline-flex; align-items: center; gap: 8px; background: #F59E0B; color: #3a2600; font-weight: 900; text-decoration: none; padding: 15px 30px; border-radius: 999px; box-shadow: 0 6px 18px rgba(245,158,11,.35); font-size: 15px;">建設番頭を購入する →</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<!-- エラートースト -->
+<div
+  id="kb-buy-toast"
+  class="fixed top-4 left-1/2 -translate-x-1/2 z-50 items-center gap-3 bg-red-600 text-white font-bold px-6 py-4 rounded-xl shadow-lg text-sm"
+  role="alert"
+  style="display:none"
+>
+  <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+  決済画面の読み込みに失敗しました。もう一度お試しください。
+</div>
+
+<script>
+  // ===== 購入ボタン =====
+  function showKbToast() {
+    const t = document.getElementById('kb-buy-toast');
+    if (!t) return;
+    t.style.display = 'flex';
+    setTimeout(() => { t.style.display = 'none'; }, 4000);
+  }
+
+  async function handleKbBuy(btn: HTMLButtonElement) {
+    const orig = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = '読み込み中…';
+    try {
+      const res = await fetch('/api/create-checkout-kb', { method: 'POST' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if (!data?.url) throw new Error('no url');
+      window.location.href = data.url;
+    } catch {
+      showKbToast();
+      btn.disabled = false;
+      btn.textContent = orig ?? '';
+    }
+  }
+
+  function initKbBuyButtons() {
+    const b = document.getElementById('buy-btn-kb') as HTMLButtonElement | null;
+    if (!b || b.dataset.buyInit) return;
+    b.dataset.buyInit = '1';
+    b.addEventListener('click', () => handleKbBuy(b!));
+  }
+
+  initKbBuyButtons();
+  document.addEventListener('astro:page-load', initKbBuyButtons);
+
+  // ===== アニメーション =====
+  function initKbAnimations() {
+    const prevAc = (window as any).__kbObsAbort;
+    if (prevAc) prevAc.abort();
+    const ac = new AbortController();
+    (window as any).__kbObsAbort = ac;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('kb-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.kb-reveal, .kb-reveal-left, .kb-reveal-right').forEach(el => obs.observe(el));
+  }
+
+  initKbAnimations();
+  document.addEventListener('astro:page-load', initKbAnimations);
+</script>
