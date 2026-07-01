@@ -82,6 +82,7 @@ const screens = [
 <BaseLayout
   title="建設番頭｜工事の利益と資金繰りが見える買い切りソフト｜建設業ツール工房"
   description="個人〜小規模の建設業向け。工事ごとの原価・粗利と会社の資金繰りをまとめて見える化。資金ショートの危険日を予測し「黒字倒産」を防ぎます。法定福利費つき見積・人工代対応の請求も。任意の事業年度に対応。買い切り¥19,800・月額なし。"
+  ogImage="/og/kensetsu-banto.png"
   ogType="product"
 >
   <Fragment slot="head">
@@ -134,16 +135,24 @@ const screens = [
     /* 波形遷移 */
     .kb-wave { border-radius: 60px 60px 0 0; }
     .kb-wave-pull { margin-top: -36px; }
+    /* 追加グリッド */
+    .kb-price-grid  { display: grid; grid-template-columns: 1fr 1fr; }
+    .kb-lineup-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .kb-chara-grid  { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 6px; }
     /* レスポンシブ */
     @media (max-width: 860px) {
       .kb-hero-grid   { grid-template-columns: 1fr; gap: 30px; }
       .kb-prob-grid   { grid-template-columns: 1fr; }
       .kb-feat-grid   { grid-template-columns: 1fr; }
       .kb-screen-grid { grid-template-columns: 1fr; }
+      .kb-price-grid  { grid-template-columns: 1fr; }
+      .kb-lineup-grid { grid-template-columns: 1fr; }
+      .kb-chara-grid  { grid-template-columns: 1fr; }
     }
     @media (min-width: 861px) and (max-width: 1023px) {
       .kb-prob-grid   { grid-template-columns: repeat(2, 1fr); }
       .kb-screen-grid { grid-template-columns: repeat(2, 1fr); }
+      .kb-lineup-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 
@@ -278,7 +287,7 @@ const screens = [
       <p style="margin: 0; font-size: 11.5px; color: #8FA1C4; text-align: center;">※ 価格・機能は2026年時点の各社公開情報に基づく参考比較です。月額サービスは年約12万円が目安になります。</p>
 
       <!-- キャラクターコメント -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 6px;">
+      <div class="kb-chara-grid">
         <div style="background: #fff; border: 1px solid #E3E8F0; border-radius: 14px; padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start;">
           <img src="/images/characters/uta_tati.png" alt="" aria-hidden="true" style="width: 56px; height: auto; flex: none;">
           <div>
@@ -327,7 +336,7 @@ const screens = [
         <h2 style="margin: 0; font-size: clamp(1.5rem, 4vw, 2.15rem); font-weight: 900; line-height: 1.35; color: #1f2430;">一度買えば、ずっと使えます。</h2>
       </div>
 
-      <div style="border: 2px solid #0F2557; border-radius: 16px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr;">
+      <div class="kb-price-grid" style="border: 2px solid #0F2557; border-radius: 16px; overflow: hidden;">
         <!-- 左：価格 -->
         <div style="background: #0F2557; padding: 36px; display: flex; flex-direction: column; gap: 0;">
           <p style="margin: 0 0 6px; font-size: 2.4rem; font-weight: 900; color: #fff;">買い切り ¥{PRODUCT.price.toLocaleString()}</p>
@@ -393,7 +402,7 @@ const screens = [
         <h2 style="margin: 0; font-size: clamp(1.5rem, 4vw, 2.15rem); font-weight: 900; line-height: 1.35; color: #1f2430;">目的で選べる、3つの相棒。</h2>
         <p style="margin: 0; font-size: 14.5px; color: #5f6b7a;">用途が違うので、重なりません。今のあなたに合う一本をどうぞ。</p>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+      <div class="kb-lineup-grid">
         <div style="background: #fff; border: 1px solid #E3E8F0; border-radius: 14px; padding: 22px;">
           <p style="margin: 0 0 6px; font-size: 11px; font-weight: 900; letter-spacing: 0.08em; color: #D98708;">申告のため</p>
           <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 900; color: #0F2557;">シンプル工事台帳 ライト版</h3>
@@ -440,18 +449,18 @@ const screens = [
     </div>
   </section>
 
-</BaseLayout>
+  <!-- エラートースト -->
+  <div
+    id="kb-buy-toast"
+    class="fixed top-4 left-1/2 -translate-x-1/2 z-50 items-center gap-3 bg-red-600 text-white font-bold px-6 py-4 rounded-xl shadow-lg text-sm"
+    role="alert"
+    style="display:none"
+  >
+    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    決済画面の読み込みに失敗しました。もう一度お試しください。
+  </div>
 
-<!-- エラートースト -->
-<div
-  id="kb-buy-toast"
-  class="fixed top-4 left-1/2 -translate-x-1/2 z-50 items-center gap-3 bg-red-600 text-white font-bold px-6 py-4 rounded-xl shadow-lg text-sm"
-  role="alert"
-  style="display:none"
->
-  <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-  決済画面の読み込みに失敗しました。もう一度お試しください。
-</div>
+</BaseLayout>
 
 <script>
   // ===== 購入ボタン =====
@@ -490,17 +499,17 @@ const screens = [
   document.addEventListener('astro:page-load', initKbBuyButtons);
 
   // ===== アニメーション =====
+  var _kbObservers: IntersectionObserver[] = (window as any)._kbObservers || [];
+
   function initKbAnimations() {
-    const prevAc = (window as any).__kbObsAbort;
-    if (prevAc) prevAc.abort();
-    const ac = new AbortController();
-    (window as any).__kbObsAbort = ac;
+    _kbObservers.forEach(function(o) { o.disconnect(); });
+    _kbObservers = [];
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced || !('IntersectionObserver' in window)) return;
 
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+    const obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add('kb-visible');
           obs.unobserve(entry.target);
@@ -508,7 +517,9 @@ const screens = [
       });
     }, { threshold: 0.08 });
 
-    document.querySelectorAll('.kb-reveal, .kb-reveal-left, .kb-reveal-right').forEach(el => obs.observe(el));
+    document.querySelectorAll('.kb-reveal, .kb-reveal-left, .kb-reveal-right').forEach(function(el) { obs.observe(el); });
+    _kbObservers.push(obs);
+    (window as any)._kbObservers = _kbObservers;
   }
 
   initKbAnimations();
