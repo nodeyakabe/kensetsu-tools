@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { PRODUCT } from '@/data/product';
+import { PRODUCT, ANZEN_DAICHO, KENSETSU_BANTO } from '@/data/product';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
@@ -124,10 +124,10 @@ const pillars = [
       </div>
 
       <div class="flex items-center gap-4 px-7 py-5 border-r border-[#E9EDF3]">
-        <div aria-hidden="true" class="w-11 h-11 bg-[#EFF2F7] rounded-lg flex items-center justify-center text-[#0F2557] font-black text-[18px] flex-shrink-0">✓</div>
+        <div aria-hidden="true" class="w-11 h-11 bg-[#EFF2F7] rounded-lg flex items-center justify-center text-[#0F2557] font-black text-[13px] flex-shrink-0">建</div>
         <div>
-          <div class="text-[14px] font-black text-[#0F2557]">確定申告に対応</div>
-          <div class="text-[12px] text-[#5A6B85] mt-0.5">収支を自動集計</div>
+          <div class="text-[14px] font-black text-[#0F2557]">建設業に特化</div>
+          <div class="text-[12px] text-[#5A6B85] mt-0.5">現場の実務にあわせた設計</div>
         </div>
       </div>
 
@@ -208,6 +208,11 @@ const pillars = [
         </div>
       ))}
     </div>
+
+    <!-- S3→S4 ブリッジ -->
+    <p class="text-center text-[14px] text-[#5A6B85] mt-12 reveal">
+      そんな方のために、工房では3つの軸でサポートしています。
+    </p>
 
   </div>
 </section>
@@ -297,7 +302,7 @@ const pillars = [
           作業員の資格・健康診断、車両の車検・保険といった「期限もの」をひと目で管理し、安全書類づくりまでつなげるツール。
         </div>
         <div class="mt-auto pt-3 border-t border-[#E3E8F0] flex items-baseline gap-2">
-          <span class="text-[22px] font-black text-[#0F2557]">¥9,800</span>
+          <span class="text-[22px] font-black text-[#0F2557]">¥{ANZEN_DAICHO.price.toLocaleString()}</span>
           <span class="text-[12px] text-[#5A6B85]">税込・買い切り</span>
         </div>
         <a href="/products/anzen-daicho/" class="mt-1 bg-[#0F2557] hover:bg-[#1B3463] text-white font-bold text-[14px] px-5 py-3 rounded-lg text-center btn-press transition-colors">商品ページを見る →</a>
@@ -314,10 +319,10 @@ const pillars = [
           工事原価・資金繰りを一本化する小規模建設許可業者向けツール。「黒字なのにお金が足りない」を、起こる前に気づけます。
         </div>
         <div class="mt-auto pt-3 border-t border-[#E3E8F0] flex items-baseline gap-2">
-          <span class="text-[22px] font-black text-[#0F2557]">¥19,800</span>
+          <span class="text-[22px] font-black text-[#0F2557]">¥{KENSETSU_BANTO.price.toLocaleString()}</span>
           <span class="text-[12px] text-[#5A6B85]">税込・買い切り</span>
         </div>
-        <a href="/products/kensetsu-banto/" class="mt-1 bg-[#0F2557] hover:bg-[#1B3463] text-white font-bold text-[14px] px-5 py-3 rounded-lg text-center btn-press transition-colors">商品ページを見る →</a>
+        <a href="/products/kensetsu-banto/" class="mt-1 bg-[#9CA3AF] hover:bg-[#6B7280] text-white font-bold text-[14px] px-5 py-3 rounded-lg text-center btn-press transition-colors">詳しく見る →</a>
       </div>
 
     </div>
