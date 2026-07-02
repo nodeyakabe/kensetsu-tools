@@ -329,7 +329,7 @@ const screens = [
 
   <!-- S6: 価格 -->
   <section class="kb-wave kb-wave-pull" id="price" style="background: #FFFFFF; position: relative;">
-    <div class="container-base kb-reveal" style="padding-top: 76px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 32px; max-width: 860px;">
+    <div class="container-base kb-reveal" style="padding-top: 76px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 32px; max-width: 1060px;">
       <div style="display: flex; flex-direction: column; gap: 10px;">
         <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: #D98708; text-transform: uppercase;">PRICE</p>
         <h2 style="margin: 0; font-size: clamp(1.5rem, 4vw, 2.15rem); font-weight: 900; line-height: 1.35; color: #1f2430;">一度買えば、ずっと使えます。</h2>
@@ -378,9 +378,9 @@ const screens = [
               { label: '必要な性能',       value: 'メモリ4GB以上・空き容量500MB以上' },
               { label: '表示言語',         value: '日本語' },
             ].map((row, i) => (
-              <li style={`display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; font-size: 13px; ${i !== 6 ? 'border-bottom: 1px dashed #E3E8F0;' : ''}`}>
-                <span style="color: #5f6b7a; flex: none;">{row.label}</span>
-                <span style="color: #1f2430; font-weight: 600; text-align: right;">{row.value}</span>
+              <li style={`display: flex; align-items: baseline; gap: 16px; padding: 10px 0; font-size: 13px; ${i !== 6 ? 'border-bottom: 1px dashed #E3E8F0;' : ''}`}>
+                <span style="color: #5f6b7a; flex: none; min-width: 120px;">{row.label}</span>
+                <span style="color: #1f2430; font-weight: 600;">{row.value}</span>
               </li>
             ))}
           </ul>
