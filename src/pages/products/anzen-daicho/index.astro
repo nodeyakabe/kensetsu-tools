@@ -401,84 +401,79 @@ const comparisonRows = [
   </section>
 
   <!-- S6: 価格 -->
-  <section class="az-wave" style="background: #E4EBF6; position: relative; overflow: hidden;">
-    <div style="position: absolute; top: -180px; right: -160px; width: 520px; height: 520px; background: #EDF2F9; border-radius: 50%; pointer-events: none;"></div>
-    <div class="container-base az-reveal" style="padding-top: 80px; padding-bottom: 72px; position: relative; display: flex; flex-direction: column; gap: 36px;">
-      <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
-        <span class="az-pill">PRICE — 価格</span>
-        <h2 style="margin: 0; font-size: 30px; font-weight: 900; color: #0F2557; letter-spacing: 0.04em;">買い切り・月額なし</h2>
-      </div>
+  <section class="az-wave" style="background: #EEF1F6; position: relative; overflow: hidden;">
+    <div class="container-base az-reveal" style="padding-top: 80px; padding-bottom: 72px; position: relative;">
+      <div style="max-width: 1000px; margin: 0 auto; background: #FFFFFF; border-radius: 20px; padding: 44px 40px; display: flex; flex-direction: column; gap: 28px; align-items: center;">
 
-      <div class="az-price-grid" style="max-width: 760px; margin: 0 auto; width: 100%;">
-
-        <!-- 単品カード -->
-        <div class="az-price-card" style="background: #FFFFFF; border: 2px solid #F59E0B; border-radius: 24px; padding: 32px 28px; box-shadow: 0 8px 28px rgba(245,158,11,0.12); text-align: center;">
-          <p style="margin: 0 0 4px; font-size: 12.5px; font-weight: 700; color: #5A6B85; letter-spacing: 0.08em;">シンプル安全台帳</p>
-          <p style="margin: 0 0 2px; font-size: 44px; font-weight: 900; color: #F59E0B;">¥{PRODUCT.price.toLocaleString()}</p>
-          <p style="margin: 0 0 22px; font-size: 12px; color: #8FA1C4;">税込・買い切り</p>
-          <hr style="border: none; border-top: 1px solid #E3E8F0; margin-bottom: 22px;" />
-          <ul class="az-price-list" style="list-style: none; margin: 0 0 24px; padding: 0; display: flex; flex-direction: column; gap: 10px; text-align: left;">
-            {[
-              '永続ライセンス',
-              '同一事業者内の複数PCで利用可',
-              '不具合の無償対応',
-              'ダブルクリックで起動（インストール不要）',
-              'ランタイム別途インストール不要',
-              'データはあなたのPCだけに保存',
-              '個人情報のクラウド送信なし',
-            ].map(item => (
-              <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; color: #44536E;">
-                <span style="color: #F59E0B; font-weight: 900; flex: none; margin-top: 1px;">✓</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-          <button
-            id="buy-btn-anzen"
-            type="button"
-            class="bg-accent-500 hover:bg-accent-600 text-white transition-colors"
-            style="width: 100%; font-weight: 700; font-size: 15px; padding: 15px; border-radius: 12px; border: none; cursor: pointer;"
-          >
-            今すぐ購入する →
-          </button>
+        <!-- 見出し -->
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
+          <span class="az-pill">PRICE — 価格</span>
+          <h2 style="margin: 0; font-size: 30px; font-weight: 900; color: #0F2557; letter-spacing: 0.04em;">買い切り・月額なし</h2>
         </div>
 
-        <!-- セットカード -->
-        <div class="az-price-card" style="background: #FFFFFF; border: 2px solid #0F2557; border-radius: 24px; padding: 32px 28px; text-align: center; position: relative;">
-          <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); white-space: nowrap;">
-            <span style="background: #0F2557; color: #FFFFFF; font-size: 12px; font-weight: 700; padding: 5px 18px; border-radius: 999px;">おトクなセット</span>
+        <!-- 単品：左＝価格/CTA、右＝仕様カード -->
+        <div style="width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+          <!-- 左：価格 + バッジ + 購入ボタン -->
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+              <div style="font-size: 14px; font-weight: 700; color: #44536E;">シンプル安全台帳</div>
+              <div style="font-size: 60px; font-weight: 900; color: #0F2557; line-height: 1;">¥{PRODUCT.price.toLocaleString()}</div>
+              <div style="font-size: 12px; color: #5A6B85;">税込・買い切り／永続ライセンス</div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;">
+              {['✓ 複数PC利用可', '✓ インストール不要', '✓ 不具合の無償対応', '✓ データはPC内のみ'].map(badge => (
+                <span style="background: #F3F6FB; border-radius: 999px; padding: 7px 16px; font-size: 12px; color: #0F2557; font-weight: 500;">{badge}</span>
+              ))}
+            </div>
+            <button
+              id="buy-btn-anzen"
+              type="button"
+              class="bg-accent-500 hover:bg-accent-600 text-white transition-colors"
+              style="width: 100%; font-weight: 700; font-size: 16px; padding: 16px; border-radius: 12px; border: none; cursor: pointer; text-align: center;"
+            >
+              今すぐ購入する →
+            </button>
           </div>
-          <p style="margin: 8px 0 4px; font-size: 12.5px; font-weight: 700; color: #5A6B85; letter-spacing: 0.08em;">工事台帳 ＋ 安全台帳 セット</p>
-          <p style="margin: 0 0 2px; font-size: 44px; font-weight: 900; color: #0F2557;">¥{PRODUCT.priceSet.toLocaleString()}</p>
-          <p style="margin: 0 0 4px; font-size: 12px; color: #8FA1C4;">税込・買い切り</p>
-          <p style="margin: 0 0 22px; font-size: 12px; font-weight: 700; color: #F59E0B;">
-            通常 ¥{(PRODUCT.price + KOJI_PRODUCT.price).toLocaleString()} → ¥{(PRODUCT.price + KOJI_PRODUCT.price - PRODUCT.priceSet).toLocaleString()} お得
-          </p>
-          <hr style="border: none; border-top: 1px solid #E3E8F0; margin-bottom: 22px;" />
-          <ul class="az-price-list" style="list-style: none; margin: 0 0 24px; padding: 0; display: flex; flex-direction: column; gap: 10px; text-align: left;">
-            {[
-              'シンプル工事台帳 ライト版（確定申告）',
-              'シンプル安全台帳（資格・書類管理）',
-              '両製品の永続ライセンス',
-            ].map(item => (
-              <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; color: #44536E;">
-                <span style="color: #0F2557; font-weight: 900; flex: none; margin-top: 1px;">✓</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-          <p style="margin: 0 0 10px; font-size: 11.5px; color: #8FA1C4;">
-            工事台帳のみの購入は<a href="/products/koji-daicho/" style="color: #5A6B85; text-decoration: underline;">こちら</a>
-          </p>
+          <!-- 右：REQUIREMENTS仕様カード -->
+          <div style="background: #F5F7FA; border: 1px solid #E3E8F0; border-radius: 16px; padding: 24px 26px; display: flex; flex-direction: column; gap: 4px;">
+            <div style="font-size: 11px; letter-spacing: 0.14em; color: #8FA1C4; margin-bottom: 8px; font-weight: 500;">REQUIREMENTS ／ 仕様</div>
+            <div style="display: grid; grid-template-columns: 96px 1fr; font-size: 13px;">
+              <div style="padding: 11px 4px; color: #8FA1C4; font-weight: 500; border-bottom: 1px solid #E6EAF1;">対応OS</div>
+              <div style="padding: 11px 4px; color: #1A2B4A; font-weight: 700; border-bottom: 1px solid #E6EAF1;">Windows 10 / 11（64bit）</div>
+              <div style="padding: 11px 4px; color: #8FA1C4; font-weight: 500; border-bottom: 1px solid #E6EAF1;">使い始め方</div>
+              <div style="padding: 11px 4px; color: #1A2B4A; font-weight: 700; border-bottom: 1px solid #E6EAF1;">ダブルクリックで起動（インストール不要）</div>
+              <div style="padding: 11px 4px; color: #8FA1C4; font-weight: 500; border-bottom: 1px solid #E6EAF1;">データ保存</div>
+              <div style="padding: 11px 4px; color: #1A2B4A; font-weight: 700; border-bottom: 1px solid #E6EAF1;">PC内のみ（クラウド送信なし）</div>
+              <div style="padding: 11px 4px; color: #8FA1C4; font-weight: 500;">推奨環境</div>
+              <div style="padding: 11px 4px; color: #1A2B4A; font-weight: 700;">メモリ 4GB以上・空き 500MB以上</div>
+            </div>
+            <div style="font-size: 11.5px; color: #8FA1C4; line-height: 1.7; margin-top: 8px;">※ Mac・Linux・ChromeOS ではお使いいただけません。</div>
+          </div>
+        </div>
+
+        <!-- セット足し算帯 -->
+        <div style="width: 100%; border-top: 1px dashed #C9D2DF; padding-top: 26px; display: flex; align-items: center; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <span style="font-size: 13px; font-weight: 700; color: #44536E;">工事台帳 <strong style="color:#0F2557;">¥{KOJI_PRODUCT.price.toLocaleString()}</strong></span>
+          <span style="font-size: 18px; font-weight: 900; color: #B9C4D6;">＋</span>
+          <span style="font-size: 13px; font-weight: 700; color: #44536E;">安全台帳 <strong style="color:#0F2557;">¥{PRODUCT.price.toLocaleString()}</strong></span>
+          <span style="font-size: 18px; font-weight: 900; color: #B9C4D6;">→</span>
+          <span style="display: inline-flex; align-items: center; gap: 10px; border: 2px solid #F59E0B; border-radius: 999px; padding: 8px 20px; background: #FFFDF8;">
+            <span style="font-size: 11px; color: #8FA1C4; text-decoration: line-through;">¥{(PRODUCT.price + KOJI_PRODUCT.price).toLocaleString()}</span>
+            <span style="font-size: 22px; font-weight: 900; color: #0F2557;">¥{PRODUCT.priceSet.toLocaleString()}</span>
+            <span style="font-size: 11px; font-weight: 700; color: #B45309; background: #FDEBC8; padding: 2px 10px; border-radius: 999px;">¥{(PRODUCT.price + KOJI_PRODUCT.price - PRODUCT.priceSet).toLocaleString()}お得</span>
+          </span>
           <button
             id="buy-btn-set"
             type="button"
             class="bg-primary-700 hover:bg-primary-800 text-white transition-colors"
-            style="width: 100%; font-weight: 700; font-size: 15px; padding: 15px; border-radius: 12px; border: none; cursor: pointer;"
+            style="font-weight: 700; font-size: 13px; padding: 12px 24px; border-radius: 10px; border: none; cursor: pointer; white-space: nowrap;"
           >
-            セットで購入する →
+            セットで購入 →
           </button>
         </div>
+        <p style="font-size: 11.5px; color: #8FA1C4; margin: 0; text-align: center;">
+          工事台帳のみの購入は<a href="/products/koji-daicho/" style="color: #5A6B85; text-decoration: underline;">こちら</a>
+        </p>
 
       </div>
     </div>
