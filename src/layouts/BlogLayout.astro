@@ -140,6 +140,8 @@ const breadcrumbSchema = JSON.stringify({
         )}
       </div>
     </div>
+    <!-- TOC表示切替用センチネル -->
+    <div id="hero-bottom-sentinel"></div>
   </section>
 
   <!-- 本文 + 追従目次 -->
@@ -147,7 +149,7 @@ const breadcrumbSchema = JSON.stringify({
     <div class="article-grid">
 
       <!-- 記事本文 -->
-      <article class="article-main flex flex-col min-w-0">
+      <article class="article-main flex flex-col">
         {heroImage && (
           <img
             src={heroImage}
@@ -175,8 +177,8 @@ const breadcrumbSchema = JSON.stringify({
         </div>
       </article>
 
-      <!-- 追従目次（デスクトップのみ・JS自動生成） -->
-      <aside class="article-toc article-toc-sticky" id="toc-aside">
+      <!-- 追従目次（1400px以上・右マージン固定・JS自動生成） -->
+      <aside class="article-toc" id="toc-aside">
         <div class="font-mono text-[11px] tracking-[0.16em] text-[#8FA1C4] pb-3 pl-3">目次 / CONTENTS</div>
         <nav id="toc-nav" class="flex flex-col gap-0.5"></nav>
         <!-- ミニCTA -->
@@ -266,14 +268,15 @@ const breadcrumbSchema = JSON.stringify({
     }
   }
 
-  /* 2カラムレイアウト（記事本文 + 追従目次） */
+  /* 記事本文レイアウト（単列・右マージンTOC） */
   .article-grid {
-    display: block;
     padding: 4rem 1.5rem 5rem;
     box-sizing: border-box;
   }
   .article-toc {
     display: none;
+    opacity: 0;
+    transition: opacity 0.2s;
   }
   @media (min-width: 640px) {
     .article-grid {
@@ -283,28 +286,25 @@ const breadcrumbSchema = JSON.stringify({
   }
   @media (min-width: 960px) {
     .article-grid {
-      display: grid;
-      grid-template-columns: 1fr 260px;
-      gap: 3.5rem;
-      align-items: start;
-      max-width: 1120px;
+      max-width: 900px;
       margin-left: auto;
       margin-right: auto;
     }
+  }
+  /* 1400px以上：TOCを右マージンに固定表示 */
+  @media (min-width: 1400px) {
     .article-toc {
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
+      position: fixed;
+      top: 100px;
+      left: calc(50vw + 450px + 2rem);
+      width: 200px;
     }
-    .article-main {
-      max-width: 720px;
+    .article-toc.is-visible {
+      opacity: 1;
     }
-  }
-
-  /* TOC sticky（announcement bar + header = ~100px） */
-  .article-toc-sticky {
-    position: sticky;
-    top: 100px;
   }
 
   /* 関連記事セクション inner */
@@ -495,6 +495,23 @@ const breadcrumbSchema = JSON.stringify({
 
 <script>
   const HEADER_OFFSET = 116;
+
+  // ヒーロー通過後にTOCを表示
+  const tocAside2 = document.getElementById('toc-aside');
+  const sentinel = document.getElementById('hero-bottom-sentinel');
+  if (sentinel && tocAside2) {
+    const heroObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          tocAside2.classList.remove('is-visible');
+        } else {
+          tocAside2.classList.add('is-visible');
+        }
+      },
+      { threshold: 0 }
+    );
+    heroObserver.observe(sentinel);
+  }
 
   // TOC 自動生成
   const article = document.querySelector('.article-main');
