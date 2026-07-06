@@ -445,15 +445,18 @@ const comparisonRows = [
               <div style="padding: 11px 4px; color: #8FA1C4; font-weight: 500; border-bottom: 1px solid #E6EAF1;">事前の準備</div>
               <div style="padding: 11px 4px; color: #1A2B4A; font-weight: 700; border-bottom: 1px solid #E6EAF1;">不要（追加ソフトは要りません）</div>
               <div style="padding: 11px 4px; color: #8FA1C4; font-weight: 500; border-bottom: 1px solid #E6EAF1;">インターネット</div>
-              <div style="padding: 11px 4px; color: #1A2B4A; font-weight: 700; border-bottom: 1px solid #E6EAF1;">購入・ダウンロード時のみ必要</div>
-              <div style="padding: 11px 4px; color: #8FA1C4; font-weight: 500; border-bottom: 1px solid #E6EAF1;">データの保存</div>
+              <div style="padding: 11px 4px; color: #1A2B4A; font-weight: 700; border-bottom: 1px solid #E6EAF1;">購入・ダウンロード時のみ必要（使用中はオフラインでOK）</div>
+              <div style="padding: 11px 4px; color: #8FA1C4; font-weight: 500; border-bottom: 1px solid #E6EAF1;">データの保存場所</div>
               <div style="padding: 11px 4px; color: #1A2B4A; font-weight: 700; border-bottom: 1px solid #E6EAF1;">お使いのPCの中だけ（外部に送信しません）</div>
               <div style="padding: 11px 4px; color: #8FA1C4; font-weight: 500; border-bottom: 1px solid #E6EAF1;">必要な性能</div>
               <div style="padding: 11px 4px; color: #1A2B4A; font-weight: 700; border-bottom: 1px solid #E6EAF1;">メモリ4GB以上・空き容量500MB以上</div>
               <div style="padding: 11px 4px; color: #8FA1C4; font-weight: 500;">表示言語</div>
               <div style="padding: 11px 4px; color: #1A2B4A; font-weight: 700;">日本語</div>
             </div>
-            <div style="font-size: 11.5px; color: #8FA1C4; line-height: 1.7; margin-top: 8px;">※ Mac・Linux・ChromeOS ではお使いいただけません。</div>
+            <div style="font-size: 11.5px; color: #8FA1C4; line-height: 1.7; margin-top: 8px;">
+              ※ Mac・Linux・ChromeOS ではお使いいただけません。<br>
+              ※ クラウド同期・複数人同時編集には対応していません（1台で使い、ファイルを持ち運ぶ運用です）。
+            </div>
             <details style="font-size: 12px; color: #5A6B85; margin-top: 6px;">
               <summary style="cursor: pointer; color: #0F2557; font-weight: 700; line-height: 1.75;">詳しい保存先を確認する（バックアップ・PC移行される方向け）</summary>
               <p style="margin: 6px 0 0; color: #44536E; line-height: 1.85; text-align: left;">データは <code>%LOCALAPPDATA%\SimpleAnzenDaicho</code> に保存されます。このフォルダごとコピーすればバックアップや別PCへの移行ができます。</p>
@@ -486,36 +489,6 @@ const comparisonRows = [
         </p>
 
       </div>
-    </div>
-  </section>
-
-  <!-- S7: 動作環境 -->
-  <section class="az-wave az-wave-pull" style="background: #FFFFFF; position: relative;">
-    <div class="container-base az-reveal" style="padding-top: 72px; padding-bottom: 56px; display: flex; flex-direction: column; gap: 28px; max-width: 760px;">
-      <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
-        <span class="az-pill">ENVIRONMENT — 動作環境</span>
-        <h2 style="margin: 0; font-size: 28px; font-weight: 900; color: #0F2557;">動作環境</h2>
-      </div>
-      <div style="background: #F3F6FB; border-radius: 20px; overflow: hidden;">
-        {[
-          { label: '対応パソコン',     value: 'Windows 10 / 11（64bit）' },
-          { label: '使い始め方',       value: 'ファイルをダブルクリックするだけ（インストール不要）' },
-          { label: '事前の準備',       value: '不要（追加ソフトは要りません）' },
-          { label: 'インターネット',   value: '購入・ダウンロード時のみ必要（使用中はオフラインでOK）' },
-          { label: 'データの保存場所', value: 'お使いのPCの中だけ（外部に送信しません）' },
-          { label: '必要な性能',       value: 'メモリ4GB以上・空き容量500MB以上' },
-          { label: '表示言語',         value: '日本語' },
-        ].map((row, i) => (
-          <div style={`display: flex; gap: 16px; padding: 14px 22px; ${i !== 0 ? 'border-top: 1px solid #E3E8F0;' : ''}`}>
-            <span style="font-size: 13px; color: #5A6B85; width: 130px; flex: none; padding-top: 1px;">{row.label}</span>
-            <span style="font-size: 13px; font-weight: 600; color: #1A2B4A;">{row.value}</span>
-          </div>
-        ))}
-      </div>
-      <p style="font-size: 11.5px; color: #8FA1C4; text-align: center; margin: 0;">
-        ※ Mac・Linux・ChromeOS ではお使いいただけません。<br>
-        ※ クラウド同期・複数人同時編集には対応していません（1台で使い、ファイルを持ち運ぶ運用です）。
-      </p>
     </div>
   </section>
 
