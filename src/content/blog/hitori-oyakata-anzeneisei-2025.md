@@ -98,5 +98,7 @@ tags: ["一人親方", "法令対応", "2025年"]
   <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳 ライト版</p>
   <p class="text-slate-600 text-sm mb-3">一人親方向けのExcel工事台帳。工事ごとの収支を記録・集計し、確定申告サマリーを自動出力。マクロ不使用・買い切り。</p>
   <p class="text-accent-500 font-semibold mb-4">¥5,980（税込・買い切り）</p>
-  <a href="/products/koji-daicho/" class="inline-block bg-accent-500 text-white font-bold py-2 px-5 rounded-lg text-sm">詳細を見る →</a>
+  <div class="flex justify-end mt-4">
+    <a href="/products/koji-daicho/" class="inline-block bg-accent-500 font-bold py-2 px-5 rounded-lg text-sm" style="color: white; text-decoration: none;">詳細を見る →</a>
+  </div>
 </div>
