@@ -50,5 +50,7 @@ tags: ["一人親方", "収支管理", "原価管理", "2024年問題"]
   <p class="text-xs font-bold text-accent-600 uppercase tracking-wider mb-2">関連商品</p>
   <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳 ライト版</p>
   <p class="text-slate-600 text-sm mb-3">一人親方向けのExcel工事台帳。工事ごとの収支入力・確定申告サマリー出力まで対応。マクロ不使用・買い切り。</p>
-  <a href="/products/koji-daicho/" class="inline-block bg-accent-500 text-white font-bold py-2 px-5 rounded-lg text-sm">詳細を見る →</a>
+  <div class="flex justify-end mt-4">
+    <a href="/products/koji-daicho/" class="inline-block bg-accent-500 font-bold py-2 px-5 rounded-lg text-sm" style="color: white; text-decoration: none;">詳細を見る →</a>
+  </div>
 </div>
