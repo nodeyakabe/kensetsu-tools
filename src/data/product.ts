@@ -2,6 +2,7 @@
 export const PRODUCT = {
   name: 'シンプル工事台帳 ライト版',
   price: 5980,
+  priceSet: 13800,
   /** 主表示：¥5,980（税込・買い切り） */
   priceFull: '¥5,980（税込・買い切り）',
   currency: 'JPY',

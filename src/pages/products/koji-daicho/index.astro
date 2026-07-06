@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { PRODUCT } from '@/data/product';
+import { PRODUCT, ANZEN_DAICHO } from '@/data/product';
 
 const siteUrl = (import.meta.env.SITE ?? 'https://kensetsu-tools.com').replace(/\/$/, '');
 const priceValidUntil = `${new Date().getFullYear() + 1}-12-31`;
@@ -471,36 +471,29 @@ const comparisonRows = [
   <!-- ===== S6：価格（PRICE） ===== -->
   <section id="price" class="bg-white relative mt-[-40px] rounded-t-[40px] sm:rounded-t-[80px] pt-16 sm:pt-20 pb-20">
     <div class="max-w-[1240px] mx-auto px-6 lg:px-10">
-      <!-- バッジ -->
+      <!-- バッジ + 見出し -->
       <div class="flex justify-center mb-6 p-reveal">
         <span class="bg-[#E4EBF6] rounded-full px-5 py-2 font-mono text-[11px] tracking-[0.22em] text-[#44536E] font-medium">PRICE</span>
       </div>
       <h2 class="text-[28px] sm:text-[34px] font-black text-[#0F2557] text-center mb-12 leading-snug p-reveal">一度買えば、ずっと使えます。</h2>
 
-      <!-- 価格カード2列 -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch max-w-[860px] mx-auto">
+      <!-- 統合カード -->
+      <div class="p-reveal" style="background: #FFFFFF; border: 1px solid #E3E8F0; border-radius: 20px; padding: 44px 40px; display: flex; flex-direction: column; gap: 28px; align-items: center;">
 
-        <!-- 左：単品カード -->
-        <div class="p-reveal flex flex-col">
-          <div class="rounded-3xl p-10 sm:p-12 flex flex-col flex-1" style="background:#0F2557; box-shadow:0 8px 32px rgba(15,37,87,0.2);">
-            <p class="font-mono text-[13px] tracking-[0.22em] text-[#8FA1C4] mb-7">BUY ONCE, USE FOREVER</p>
-            <div class="flex items-baseline gap-3 mb-2">
-              <span class="text-[18px] font-bold text-white">買い切り</span>
-              <span class="text-[56px] font-black text-white" style="border-bottom:5px solid #F59E0B;">¥{PRODUCT.price.toLocaleString()}</span>
+        <!-- 単品：左＝価格/CTA（紺色）、右＝仕様カード -->
+        <div style="width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch;">
+          <!-- 左：価格 + バッジ + 購入ボタン（紺色） -->
+          <div style="background: #0F2557; border-radius: 16px; padding: 40px 36px; display: flex; flex-direction: column; gap: 20px; box-shadow: 0 8px 32px rgba(15,37,87,0.2);">
+            <p style="font-family: monospace; font-size: 13px; letter-spacing: 0.22em; color: #8FA1C4;">BUY ONCE, USE FOREVER</p>
+            <div style="display: flex; align-items: baseline; gap: 12px;">
+              <span style="font-size: 18px; font-weight: 700; color: #FFFFFF;">買い切り</span>
+              <span style="font-size: 56px; font-weight: 900; color: #FFFFFF; line-height: 1; border-bottom: 5px solid #F59E0B;">¥{PRODUCT.price.toLocaleString()}</span>
             </div>
-            <p class="text-[#8FA1C4] text-[17px] mb-10">税込・月額なし</p>
-            <div class="grid grid-cols-2 gap-x-6 gap-y-4 mb-10 flex-1">
-              {[
-                '永続ライセンス',
-                '複数PCで利用可',
-                '不具合無償対応',
-                'インストール不要',
-                'マクロ不使用',
-                'ローカル保存',
-                '3分で使い始め',
-              ].map(item => (
-                <div class="flex items-center gap-2 text-white text-[17px]">
-                  <span class="text-[#F59E0B] font-bold flex-shrink-0">✓</span>
+            <p style="color: #8FA1C4; font-size: 17px;">税込・月額なし</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; flex: 1;">
+              {['永続ライセンス', '複数PCで利用可', '不具合無償対応', 'インストール不要', 'マクロ不使用', 'ローカル保存', '3分で使い始め'].map(item => (
+                <div style="display: flex; align-items: center; gap: 8px; color: #FFFFFF; font-size: 17px;">
+                  <span style="color: #F59E0B; font-weight: 700; flex-shrink: 0;">✓</span>
                   <span>{item}</span>
                 </div>
               ))}
@@ -508,74 +501,66 @@ const comparisonRows = [
             <button
               id="buy-btn-price"
               type="button"
-              class="w-full bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold py-5 rounded-full text-lg transition-colors btn-press"
+              class="w-full bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold rounded-full text-lg transition-colors btn-press"
+              style="padding: 20px;"
             >
               今すぐ購入する →
             </button>
           </div>
-        </div>
-
-        <!-- 右：セットカード -->
-        <div class="p-reveal flex flex-col" style="position: relative;">
-          <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); white-space: nowrap; z-index: 1;">
-            <span style="background: #0F2557; color: #FFFFFF; font-size: 12px; font-weight: 700; padding: 5px 18px; border-radius: 999px;">おトクなセット</span>
-          </div>
-          <div class="rounded-3xl p-10 sm:p-12 flex flex-col flex-1" style="background:#FFFFFF; border: 2px solid #0F2557; box-shadow:0 8px 28px rgba(15,37,87,0.10);">
-            <p class="font-mono text-[13px] tracking-[0.22em] text-[#8FA1C4] mb-4 mt-2">工事台帳 ＋ 安全台帳 セット</p>
-            <div class="flex items-baseline gap-2 mb-1">
-              <span class="text-[56px] font-black text-[#0F2557]">¥13,800</span>
-            </div>
-            <p class="text-[#8FA1C4] text-[14px] mb-1">税込・買い切り</p>
-            <p class="text-[#F59E0B] font-bold text-[13px] mb-8">通常 ¥15,780 → ¥1,980 お得</p>
-            <div class="flex flex-col gap-3 mb-10 flex-1">
+          <!-- 右：REQUIREMENTS仕様カード -->
+          <div style="background: #F3F6FB; border-radius: 16px; padding: 40px 36px; display: flex; flex-direction: column; gap: 4px;">
+            <p style="font-family: monospace; font-size: 13px; letter-spacing: 0.22em; color: #8FA1C4; margin-bottom: 28px;">REQUIREMENTS</p>
+            <div>
               {[
-                'シンプル工事台帳 ライト版（確定申告）',
-                'シンプル安全台帳（資格・書類管理）',
-                '両製品の永続ライセンス',
-              ].map(item => (
-                <div class="flex items-start gap-2 text-[#44536E] text-[15px]">
-                  <span class="text-[#0F2557] font-bold flex-shrink-0 mt-0.5">✓</span>
-                  <span>{item}</span>
+                { label: 'OS',          value: 'Windows（Excel 2016 以降）' },
+                { label: 'エディション', value: 'Office 365 / 買い切り版どちらも対応' },
+                { label: 'ファイル形式', value: '.xlsx（マクロなし）' },
+                { label: '推奨環境',    value: 'メモリ 4GB以上' },
+                { label: '集計方式',    value: '暦年（1月〜12月）固定' },
+              ].map((row, i) => (
+                <div style={`display: flex; gap: 16px; padding: 16px 4px; ${i !== 0 ? 'border-top: 1px solid #D8DEE8;' : ''}`}>
+                  <span style="font-family: monospace; font-size: 13px; letter-spacing: 0.1em; color: #8FA1C4; width: 96px; flex-shrink: 0; padding-top: 2px;">{row.label}</span>
+                  <span style="font-size: 17px; font-weight: 500; color: #0F2557;">{row.value}</span>
                 </div>
               ))}
             </div>
-            <p class="text-center text-[12px] text-[#8FA1C4] mb-3">
-              安全台帳のみの購入は<a href="/products/anzen-daicho/" class="text-[#5A6B85] underline">こちら</a>
+            <p style="font-size: 13px; color: #8FA1C4; margin-top: 20px; line-height: 1.7;">
+              ※ Linux・ChromeOS は非対応です。<br/>※ 法人・任意の事業年度での集計には対応していません。
             </p>
-            <button
-              id="buy-btn-set"
-              type="button"
-              class="w-full bg-[#0F2557] hover:bg-[#1A3A6A] text-white font-bold py-5 rounded-full text-lg transition-colors btn-press"
-            >
-              セットで購入する →
-            </button>
           </div>
         </div>
+
+        <!-- セット足し算帯 -->
+        <div style="width: 100%; border-top: 1px dashed #C9D2DF; padding-top: 26px; display: flex; align-items: center; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <span style="font-size: 13px; font-weight: 700; color: #44536E;">工事台帳 <strong style="color:#0F2557;">¥{PRODUCT.price.toLocaleString()}</strong></span>
+          <span style="font-size: 18px; font-weight: 900; color: #B9C4D6;">＋</span>
+          <span style="font-size: 13px; font-weight: 700; color: #44536E;">安全台帳 <strong style="color:#0F2557;">¥{ANZEN_DAICHO.price.toLocaleString()}</strong></span>
+          <span style="font-size: 18px; font-weight: 900; color: #B9C4D6;">→</span>
+          <span style="display: inline-flex; align-items: center; gap: 10px; border: 2px solid #F59E0B; border-radius: 999px; padding: 8px 20px; background: #FFFDF8;">
+            <span style="font-size: 11px; color: #8FA1C4; text-decoration: line-through;">¥{(PRODUCT.price + ANZEN_DAICHO.price).toLocaleString()}</span>
+            <span style="font-size: 22px; font-weight: 900; color: #0F2557;">¥{PRODUCT.priceSet.toLocaleString()}</span>
+            <span style="font-size: 11px; font-weight: 700; color: #B45309; background: #FDEBC8; padding: 2px 10px; border-radius: 999px;">¥{(PRODUCT.price + ANZEN_DAICHO.price - PRODUCT.priceSet).toLocaleString()}お得</span>
+          </span>
+          <button
+            id="buy-btn-set"
+            type="button"
+            class="bg-[#0F2557] hover:bg-[#1A3A6A] text-white transition-colors btn-press"
+            style="font-weight: 700; font-size: 13px; padding: 12px 24px; border-radius: 10px; border: none; cursor: pointer; white-space: nowrap;"
+          >
+            セットで購入 →
+          </button>
+        </div>
+        <p style="font-size: 11.5px; color: #8FA1C4; margin: 0; text-align: center;">
+          安全台帳のみの購入は<a href="/products/anzen-daicho/" style="color: #5A6B85; text-decoration: underline;">こちら</a>
+        </p>
+
       </div>
 
-      <!-- 動作環境 -->
-      <div class="p-reveal mt-10 max-w-[860px] mx-auto">
-        <div class="rounded-3xl p-10 sm:p-12" style="background:#F3F6FB;">
-          <p class="font-mono text-[13px] tracking-[0.22em] text-[#8FA1C4] mb-7">REQUIREMENTS</p>
-          <div>
-            {[
-              { label: 'OS', value: 'Windows（Excel 2016 以降）' },
-              { label: 'エディション', value: 'Office 365 / 買い切り版どちらも対応' },
-              { label: 'ファイル形式', value: '.xlsx（マクロなし）' },
-              { label: '推奨環境', value: 'メモリ 4GB以上' },
-              { label: '集計方式', value: '暦年（1月〜12月）固定' },
-            ].map((row, i) => (
-              <div class={`flex gap-4 py-4 ${i !== 0 ? 'border-t border-[#D8DEE8]' : ''}`}>
-                <span class="text-[#8FA1C4] text-sm font-mono tracking-wider w-[120px] flex-shrink-0 pt-0.5">{row.label}</span>
-                <span class="text-[#0F2557] text-[17px] font-medium">{row.value}</span>
-              </div>
-            ))}
-          </div>
-          <p class="text-sm text-[#8FA1C4] mt-5 mb-7 leading-relaxed">※ Linux・ChromeOS は非対応です。<br/>※ 法人・任意の事業年度での集計には対応していません。</p>
-          <a href="/faq/" class="block text-center text-[#0F2557] text-[17px] font-semibold hover:underline">
-            よくある質問を見る →
-          </a>
-        </div>
+      <!-- よくある質問リンク（カード外） -->
+      <div class="text-center mt-8 p-reveal">
+        <a href="/faq/" class="text-[#0F2557] text-[17px] font-semibold hover:underline">
+          よくある質問を見る →
+        </a>
       </div>
     </div>
   </section>
