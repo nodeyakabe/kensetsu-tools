@@ -24,10 +24,10 @@ tags: ["期限管理", "資格管理", "建設業", "安全管理", "一覧"]
 
 | 管理項目 | 頻度 | 詳細 |
 |----------|------|------|
-| 雇入れ時健康診断 | 採用時1回 | [詳細を見る](/blog/kensetsu-kenko-shindan/) |
-| 定期健康診断 | 1年以内ごとに1回 | [詳細を見る](/blog/kensetsu-kenko-shindan/) |
-| 特定業務従事者（深夜・有害業務） | 6か月以内ごとに1回 | [詳細を見る](/blog/kensetsu-kenko-shindan/) |
-| 特殊健康診断（粉じん・有機溶剤 等） | 6か月以内ごとに1回 | [詳細を見る](/blog/kensetsu-kenko-shindan/) |
+| 雇入れ時健康診断 | 採用時1回 | [詳細を見る](/blog/kenshin-obligation/) |
+| 定期健康診断 | 1年以内ごとに1回 | [詳細を見る](/blog/kenshin-obligation/) |
+| 特定業務従事者（深夜・有害業務） | 6か月以内ごとに1回 | [詳細を見る](/blog/kenshin-obligation/) |
+| 特殊健康診断（粉じん・有機溶剤 等） | 6か月以内ごとに1回 | [詳細を見る](/blog/kenshin-obligation/) |
 
 ### 3. 車両・重機の点検・保険
 
@@ -52,7 +52,7 @@ tags: ["期限管理", "資格管理", "建設業", "安全管理", "一覧"]
 
 | 管理項目 | 頻度・期限 | 注意点 |
 |----------|----------|--------|
-| 作業員名簿の更新 | 現場入場のたびに最新情報を提出 | [詳細を見る](/blog/sakugyo-in-meibo/) |
+| 作業員名簿の更新 | 現場入場のたびに最新情報を提出 | [詳細を見る](/blog/sagyoin-meibo/) |
 | グリーンサイトの資格情報更新 | 資格更新のたびに | [詳細を見る](/blog/hitori-oyakata-greensite/) |
 | 定期健診結果の記録保存 | 5年間（じん肺は7年以上） | 労安衛則 第51条 |
 
@@ -85,8 +85,8 @@ tags: ["期限管理", "資格管理", "建設業", "安全管理", "一覧"]
 - [技能講習・特別教育の修了証に有効期限はある？](/blog/qualification-expiry/)
 - [作業別 特別教育と技能講習の違いと一覧](/blog/qualification-by-task/)
 - [建設業の車両・重機｜車検と点検の期限管理で切らさない方法](/blog/vehicle-inspection-management/)
-- [建設業の健康診断は義務？種類・頻度・特殊健診をまとめて解説](/blog/kensetsu-kenko-shindan/)
-- [作業員名簿の書き方と元請け提出でつまずかないコツ](/blog/sakugyo-in-meibo/)
+- [建設業の健康診断は義務？種類・頻度と特殊健診をまとめて解説](/blog/kenshin-obligation/)
+- [作業員名簿の書き方と、元請け提出でつまずかないコツ](/blog/sagyoin-meibo/)
 - [一人親方がグリーンサイトで求められる資格・書類まとめ](/blog/hitori-oyakata-greensite/)
 - [能力向上教育（再教育）は5年ごと？義務なのか・誰が対象かを整理](/blog/noryoku-kojo-kyoiku/)
 
