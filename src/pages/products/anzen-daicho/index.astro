@@ -411,25 +411,26 @@ const comparisonRows = [
           <h2 style="margin: 0; font-size: 30px; font-weight: 900; color: #0F2557; letter-spacing: 0.04em;">買い切り・月額なし</h2>
         </div>
 
-        <!-- 単品：左＝価格/CTA、右＝仕様カード -->
-        <div style="width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
-          <!-- 左：価格 + バッジ + 購入ボタン -->
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
-              <div style="font-size: 14px; font-weight: 700; color: #44536E;">シンプル安全台帳</div>
-              <div style="font-size: 60px; font-weight: 900; color: #0F2557; line-height: 1;">¥{PRODUCT.price.toLocaleString()}</div>
-              <div style="font-size: 12px; color: #5A6B85;">税込・買い切り／永続ライセンス</div>
+        <!-- 単品：左＝価格/CTA（緑塗りつぶし）、右＝仕様カード -->
+        <div style="width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch;">
+          <!-- 左：価格 + バッジ + 購入ボタン（緑） -->
+          <div style="background: #11512F; border-radius: 16px; padding: 40px 36px; display: flex; flex-direction: column; gap: 20px; box-shadow: 0 8px 32px rgba(17,81,47,0.2);">
+            <p style="font-family: monospace; font-size: 13px; letter-spacing: 0.22em; color: #BFE8D2;">SIMPLE ANZEN DAICHO</p>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <div style="font-size: 14px; font-weight: 700; color: #BFE8D2;">シンプル安全台帳</div>
+              <div style="font-size: 56px; font-weight: 900; color: #FFFFFF; line-height: 1; border-bottom: 5px solid #F59E0B; display: inline-block;">¥{PRODUCT.price.toLocaleString()}</div>
+              <div style="font-size: 14px; color: #BFE8D2;">税込・買い切り／永続ライセンス</div>
             </div>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;">
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
               {['✓ 複数PC利用可', '✓ インストール不要', '✓ 不具合の無償対応', '✓ データはPC内のみ'].map(badge => (
-                <span style="background: #F3F6FB; border-radius: 999px; padding: 7px 16px; font-size: 12px; color: #0F2557; font-weight: 500;">{badge}</span>
+                <span style="background: rgba(255,255,255,0.15); border-radius: 999px; padding: 7px 16px; font-size: 12px; color: #FFFFFF; font-weight: 500;">{badge}</span>
               ))}
             </div>
             <button
               id="buy-btn-anzen"
               type="button"
               class="bg-accent-500 hover:bg-accent-600 text-white transition-colors"
-              style="width: 100%; font-weight: 700; font-size: 16px; padding: 16px; border-radius: 12px; border: none; cursor: pointer; text-align: center;"
+              style="width: 100%; font-weight: 700; font-size: 16px; padding: 20px; border-radius: 999px; border: none; cursor: pointer; text-align: center;"
             >
               今すぐ購入する →
             </button>
