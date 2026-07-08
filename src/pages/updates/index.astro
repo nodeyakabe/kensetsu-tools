@@ -1,0 +1,83 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const siteUrl = 'https://kensetsu-tools.com';
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": `${siteUrl}/` },
+    { "@type": "ListItem", "position": 2, "name": "更新履歴", "item": `${siteUrl}/updates/` },
+  ],
+};
+
+const updates = [
+  {
+    date: '2026-07-08',
+    tag: 'リリース',
+    title: 'シンプル安全台帳 v1.0 リリース',
+    body: '資格・健康診断・車検の期限管理と、作業員名簿PDFの出力に対応した第2弾ツールをリリースしました。',
+    productLink: '/products/anzen-daicho/',
+  },
+  {
+    date: '2026-06-01',
+    tag: 'リリース',
+    title: 'シンプル工事台帳 ライト版 v1.0 リリース',
+    body: '工事ごとの収支管理・インボイス番号管理・CSV出力に対応したExcel工事台帳をリリースしました。',
+    productLink: '/products/koji-daicho/',
+  },
+];
+
+const tagColor: Record<string, string> = {
+  'リリース': 'bg-[#E4F1EA] text-[#11512F]',
+  '機能追加': 'bg-[#E4EBF6] text-[#0F2557]',
+  '不具合修正': 'bg-[#FEF3C7] text-[#B45309]',
+  'お知らせ': 'bg-[#F3F4F6] text-[#44536E]',
+};
+---
+
+<BaseLayout
+  title="更新履歴"
+  description="建設業ツール工房の商品（シンプル工事台帳 ライト版・シンプル安全台帳）のリリース情報・機能追加・不具合修正の履歴です。"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <div class="w-full px-4 sm:px-6 lg:px-10 py-3 bg-white border-b border-slate-100">
+    <nav class="text-sm text-slate-500" aria-label="パンくずリスト">
+      <a href="/" class="hover:text-[#0F2557] transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <span class="text-[#1A2B4A]">更新履歴</span>
+    </nav>
+  </div>
+
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="max-w-2xl mx-auto">
+      <h1 class="text-4xl font-black text-[#0F2557] mb-3">更新履歴</h1>
+      <p class="text-[#44536E] mb-12 text-base leading-relaxed">
+        商品のリリース情報・機能追加・不具合修正をまとめています。
+      </p>
+
+      <ol class="relative border-l border-[#D8DEE8] space-y-10 ml-4">
+        {updates.map(u => (
+          <li class="ml-6">
+            <span class="absolute -left-2.5 w-5 h-5 rounded-full bg-[#0F2557] border-2 border-white"></span>
+            <time class="block text-xs text-[#8FA1C4] font-mono mb-2">{u.date}</time>
+            <div class="bg-white border border-[#D8DEE8] rounded-2xl p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class={`text-xs font-bold px-2.5 py-0.5 rounded-full ${tagColor[u.tag] ?? 'bg-[#F3F4F6] text-[#44536E]'}`}>{u.tag}</span>
+                <h2 class="font-bold text-[#0F2557] text-base">{u.title}</h2>
+              </div>
+              <p class="text-[#44536E] text-sm leading-relaxed mb-3">{u.body}</p>
+              {u.productLink && (
+                <a href={u.productLink} class="text-[#0F2557] text-sm font-bold hover:underline">商品ページを見る →</a>
+              )}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</BaseLayout>

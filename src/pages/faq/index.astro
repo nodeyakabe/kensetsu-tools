@@ -1,9 +1,32 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
-const faqs = [
+const siteUrl = 'https://kensetsu-tools.com';
+
+// ご購入について（共通）
+const purchaseFaqs = [
   {
-    q: 'シンプル工事台帳はどんな人向けですか？',
+    q: '購入後、どうやって受け取りますか？',
+    a: 'カード決済（Stripe）が完了した直後に、ご登録のメールアドレスへダウンロードリンクが届きます。届かない場合は迷惑メールフォルダをご確認のうえ、お問い合わせフォームからご連絡ください。',
+  },
+  {
+    q: '支払方法は何が使えますか？',
+    a: 'クレジットカード・デビットカード（Visa・Mastercard・American Express・JCB等）がご利用いただけます。決済はStripeの安全な画面で処理されます。銀行振込・代引きには対応していません。',
+  },
+  {
+    q: '領収書は発行できますか？',
+    a: 'Stripeの決済完了メールに領収書URLが記載されています。そちらから印刷・PDF保存が可能です。宛名の変更はStripeの領収書ページ上で行えます。',
+  },
+  {
+    q: 'アップデートはありますか？',
+    a: '不具合が発生した場合は無償で修正版を提供します。機能追加のアップデートは現時点では未定です。修正版の配布はお問い合わせフォームまたはメールでご案内します。',
+  },
+];
+
+// シンプル工事台帳 ライト版
+const kojiFaqs = [
+  {
+    q: 'シンプル工事台帳 ライト版はどんな人向けですか？',
     a: '一人親方・個人事業主の建設業者の方を主な対象としています。特に確定申告や工事の収支管理をシンプルに行いたい方、ITに不慣れな方でも安心して使えるよう設計しています。',
   },
   {
@@ -36,10 +59,36 @@ const faqs = [
   },
 ];
 
+// シンプル安全台帳
+const anzenFaqs = [
+  {
+    q: 'シンプル安全台帳はどんな人向けですか？',
+    a: '複数の作業員・車両を抱える一人親方や小規模下請け業者の方を主な対象としています。資格・健康診断・車検の期限が複数重なり管理しきれない、現場ごとに作業員名簿を手で書き直している、という方に向けて設計しています。',
+  },
+  {
+    q: 'Windowsにしか対応していませんか？',
+    a: 'はい、シンプル安全台帳はWindows 10 / 11（64bit）専用です。Mac・Linux・ChromeOSではご利用いただけません。インストール不要で、ダウンロードしたファイルをダブルクリックするだけで起動します。',
+  },
+  {
+    q: 'データはPC内にしか保存されませんか？外部に送られませんか？',
+    a: 'データはお使いのPC内（%LOCALAPPDATA%\\SimpleAnzenDaicho）にのみ保存されます。外部サーバー・クラウドへの送信は一切ありません。インターネット接続も不要です（購入・ダウンロード時のみ必要）。',
+  },
+  {
+    q: '複数のPCで使えますか？',
+    a: 'はい、データフォルダ（%LOCALAPPDATA%\\SimpleAnzenDaicho）ごとコピーすれば別のPCで引き続き使えます。ただし、複数人・複数台での同時編集には対応していません。',
+  },
+  {
+    q: '出力される帳票はどの様式ですか？',
+    a: '作業員名簿は全建統一様式に準拠した独自様式、工事・通勤用車両届は一般的な書式でPDF出力されます。元請けから様式を指定されている場合は、あらかじめご確認ください。',
+  },
+];
+
+const allFaqs = [...purchaseFaqs, ...kojiFaqs, ...anzenFaqs];
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  "mainEntity": allFaqs.map(faq => ({
     "@type": "Question",
     "name": faq.q,
     "acceptedAnswer": {
@@ -53,15 +102,22 @@ const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kensetsu-tools.com/" },
-    { "@type": "ListItem", "position": 2, "name": "よくある質問", "item": "https://kensetsu-tools.com/faq/" },
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": `${siteUrl}/` },
+    { "@type": "ListItem", "position": 2, "name": "よくある質問", "item": `${siteUrl}/faq/` },
   ],
 };
+
+// セクション定義
+const sections = [
+  { id: 'purchase',    label: 'ご購入について',            faqs: purchaseFaqs },
+  { id: 'koji-daicho', label: 'シンプル工事台帳 ライト版', faqs: kojiFaqs },
+  { id: 'anzen-daicho', label: 'シンプル安全台帳',          faqs: anzenFaqs },
+];
 ---
 
 <BaseLayout
-  title="よくある質問｜一人親方向けExcel工事台帳"
-  description="一人親方向けExcel工事台帳「シンプル工事台帳 ライト版」のよくある質問。マクロ有無・Windows/Mac対応・複数PC利用・インボイス対応・会計ソフトへのCSV連携など。"
+  title="よくある質問"
+  description="建設業ツール工房の商品（シンプル工事台帳 ライト版・シンプル安全台帳）に関するよくある質問。購入・受け取り方法、Mac/Windows対応、サポート内容など。"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -79,53 +135,81 @@ const breadcrumbSchema = {
   <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="max-w-3xl mx-auto">
       <h1 class="text-4xl font-black text-[#0F2557] mb-4">よくある質問</h1>
-      <p class="text-[#44536E] mb-12 text-lg">
-        シンプル工事台帳・建設業ツール工房に関するご質問をまとめました。
+      <p class="text-[#44536E] mb-10 text-lg">
+        購入・受け取り方法から商品の詳細まで、よくいただく質問をまとめました。
       </p>
 
-      <dl class="space-y-4">
-        {faqs.map((faq, i) => (
-          <div class="border border-[#D8DEE8] rounded-2xl overflow-hidden">
-            <dt>
-              <button
-                class="w-full flex items-start justify-between gap-4 px-6 py-5 min-h-[44px] text-left font-bold text-[#1A2B4A] hover:bg-[#EFF2F7] transition-colors"
-                aria-expanded="false"
-                aria-controls={`faq-answer-${i}`}
-                id={`faq-btn-${i}`}
-              >
-                <span class="flex gap-3 items-start">
-                  <span class="text-[#F59E0B] font-black text-sm mt-0.5 flex-shrink-0">Q</span>
-                  <span>{faq.q}</span>
-                </span>
-                <svg
-                  class="faq-chevron flex-shrink-0 w-5 h-5 text-[#5A6B85] mt-0.5 transition-transform duration-200"
-                  fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                </svg>
-              </button>
-            </dt>
-            <dd
-              id={`faq-answer-${i}`}
-              role="region"
-              aria-labelledby={`faq-btn-${i}`}
-              class="hidden px-6 pb-5 text-[#44536E] leading-relaxed"
-            >
-              <div class="flex gap-3 items-start pt-4 border-t border-[#D8DEE8]">
-                <span class="text-[#0F2557] font-black text-sm mt-0.5 flex-shrink-0">A</span>
-                <span set:html={faq.a} />
-              </div>
-            </dd>
-          </div>
+      <!-- セクション目次 -->
+      <nav class="mb-12 flex flex-wrap gap-2" aria-label="セクション">
+        {sections.map(s => (
+          <a
+            href={`#${s.id}`}
+            class="inline-block border border-[#0F2557] text-[#0F2557] text-sm font-bold px-4 py-2 rounded-full hover:bg-[#0F2557] hover:text-white transition-colors"
+          >
+            {s.label}
+          </a>
         ))}
-      </dl>
+      </nav>
+
+      <!-- セクション別Q&A -->
+      {sections.map(section => (
+        <section id={section.id} class="mb-14 scroll-mt-20">
+          <h2 class="text-xl font-black text-[#0F2557] mb-5 pb-3 border-b-2 border-[#0F2557]">
+            {section.label}
+          </h2>
+          <dl class="space-y-4">
+            {section.faqs.map((faq, i) => {
+              const uid = `${section.id}-${i}`;
+              return (
+                <div class="border border-[#D8DEE8] rounded-2xl overflow-hidden">
+                  <dt>
+                    <button
+                      class="w-full flex items-start justify-between gap-4 px-6 py-5 min-h-[44px] text-left font-bold text-[#1A2B4A] hover:bg-[#EFF2F7] transition-colors"
+                      aria-expanded="false"
+                      aria-controls={`faq-answer-${uid}`}
+                      id={`faq-btn-${uid}`}
+                    >
+                      <span class="flex gap-3 items-start">
+                        <span class="text-[#F59E0B] font-black text-sm mt-0.5 flex-shrink-0">Q</span>
+                        <span>{faq.q}</span>
+                      </span>
+                      <svg
+                        class="faq-chevron flex-shrink-0 w-5 h-5 text-[#5A6B85] mt-0.5 transition-transform duration-200"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+                      >
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                  </dt>
+                  <dd
+                    id={`faq-answer-${uid}`}
+                    role="region"
+                    aria-labelledby={`faq-btn-${uid}`}
+                    class="hidden px-6 pb-5 text-[#44536E] leading-relaxed"
+                  >
+                    <div class="flex gap-3 items-start pt-4 border-t border-[#D8DEE8]">
+                      <span class="text-[#0F2557] font-black text-sm mt-0.5 flex-shrink-0">A</span>
+                      <span set:html={faq.a} />
+                    </div>
+                  </dd>
+                </div>
+              );
+            })}
+          </dl>
+        </section>
+      ))}
 
       <!-- 商品ページへの導線 -->
-      <div class="mt-12 bg-[#FDEBC8] border border-[#F59E0B] rounded-2xl p-8 text-center">
-        <p class="text-[#1A2B4A] font-bold mb-2">シンプル工事台帳 ライト版</p>
-        <p class="text-[#44536E] text-sm mb-5">¥5,980（税込・買い切り）・マクロ不使用</p>
-        <a href="/products/koji-daicho/" class="inline-flex items-center min-h-[44px] bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold px-6 py-3 rounded-full transition-colors">
-          商品の詳細・購入はこちら →
+      <div class="mt-4 grid sm:grid-cols-2 gap-4">
+        <a href="/products/koji-daicho/" class="block bg-[#FDEBC8] border border-[#F59E0B] rounded-2xl p-6 text-center hover:bg-[#FDE0A0] transition-colors">
+          <p class="text-[#1A2B4A] font-bold mb-1">シンプル工事台帳 ライト版</p>
+          <p class="text-[#44536E] text-sm mb-3">¥5,980（税込・買い切り）</p>
+          <span class="text-[#B45309] font-bold text-sm">商品詳細・購入 →</span>
+        </a>
+        <a href="/products/anzen-daicho/" class="block bg-[#E4F1EA] border border-[#11512F] rounded-2xl p-6 text-center hover:bg-[#CEE8D8] transition-colors">
+          <p class="text-[#1A2B4A] font-bold mb-1">シンプル安全台帳</p>
+          <p class="text-[#44536E] text-sm mb-3">¥9,800（税込・買い切り）</p>
+          <span class="text-[#11512F] font-bold text-sm">商品詳細・購入 →</span>
         </a>
       </div>
 
@@ -142,12 +226,13 @@ const breadcrumbSchema = {
 <script>
   function initFaqAccordion() {
     document.querySelectorAll<HTMLButtonElement>('[id^="faq-btn-"]').forEach(btn => {
+      if (btn.dataset.faqInit) return;
+      btn.dataset.faqInit = '1';
       btn.addEventListener('click', () => {
         const expanded = btn.getAttribute('aria-expanded') === 'true';
         const answerId = btn.getAttribute('aria-controls')!;
         const answer = document.getElementById(answerId)!;
         const chevron = btn.querySelector('.faq-chevron')!;
-
         btn.setAttribute('aria-expanded', String(!expanded));
         answer.classList.toggle('hidden', expanded);
         chevron.classList.toggle('rotate-180', !expanded);

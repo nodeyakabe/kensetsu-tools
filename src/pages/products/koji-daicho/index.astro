@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { PRODUCT, ANZEN_DAICHO } from '@/data/product';
+import PurchaseFlow from '@/components/PurchaseFlow.astro';
 
 const siteUrl = (import.meta.env.SITE ?? 'https://kensetsu-tools.com').replace(/\/$/, '');
 const priceValidUntil = `${new Date().getFullYear() + 1}-12-31`;
@@ -210,20 +211,28 @@ const comparisonRows = [
             ))}
           </div>
           <!-- 購入ボタン -->
-          <div class="flex justify-center lg:justify-start pt-2">
+          <div class="flex flex-col items-center lg:items-start pt-2 gap-2">
             <button
               id="buy-btn-hero"
               type="button"
               class="bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold px-8 py-4 rounded-full text-base transition-colors btn-press"
             >
-              今すぐ購入する →
+              ¥{PRODUCT.price.toLocaleString()}で購入する（追加費用なし）
             </button>
+            <p class="text-xs text-[#5A6B85] text-center lg:text-left leading-relaxed">
+              ✓ 決済完了後すぐにメールでお届け<br>✓ 返品・返金は受け付けていません
+            </p>
           </div>
         </div>
 
       </div>
     </div>
   </section>
+
+  <!-- ===== 購入の流れ ===== -->
+  <div class="bg-white py-10 border-b border-[#E9EDF3]">
+    <PurchaseFlow productType="excel" />
+  </div>
 
   <!-- ===== S2：悩み（PROBLEM） ===== -->
   <section class="bg-[#E4EBF6] relative overflow-clip rounded-t-[40px] sm:rounded-t-[80px] pt-16 sm:pt-20 pb-16">
@@ -256,8 +265,9 @@ const comparisonRows = [
             </div>
           </div>
         ))}
-        <!-- 濃紺アクセントカード -->
+        <!-- 濃紺アクセントカード（損失回避） -->
         <div class="rounded-2xl p-6 p-reveal" style="background:#0F2557; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
+          <p class="font-bold text-[#F59E0B] text-[13px] mb-2 leading-snug tracking-wide">事務の1日が、現場の利益を消す。</p>
           <p class="font-bold text-white text-[15px] mb-2 leading-snug">その事務作業、この台帳ひとつで軽くなります。</p>
           <p class="text-[#8FA1C4] text-[17px] leading-relaxed">入力するのは、工事と入金と支出だけ。</p>
         </div>
@@ -272,7 +282,7 @@ const comparisonRows = [
       <div class="flex justify-center mb-6 p-reveal">
         <span class="bg-[#E4EBF6] rounded-full px-5 py-2 font-mono text-[11px] tracking-[0.22em] text-[#44536E] font-medium">FUNCTION — 主な機能</span>
       </div>
-      <h2 class="text-[28px] sm:text-[34px] font-black text-[#0F2557] text-center mb-10 leading-snug p-reveal">必要な機能だけを、ぜんぶ。</h2>
+      <h2 class="text-[28px] sm:text-[34px] font-black text-[#0F2557] text-center mb-10 leading-snug p-reveal">「この工事、儲かったのか?」に、すぐ答えられる。</h2>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-stagger">
         {features.map((f, i) => (
@@ -474,7 +484,8 @@ const comparisonRows = [
       <div class="flex justify-center mb-6 p-reveal">
         <span class="bg-[#E4EBF6] rounded-full px-5 py-2 font-mono text-[11px] tracking-[0.22em] text-[#44536E] font-medium">PRICE</span>
       </div>
-      <h2 class="text-[28px] sm:text-[34px] font-black text-[#0F2557] text-center mb-12 leading-snug p-reveal">一度買えば、ずっと使えます。</h2>
+      <h2 class="text-[28px] sm:text-[34px] font-black text-[#0F2557] text-center mb-3 leading-snug p-reveal">一度買えば、ずっと使えます。</h2>
+      <p class="text-center text-[#5A6B85] text-sm mb-10 p-reveal">クラウド型工事管理ソフトの、およそ1か月分の料金です。追加費用も月額もありません。</p>
 
       <!-- 統合カード -->
       <div class="p-reveal" style="background: #FFFFFF; border: 1px solid #E3E8F0; border-radius: 20px; padding: 44px 40px; display: flex; flex-direction: column; gap: 28px; align-items: center;">
@@ -490,7 +501,7 @@ const comparisonRows = [
             </div>
             <p style="color: #8FA1C4; font-size: 17px;">税込・月額なし</p>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; flex: 1;">
-              {['永続ライセンス', '複数PCで利用可', '不具合無償対応', 'インストール不要', 'マクロ不使用', 'ローカル保存', '3分で使い始め'].map(item => (
+              {['永続ライセンス', '複数PCで利用可', '不具合無償対応', 'インストール不要', 'マクロなし', 'ローカル保存', '3分で使い始め'].map(item => (
                 <div style="display: flex; align-items: center; gap: 8px; color: #FFFFFF; font-size: 17px;">
                   <span style="color: #F59E0B; font-weight: 700; flex-shrink: 0;">✓</span>
                   <span>{item}</span>
@@ -503,8 +514,11 @@ const comparisonRows = [
               class="w-full bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold rounded-full text-lg transition-colors btn-press"
               style="padding: 20px;"
             >
-              今すぐ購入する →
+              ¥{PRODUCT.price.toLocaleString()}で購入する（追加費用なし）
             </button>
+            <p style="font-size: 11.5px; color: #8FA1C4; text-align: center; margin: 0; line-height: 1.8;">
+              ✓ 決済完了後すぐにメールでお届け<br/>✓ 返品・返金は受け付けていません
+            </p>
           </div>
           <!-- 右：REQUIREMENTS仕様カード -->
           <div style="background: #F3F6FB; border-radius: 16px; padding: 40px 36px; display: flex; flex-direction: column; gap: 4px;">
@@ -557,7 +571,7 @@ const comparisonRows = [
 
       <!-- よくある質問リンク（カード外） -->
       <div class="text-center mt-8 p-reveal">
-        <a href="/faq/" class="text-[#0F2557] text-[17px] font-semibold hover:underline">
+        <a href="/faq/#koji-daicho" class="text-[#0F2557] text-[17px] font-semibold hover:underline">
           よくある質問を見る →
         </a>
       </div>
@@ -582,7 +596,7 @@ const comparisonRows = [
     style="transition: opacity 0.3s ease, background-color 0.2s ease;"
     aria-label="価格セクションへ移動して購入する"
   >
-    今すぐ購入する →
+    ¥{PRODUCT.price.toLocaleString()}で購入する
   </a>
 
   <!-- エラートースト（購入エラー時に画面上部に表示） -->
