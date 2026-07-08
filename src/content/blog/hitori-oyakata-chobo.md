@@ -15,7 +15,7 @@ tags: ["帳簿", "確定申告", "一人親方", "青色申告", "建設業"]
 
 | 申告の種類 | 帳簿づけの義務 | 保存期間 |
 |-----------|-------------|---------|
-| 白色申告 | 収入と経費の記録（簡易な帳簿でよい） | 5年 |
+| 白色申告 | 収入と経費の記録（簡易な帳簿でよい） | 7年（法定帳簿。その他の書類は5年） |
 | 青色申告（10万円控除） | 簡易簿記（収支日記帳等） | 7年 |
 | 青色申告（65万円控除） | 複式簿記（仕訳帳・総勘定元帳 等） | 7年 |
 
@@ -91,12 +91,12 @@ tags: ["帳簿", "確定申告", "一人親方", "青色申告", "建設業"]
 
 > 本記事は実務情報の提供を目的としたものです。個別の申告・経理処理については、税理士にご相談ください。
 
-<div class="not-prose my-8 p-6 border-2 border-[#1A2B4A] rounded-xl bg-slate-50">
-  <p class="text-xs font-bold uppercase tracking-wider mb-2" style="color: #1A2B4A;">関連商品</p>
+<div class="not-prose my-8 p-6 border-2 border-[#0F2557] rounded-xl bg-slate-50">
+  <p class="text-xs font-bold uppercase tracking-wider mb-2" style="color: #0F2557;">関連商品</p>
   <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳 ライト版</p>
   <p class="text-slate-600 text-sm mb-3">工事ごとの売上・経費・入金をExcelで管理。確定申告の集計作業をシンプルに。買い切り・Excel形式。</p>
-  <p class="font-semibold mb-4" style="color: #1A2B4A;">¥5,980（税込・買い切り）</p>
+  <p class="font-semibold mb-4" style="color: #0F2557;">¥5,980（税込・買い切り）</p>
   <div class="flex justify-end mt-4">
-    <a href="/products/koji-daicho/" class="inline-block font-bold py-2 px-5 rounded-lg text-sm" style="color: white; text-decoration: none; background-color: #1A2B4A;">詳細を見る →</a>
+    <a href="/products/koji-daicho/" class="inline-block font-bold py-2 px-5 rounded-lg text-sm" style="color: white; text-decoration: none; background-color: #0F2557;">詳細を見る →</a>
   </div>
 </div>
