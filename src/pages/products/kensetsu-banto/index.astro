@@ -17,12 +17,12 @@ const productSchema = {
   "description": "工事ごとの原価・粗利と会社の資金繰りをまとめて見える化。資金ショートの危険日を予測し黒字倒産を防ぐ。任意の事業年度に対応。買い切り¥19,800・月額なし。",
   "brand": { "@type": "Brand", "name": "建設業ツール工房" },
   "url": `${siteUrl}/products/kensetsu-banto/`,
-  "image": `${siteUrl}/og/kensetsu-banto.png`,
+  "image": `${siteUrl}/og-default.png`,
   "offers": {
     "@type": "Offer",
     "price": String(PRODUCT.price),
     "priceCurrency": PRODUCT.currency,
-    "availability": "https://schema.org/InStock",
+    "availability": "https://schema.org/PreOrder",
     "url": `${siteUrl}/products/kensetsu-banto/`,
     "priceValidUntil": priceValidUntil,
   },
@@ -81,7 +81,7 @@ const screens = [
 <BaseLayout
   title="建設番頭｜工事の利益と資金繰りが見える買い切りソフト｜建設業ツール工房"
   description="個人〜小規模の建設業向け。工事ごとの原価・粗利と会社の資金繰りをまとめて見える化。資金ショートの危険日を予測し「黒字倒産」を防ぎます。法定福利費つき見積・人工代対応の請求も。任意の事業年度に対応。買い切り¥19,800・月額なし。"
-  ogImage="/og/kensetsu-banto.png"
+  ogImage="/og-default.png"
   ogType="product"
 >
   <Fragment slot="head">
@@ -304,13 +304,13 @@ const screens = [
     </div>
   </section>
 
-  <!-- S5: 画面イメージ（スクリーンショット未実装） -->
+  <!-- S5: 画面イメージ -->
   <section class="kb-wave kb-wave-pull" style="background: #F7F5EF; position: relative;">
     <div class="container-base kb-reveal" style="padding-top: 76px; padding-bottom: 64px; display: flex; flex-direction: column; gap: 28px;">
       <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center;">
         <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: #D98708; text-transform: uppercase;">中身をお見せします</p>
         <h2 style="margin: 0; font-size: clamp(1.5rem, 4vw, 2.15rem); font-weight: 900; line-height: 1.35; color: #1f2430;">画面イメージ</h2>
-        <p style="margin: 0; font-size: 14.5px; color: #5f6b7a;">実際のアプリ画面です。</p>
+        <p style="margin: 0; font-size: 14.5px; color: #5f6b7a;">リリース時に画面イメージを掲載予定です。</p>
       </div>
       <div class="kb-screen-grid kb-stagger">
         {screens.map(s => (
