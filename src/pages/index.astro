@@ -1,11 +1,23 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { PRODUCT, ANZEN_DAICHO, KENSETSU_BANTO } from '@/data/product';
-import { getCollection } from 'astro:content';
-
-const posts = (await getCollection('blog', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
-  .slice(0, 3);
+const featuredPosts = [
+  {
+    slug: 'koji-daicho-kanri-excel',
+    title: '一人親方の工事台帳はExcelで管理できる【記録すべき5項目と確定申告への活かし方】',
+    category: '業務効率化',
+  },
+  {
+    slug: 'sagyoin-meibo',
+    title: '作業員名簿の書き方と、元請け提出でつまずかないコツ',
+    category: '法令対応',
+  },
+  {
+    slug: 'kensetsu-kuroji-tosan',
+    title: '建設業の「黒字倒産」はなぜ起きる？資金繰りで見る3つの数字',
+    category: '資金繰り',
+  },
+];
 
 const painItems = [
   { title: '確定申告・帳簿づけが毎年憂うつ',   desc: 'レシートと請求書の山を前に、2月が近づくと気が重い。' },
@@ -351,38 +363,30 @@ const pillars = [
       <span
         class="inline-block font-bold"
         style="border:1.5px solid #0F2557; color:#0F2557; font-size:13px; font-weight:700; padding:8px 26px; border-radius:999px;"
-      >BLOG — 最新の記事</span>
+      >BLOG — おすすめ記事</span>
       <h2 style="font-size:31px; font-weight:900; color:#0F2557; letter-spacing:0.04em;" class="text-center">
         実務に効く情報を、無料で。
       </h2>
     </div>
 
     <!-- 記事グリッド -->
-    {posts.length > 0 && (
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[18px] reveal-stagger mb-10">
-        {posts.map(post => (
-          <a
-            href={`/blog/${post.slug}/`}
-            class="reveal group bg-white rounded-[18px] overflow-hidden flex flex-col no-underline text-inherit"
-            style="box-shadow: var(--shadow-sm); transition:box-shadow 0.2s ease,transform 0.2s ease;"
-          >
-            <!-- コンテンツ -->
-            <div class="p-6 flex flex-col gap-2.5 flex-1">
-              <div class="flex gap-2.5 items-center text-xs text-[#5A6B85]">
-                {post.data.category && (
-                  <span class="bg-[#EFF2F7] rounded-full px-3 py-0.5 font-bold text-[#0F2557]">{post.data.category}</span>
-                )}
-                <span class="font-mono">
-                  {post.data.publishedAt.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.')}
-                </span>
-              </div>
-              <div class="text-[15px] font-bold leading-[1.7] text-[#0F2557]">{post.data.title}</div>
-              <div class="text-[13px] font-bold text-[#F59E0B] mt-auto">読む →</div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[18px] reveal-stagger mb-10">
+      {featuredPosts.map(post => (
+        <a
+          href={`/blog/${post.slug}/`}
+          class="reveal group bg-white rounded-[18px] overflow-hidden flex flex-col no-underline text-inherit"
+          style="box-shadow: var(--shadow-sm); transition:box-shadow 0.2s ease,transform 0.2s ease;"
+        >
+          <div class="p-6 flex flex-col gap-2.5 flex-1">
+            <div class="flex gap-2.5 items-center text-xs text-[#5A6B85]">
+              <span class="bg-[#EFF2F7] rounded-full px-3 py-0.5 font-bold text-[#0F2557]">{post.category}</span>
             </div>
-          </a>
-        ))}
-      </div>
-    )}
+            <div class="text-[15px] font-bold leading-[1.7] text-[#0F2557]">{post.title}</div>
+            <div class="text-[13px] font-bold text-[#F59E0B] mt-auto">読む →</div>
+          </div>
+        </a>
+      ))}
+    </div>
 
     <!-- 記事一覧リンク -->
     <div class="flex justify-center mb-12 reveal">
