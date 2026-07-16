@@ -1,18 +1,24 @@
 /**
- * Cloudflare Pages Function: POST /api/stripe-webhook-anzen
- * シンプル安全台帳（単品）・セット購入 共用 Webhook
+ * Cloudflare Pages Function: POST /api/stripe-webhook-banto
+ * 建設番頭（単品）・建設番頭＋安全台帳セット 共用 Webhook
  * checkout.session.completed を受信し、ライセンスキーを生成してBrevoでメールを送信する
  *
  * 環境変数（Cloudflare Pages ダッシュボードで設定）:
- *   STRIPE_SECRET_KEY           — Stripe シークレットキー
- *   STRIPE_WEBHOOK_SECRET_ANZEN — Webhook 署名シークレット（本エンドポイント専用）
- *   STRIPE_PRICE_ID_ANZEN       — シンプル安全台帳 単品 price ID
- *   STRIPE_PRICE_ID_SET         — セット（工事台帳＋安全台帳）price ID
- *   ADAN_LICENSE_SECRET         — ライセンスキー生成用シークレット（HMAC-SHA256）
- *   BREVO_API_KEY               — Brevo API キー
- *   BREVO_SENDER_EMAIL          — 送信元メールアドレス（Brevo認証済み）
- *   BREVO_SENDER_NAME           — 送信元名
- *   SITE_ORIGIN                 — サイトURL（例: https://kensetsu-tools.com）
+ *   STRIPE_SECRET_KEY            — Stripe シークレットキー
+ *   STRIPE_WEBHOOK_SECRET_BANTO  — Webhook 署名シークレット（本エンドポイント専用）
+ *   STRIPE_PRICE_ID_BANTO        — 建設番頭 単品 price ID（Stripe登録後に設定）
+ *   STRIPE_PRICE_ID_BANTO_SET    — 建設番頭＋安全台帳セット price ID（Stripe登録後に設定）
+ *   KSBT_LICENSE_SECRET          — 建設番頭ライセンスキー生成用シークレット（HMAC-SHA256）
+ *   ADAN_LICENSE_SECRET          — 安全台帳ライセンスキー生成用シークレット（セット購入時に使用）
+ *   BREVO_API_KEY                — Brevo API キー
+ *   BREVO_SENDER_EMAIL           — 送信元メールアドレス（Brevo認証済み）
+ *   BREVO_SENDER_NAME            — 送信元名
+ *   SITE_ORIGIN                  — サイトURL（例: https://kensetsu-tools.com）
+ *
+ * Stripe Webhook 登録:
+ *   エンドポイントURL: https://kensetsu-tools.com/api/stripe-webhook-banto
+ *   受信イベント: checkout.session.completed
+ *   シークレット: STRIPE_WEBHOOK_SECRET_BANTO に設定
  */
 
 import Stripe from "stripe";
@@ -56,7 +62,7 @@ export async function onRequestPost({ request, env }) {
     event = await stripe.webhooks.constructEventAsync(
       body,
       sig,
-      env.STRIPE_WEBHOOK_SECRET_ANZEN
+      env.STRIPE_WEBHOOK_SECRET_BANTO
     );
   } catch {
     return new Response("bad signature", { status: 400 });
@@ -73,27 +79,32 @@ export async function onRequestPost({ request, env }) {
     });
     const purchasedPriceId = fullSession.line_items?.data?.[0]?.price?.id;
 
-    const isSet    = env.STRIPE_PRICE_ID_SET   && purchasedPriceId === env.STRIPE_PRICE_ID_SET;
-    const isSingle = env.STRIPE_PRICE_ID_ANZEN && purchasedPriceId === env.STRIPE_PRICE_ID_ANZEN;
+    const isSet    = env.STRIPE_PRICE_ID_BANTO_SET && purchasedPriceId === env.STRIPE_PRICE_ID_BANTO_SET;
+    const isSingle = env.STRIPE_PRICE_ID_BANTO     && purchasedPriceId === env.STRIPE_PRICE_ID_BANTO;
 
     // 本 Webhook が担当しない商品なら何もしない
     if (!isSet && !isSingle) return new Response("ok", { status: 200 });
 
-    // ADAN ライセンスキーを生成（単品・セットともに ADAN キーが必要）
-    // セットは工事台帳ライト版（Excel）+ 安全台帳 → Excel にキー不要なので ADAN の1本
-    const adanKey = await generateLicenseKey('ADAN', env.ADAN_LICENSE_SECRET);
+    // KSBT ライセンスキーを生成（建設番頭）
+    const ksbtKey = await generateLicenseKey('KSBT', env.KSBT_LICENSE_SECRET);
+
+    // セット購入時は ADAN キーも生成（建設番頭＋安全台帳セット）
+    const adanKey = isSet
+      ? await generateLicenseKey('ADAN', env.ADAN_LICENSE_SECRET)
+      : null;
 
     // 発行キーを Stripe payment_intent メタデータに記録
     // → 「キーをなくした」問い合わせ時に購入者メールから追跡可能にする
     if (s.payment_intent) {
       try {
-        await stripe.paymentIntents.update(s.payment_intent, {
-          metadata: {
-            adan_license_key: adanKey,
-            product: isSet ? 'SET_工事台帳ライト+安全台帳' : 'ADAN_安全台帳単品',
-            issued_at: new Date().toISOString(),
-          },
-        });
+        const metadata = {
+          ksbt_license_key: ksbtKey,
+          product: isSet ? 'SET_建設番頭+安全台帳' : 'KSBT_建設番頭単品',
+          issued_at: new Date().toISOString(),
+        };
+        if (adanKey) metadata.adan_license_key = adanKey;
+
+        await stripe.paymentIntents.update(s.payment_intent, { metadata });
       } catch (e) {
         console.error("Stripe metadata update error:", e);
         // metadata 記録失敗はメール送信を止めない
@@ -101,44 +112,83 @@ export async function onRequestPost({ request, env }) {
     }
 
     const email = s.customer_details?.email || s.customer_email;
-    const dlAnzenUrl = `${env.SITE_ORIGIN}/api/download-anzen?session_id=${encodeURIComponent(s.id)}`;
-    const dlSetUrl   = `${env.SITE_ORIGIN}/api/download-set?session_id=${encodeURIComponent(s.id)}`;
+    const dlBantoUrl    = `${env.SITE_ORIGIN}/api/download-banto?session_id=${encodeURIComponent(s.id)}`;
+    const dlBantoSetUrl = `${env.SITE_ORIGIN}/api/download-banto-set?session_id=${encodeURIComponent(s.id)}`;
 
     if (email) {
       const subject = isSet
-        ? "【建設業ツール工房】シンプル工事台帳＋安全台帳セット ダウンロードのご案内"
-        : "【シンプル安全台帳】ダウンロードのご案内";
+        ? "【建設業ツール工房】建設番頭＋安全台帳セット ダウンロードのご案内"
+        : "【建設番頭】ダウンロードのご案内";
 
       const greeting = isSet
-        ? "この度は「シンプル工事台帳 ライト版＋シンプル安全台帳 セット」をご購入いただき、ありがとうございます。"
-        : "この度は「シンプル安全台帳」をご購入いただき、ありがとうございます。";
+        ? "この度は「建設番頭＋シンプル安全台帳 セット」をご購入いただき、ありがとうございます。"
+        : "この度は「建設番頭」をご購入いただき、ありがとうございます。";
 
       const downloadSection = isSet
         ? `
     <p>下記のボタンからセット一括zipをダウンロードしてください。</p>
     <div style="text-align:center;margin:28px 0">
-      <a href="${dlSetUrl}"
+      <a href="${dlBantoSetUrl}"
          style="display:inline-block;background:#F59E0B;color:#fff;font-weight:bold;padding:14px 32px;border-radius:8px;text-decoration:none;font-size:16px">
-        工事台帳＋安全台帳セットをダウンロード（.zip）
+        建設番頭＋安全台帳セットをダウンロード（.zip）
       </a>
     </div>`
         : `
     <p>下記のボタンからアプリをダウンロードしてください。</p>
     <div style="text-align:center;margin:28px 0">
-      <a href="${dlAnzenUrl}"
+      <a href="${dlBantoUrl}"
          style="display:inline-block;background:#F59E0B;color:#fff;font-weight:bold;padding:14px 32px;border-radius:8px;text-decoration:none;font-size:16px">
-        シンプル安全台帳をダウンロード（.zip）
+        建設番頭をダウンロード（.zip）
       </a>
     </div>`;
 
-      const licenseSection = `
+      // ライセンスキー表示（セット時は2本を明示）
+      const licenseSection = isSet ? `
+    <div style="background:#F0FDF4;border:2px solid #16A34A;border-radius:8px;padding:20px 24px;margin:24px 0">
+      <p style="margin:0 0 12px;font-size:13px;font-weight:bold;color:#15803D">ライセンスキー（2本入りです。大切に保管してください）</p>
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <tr style="border-bottom:1px solid #dcfce7">
+          <td style="padding:8px 4px;color:#15803D;font-weight:bold;white-space:nowrap;vertical-align:top">建設番頭用</td>
+          <td style="padding:8px 4px 8px 12px;font-family:monospace;font-size:20px;font-weight:bold;letter-spacing:0.15em;color:#1e293b;word-break:break-all">${ksbtKey}</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 4px;color:#15803D;font-weight:bold;white-space:nowrap;vertical-align:top">安全台帳用</td>
+          <td style="padding:8px 4px 8px 12px;font-family:monospace;font-size:20px;font-weight:bold;letter-spacing:0.15em;color:#1e293b;word-break:break-all">${adanKey}</td>
+        </tr>
+      </table>
+      <p style="margin:12px 0 0;font-size:12px;color:#64748b;line-height:1.8">
+        それぞれのアプリの初回起動時に、対応するキーを入力してください。<br>
+        キーをなくしてしまった場合は、ご購入時のメールアドレスで <a href="mailto:contact@kensetsu-tools.com" style="color:#0F2557">お問い合わせ</a> ください。
+      </p>
+    </div>` : `
     <div style="background:#F0FDF4;border:2px solid #16A34A;border-radius:8px;padding:20px 24px;margin:24px 0">
       <p style="margin:0 0 8px;font-size:13px;font-weight:bold;color:#15803D">ライセンスキー（大切に保管してください）</p>
-      <p style="margin:0 0 12px;font-family:monospace;font-size:24px;font-weight:bold;letter-spacing:0.18em;color:#1e293b;text-align:center;word-break:break-all">${adanKey}</p>
+      <p style="margin:0 0 12px;font-family:monospace;font-size:24px;font-weight:bold;letter-spacing:0.18em;color:#1e293b;text-align:center;word-break:break-all">${ksbtKey}</p>
       <p style="margin:0;font-size:12px;color:#64748b;line-height:1.8">
         このキーは初回起動時に一度だけ入力します。入力後はこのメールを削除しても問題ありません。<br>
         キーをなくしてしまった場合は、ご購入時のメールアドレスで <a href="mailto:contact@kensetsu-tools.com" style="color:#0F2557">お問い合わせ</a> ください。
       </p>
+    </div>`;
+
+      // 利用開始手順（セットは建設番頭の手順のみ記載。安全台帳も同様の手順のため）
+      const stepsSection = isSet ? `
+    <div style="background:#f8fafc;border-radius:8px;padding:16px;margin-bottom:20px">
+      <p style="margin:0 0 8px;font-size:13px;font-weight:bold;color:#374151">ご利用開始の手順（2本とも同じ手順です）</p>
+      <ol style="margin:0;padding-left:20px;font-size:13px;color:#64748b;line-height:1.8">
+        <li>ダウンロードしたzipを解凍する</li>
+        <li>各アプリの <strong>.exe</strong> ファイルをダブルクリック</li>
+        <li>対応するライセンスキーを入力して有効化</li>
+        <li>すぐにお使いいただけます</li>
+      </ol>
+    </div>` : `
+    <div style="background:#f8fafc;border-radius:8px;padding:16px;margin-bottom:20px">
+      <p style="margin:0 0 8px;font-size:13px;font-weight:bold;color:#374151">建設番頭 ご利用開始の手順</p>
+      <ol style="margin:0;padding-left:20px;font-size:13px;color:#64748b;line-height:1.8">
+        <li>ダウンロードしたzipを解凍する</li>
+        <li><strong>KensetsuBanto.App.exe</strong> をダブルクリック</li>
+        <li>上記のライセンスキーを入力して有効化</li>
+        <li>すぐにお使いいただけます</li>
+      </ol>
     </div>`;
 
       const mailRes = await fetch("https://api.brevo.com/v3/smtp/email", {
@@ -166,14 +216,7 @@ export async function onRequestPost({ request, env }) {
     <p>${greeting}</p>
     ${downloadSection}
     ${licenseSection}
-    <div style="background:#f8fafc;border-radius:8px;padding:16px;margin-bottom:20px">
-      <p style="margin:0 0 8px;font-size:13px;font-weight:bold;color:#374151">シンプル安全台帳 ご利用開始の手順</p>
-      <ol style="margin:0;padding-left:20px;font-size:13px;color:#64748b;line-height:1.8">
-        <li>ダウンロードした <strong>AnzenDaicho.App.exe</strong> をダブルクリック</li>
-        <li>上記のライセンスキーを入力して有効化</li>
-        <li>すぐにお使いいただけます</li>
-      </ol>
-    </div>
+    ${stepsSection}
     <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0">
     <p style="font-size:13px;color:#64748b">
       ※このリンクはご購入者専用です。第三者への転送はご遠慮ください。<br>
