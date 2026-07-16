@@ -34,6 +34,7 @@ import Stripe from "stripe";
  *   checksum4  → uppercase hex 先頭4文字
  */
 async function generateLicenseKey(prefix, secret) {
+  if (!secret) throw new Error(`LICENSE_SECRET for "${prefix}" is not configured`);
   const bytes = crypto.getRandomValues(new Uint8Array(6));
   const data  = Array.from(bytes)
     .map(b => b.toString(16).padStart(2, '0').toUpperCase())
@@ -77,13 +78,25 @@ export async function onRequestPost({ request, env }) {
     const fullSession = await stripe.checkout.sessions.retrieve(s.id, {
       expand: ["line_items"],
     });
-    const purchasedPriceId = fullSession.line_items?.data?.[0]?.price?.id;
+    const items = fullSession.line_items?.data || [];
 
-    const isSet    = env.STRIPE_PRICE_ID_BANTO_SET && purchasedPriceId === env.STRIPE_PRICE_ID_BANTO_SET;
-    const isSingle = env.STRIPE_PRICE_ID_BANTO     && purchasedPriceId === env.STRIPE_PRICE_ID_BANTO;
+    const isSet    = env.STRIPE_PRICE_ID_BANTO_SET && items.some(li => li.price?.id === env.STRIPE_PRICE_ID_BANTO_SET);
+    const isSingle = env.STRIPE_PRICE_ID_BANTO     && items.some(li => li.price?.id === env.STRIPE_PRICE_ID_BANTO);
 
     // 本 Webhook が担当しない商品なら何もしない
     if (!isSet && !isSingle) return new Response("ok", { status: 200 });
+
+    // 冪等性チェック: 既にキーを発行済みなら処理をスキップ（Stripe リトライ対策）
+    if (s.payment_intent) {
+      try {
+        const pi = await stripe.paymentIntents.retrieve(s.payment_intent);
+        if (pi.metadata?.ksbt_license_key) {
+          return new Response("ok", { status: 200 });
+        }
+      } catch (e) {
+        console.error("Idempotency check error:", e);
+      }
+    }
 
     // KSBT ライセンスキーを生成（建設番頭）
     const ksbtKey = await generateLicenseKey('KSBT', env.KSBT_LICENSE_SECRET);

@@ -4,3 +4,9 @@ dist/
 .env
 .env.*
 !.env.example
+
+# ローカル開発専用（本番ビルドに含めない）
+src/pages/dev/
+
+# ライセンスキーテストスクリプト（秘密鍵を参照するため追跡しない）
+tools/test-license-key.mjs
