@@ -1,0 +1,77 @@
+---
+/**
+ * テストモード専用の決済入口ページ
+ * URL: /test/anzen/
+ *
+ * ⚠️ このページは一般公開しない。URLを知っている人だけがアクセスできる。
+ *    noindex/nofollow により検索エンジンにインデックスされない。
+ *    本番の購入ボタン（/products/anzen-daicho/）からはリンクされていない。
+ */
+---
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>【テスト用】シンプル安全台帳 決済テスト</title>
+  <style>
+    body { font-family: sans-serif; max-width: 480px; margin: 60px auto; padding: 24px; color: #1e293b; }
+    .badge { background: #fef3c7; border: 1px solid #f59e0b; border-radius: 6px; padding: 8px 14px; font-size: 13px; color: #92400e; margin-bottom: 24px; }
+    h1 { font-size: 20px; margin-bottom: 8px; }
+    p { font-size: 14px; color: #64748b; margin-bottom: 24px; line-height: 1.6; }
+    button {
+      background: #0F2557; color: #fff; font-weight: bold;
+      padding: 14px 32px; border-radius: 8px; border: none;
+      font-size: 16px; cursor: pointer; width: 100%;
+    }
+    button:hover { background: #1a3a7a; }
+    button:disabled { background: #94a3b8; cursor: not-allowed; }
+    .card-info { margin-top: 20px; background: #f8fafc; border-radius: 8px; padding: 14px 16px; font-size: 13px; color: #475569; }
+    .card-info code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+    #error { color: #b91c1c; font-size: 13px; margin-top: 12px; display: none; }
+  </style>
+</head>
+<body>
+  <div class="badge">⚠️ テストモード — 実際の課金は発生しません</div>
+  <h1>シンプル安全台帳 決済テスト</h1>
+  <p>
+    Stripe テストモードで決済 → webhook → ライセンスキー生成 → メール配信の
+    一連フローを確認するためのページです。
+  </p>
+  <button id="buy-btn" onclick="startCheckout()">テスト購入を開始する</button>
+  <div id="error"></div>
+  <div class="card-info">
+    <strong>テスト用カード番号</strong><br>
+    番号: <code>4242 4242 4242 4242</code><br>
+    有効期限: 未来の任意の月/年（例: 12/30）<br>
+    CVC: 任意3桁（例: 123）<br>
+    郵便番号: 任意（例: 12345）
+  </div>
+
+  <script>
+    async function startCheckout() {
+      const btn = document.getElementById('buy-btn');
+      const err = document.getElementById('error');
+      btn.disabled = true;
+      btn.textContent = '処理中...';
+      err.style.display = 'none';
+
+      try {
+        const res = await fetch('/api/create-checkout-anzen-test', { method: 'POST' });
+        const data = await res.json();
+        if (data.url) {
+          location.href = data.url;
+        } else {
+          throw new Error(data.error || 'unknown');
+        }
+      } catch (e) {
+        err.textContent = 'エラーが発生しました: ' + e.message + '（環境変数が未設定の可能性があります）';
+        err.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'テスト購入を開始する';
+      }
+    }
+  </script>
+</body>
+</html>
