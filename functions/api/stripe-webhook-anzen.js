@@ -182,7 +182,9 @@ export async function onRequestPost({ request, env }) {
     <div style="background:#f8fafc;border-radius:8px;padding:16px;margin-bottom:20px">
       <p style="margin:0 0 8px;font-size:13px;font-weight:bold;color:#374151">シンプル安全台帳 ご利用開始の手順</p>
       <ol style="margin:0;padding-left:20px;font-size:13px;color:#64748b;line-height:1.8">
-        <li>ダウンロードした <strong>AnzenDaicho.App.exe</strong> をダブルクリック</li>
+        <li>上のボタンから zip ファイルをダウンロード</li>
+        <li>zip を右クリック →「すべて展開」で展開</li>
+        <li>展開したフォルダ内の <strong>AnzenDaicho.App.exe</strong> をダブルクリックして起動</li>
         <li>上記のライセンスキーを入力して有効化</li>
         <li>すぐにお使いいただけます</li>
       </ol>
