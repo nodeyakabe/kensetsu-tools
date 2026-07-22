@@ -57,6 +57,16 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
       <p id="dl-note" class="text-sm text-slate-500 -mt-4 mb-8"></p>
 
+      <!-- Windows SmartScreen 警告の案内（ダウンロード直後に目に入る位置） -->
+      <div class="bg-amber-50 border-2 border-amber-400 rounded-xl px-5 py-4 mb-6 text-left">
+        <p class="font-bold text-amber-800 text-sm mb-2">⚠️ 起動時に「Windows によって PC が保護されました」と表示された場合</p>
+        <ol class="text-amber-900 text-sm leading-relaxed list-decimal list-inside space-y-1">
+          <li>「<strong>詳細情報</strong>」をクリック</li>
+          <li>「<strong>実行</strong>」ボタンをクリック</li>
+        </ol>
+        <p class="text-amber-700 text-xs mt-2">これはWindows の標準的なセキュリティ確認です。アプリに問題があるわけではありません。</p>
+      </div>
+
       <!-- 手順 -->
       <div class="bg-white border border-slate-200 rounded-2xl p-8 mb-6 text-left shadow-sm">
         <h2 class="font-bold text-slate-800 mb-4">シンプル安全台帳 ご利用開始の手順</h2>
