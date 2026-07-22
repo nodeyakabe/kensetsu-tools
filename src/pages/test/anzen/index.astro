@@ -39,7 +39,7 @@
     Stripe テストモードで決済 → webhook → ライセンスキー生成 → メール配信の
     一連フローを確認するためのページです。
   </p>
-  <button id="buy-btn" onclick="startCheckout()">テスト購入を開始する</button>
+  <button id="buy-btn">テスト購入を開始する</button>
   <div id="error"></div>
   <div class="card-info">
     <strong>テスト用カード番号</strong><br>
@@ -50,6 +50,8 @@
   </div>
 
   <script>
+    document.getElementById('buy-btn').addEventListener('click', startCheckout);
+
     async function startCheckout() {
       const btn = document.getElementById('buy-btn');
       const err = document.getElementById('error');
