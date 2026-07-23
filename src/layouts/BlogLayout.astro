@@ -30,10 +30,11 @@ const updatedFormatted = updatedAt?.toLocaleDateString('ja-JP', {
   day: '2-digit',
 }).replace(/\//g, '.');
 
-// 関連記事（最新3件、自記事除く）
+// 関連記事（最新3件、自記事・軽貨物カテゴリ除く）
+const EXCLUDED_CATEGORIES = ['軽貨物・黒ナンバー', '運送・軽貨物'];
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const related = allPosts
-  .filter(p => p.slug !== slug)
+  .filter(p => p.slug !== slug && !EXCLUDED_CATEGORIES.includes(p.data.category ?? ''))
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
   .slice(0, 3);
 
@@ -184,7 +185,7 @@ const breadcrumbSchema = JSON.stringify({
         <!-- ミニCTA -->
         <div class="mt-4 bg-[#F3F6FB] rounded-xl p-4 flex flex-col gap-2">
           <p class="text-[12.5px] leading-[1.7] font-bold text-[#0F2557] m-0">毎年の集計をラクに</p>
-          <p class="text-xs leading-[1.7] text-[#5A6B85] m-0">シンプル工事台帳 ライト版</p>
+          <p class="text-xs leading-[1.7] text-[#5A6B85] m-0">シンプル工事台帳</p>
           <a href="/products/koji-daicho/" class="bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold text-[12.5px] px-3 py-2 rounded-lg text-center transition-colors no-underline">シンプル工事台帳を見る</a>
         </div>
       </aside>
