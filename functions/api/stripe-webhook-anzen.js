@@ -123,7 +123,7 @@ export async function onRequestPost({ request, env }) {
         : "【シンプル安全台帳】ダウンロードのご案内";
 
       const greeting = isSet
-        ? "この度は「シンプル工事台帳 ライト版＋シンプル安全台帳 セット」をご購入いただき、ありがとうございます。"
+        ? "この度は「シンプル工事台帳＋シンプル安全台帳 セット」をご購入いただき、ありがとうございます。"
         : "この度は「シンプル安全台帳」をご購入いただき、ありがとうございます。";
 
       const downloadSection = isSet

@@ -63,12 +63,12 @@ export async function onRequestPost({ request, env }) {
     <span style="color:#fff;font-weight:bold;font-size:18px">建設業ツール工房</span>
   </div>
   <div style="border:1px solid #e2e8f0;border-top:none;border-radius:0 0 8px 8px;padding:32px 24px">
-    <p>この度は「シンプル工事台帳 ライト版」をご購入いただき、ありがとうございます。</p>
+    <p>この度は「シンプル工事台帳」をご購入いただき、ありがとうございます。</p>
     <p>下記のボタンから Excel ファイルをダウンロードしてください。</p>
     <div style="text-align:center;margin:28px 0">
       <a href="${dlUrl}"
          style="display:inline-block;background:#F59E0B;color:#fff;font-weight:bold;padding:14px 32px;border-radius:8px;text-decoration:none;font-size:16px">
-        シンプル工事台帳 ライト版をダウンロード
+        シンプル工事台帳をダウンロード
       </a>
     </div>
     <p style="font-size:13px;color:#64748b">

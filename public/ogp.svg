@@ -32,9 +32,6 @@
 
   <text x="80" y="260" fill="#FFFFFF" font-size="64" class="title">シンプル工事台帳</text>
 
-  <rect x="610" y="200" width="160" height="70" rx="8" fill="#FFFFFF"/>
-  <text x="690" y="248" fill="#0F2557" font-size="32" class="title" text-anchor="middle">ライト版</text>
-
   <line x1="80" y1="330" x2="680" y2="330" stroke="#E2E8F0" stroke-width="2" opacity="0.3"/>
 
   <text x="80" y="410" fill="#FFFFFF" font-size="32" class="text">確定申告がラクになる、</text>

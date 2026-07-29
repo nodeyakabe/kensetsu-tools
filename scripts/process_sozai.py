@@ -78,15 +78,15 @@ def auto_trim(img_rgba: Image.Image, padding: int = 4) -> Image.Image:
 # ============================================================
 CROPS = [
     # name,                x1,   y1,   x2,   y2
-    ("mikeru_tati",          0,    0,  440,  490),  # 左列Row1: ミケル全身（足が切れないよう余裕を持たせる）
-    ("mikeru_warai",         0,  520,  400,  860),  # 左列Row2: ミケル笑い（足アーチファクト回避）
-    ("mikeru_yorokobi",      0,  880,  400, 1180),  # 左列Row3: ミケル喜び
-    ("mikeru_odoroki",       0, 1200,  400, 1536),  # 左列Row4: ミケル驚き
+    ("mikeru_tati",          0,    0,  440,  490),  # 左列Row1: ウタ全身（足が切れないよう余裕を持たせる）
+    ("mikeru_warai",         0,  520,  400,  860),  # 左列Row2: ウタ笑い（足アーチファクト回避）
+    ("mikeru_yorokobi",      0,  880,  400, 1180),  # 左列Row3: ウタ喜び
+    ("mikeru_odoroki",       0, 1200,  400, 1536),  # 左列Row4: ウタ驚き
 
-    ("kuroe_tati",         420,    0,  750,  510),  # 中列Row1: クロエ全身(バンザイ)
-    ("kuroe_tati2",        730,    0,  870,  390),  # 右列Row1-左半: クロエ全身
-    ("kuroe_kanngaetyuu",  420,  520,  720,  870),  # 中列Row2: クロエ考え中
-    ("kuroe_no_maru",      720,  520, 1024,  870),  # 右列Row2: クロエ○×
+    ("kuroe_tati",         420,    0,  750,  510),  # 中列Row1: ナツ全身(バンザイ)
+    ("kuroe_tati2",        730,    0,  870,  390),  # 右列Row1-左半: ナツ全身
+    ("kuroe_kanngaetyuu",  420,  520,  720,  870),  # 中列Row2: ナツ考え中
+    ("kuroe_no_maru",      720,  520, 1024,  870),  # 右列Row2: ナツ○×
     ("kuroe_bust3",        420,  880,  720, 1230),  # 中列Row3
     ("kuroe_bust4",        720,  880, 1024, 1230),  # 右列Row3
     ("kuroe_bust5",        420, 1240,  720, 1536),  # 中列Row4

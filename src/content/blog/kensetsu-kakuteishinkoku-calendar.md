@@ -80,7 +80,7 @@ tags: ["確定申告", "スケジュール", "帳簿", "一人親方", "建設�
 
 <div class="not-prose my-8 p-6 border-2 border-[#0F2557] rounded-xl bg-slate-50">
   <p class="text-xs font-bold uppercase tracking-wider mb-2" style="color: #0F2557;">関連商品</p>
-  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳 ライト版</p>
+  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳</p>
   <p class="text-slate-600 text-sm mb-3">工事ごとの売上・経費・入金をExcelで年間管理。確定申告に必要な数字がすぐ出せる。買い切り・Excel形式。</p>
   <p class="font-semibold mb-4" style="color: #0F2557;">¥5,980（税込・買い切り）</p>
   <div class="flex justify-end mt-4">

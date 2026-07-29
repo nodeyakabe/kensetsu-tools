@@ -64,7 +64,7 @@ Excelで工事台帳を自作することは可能ですが、工事数が増え
 - シートが増えすぎて**管理しにくくなる**
 - 確定申告用のサマリーを**毎年作り直す手間**がかかる
 
-こうした課題を解消するために、[シンプル工事台帳 ライト版](/products/koji-daicho/)をリリースしました。工事ごとに収支を入力するだけで自動集計し、確定申告に使える収支サマリーもワンクリックで出力できます。**マクロ・VBA不使用**なのでセキュリティ制限のあるPCでも使え、**買い切り（¥5,980）**で月額費用もかかりません。
+こうした課題を解消するために、[シンプル工事台帳](/products/koji-daicho/)をリリースしました。工事ごとに収支を入力するだけで自動集計し、確定申告に使える収支サマリーもワンクリックで出力できます。**マクロ・VBA不使用**なのでセキュリティ制限のあるPCでも使え、**買い切り（¥5,980）**で月額費用もかかりません。
 
 ## まとめ
 
@@ -74,7 +74,7 @@ Excelで工事台帳を自作することは可能ですが、工事数が増え
 
 <div class="not-prose my-8 p-6 border-2 border-accent-500 rounded-xl bg-slate-50">
   <p class="text-xs font-bold text-accent-600 uppercase tracking-wider mb-2">関連商品</p>
-  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳 ライト版</p>
+  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳</p>
   <p class="text-slate-600 text-sm mb-3">一人親方向けのExcel工事台帳。工事ごとの収支入力・確定申告サマリー出力まで対応。マクロ不使用・買い切り。</p>
   <p class="text-accent-500 font-semibold mb-4">¥5,980（税込・買い切り）</p>
   <div class="flex justify-end mt-4">

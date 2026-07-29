@@ -63,7 +63,7 @@ tags: ["確定申告", "一人親方", "青色申告", "経費"]
 4. **材料費・外注費・諸経費の内訳**
 5. **粗利**（請負金額 − 直接費用）
 
-工事ごとに記録しておけば、利益の出ている工事・出ていない工事が一目でわかり、確定申告の集計もすぐに終わります。Excelで工事台帳を管理している方も多いですが、工事数が増えると集計が面倒になりがちです。確定申告に使えるサマリーまで自動で出力できる[シンプル工事台帳 ライト版](/products/koji-daicho/)を活用すれば、年末の作業を大幅に減らせます。帳簿の種類や記録すべき内容については[一人親方の帳簿づけ、何を記録すればいい？](/blog/hitori-oyakata-chobo/)で詳しくまとめています。
+工事ごとに記録しておけば、利益の出ている工事・出ていない工事が一目でわかり、確定申告の集計もすぐに終わります。Excelで工事台帳を管理している方も多いですが、工事数が増えると集計が面倒になりがちです。確定申告に使えるサマリーまで自動で出力できる[シンプル工事台帳](/products/koji-daicho/)を活用すれば、年末の作業を大幅に減らせます。帳簿の種類や記録すべき内容については[一人親方の帳簿づけ、何を記録すればいい？](/blog/hitori-oyakata-chobo/)で詳しくまとめています。
 
 ## インボイス制度との関係
 
@@ -94,7 +94,7 @@ tags: ["確定申告", "一人親方", "青色申告", "経費"]
 
 <div class="not-prose my-8 p-6 border-2 border-accent-500 rounded-xl bg-slate-50">
   <p class="text-xs font-bold text-accent-600 uppercase tracking-wider mb-2">関連商品</p>
-  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳 ライト版</p>
+  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳</p>
   <p class="text-slate-600 text-sm mb-3">一人親方向けのExcel工事台帳。工事ごとの収支管理から確定申告用サマリーの自動出力まで対応。マクロ不使用・買い切り。</p>
   <p class="text-accent-500 font-semibold mb-4">¥5,980（税込・買い切り）</p>
   <div class="flex justify-end mt-4">

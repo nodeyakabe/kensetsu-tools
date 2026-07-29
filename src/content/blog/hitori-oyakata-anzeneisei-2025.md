@@ -95,7 +95,7 @@ tags: ["一人親方", "法令対応", "2025年"]
 
 <div class="not-prose my-8 p-6 border-2 border-accent-500 rounded-xl bg-slate-50">
   <p class="text-xs font-bold text-accent-600 uppercase tracking-wider mb-2">関連商品</p>
-  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳 ライト版</p>
+  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳</p>
   <p class="text-slate-600 text-sm mb-3">一人親方向けのExcel工事台帳。工事ごとの収支を記録・集計し、確定申告サマリーを自動出力。マクロ不使用・買い切り。</p>
   <p class="text-accent-500 font-semibold mb-4">¥5,980（税込・買い切り）</p>
   <div class="flex justify-end mt-4">

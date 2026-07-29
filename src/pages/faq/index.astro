@@ -23,10 +23,10 @@ const purchaseFaqs = [
   },
 ];
 
-// シンプル工事台帳 ライト版
+// シンプル工事台帳
 const kojiFaqs = [
   {
-    q: 'シンプル工事台帳 ライト版はどんな人向けですか？',
+    q: 'シンプル工事台帳はどんな人向けですか？',
     a: '一人親方・個人事業主の建設業者の方を主な対象としています。特に確定申告や工事の収支管理をシンプルに行いたい方、ITに不慣れな方でも安心して使えるよう設計しています。',
   },
   {
@@ -110,14 +110,14 @@ const breadcrumbSchema = {
 // セクション定義
 const sections = [
   { id: 'purchase',    label: 'ご購入について',            faqs: purchaseFaqs },
-  { id: 'koji-daicho', label: 'シンプル工事台帳 ライト版', faqs: kojiFaqs },
+  { id: 'koji-daicho', label: 'シンプル工事台帳', faqs: kojiFaqs },
   { id: 'anzen-daicho', label: 'シンプル安全台帳',          faqs: anzenFaqs },
 ];
 ---
 
 <BaseLayout
   title="よくある質問"
-  description="建設業ツール工房の商品（シンプル工事台帳 ライト版・シンプル安全台帳）に関するよくある質問。購入・受け取り方法、Mac/Windows対応、サポート内容など。"
+  description="建設業ツール工房の商品（シンプル工事台帳・シンプル安全台帳）に関するよくある質問。購入・受け取り方法、Mac/Windows対応、サポート内容など。"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -202,7 +202,7 @@ const sections = [
       <!-- 商品ページへの導線 -->
       <div class="mt-4 grid sm:grid-cols-2 gap-4">
         <a href="/products/koji-daicho/" class="block bg-[#FDEBC8] border border-[#F59E0B] rounded-2xl p-6 text-center hover:bg-[#FDE0A0] transition-colors">
-          <p class="text-[#1A2B4A] font-bold mb-1">シンプル工事台帳 ライト版</p>
+          <p class="text-[#1A2B4A] font-bold mb-1">シンプル工事台帳</p>
           <p class="text-[#44536E] text-sm mb-3">¥5,980（税込・買い切り）</p>
           <span class="text-[#B45309] font-bold text-sm">商品詳細・購入 →</span>
         </a>

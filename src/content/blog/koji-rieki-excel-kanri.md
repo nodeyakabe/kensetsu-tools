@@ -48,7 +48,7 @@ Excelで作るなら、シンプルな2層構造がおすすめです。
 
 ## 自分で作るのが面倒なら
 
-「関数を組むのは苦手」「作る時間がない」という方は、最初から用意されたテンプレートを使うのが近道です。[シンプル工事台帳 ライト版](/products/koji-daicho/)は、Excelだけで動く一人親方向けの収支管理ツールです。工事ごとに入力するだけで利益や月次・年次のサマリーが自動集計され、確定申告にもそのまま使えます。マクロなし・買い切りで、月額費用もかかりません。
+「関数を組むのは苦手」「作る時間がない」という方は、最初から用意されたテンプレートを使うのが近道です。[シンプル工事台帳](/products/koji-daicho/)は、Excelだけで動く一人親方向けの収支管理ツールです。工事ごとに入力するだけで利益や月次・年次のサマリーが自動集計され、確定申告にもそのまま使えます。マクロなし・買い切りで、月額費用もかかりません。
 
 原価に何を計上できるかについては[一人親方が経費にできるもの一覧](/blog/hitori-oyakata-keihi-ichiran/)も、確定申告全体の流れは[一人親方の確定申告のやり方](/blog/hitori-oyakata-kakuteishinkoku/)もあわせてご覧ください。工事台帳に記録すべき5項目や具体的なExcelレイアウトは[一人親方の工事台帳はExcelで管理できる](/blog/koji-daicho-kanri-excel/)で詳しく解説しています。
 
@@ -60,7 +60,7 @@ Excelで作るなら、シンプルな2層構造がおすすめです。
 
 <div class="not-prose my-8 p-6 border-2 border-accent-500 rounded-xl bg-slate-50">
   <p class="text-xs font-bold text-accent-600 uppercase tracking-wider mb-2">関連商品</p>
-  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳 ライト版</p>
+  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳</p>
   <p class="text-slate-600 text-sm mb-3">一人親方向けのExcel工事台帳。工事ごとの収支入力・確定申告サマリー出力まで対応。マクロ不使用・買い切り。</p>
   <p class="text-accent-500 font-semibold mb-4">¥5,980（税込・買い切り）</p>
   <div class="flex justify-end mt-4">

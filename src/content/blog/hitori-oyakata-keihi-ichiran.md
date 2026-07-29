@@ -52,7 +52,7 @@ tags: ["経費", "確定申告", "一人親方", "勘定科目"]
 
 「あの支払い、経費にし忘れていた」——年に一度まとめて処理しようとすると、こうした取りこぼしが必ず出ます。**使ったその場で工事ごとに記録しておく**のが、経費もれを防ぐ一番の方法です。
 
-[シンプル工事台帳 ライト版](/products/koji-daicho/)なら、工事ごとに原価（経費）を入力していくだけで、月次・年次の集計まで自動でまとまります。Excelだけで動き、マクロなし・買い切りなので、ITが苦手な方でも続けやすいのが特長です。工事ごとの収支管理の具体的なやり方は[工事ごとの利益をExcelで管理する方法](/blog/koji-rieki-excel-kanri/)も、確定申告全体の流れは[一人親方の確定申告のやり方](/blog/hitori-oyakata-kakuteishinkoku/)もあわせてご覧ください。
+[シンプル工事台帳](/products/koji-daicho/)なら、工事ごとに原価（経費）を入力していくだけで、月次・年次の集計まで自動でまとまります。Excelだけで動き、マクロなし・買い切りなので、ITが苦手な方でも続けやすいのが特長です。工事ごとの収支管理の具体的なやり方は[工事ごとの利益をExcelで管理する方法](/blog/koji-rieki-excel-kanri/)も、確定申告全体の流れは[一人親方の確定申告のやり方](/blog/hitori-oyakata-kakuteishinkoku/)もあわせてご覧ください。
 
 ## まとめ
 
@@ -62,7 +62,7 @@ tags: ["経費", "確定申告", "一人親方", "勘定科目"]
 
 <div class="not-prose my-8 p-6 border-2 border-accent-500 rounded-xl bg-slate-50">
   <p class="text-xs font-bold text-accent-600 uppercase tracking-wider mb-2">関連商品</p>
-  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳 ライト版</p>
+  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳</p>
   <p class="text-slate-600 text-sm mb-3">一人親方向けのExcel工事台帳。工事ごとの収支入力・確定申告サマリー出力まで対応。マクロ不使用・買い切り。</p>
   <p class="text-accent-500 font-semibold mb-4">¥5,980（税込・買い切り）</p>
   <div class="flex justify-end mt-4">

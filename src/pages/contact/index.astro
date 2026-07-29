@@ -2,7 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
 // Turnstile サイトキー（公開値・Cloudflare Pages 環境変数 PUBLIC_TURNSTILE_SITE_KEY で設定）
-const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
+const turnstileSiteKey = (import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '').trim();
 ---
 
 <BaseLayout
@@ -82,7 +82,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
           </label>
           <select id="product" name="product" class="form-select">
             <option value="">--- 選択してください ---</option>
-            <option value="シンプル工事台帳 ライト版">シンプル工事台帳 ライト版</option>
+            <option value="シンプル工事台帳">シンプル工事台帳</option>
             <option value="シンプル安全台帳">シンプル安全台帳</option>
             <option value="その他・購入前">その他・購入前</option>
           </select>

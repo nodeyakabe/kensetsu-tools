@@ -36,7 +36,7 @@ tags: ["一人親方", "収支管理", "原価管理", "2024年問題"]
 
 とはいえ、一人親方や少人数の工房が、いきなり高価な管理システムを導入する必要はありません。大切なのは、工事ごとに収支を分けて記録するという習慣です。まずは手元のやり方に、この視点を一つ足すところから始めてみてください。
 
-> 当工房では、確定申告に向けた工事ごとの収支管理に特化した買い切りツール「[シンプル工事台帳 ライト版](/products/koji-daicho/)」を提供しています。工事番号ごとに入出金を記録し、年間の収支をまとめられる、"最低限・シンプル"に振り切った作りです。
+> 当工房では、確定申告に向けた工事ごとの収支管理に特化した買い切りツール「[シンプル工事台帳](/products/koji-daicho/)」を提供しています。工事番号ごとに入出金を記録し、年間の収支をまとめられる、"最低限・シンプル"に振り切った作りです。
 
 ---
 
@@ -48,7 +48,7 @@ tags: ["一人親方", "収支管理", "原価管理", "2024年問題"]
 
 <div class="not-prose my-8 p-6 border-2 border-accent-500 rounded-xl bg-slate-50">
   <p class="text-xs font-bold text-accent-600 uppercase tracking-wider mb-2">関連商品</p>
-  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳 ライト版</p>
+  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳</p>
   <p class="text-slate-600 text-sm mb-3">一人親方向けのExcel工事台帳。工事ごとの収支入力・確定申告サマリー出力まで対応。マクロ不使用・買い切り。</p>
   <div class="flex justify-end mt-4">
     <a href="/products/koji-daicho/" class="inline-block bg-accent-500 font-bold py-2 px-5 rounded-lg text-sm" style="color: white; text-decoration: none;">詳細を見る →</a>

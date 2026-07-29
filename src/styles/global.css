@@ -94,6 +94,8 @@
   html.js .reveal-stagger > .reveal:nth-child(2) { transition-delay: 70ms; }
   html.js .reveal-stagger > .reveal:nth-child(3) { transition-delay: 140ms; }
   html.js .reveal-stagger > .reveal:nth-child(4) { transition-delay: 210ms; }
+  html.js .reveal-stagger > .reveal:nth-child(5) { transition-delay: 280ms; }
+  html.js .reveal-stagger > .reveal:nth-child(6) { transition-delay: 350ms; }
 
   /* モバイル: 移動距離とスタガーを控えめに */
   @media (max-width: 639px) {
@@ -103,6 +105,8 @@
     html.js .reveal-stagger > .reveal:nth-child(2) { transition-delay: 40ms; }
     html.js .reveal-stagger > .reveal:nth-child(3) { transition-delay: 80ms; }
     html.js .reveal-stagger > .reveal:nth-child(4) { transition-delay: 120ms; }
+    html.js .reveal-stagger > .reveal:nth-child(5) { transition-delay: 160ms; }
+    html.js .reveal-stagger > .reveal:nth-child(6) { transition-delay: 200ms; }
   }
 }
 

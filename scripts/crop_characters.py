@@ -1,6 +1,6 @@
 """
 キャラクター画像切り出しスクリプト
-S__30310407.jpg (1024x1536px) から ミケル・クロエを切り出し、
+S__30310407.jpg (1024x1536px) から ウタ・ナツを切り出し、
 白背景を透過にして個別PNGとして保存する
 """
 
@@ -60,24 +60,24 @@ def process():
     w, h = src.size
     print(f"  Size: {w}x{h}")
 
-    # 左半分=ミケル、右半分=クロエ
+    # 左半分=ウタ、右半分=ナツ
     # 少し内側にトリミングして枠ノイズを除去
     # Y方向: 上部余白(タイトルテキストなど)をスキップ → y=60〜 (調整可)
     y_top    = 60
     y_bottom = h  # 下端まで
 
-    # ミケル: 左半分 x=0〜512
+    # ウタ: 左半分 x=0〜512
     mikeru_box = (0, y_top, w // 2, y_bottom)
     mikeru_crop = src.crop(mikeru_box)
-    print(f"  ミケル crop: {mikeru_box}")
+    print(f"  ウタ crop: {mikeru_box}")
     mikeru_rgba = remove_bg_flood(mikeru_crop)
     mikeru_rgba.save(OUT_MIKERU)
     print(f"  → Saved: {OUT_MIKERU}  ({mikeru_rgba.size})")
 
-    # クロエ: 右半分 x=512〜1024
+    # ナツ: 右半分 x=512〜1024
     kuroe_box = (w // 2, y_top, w, y_bottom)
     kuroe_crop = src.crop(kuroe_box)
-    print(f"  クロエ crop: {kuroe_box}")
+    print(f"  ナツ crop: {kuroe_box}")
     kuroe_rgba = remove_bg_flood(kuroe_crop)
     kuroe_rgba.save(OUT_KUROE)
     print(f"  → Saved: {OUT_KUROE}  ({kuroe_rgba.size})")
