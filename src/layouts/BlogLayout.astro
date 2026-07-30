@@ -30,11 +30,21 @@ const updatedFormatted = updatedAt?.toLocaleDateString('ja-JP', {
   day: '2-digit',
 }).replace(/\//g, '.');
 
-// 関連記事（最新3件、自記事・軽貨物カテゴリ除く）
-const EXCLUDED_CATEGORIES = ['軽貨物・黒ナンバー', '運送・軽貨物'];
+// A-3/A-4/B-1: カテゴリ分類・関連記事の双方向フィルタ・サイドバーCTAの出し分け
+const KURO_CATEGORIES = ['軽貨物・黒ナンバー'];
+const ANZEN_CATEGORIES = ['安全管理', '法令対応'];
+const isKuro = KURO_CATEGORIES.includes(category ?? '');
+// ctaType: 'koji' | 'anzen' | 'kuro'
+const ctaType = isKuro ? 'kuro' : ANZEN_CATEGORIES.includes(category ?? '') ? 'anzen' : 'koji';
+
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const related = allPosts
-  .filter(p => p.slug !== slug && !EXCLUDED_CATEGORIES.includes(p.data.category ?? ''))
+  .filter(p => {
+    if (p.slug === slug) return false;
+    const pIsKuro = KURO_CATEGORIES.includes(p.data.category ?? '');
+    // 軽貨物記事→軽貨物のみ / 建設業記事→軽貨物除外
+    return isKuro ? pIsKuro : !pIsKuro;
+  })
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
   .slice(0, 3);
 
@@ -182,12 +192,28 @@ const breadcrumbSchema = JSON.stringify({
       <aside class="article-toc" id="toc-aside">
         <div class="font-mono text-[11px] tracking-[0.16em] text-[#8FA1C4] pb-3 pl-3">目次 / CONTENTS</div>
         <nav id="toc-nav" class="flex flex-col gap-0.5"></nav>
-        <!-- ミニCTA -->
-        <div class="mt-4 bg-[#F3F6FB] rounded-xl p-4 flex flex-col gap-2">
-          <p class="text-[12.5px] leading-[1.7] font-bold text-[#0F2557] m-0">毎年の集計をラクに</p>
-          <p class="text-xs leading-[1.7] text-[#5A6B85] m-0">シンプル工事台帳</p>
-          <a href="/products/koji-daicho/" class="bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold text-[12.5px] px-3 py-2 rounded-lg text-center transition-colors no-underline">シンプル工事台帳を見る</a>
-        </div>
+        <!-- ミニCTA (B-1: カテゴリ→商品マッピング) -->
+        {ctaType === 'koji' && (
+          <div class="mt-4 bg-[#F3F6FB] rounded-xl p-4 flex flex-col gap-2">
+            <p class="text-[12.5px] leading-[1.7] font-bold text-[#0F2557] m-0">毎年の集計をラクに</p>
+            <p class="text-xs leading-[1.7] text-[#5A6B85] m-0">シンプル工事台帳</p>
+            <a href="/products/koji-daicho/" class="bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold text-[12.5px] px-3 py-2 rounded-lg text-center transition-colors no-underline">シンプル工事台帳を見る</a>
+          </div>
+        )}
+        {ctaType === 'anzen' && (
+          <div class="mt-4 bg-[#F3F6FB] rounded-xl p-4 flex flex-col gap-2">
+            <p class="text-[12.5px] leading-[1.7] font-bold text-[#0F2557] m-0">資格・車検の期限管理を</p>
+            <p class="text-xs leading-[1.7] text-[#5A6B85] m-0">シンプル安全台帳</p>
+            <a href="/products/anzen-daicho/" class="bg-[#F59E0B] hover:bg-[#D98908] text-white font-bold text-[12.5px] px-3 py-2 rounded-lg text-center transition-colors no-underline">シンプル安全台帳を見る</a>
+          </div>
+        )}
+        {ctaType === 'kuro' && (
+          <div class="mt-4 bg-[#F3F6FB] rounded-xl p-4 flex flex-col gap-2">
+            <p class="text-[12.5px] leading-[1.7] font-bold text-[#0F2557] m-0">黒ナンバーの記録ツール</p>
+            <p class="text-xs leading-[1.7] text-[#5A6B85] m-0">準備中</p>
+            <a href="/contact/" onclick="gtag('event','kuro_register_click',{method:'sidebar'})" class="bg-[#0F2557] hover:bg-[#1A2B4A] text-white font-bold text-[12.5px] px-3 py-2 rounded-lg text-center transition-colors no-underline">ご案内を受け取る →</a>
+          </div>
+        )}
       </aside>
     </div>
   </section>
