@@ -322,7 +322,7 @@ const timelineItems = [
                 <div class={`tl-dot ${item.released ? 'released' : 'upcoming'}`}></div>
                 <div class="tl-label">{item.label}</div>
                 <div class="tl-date">{item.date}</div>
-                {item.note && <div class="tl-note">{item.note}</div>}
+                <div class="tl-note">{item.note}</div>
               </div>
             ))}
           </div>
@@ -355,29 +355,29 @@ const timelineItems = [
           <table class="cmp-table">
             <thead>
               <tr>
-                <th></th>
-                <th style="color: #0F2557;">シンプル工事台帳</th>
-                <th style="color: #0F2557;">シンプル安全台帳</th>
+                <th scope="col"></th>
+                <th scope="col" style="color: #0F2557;">シンプル工事台帳</th>
+                <th scope="col" style="color: #0F2557;">シンプル安全台帳</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th>用途</th>
+                <th scope="row">用途</th>
                 <td>お金の記録・申告準備</td>
                 <td>期限管理・安全書類</td>
               </tr>
               <tr>
-                <th>形式</th>
+                <th scope="row">形式</th>
                 <td>Excel（Windows / Mac）</td>
                 <td>Windows アプリ</td>
               </tr>
               <tr>
-                <th>価格</th>
+                <th scope="row">価格</th>
                 <td>¥{PRODUCT.price.toLocaleString()}（買い切り）</td>
                 <td>¥{ANZEN_DAICHO.price.toLocaleString()}（買い切り）</td>
               </tr>
               <tr>
-                <th style="border-bottom: none;">こんな方に</th>
+                <th scope="row" style="border-bottom: none;">こんな方に</th>
                 <td style="border-bottom: none;">確定申告を自力でやる一人親方</td>
                 <td style="border-bottom: none;">元請に書類を出す現場がある方</td>
               </tr>
@@ -429,7 +429,7 @@ const timelineItems = [
         </div>
         <dl style="display: flex; flex-direction: column; gap: 10px;">
           {faqExcerpts.map((faq, i) => {
-            const uid = `prd-faq-${i}`;
+            const uid = String(i);
             return (
               <div style="border: 1px solid #D8DEE8; border-radius: 16px; overflow: hidden;">
                 <dt>

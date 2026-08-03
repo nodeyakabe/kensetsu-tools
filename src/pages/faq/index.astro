@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { faqReceive, faqPayment, faqBugSupport } from '@/data/faq-excerpts';
+import { PRODUCT, ANZEN_DAICHO } from '@/data/product';
 
 const siteUrl = 'https://kensetsu-tools.com';
 
@@ -203,12 +204,12 @@ const sections = [
       <div class="mt-4 grid sm:grid-cols-2 gap-4">
         <a href="/products/koji-daicho/" class="block bg-[#FDEBC8] border border-[#F59E0B] rounded-2xl p-6 text-center hover:bg-[#FDE0A0] transition-colors">
           <p class="text-[#1A2B4A] font-bold mb-1">シンプル工事台帳</p>
-          <p class="text-[#44536E] text-sm mb-3">¥5,980（税込・買い切り）</p>
+          <p class="text-[#44536E] text-sm mb-3">¥{PRODUCT.price.toLocaleString()}（税込・買い切り）</p>
           <span class="text-[#B45309] font-bold text-sm">商品詳細・購入 →</span>
         </a>
         <a href="/products/anzen-daicho/" class="block bg-[#E4F1EA] border border-[#11512F] rounded-2xl p-6 text-center hover:bg-[#CEE8D8] transition-colors">
           <p class="text-[#1A2B4A] font-bold mb-1">シンプル安全台帳</p>
-          <p class="text-[#44536E] text-sm mb-3">¥9,800（税込・買い切り）</p>
+          <p class="text-[#44536E] text-sm mb-3">¥{ANZEN_DAICHO.price.toLocaleString()}（税込・買い切り）</p>
           <span class="text-[#11512F] font-bold text-sm">商品詳細・購入 →</span>
         </a>
       </div>
