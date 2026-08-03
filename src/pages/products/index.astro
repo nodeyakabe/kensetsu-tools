@@ -147,7 +147,7 @@ const timelineItems = [
 
     /* ===== 比較表 ===== */
     .cmp-table-wrap { overflow: visible; }
-    .cmp-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .cmp-table { width: 100%; border-collapse: collapse; font-size: 16px; }
     .cmp-table th, .cmp-table td { padding: 13px 18px; text-align: left; border-bottom: 1px solid #E3E8F0; }
     .cmp-table thead th { font-weight: 700; color: #5A6B85; background: #F3F6FB; }
     .cmp-table tbody th { font-weight: 700; color: #44536E; width: 120px; }
@@ -163,9 +163,9 @@ const timelineItems = [
 
     /* ===== レスポンシブ ===== */
     .products-hero-inner { max-width: 1180px; margin: 0 auto; padding: 26px 40px 28px; display: flex; flex-direction: column; gap: 12px; }
-    .products-inner   { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    .products-inner   { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
     .products-inner-w { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
-    .prod-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .prod-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
     .promise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
     .cta-inner { max-width: 1180px; margin: 0 auto; padding: 56px 40px; display: flex; align-items: center; gap: 32px; }
 
@@ -200,8 +200,12 @@ const timelineItems = [
   <section style="background: #0F2557; position: relative; overflow: hidden;">
     <div style="position: absolute; top: -180px; right: -220px; width: 620px; height: 620px; border: 76px solid #14305F; border-radius: 50%;"></div>
     <div class="products-hero-inner">
-      <h1 style="margin: 0; font-size: 36px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">ツール・商品</h1>
-      <p style="margin: 0; font-size: 14.5px; line-height: 1.9; color: #C7D2E5; max-width: 560px;">建設業の現場で本当に使えるツールを、買い切り（月額なし）でお届けします。<br>むずかしい操作はありません。ITが苦手な方でも、今日から使えます。</p>
+      <div style="border: 1.5px solid rgba(255,255,255,0.5); color: #FFFFFF; font-size: 12px; font-weight: 700; padding: 7px 22px; border-radius: 999px; width: fit-content;">PRODUCTS — ツール・商品</div>
+      <h1 style="margin: 0; font-size: 48px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">ツール・商品</h1>
+      <div style="display: flex; flex-direction: column; gap: 6px; max-width: 600px;">
+        <p style="margin: 0; font-size: 16px; line-height: 1.7; color: #FFFFFF; font-weight: 700;">建設業の現場で本当に使えるツールを、買い切りでお届けします。</p>
+        <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #C7D2E5;">月額なし・むずかしい操作なし。ITが苦手な方でも、今日から使えます。</p>
+      </div>
     </div>
   </section>
 
@@ -216,12 +220,12 @@ const timelineItems = [
           <div style="display: flex; flex-direction: column; gap: 10px;">
             <a href="#koji" class="guide-row">
               <span style="color: #F59E0B; font-weight: 900; font-size: 16px; flex: none;">→</span>
-              <span style="font-size: 14px; color: #44536E; flex: 1;">お金の記録・確定申告をラクにしたい</span>
+              <span style="font-size: 16px; color: #44536E; flex: 1; line-height: 1.6;">お金の記録・確定申告をラクにしたい</span>
               <span style="font-size: 13.5px; font-weight: 700; color: #0F2557; flex: none;">シンプル工事台帳</span>
             </a>
             <a href="#anzen" class="guide-row">
               <span style="color: #F59E0B; font-weight: 900; font-size: 16px; flex: none;">→</span>
-              <span style="font-size: 14px; color: #44536E; flex: 1;">資格・車検の期限管理と書類づくり</span>
+              <span style="font-size: 16px; color: #44536E; flex: 1; line-height: 1.6;">資格・車検の期限管理と書類づくり</span>
               <span style="font-size: 13.5px; font-weight: 700; color: #0F2557; flex: none;">シンプル安全台帳</span>
             </a>
           </div>
@@ -243,21 +247,21 @@ const timelineItems = [
           <!-- 工事台帳カード -->
           <div id="koji" class="prod-card">
             <div class="prod-card-header">
-              <div style="font-size: 11px; color: #8FA1C4; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 4px;">第1弾・発売中</div>
+              <div style="font-size: 12px; color: #8FA1C4; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 4px;">第1弾・発売中</div>
               <h3 style="margin: 0; font-size: 20px; font-weight: 900; color: #FFFFFF;">シンプル工事台帳</h3>
             </div>
             <div class="prod-card-body">
-              <p style="margin: 0; font-size: 13.5px; line-height: 1.85; color: #44536E;">入金と支出を入れるだけで、収支と確定申告用の集計ができるExcelツール</p>
+              <p style="margin: 0; font-size: 16px; line-height: 1.7; color: #44536E;">入金と支出を入れるだけで、収支と確定申告用の集計ができるExcelツール</p>
               <div>
                 <div style="font-size: 28px; font-weight: 900; color: #0F2557; line-height: 1;">¥{PRODUCT.price.toLocaleString()}</div>
-                <div style="font-size: 11.5px; color: #8FA1C4; margin-top: 2px;">買い切り・月額なし</div>
+                <div style="font-size: 12px; color: #8FA1C4; margin-top: 2px;">買い切り・月額なし</div>
               </div>
               <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px;">
-                <li style="font-size: 13px; color: #1A2B4A; display: flex; gap: 8px;">
+                <li style="font-size: 16px; color: #1A2B4A; display: flex; gap: 8px; line-height: 1.6;">
                   <span style="color: #11512F; font-weight: 700; flex: none;">✓</span>
                   マクロなし・Excelだけで動く
                 </li>
-                <li style="font-size: 13px; color: #1A2B4A; display: flex; gap: 8px;">
+                <li style="font-size: 16px; color: #1A2B4A; display: flex; gap: 8px; line-height: 1.6;">
                   <span style="color: #11512F; font-weight: 700; flex: none;">✓</span>
                   確定申告サマリー自動集計
                 </li>
@@ -269,21 +273,21 @@ const timelineItems = [
           <!-- 安全台帳カード -->
           <div id="anzen" class="prod-card">
             <div class="prod-card-header">
-              <div style="font-size: 11px; color: #8FA1C4; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 4px;">第2弾・発売中</div>
+              <div style="font-size: 12px; color: #8FA1C4; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 4px;">第2弾・発売中</div>
               <h3 style="margin: 0; font-size: 20px; font-weight: 900; color: #FFFFFF;">シンプル安全台帳</h3>
             </div>
             <div class="prod-card-body">
-              <p style="margin: 0; font-size: 13.5px; line-height: 1.85; color: #44536E;">資格・車検の期限を一覧管理し、作業員名簿などの書類PDFまで出力</p>
+              <p style="margin: 0; font-size: 16px; line-height: 1.7; color: #44536E;">資格・車検の期限を一覧管理し、作業員名簿などの書類PDFまで出力</p>
               <div>
                 <div style="font-size: 28px; font-weight: 900; color: #0F2557; line-height: 1;">¥{ANZEN_DAICHO.price.toLocaleString()}</div>
-                <div style="font-size: 11.5px; color: #8FA1C4; margin-top: 2px;">買い切り・月額なし</div>
+                <div style="font-size: 12px; color: #8FA1C4; margin-top: 2px;">買い切り・月額なし</div>
               </div>
               <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px;">
-                <li style="font-size: 13px; color: #1A2B4A; display: flex; gap: 8px;">
+                <li style="font-size: 16px; color: #1A2B4A; display: flex; gap: 8px; line-height: 1.6;">
                   <span style="color: #11512F; font-weight: 700; flex: none;">✓</span>
                   期限切れ・30日以内を自動で警告
                 </li>
-                <li style="font-size: 13px; color: #1A2B4A; display: flex; gap: 8px;">
+                <li style="font-size: 16px; color: #1A2B4A; display: flex; gap: 8px; line-height: 1.6;">
                   <span style="color: #11512F; font-weight: 700; flex: none;">✓</span>
                   完全オフライン・データは手元に
                 </li>
@@ -306,11 +310,11 @@ const timelineItems = [
         </div>
         <!-- 建設番頭スリム行 -->
         <div style="background: #FFFFFF; border: 1px solid #E3E8F0; border-radius: 14px; padding: 16px 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-          <span style="background: #E5E7EB; color: #6B7280; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px; flex: none;">開発中</span>
+          <span style="background: #E5E7EB; color: #6B7280; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; flex: none;">開発中</span>
           <span style="font-size: 15px; font-weight: 900; color: #0F2557;">建設番頭</span>
-          <span style="font-size: 13px; color: #5A6B85;">— 原価と資金繰りの見える化（第3弾）</span>
-          <span style="margin-left: auto; font-size: 13px; color: #8FA1C4; flex: none;">¥{KENSETSU_BANTO.price.toLocaleString()} 予定</span>
-          <a href="/products/kensetsu-banto/" style="font-size: 13px; color: #0F2557; font-weight: 700; text-decoration: underline; flex: none;">詳しく見る →</a>
+          <span style="font-size: 16px; color: #5A6B85; line-height: 1.6;">— 原価と資金繰りの見える化（第3弾）</span>
+          <span style="margin-left: auto; font-size: 14px; color: #8FA1C4; flex: none;">¥{KENSETSU_BANTO.price.toLocaleString()} 予定</span>
+          <a href="/products/kensetsu-banto/" style="font-size: 14px; color: #0F2557; font-weight: 700; text-decoration: underline; flex: none;">詳しく見る →</a>
         </div>
 
         <!-- タイムライン（デスクトップ横型） -->
@@ -408,8 +412,8 @@ const timelineItems = [
               <div>
                 {card.rows.map(([label, val]) => (
                   <div style="display: flex; gap: 0; border-bottom: 1px solid #F0F3F8;">
-                    <div style="font-size: 12.5px; font-weight: 700; color: #5A6B85; background: #F7F8FC; padding: 10px 14px; width: 96px; flex: none;">{label}</div>
-                    <div style="font-size: 13px; color: #1A2B4A; padding: 10px 14px;">{val}</div>
+                    <div style="font-size: 12px; font-weight: 700; color: #5A6B85; background: #F7F8FC; padding: 10px 14px; width: 96px; flex: none;">{label}</div>
+                    <div style="font-size: 16px; color: #1A2B4A; padding: 10px 14px; line-height: 1.6;">{val}</div>
                   </div>
                 ))}
               </div>
@@ -442,7 +446,7 @@ const timelineItems = [
                   >
                     <span style="display: flex; gap: 10px; align-items: flex-start;">
                       <span style="color: #F59E0B; font-weight: 900; font-size: 13px; margin-top: 1px; flex: none;">Q</span>
-                      <span style="font-size: 14px;">{faq.q}</span>
+                      <span style="font-size: 16px; line-height: 1.6;">{faq.q}</span>
                     </span>
                     <svg class="prd-faq-chevron flex-shrink-0 w-5 h-5 text-[#5A6B85] mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -457,7 +461,7 @@ const timelineItems = [
                 >
                   <div style="display: flex; gap: 10px; align-items: flex-start; padding-top: 14px; border-top: 1px solid #D8DEE8;">
                     <span style="color: #0F2557; font-weight: 900; font-size: 13px; margin-top: 1px; flex: none;">A</span>
-                    <span style="font-size: 13.5px; line-height: 1.85;" set:html={faq.a} />
+                    <span style="font-size: 16px; line-height: 1.7;" set:html={faq.a} />
                   </div>
                 </dd>
               </div>
