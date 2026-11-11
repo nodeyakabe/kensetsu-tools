@@ -381,6 +381,39 @@ const comparisonRows = [
     </div>
   </section>
 
+  <!-- DATA: データの扱い -->
+  <section class="az-wave az-wave-pull" style="background: #FFFFFF; position: relative;">
+    <div class="container-base az-reveal" style="padding-top: 80px; padding-bottom: 64px; display: flex; flex-direction: column; gap: 36px;">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
+        <span class="az-pill">DATA — データの扱い</span>
+        <h2 style="margin: 0; font-size: 30px; font-weight: 900; color: #0F2557; letter-spacing: 0.04em;">個人情報を、外に出さない設計です。</h2>
+      </div>
+      <div style="max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px;">
+        <p style="margin: 0; font-size: 14.5px; line-height: 2.1; color: #44536E;">
+          作業員の健康診断の結果や緊急連絡先、免許証の番号は、漏れたときの影響が大きい情報です。シンプル安全台帳は、入力したデータをお使いのPCの中だけに保存し、インターネットには送信しません。
+        </p>
+        <p style="margin: 0; font-size: 14.5px; line-height: 2.1; color: #44536E;">
+          クラウドサービスや委託先が攻撃を受けて、預けていた情報が流出する事故が相次いでいます。台帳のデータは外部のサーバーに置かれていないため、そうした事故に巻き込まれにくい構造です。
+        </p>
+        <div style="background: #F3F6FB; border-radius: 20px; padding: 28px 32px;">
+          <h3 style="margin: 0 0 14px; font-size: 16px; font-weight: 900; color: #0F2557;">そのぶん、PCの管理が大切です</h3>
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.9; color: #44536E;">データがPCの中にある以上、PCの紛失・盗難・故障には備えが必要です。</p>
+          <ul style="margin: 0; padding-left: 1.5em; display: flex; flex-direction: column; gap: 8px; font-size: 14px; line-height: 1.9; color: #44536E;">
+            <li>Windowsのログインにパスワード（またはPIN）を設定する</li>
+            <li>Windowsの「デバイスの暗号化」またはBitLockerを有効にする（盗まれても中身を読まれにくくなります）</li>
+            <li>定期的にバックアップをとり、バックアップしたUSBなどは鍵のかかる場所に保管する</li>
+          </ul>
+          <p style="margin: 14px 0 0; font-size: 13.5px; color: #5A6B85;">
+            バックアップの方法は、<a href="#spec-storage" style="color: #0F2557; font-weight: 700; text-decoration: underline;">ページ下部の「詳しい保存先を確認する」</a>をご覧ください。
+          </p>
+        </div>
+        <p style="margin: 0; font-size: 13.5px; line-height: 2.0; color: #5A6B85;">
+          預かった個人情報の保管のコツは<a href="/blog/kojin-joho-hokan/" style="color: #0F2557; font-weight: 700; text-decoration: underline;">こちらの記事</a>で解説しています。
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- S5: 画面イメージ -->
   <section class="az-wave az-wave-pull" style="background: #FFFFFF; position: relative;">
     <div class="container-base az-reveal" style="padding-top: 80px; padding-bottom: 64px; display: flex; flex-direction: column; gap: 32px;">
@@ -474,7 +507,7 @@ const comparisonRows = [
               ※ Mac・Linux・ChromeOS ではお使いいただけません。<br>
               ※ クラウド同期・複数人同時編集には対応していません（1台で使い、ファイルを持ち運ぶ運用です）。
             </div>
-            <details style="font-size: 12px; color: #5A6B85; margin-top: 6px;">
+            <details id="spec-storage" style="font-size: 12px; color: #5A6B85; margin-top: 6px;">
               <summary style="cursor: pointer; color: #0F2557; font-weight: 700; line-height: 1.75;">詳しい保存先を確認する（バックアップ・PC移行される方向け）</summary>
               <p style="margin: 6px 0 0; color: #44536E; line-height: 1.85; text-align: left;">データは <code>%LOCALAPPDATA%\SimpleAnzenDaicho</code> に保存されます。このフォルダごとコピーすればバックアップや別PCへの移行ができます。</p>
             </details>
