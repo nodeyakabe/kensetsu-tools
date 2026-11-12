@@ -4,47 +4,65 @@
  * checkout.session.completed を受信し、ライセンスキーを生成してBrevoでメールを送信する
  *
  * 環境変数（Cloudflare Pages ダッシュボードで設定）:
- *   STRIPE_SECRET_KEY           — Stripe シークレットキー
- *   STRIPE_WEBHOOK_SECRET_ANZEN — Webhook 署名シークレット（本エンドポイント専用）
- *   STRIPE_PRICE_ID_ANZEN       — シンプル安全台帳 単品 price ID
- *   STRIPE_PRICE_ID_SET         — セット（工事台帳＋安全台帳）price ID
- *   ADAN_LICENSE_SECRET         — ライセンスキー生成用シークレット（HMAC-SHA256）
- *   BREVO_API_KEY               — Brevo API キー
- *   BREVO_SENDER_EMAIL          — 送信元メールアドレス（Brevo認証済み）
- *   BREVO_SENDER_NAME           — 送信元名
- *   SITE_ORIGIN                 — サイトURL（例: https://kensetsu-tools.com）
+ *   STRIPE_SECRET_KEY             — Stripe シークレットキー
+ *   STRIPE_WEBHOOK_SECRET_ANZEN   — Webhook 署名シークレット（本エンドポイント専用）
+ *   STRIPE_PRICE_ID_ANZEN         — シンプル安全台帳 単品 price ID
+ *   STRIPE_PRICE_ID_SET           — セット（工事台帳＋安全台帳）price ID
+ *   ADAN_ECDSA_PRIVATE_KEY_B64    — 安全台帳ライセンスキー発行用 ECDSA P-256 秘密鍵（PKCS#8 DER の Base64）
+ *   BREVO_API_KEY                 — Brevo API キー
+ *   BREVO_SENDER_EMAIL            — 送信元メールアドレス（Brevo認証済み）
+ *   BREVO_SENDER_NAME             — 送信元名
+ *   SITE_ORIGIN                   — サイトURL（例: https://kensetsu-tools.com）
  */
 
 import Stripe from "stripe";
+import { base32Encode } from "./_lib/base32.js";
 
 /**
- * ライセンスキー生成
- * アルゴリズムはアプリ側 IsValidKey() と完全一致であること。
- * 出力形式: XXXX-XXXX-XXXX-XXXX-XXXX（全uppercase・ハイフン含む24文字）
+ * ECDSA P-256 ライセンスキー生成
+ * アルゴリズムはアプリ側 LicenseService.IsValidKey() と完全一致であること。
  *
- * 大文字規則（事故要因・厳守）:
- *   data12     → uppercase hex
- *   HMAC msg   → data12 を uppercase のまま渡す（lowercase変換しない）
- *   checksum4  → uppercase hex 先頭4文字
+ * 出力形式（正規化）: {PREFIX}{Base32(nonce8+sig64)} = 120文字
+ * 署名対象: UTF8(prefix) + nonce (12バイト)
+ * 署名形式: IEEE P1363 (64バイト固定) — Web Crypto のデフォルト
+ *
+ * @param {string} prefix - 'ADAN'
+ * @param {string} privateKeyB64 - PKCS#8 DER の Base64
+ * @returns {{ key: string, nonce: Uint8Array }} key: 正規化120文字キー
  */
-async function generateLicenseKey(prefix, secret) {
-  if (!secret) throw new Error(`LICENSE_SECRET for "${prefix}" is not configured`);
-  const bytes = crypto.getRandomValues(new Uint8Array(6));
-  const data  = Array.from(bytes)
-    .map(b => b.toString(16).padStart(2, '0').toUpperCase())
-    .join('');
+async function generateLicenseKey(prefix, privateKeyB64) {
+  if (!privateKeyB64) throw new Error(`ECDSA_PRIVATE_KEY_B64 for "${prefix}" is not configured`);
 
-  const enc = new TextEncoder();
-  const key = await crypto.subtle.importKey(
-    'raw', enc.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
+  const pkcs8Bytes = Uint8Array.from(atob(privateKeyB64), c => c.charCodeAt(0));
+  const privateKey = await crypto.subtle.importKey(
+    'pkcs8',
+    pkcs8Bytes,
+    { name: 'ECDSA', namedCurve: 'P-256' },
+    false,
+    ['sign']
   );
-  const sig  = await crypto.subtle.sign('HMAC', key, enc.encode(data));
-  const hex  = Array.from(new Uint8Array(sig))
-    .map(b => b.toString(16).padStart(2, '0').toUpperCase()).join('');
-  const checksum = hex.slice(0, 4);
 
-  const full = prefix + data + checksum;
-  return `${full.slice(0,4)}-${full.slice(4,8)}-${full.slice(8,12)}-${full.slice(12,16)}-${full.slice(16,20)}`;
+  const nonce = crypto.getRandomValues(new Uint8Array(8));
+  const prefixBytes = new TextEncoder().encode(prefix);
+  const message = new Uint8Array(prefixBytes.length + nonce.length);
+  message.set(prefixBytes, 0);
+  message.set(nonce, prefixBytes.length);
+
+  const sigBuffer = await crypto.subtle.sign(
+    { name: 'ECDSA', hash: 'SHA-256' },
+    privateKey,
+    message
+  );
+  const sig = new Uint8Array(sigBuffer); // 64バイト固定 (IEEE P1363)
+
+  const payload = new Uint8Array(nonce.length + sig.length); // 72バイト
+  payload.set(nonce, 0);
+  payload.set(sig, nonce.length);
+
+  return {
+    key: prefix + base32Encode(payload), // 120文字 (正規化)
+    nonce,
+  };
 }
 
 export async function onRequestPost({ request, env }) {
@@ -94,15 +112,17 @@ export async function onRequestPost({ request, env }) {
 
     // ADAN ライセンスキーを生成（単品・セットともに ADAN キーが必要）
     // セットは工事台帳ライト版（Excel）+ 安全台帳 → Excel にキー不要なので ADAN の1本
-    const adanKey = await generateLicenseKey('ADAN', env.ADAN_LICENSE_SECRET);
+    const { key: adanKey, nonce: adanNonce } = await generateLicenseKey('ADAN', env.ADAN_ECDSA_PRIVATE_KEY_B64);
 
     // 発行キーを Stripe payment_intent メタデータに記録
     // → 「キーをなくした」問い合わせ時に購入者メールから追跡可能にする
+    // → nonce も記録（ECDSA 方式では nonce が一意の発行証跡になる）
     if (s.payment_intent) {
       try {
         await stripe.paymentIntents.update(s.payment_intent, {
           metadata: {
             adan_license_key: adanKey,
+            adan_license_nonce: Array.from(adanNonce).map(b => b.toString(16).padStart(2,'0')).join(''),
             product: isSet ? 'SET_工事台帳ライト+安全台帳' : 'ADAN_安全台帳単品',
             issued_at: new Date().toISOString(),
           },
@@ -144,10 +164,12 @@ export async function onRequestPost({ request, env }) {
       </a>
     </div>`;
 
+      // displayKey: ADAN-{116文字} = 121文字。メールでコピーしやすいようハイフンあり。
+      const adanDisplay = adanKey.slice(0, 4) + '-' + adanKey.slice(4);
       const licenseSection = `
     <div style="background:#F0FDF4;border:2px solid #16A34A;border-radius:8px;padding:20px 24px;margin:24px 0">
       <p style="margin:0 0 8px;font-size:13px;font-weight:bold;color:#15803D">ライセンスキー（大切に保管してください）</p>
-      <p style="margin:0 0 12px;font-family:monospace;font-size:24px;font-weight:bold;letter-spacing:0.18em;color:#1e293b;text-align:center;word-break:break-all">${adanKey}</p>
+      <p style="margin:0 0 12px;font-family:'Courier New',Courier,monospace;font-size:14px;font-weight:bold;color:#1e293b;text-align:center;word-break:break-all">${adanDisplay}</p>
       <p style="margin:0;font-size:12px;color:#64748b;line-height:1.8">
         このキーは初回起動時に一度だけ入力します。入力後はこのメールを削除しても問題ありません。<br>
         キーをなくしてしまった場合は、ご購入時のメールアドレスで <a href="mailto:contact@kensetsu-tools.com" style="color:#0F2557">お問い合わせ</a> ください。
