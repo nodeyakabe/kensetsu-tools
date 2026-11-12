@@ -1,0 +1,152 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+// Turnstile サイトキー（公開値・Cloudflare Pages 環境変数 PUBLIC_TURNSTILE_SITE_KEY で設定）
+const turnstileSiteKey = (import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '').trim();
+---
+
+<BaseLayout
+  title="再ダウンロード | 建設業ツール工房"
+  description="ライセンスキーを入力してアプリを再ダウンロードできます。"
+>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  </Fragment>
+
+  <div class="container-base py-16 md:py-24">
+    <div class="max-w-lg mx-auto">
+
+      <h1 class="text-2xl font-bold text-primary-900 mb-2">再ダウンロード</h1>
+      <p class="text-slate-600 text-sm mb-8 leading-relaxed">
+        ご購入時にお送りしたライセンスキーを入力すると、アプリを再ダウンロードできます。<br>
+        キーをなくした場合は
+        <a href="/contact/" class="text-primary-600 underline hover:text-primary-800">お問い合わせ</a>
+        ください。
+      </p>
+
+      <!-- フォーム -->
+      <form id="redownload-form" novalidate>
+
+        <div class="mb-5">
+          <label for="license-key" class="block text-sm font-semibold text-slate-700 mb-1">
+            ライセンスキー
+          </label>
+          <input
+            type="text"
+            id="license-key"
+            name="licenseKey"
+            placeholder="KSBT-AAAA... または ADAN-AAAA..."
+            autocomplete="off"
+            spellcheck="false"
+            class="w-full font-mono text-sm border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent placeholder-slate-400"
+          />
+          <p class="field-error hidden text-red-600 text-xs mt-1" id="error-key">ライセンスキーを入力してください。</p>
+        </div>
+
+        <!-- Turnstile -->
+        <div class="mb-5">
+          {turnstileSiteKey
+            ? <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="light"></div>
+            : <p class="text-xs text-slate-400">（開発環境: Turnstile スキップ）</p>
+          }
+          <p class="field-error hidden text-red-600 text-xs mt-1" id="error-turnstile">認証を完了してください。</p>
+        </div>
+
+        <button
+          type="submit"
+          id="submit-btn"
+          class="w-full bg-primary-700 hover:bg-primary-800 text-white font-bold py-3 rounded-xl transition-colors text-sm"
+        >
+          ダウンロードする
+        </button>
+
+        <!-- エラー表示 -->
+        <div id="error-box" class="hidden mt-4 bg-red-50 border border-red-300 rounded-lg px-4 py-3 text-sm text-red-700"></div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('redownload-form') as HTMLFormElement;
+    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+    const errorBox = document.getElementById('error-box') as HTMLDivElement;
+
+    function showFieldError(id: string) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('hidden');
+    }
+    function hideFieldError(id: string) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('hidden');
+    }
+    function showError(msg: string) {
+      errorBox.textContent = msg;
+      errorBox.classList.remove('hidden');
+    }
+    function hideError() {
+      errorBox.classList.add('hidden');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideError();
+      hideFieldError('error-key');
+      hideFieldError('error-turnstile');
+
+      const licenseKey = (document.getElementById('license-key') as HTMLInputElement).value.trim();
+      const turnstileInput = form.querySelector('[name="cf-turnstile-response"]') as HTMLInputElement | null;
+      const turnstileToken = turnstileInput?.value ?? '';
+
+      let hasError = false;
+      if (!licenseKey) { showFieldError('error-key'); hasError = true; }
+      if (!turnstileToken && turnstileInput !== null) { showFieldError('error-turnstile'); hasError = true; }
+      if (hasError) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = '確認中...';
+
+      try {
+        const res = await fetch('/api/redownload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ licenseKey, turnstileToken }),
+        });
+
+        if (res.ok && res.headers.get('Content-Type')?.includes('application/zip')) {
+          // ファイルをダウンロード
+          const blob = await res.blob();
+          const cd = res.headers.get('Content-Disposition') ?? '';
+          const filenameMatch = cd.match(/filename="([^"]+)"/);
+          const filename = filenameMatch?.[1] ?? 'download.zip';
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+        } else {
+          const body = await res.json().catch(() => ({})) as Record<string, string>;
+          const msg: Record<string, string> = {
+            invalid_key:       'ライセンスキーが正しくありません。メールに記載のキーをそのままコピーしてください。',
+            unknown_prefix:    '対応していないキーです。ご確認ください。',
+            turnstile_missing: '認証を完了してください（ページを再読み込みして試してください）。',
+            turnstile_failed:  '認証に失敗しました。ページを再読み込みして試してください。',
+            file_not_found:    'ファイルが見つかりませんでした。しばらくしてから再度お試しください。',
+          };
+          showError(msg[body.error] ?? 'エラーが発生しました。しばらくしてから再度お試しください。');
+        }
+      } catch {
+        showError('通信エラーが発生しました。ページを再読み込みして試してください。');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'ダウンロードする';
+      }
+    });
+  </script>
+
+</BaseLayout>
