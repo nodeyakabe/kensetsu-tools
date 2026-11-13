@@ -228,7 +228,7 @@ export async function onRequestPost({ request, env }) {
       <p style="margin:0 0 8px;font-size:13px;font-weight:bold;color:#374151">建設番頭 ご利用開始の手順</p>
       <ol style="margin:0;padding-left:20px;font-size:13px;color:#64748b;line-height:1.8">
         <li>ダウンロードしたzipを解凍する</li>
-        <li><strong>KensetsuBanto.App.exe</strong> をダブルクリック</li>
+        <li><strong>建設番頭.exe</strong> をダブルクリック</li>
         <li>上記のライセンスキーを入力して有効化</li>
         <li>すぐにお使いいただけます</li>
       </ol>

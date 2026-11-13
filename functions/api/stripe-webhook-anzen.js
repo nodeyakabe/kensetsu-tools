@@ -206,7 +206,7 @@ export async function onRequestPost({ request, env }) {
       <ol style="margin:0;padding-left:20px;font-size:13px;color:#64748b;line-height:1.8">
         <li>上のボタンから zip ファイルをダウンロード</li>
         <li>zip を右クリック →「すべて展開」で展開</li>
-        <li>展開したフォルダ内の <strong>AnzenDaicho.App.exe</strong> をダブルクリックして起動</li>
+        <li>展開したフォルダ内の <strong>シンプル安全台帳.exe</strong> をダブルクリックして起動</li>
         <li>上記のライセンスキーを入力して有効化</li>
         <li>すぐにお使いいただけます</li>
       </ol>
