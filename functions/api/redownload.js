@@ -88,6 +88,9 @@ export async function onRequestPost({ request, env }) {
   if (!licenseKey || typeof licenseKey !== 'string') {
     return json({ error: 'invalid_key' }, 400);
   }
+  if (licenseKey.length > 500) {
+    return json({ error: 'invalid_key' }, 400);
+  }
 
   // ─── 2. Turnstile 検証 ─────────────────────────────────────────
   if (env.TURNSTILE_SECRET_KEY) {
@@ -105,8 +108,13 @@ export async function onRequestPost({ request, env }) {
     if (!tsData.success) return json({ error: 'turnstile_failed' }, 403);
   }
 
-  // ─── 3. キー正規化（ハイフン・空白除去、大文字化） ───────────────
-  const normalized = licenseKey.replace(/[-\s]/g, '').toUpperCase();
+  // ─── 3. キー正規化（全角英数・全角ハイフン・空白・改行をすべて除去、大文字化） ───
+  const normalized = licenseKey
+    .replace(/\uFF0D/g, '-')   // 全角ハイフン－
+    .replace(/\u30FC/g, '-')   // 長音符ー
+    .normalize('NFKC')         // 全角英数 → 半角
+    .replace(/[^A-Za-z0-9]/g, '')
+    .toUpperCase();
 
   // ─── 4. プレフィックス判定 ─────────────────────────────────────
   const PREFIX_MAP = {

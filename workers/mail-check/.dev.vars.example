@@ -1,0 +1,8 @@
+# ローカルテスト用（wrangler dev --test-scheduled）
+# このファイルをコピーして .dev.vars を作り、実際の値を入れる
+# .dev.vars は .gitignore で除外済み
+
+BREVO_API_KEY=xkeysib-...
+BREVO_SENDER_EMAIL=your-sender@example.com
+BREVO_SENDER_NAME=建設業ツール工房
+OWNER_EMAIL=your-email@example.com

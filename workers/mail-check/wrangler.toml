@@ -1,0 +1,6 @@
+name = "kensetsu-tools-mail-check"
+main = "src/index.js"
+compatibility_date = "2024-11-13"
+
+[triggers]
+crons = ["0 0 1 * *"]   # 毎月1日 00:00 UTC = 09:00 JST
