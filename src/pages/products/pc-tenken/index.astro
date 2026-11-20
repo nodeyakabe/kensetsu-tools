@@ -1,0 +1,914 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PurchaseFlow from '@/components/PurchaseFlow.astro';
+
+const siteUrl = (import.meta.env.SITE ?? 'https://kensetsu-tools.com').replace(/\/$/, '');
+const priceValidUntil = `${new Date().getFullYear() + 1}-12-31`;
+
+const PRODUCT = {
+  name: 'PCセキュリティ点検 2026年版',
+  price: 980,
+  currency: 'JPY',
+};
+
+const autoItems = [
+  { name: 'Windows の更新',   desc: '更新が止まっていないか、サポートが終わった Windows でないか' },
+  { name: 'ウイルス対策ソフト', desc: 'ウイルス対策ソフトが動いているか、定義ファイルが新しいか' },
+  { name: 'パスワードの設定',  desc: 'パスワードなしのアカウントや、自動ログオンがないか' },
+  { name: 'フォルダの共有',   desc: '誰でも見られる共有フォルダがないか' },
+  { name: '外からの接続',     desc: 'ファイアウォールが有効か、遠隔操作の受付が開いていないか' },
+  { name: '盗難・紛失への備え', desc: 'Windows の入ったドライブが暗号化されているか' },
+];
+
+const questionItems = [
+  '大切なデータのバックアップを、定期的に取っていますか？',
+  '不審なメールの添付ファイルやリンクを、むやみに開かないよう気をつけていますか？',
+  '大切な情報を社外に持ち出すときの決まり（許可・記録など）がありますか？',
+  'Wi-Fiルーターなど、パソコン以外の機器もサポートが続いているものを使っていますか？',
+  '新しい手口の詐欺やウイルスの情報を、ときどき確認していますか？',
+];
+
+const problems = [
+  'パソコンに詳しい人が、社内にいない',
+  '業者に頼むほどのことなのか、分からない',
+  '元請けに聞かれても、何と答えればいいか分からない',
+  'ニュースを見るたびに、少し心配になる',
+];
+
+const steps = [
+  { no: '1', title: '自動で点検',       body: 'ボタンを押すと、パソコンの設定を6項目読み取ります（数秒〜十数秒）' },
+  { no: '2', title: '5つの質問に答える', body: '「はい／いいえ／わからない」から選ぶだけです' },
+  { no: '3', title: '結果を見て、書類を保存', body: '結果は画面で確認でき、PDFを2種類保存できます' },
+];
+
+const faqs = [
+  { q: 'パソコンに詳しくなくても使えますか？',
+    a: '専門用語を使わず、ボタンと3択の質問だけで進みます。直し方も画面で案内します。' },
+  { q: '設定が変わったり、パソコンが重くなったりしませんか？',
+    a: '設定は一切変更しません。常駐もしないので、点検が終わればそれで終わりです。' },
+  { q: '点検結果シートは、元請けに出せますか？',
+    a: '取引先に対策を聞かれたときの資料として使えるように作っています。受け取り方は取引先によって違うので、事前に確かめてください。' },
+  { q: 'Windows 10 や Mac でも使えますか？',
+    a: 'Windows 11（64ビット）専用です。Windows 10 と Mac では動作を確かめていないため、対象外です。' },
+  { q: '「推奨される状態ではありませんでした」と出たら、どうすればいいですか？',
+    a: 'その項目の直し方を、画面でやさしく案内します。' },
+];
+
+const relatedArticles = [
+  { href: '/blog/motouke-security-taisaku/',
+    title: '元請からセキュリティ対策を聞かれたら｜一人親方・小さな建設会社が今から備えること（SCS評価制度）' },
+  { href: '/blog/kojin-joho-hokan/',
+    title: '作業員名簿・健康診断・免許証コピーの保管、大丈夫？一人親方と小さな建設会社の個人情報管理' },
+  { href: '/blog/furikomisaki-henko-sagi/',
+    title: '「振込先が変わりました」のメールは要注意｜建設業を狙うなりすまし詐欺とメール乗っ取りの防ぎ方' },
+];
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": PRODUCT.name,
+  "description": "IPAのガイドラインをもとに、WindowsのセキュリティをWindowsの更新・ウイルス対策など6項目で自動点検。設定は一切変更せず外部送信なし。結果シートと情報セキュリティ基本方針（案）をPDFで保存。Windows 11専用・買い切り¥980。",
+  "brand": { "@type": "Brand", "name": "建設業ツール工房" },
+  "url": `${siteUrl}/products/pc-tenken/`,
+  "image": `${siteUrl}/og-default.png`,
+  "offers": {
+    "@type": "Offer",
+    "price": String(PRODUCT.price),
+    "priceCurrency": PRODUCT.currency,
+    "availability": "https://schema.org/PreOrder",
+    "url": `${siteUrl}/products/pc-tenken/`,
+    "priceValidUntil": priceValidUntil,
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム",       "item": `${siteUrl}/` },
+    { "@type": "ListItem", "position": 2, "name": "ツール・商品", "item": `${siteUrl}/products/` },
+    { "@type": "ListItem", "position": 3, "name": PRODUCT.name,   "item": `${siteUrl}/products/pc-tenken/` },
+  ],
+};
+---
+
+<BaseLayout
+  title="PCセキュリティ点検 2026年版｜自分のパソコンをボタンひとつで点検（買い切り¥980）"
+  description="IPAのガイドラインをもとに、Windowsの更新・ウイルス対策・共有設定など6項目を自動で点検。結果シートと情報セキュリティ基本方針（案）をPDFで出せます。設定は変えず、外部に送信しません。Windows 11専用・買い切り¥980。"
+  ogImage="/og-default.png"
+  ogType="product"
+>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+    <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <style is:global>
+    /* ===== PCセキュリティ点検ページ (pt-) ===== */
+
+    /* レイアウト */
+    .pt-container {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .pt-container-narrow {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .pt-section {
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+    .pt-section-sm {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+
+    /* タイポグラフィ */
+    .pt-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: #9C6700;
+      text-transform: uppercase;
+      margin: 0 0 10px;
+    }
+    .pt-h2 {
+      font-size: clamp(1.45rem, 3.6vw, 2.0rem);
+      font-weight: 900;
+      color: #1A2535;
+      line-height: 1.4;
+      margin: 0 0 18px;
+    }
+    .pt-lead {
+      font-size: 15px;
+      color: #4F5F77;
+      line-height: 1.95;
+      margin: 0;
+    }
+
+    /* ヒーローグリッド */
+    .pt-hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    /* 課題カード */
+    .pt-prob-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .pt-prob-card {
+      background: #FFFFFF;
+      border: 1px solid #E0E8F0;
+      border-radius: 14px;
+      padding: 22px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .pt-prob-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #FDF3E0;
+      color: #9C6700;
+      font-weight: 900;
+      font-size: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ステップ */
+    .pt-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .pt-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(16.67% + 20px);
+      right: calc(16.67% + 20px);
+      height: 2px;
+      background: #C8D5E8;
+      z-index: 0;
+    }
+    .pt-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .pt-step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #0F2557;
+      color: #fff;
+      font-weight: 900;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(15,37,87,.2);
+    }
+    .pt-step:last-child .pt-step-num {
+      background: #F59E0B;
+    }
+
+    /* 自動点検カード */
+    .pt-check-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .pt-check-card {
+      background: #FFFFFF;
+      border: 1px solid #E0E8F0;
+      border-radius: 14px;
+      padding: 20px 22px;
+    }
+    .pt-check-badge {
+      display: inline-block;
+      background: #E6EEF8;
+      color: #0F2557;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    /* 質問リスト */
+    .pt-q-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .pt-q-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px dashed #DDE5F0;
+    }
+    .pt-q-item:last-child {
+      border-bottom: none;
+    }
+    .pt-q-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #EBF1FA;
+      color: #0F2557;
+      font-weight: 900;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* 仮画像枠 */
+    .pt-placeholder {
+      border: 2px dashed #C0CEDF;
+      border-radius: 14px;
+      background: #F4F7FB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8FA1C4;
+      font-size: 13px;
+      text-align: center;
+      padding: 24px;
+    }
+
+    /* 安心3つの点 */
+    .pt-trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .pt-trust-card {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 16px;
+      padding: 28px 26px;
+    }
+    .pt-trust-num {
+      font-size: 32px;
+      font-weight: 900;
+      color: #F59E0B;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    /* できないこと */
+    .pt-honest-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .pt-honest-item {
+      display: flex;
+      gap: 14px;
+      padding: 15px 0;
+      border-bottom: 1px solid #EAF0F7;
+      font-size: 14.5px;
+      color: #3B4A60;
+      line-height: 1.8;
+    }
+    .pt-honest-item:last-child {
+      border-bottom: none;
+    }
+    .pt-honest-dash {
+      color: #0F2557;
+      font-weight: 900;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* スペックテーブル */
+    .pt-spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .pt-spec-table tr {
+      border-bottom: 1px solid #E0E8F0;
+    }
+    .pt-spec-table tr:last-child {
+      border-bottom: none;
+    }
+    .pt-spec-table th {
+      text-align: left;
+      font-weight: 700;
+      color: #0F2557;
+      padding: 14px 16px 14px 0;
+      width: 180px;
+      white-space: nowrap;
+      vertical-align: top;
+    }
+    .pt-spec-table td {
+      color: #3B4A60;
+      padding: 14px 16px 14px 0;
+      line-height: 1.75;
+    }
+
+    /* 注意事項 */
+    .pt-notice-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .pt-notice-card {
+      background: #FFFFFF;
+      border: 1px solid #E0E8F0;
+      border-radius: 14px;
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* FAQ */
+    .pt-faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .pt-faq-card {
+      background: #FFFFFF;
+      border: 1px solid #E0E8F0;
+      border-radius: 14px;
+      padding: 22px 24px;
+    }
+
+    /* 関連記事 */
+    .pt-related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .pt-related-card {
+      background: #FFFFFF;
+      border: 1px solid #E0E8F0;
+      border-radius: 14px;
+      padding: 20px 22px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .pt-related-card:hover {
+      border-color: #0F2557;
+      box-shadow: 0 4px 16px rgba(15,37,87,.08);
+    }
+
+    /* 価格ボックス */
+    .pt-price-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* レスポンシブ */
+    @media (max-width: 860px) {
+      .pt-hero-grid  { grid-template-columns: 1fr; gap: 32px; }
+      .pt-prob-grid  { grid-template-columns: 1fr; }
+      .pt-check-grid { grid-template-columns: 1fr 1fr; }
+      .pt-trust-grid { grid-template-columns: 1fr; gap: 16px; }
+      .pt-notice-grid { grid-template-columns: 1fr; }
+      .pt-related-grid { grid-template-columns: 1fr; }
+      .pt-price-grid { grid-template-columns: 1fr; }
+      .pt-spec-table th { width: 130px; }
+    }
+    @media (max-width: 639px) {
+      .pt-section  { padding-top: 56px; padding-bottom: 56px; }
+      .pt-section-sm { padding-top: 44px; padding-bottom: 44px; }
+      .pt-container, .pt-container-narrow { padding: 0 18px; }
+      .pt-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      .pt-steps::before { display: none; }
+      .pt-step { flex-direction: row; text-align: left; gap: 18px; padding: 0; }
+      .pt-step-num { margin-bottom: 0; flex-shrink: 0; }
+      .pt-check-grid { grid-template-columns: 1fr; }
+      .pt-spec-table th { width: 110px; font-size: 13px; }
+      .pt-spec-table td { font-size: 13px; }
+    }
+  </style>
+
+  <!-- パンくず -->
+  <div style="background: #FFFFFF; border-bottom: 1px solid #E8EDF5;">
+    <div class="pt-container" style="padding-top: 12px; padding-bottom: 12px;">
+      <nav style="font-size: 13px; color: #8FA1C4;" aria-label="パンくずリスト">
+        <a href="/" style="color: #8FA1C4; text-decoration: none; hover:color: #0F2557;">ホーム</a>
+        <span style="margin: 0 8px;">/</span>
+        <a href="/products/" style="color: #8FA1C4; text-decoration: none;">ツール・商品</a>
+        <span style="margin: 0 8px;">/</span>
+        <span style="color: #3B4A60;">{PRODUCT.name}</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ===== S1: ヒーロー ===== -->
+  <section style="background: linear-gradient(170deg, #EDF3FA 0%, #FFFFFF 55%); border-bottom: 1px solid #E8EDF5;">
+    <div class="pt-container pt-section">
+      <div class="pt-hero-grid">
+
+        <!-- 左：テキスト -->
+        <div style="display: flex; flex-direction: column; gap: 22px;">
+
+          <!-- 商品バッジ -->
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <img src="/images/pc-tenken/icon.svg" alt="" aria-hidden="true"
+              style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #DDE5EF; background: #fff; padding: 4px;">
+            <div>
+              <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #9C6700; text-transform: uppercase; margin-bottom: 2px;">建設業ツール工房</span>
+              <span style="display: block; font-size: 15px; font-weight: 900; color: #0F2557;">{PRODUCT.name}</span>
+            </div>
+          </div>
+
+          <!-- 見出し -->
+          <h1 style="margin: 0; font-size: clamp(1.6rem, 4.2vw, 2.4rem); font-weight: 900; line-height: 1.4; color: #1A2535;">
+            元請けに「セキュリティ対策は？」と聞かれて、困っていませんか。
+          </h1>
+
+          <!-- サブ -->
+          <p style="margin: 0; font-size: 15px; color: #4F5F77; line-height: 1.95;">
+            ボタンを押して、5つの質問に答えるだけ。<br>
+            パソコンの設定を点検して、結果を書類で残せます。
+          </p>
+
+          <!-- 価格 -->
+          <div style="display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;">
+            <span style="font-size: 2rem; font-weight: 900; color: #0F2557;">¥{PRODUCT.price.toLocaleString()}</span>
+            <span style="font-size: 14px; color: #5F6B7A;">税込・買い切り・月額なし</span>
+          </div>
+
+          <!-- 購入ボタン（準備中） -->
+          <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+            <button
+              type="button"
+              disabled
+              style="background: #9CA3AF; color: #fff; font-weight: 900; font-size: 15px; padding: 14px 36px; border-radius: 999px; border: none; cursor: not-allowed;"
+            >
+              準備中
+            </button>
+            <span style="font-size: 12px; color: #8FA1C4;">発売時にお知らせします</span>
+          </div>
+
+        </div>
+
+        <!-- 右：仮画像 -->
+        <div>
+          <div class="pt-placeholder" style="aspect-ratio: 4/3;">
+            画像：点検結果シート（あとで差し替え）
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== S2: 共感 ===== -->
+  <section style="background: #F4F7FB;">
+    <div class="pt-container-narrow pt-section">
+      <p class="pt-eyebrow" style="text-align: center;">こんな気持ち、ありませんか</p>
+      <h2 class="pt-h2" style="text-align: center;">最近のニュース、うちのパソコンは大丈夫？</h2>
+      <p class="pt-lead" style="text-align: center; margin-bottom: 36px;">
+        対策したほうがいいのは分かっている。<br>でも、何を確かめればいいのか分からない。
+      </p>
+      <div class="pt-prob-grid">
+        {problems.map(p => (
+          <div class="pt-prob-card">
+            <div class="pt-prob-icon">?</div>
+            <p style="margin: 0; font-size: 14px; font-weight: 700; color: #1A2535; line-height: 1.65;">{p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== S3: 3ステップ ===== -->
+  <section style="background: #FFFFFF; border-top: 1px solid #E8EDF5; border-bottom: 1px solid #E8EDF5;">
+    <div class="pt-container-narrow pt-section">
+      <p class="pt-eyebrow" style="text-align: center;">HOW IT WORKS</p>
+      <h2 class="pt-h2" style="text-align: center;">パソコンが得意でなくても、3ステップで終わります</h2>
+      <div class="pt-steps" style="margin-top: 48px;">
+        {steps.map(s => (
+          <div class="pt-step">
+            <div class="pt-step-num">{s.no}</div>
+            <div>
+              <p style="margin: 0 0 8px; font-weight: 900; font-size: 16px; color: #0F2557;">{s.title}</p>
+              <p style="margin: 0; font-size: 13.5px; color: #5F6B7A; line-height: 1.8;">{s.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p style="margin: 32px 0 0; text-align: center; font-size: 13.5px; color: #5F6B7A; line-height: 1.85; background: #F4F7FB; border-radius: 10px; padding: 16px 24px;">
+        「推奨される状態ではありません」と出た項目は、直し方も画面でやさしく案内します。
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== S4: 点検項目 ===== -->
+  <section style="background: #F4F7FB;">
+    <div class="pt-container pt-section">
+      <div style="text-align: center; margin-bottom: 40px;">
+        <p class="pt-eyebrow">CHECKLIST</p>
+        <h2 class="pt-h2">点検するのは、この11のことです</h2>
+      </div>
+
+      <!-- 自動で点検する6項目 -->
+      <div style="margin-bottom: 40px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+          <span style="background: #0F2557; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; padding: 5px 14px; border-radius: 999px;">自動で点検する 6 項目</span>
+          <span style="font-size: 13px; color: #8FA1C4;">ボタンを押すだけ。設定は変更しません</span>
+        </div>
+        <div class="pt-check-grid">
+          {autoItems.map(item => (
+            <div class="pt-check-card">
+              <span class="pt-check-badge">自動</span>
+              <p style="margin: 0 0 6px; font-weight: 900; font-size: 15px; color: #0F2557;">{item.name}</p>
+              <p style="margin: 0; font-size: 13px; color: #5F6B7A; line-height: 1.75;">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- 質問で確かめる5項目 -->
+      <div style="background: #FFFFFF; border: 1px solid #E0E8F0; border-radius: 16px; padding: 32px 36px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+          <span style="background: #FDF3E0; color: #9C6700; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; padding: 5px 14px; border-radius: 999px;">質問で確かめる 5 つ</span>
+          <span style="font-size: 13px; color: #8FA1C4;">「はい／いいえ／わからない」から選ぶだけ</span>
+        </div>
+        <ul class="pt-q-list" style="margin-top: 16px;">
+          {questionItems.map((q, i) => (
+            <li class="pt-q-item">
+              <span class="pt-q-num">{i + 1}</span>
+              <span style="font-size: 14.5px; color: #3B4A60; line-height: 1.75;">{q}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== S5: 結果と書類 ===== -->
+  <section style="background: #FFFFFF; border-top: 1px solid #E8EDF5;">
+    <div class="pt-container pt-section">
+      <div style="text-align: center; margin-bottom: 36px;">
+        <p class="pt-eyebrow">RESULT</p>
+        <h2 class="pt-h2">結果は、このように分かります</h2>
+      </div>
+
+      <!-- 結果の3種類 -->
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 32px;">
+        {[
+          { label: '確認できました', note: '推奨される状態でした', color: '#1D6A3A', bg: '#E8F5EE' },
+          { label: '推奨される状態ではありませんでした', note: '直し方を案内します', color: '#B45309', bg: '#FEF3E2' },
+          { label: '確認できませんでした', note: '手動での確認をお勧めします', color: '#1E5FA0', bg: '#E8F0FB' },
+        ].map(r => (
+          <div style={`background: ${r.bg}; border-radius: 10px; padding: 12px 20px; text-align: center;`}>
+            <p style={`margin: 0 0 2px; font-weight: 900; font-size: 14px; color: ${r.color};`}>{r.label}</p>
+            <p style="margin: 0; font-size: 11.5px; color: #5F6B7A;">{r.note}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- 結果画面プレースホルダー -->
+      <div style="margin-bottom: 40px;">
+        <div class="pt-placeholder" style="max-width: 640px; margin: 0 auto; aspect-ratio: 16/10;">
+          画像：結果画面（あとで差し替え）
+        </div>
+      </div>
+
+      <!-- 書類2種 -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+
+        <div style="background: #F4F7FB; border-radius: 16px; padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 16px;">
+          <div>
+            <p style="margin: 0 0 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: #9C6700; text-transform: uppercase;">書類 1</p>
+            <p style="margin: 0 0 8px; font-weight: 900; font-size: 16px; color: #0F2557;">点検結果シート</p>
+            <p style="margin: 0; font-size: 13.5px; color: #5F6B7A; line-height: 1.8;">
+              点検日とパソコン名つきで、全項目の結果を1枚にまとめたもの。取引先に「対策は？」と聞かれたときの資料に使えます。
+            </p>
+          </div>
+          <div class="pt-placeholder" style="aspect-ratio: 3/4;">画像：点検結果シート（あとで差し替え）</div>
+        </div>
+
+        <div style="background: #F4F7FB; border-radius: 16px; padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 16px;">
+          <div>
+            <p style="margin: 0 0 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: #9C6700; text-transform: uppercase;">書類 2</p>
+            <p style="margin: 0 0 8px; font-weight: 900; font-size: 16px; color: #0F2557;">情報セキュリティ基本方針（案）</p>
+            <p style="margin: 0; font-size: 13.5px; color: #5F6B7A; line-height: 1.8;">
+              IPA のサンプルに、事業者名・代表者名・制定日を差し込んだ案です。そのまま、または書き換えて使えます。
+            </p>
+          </div>
+          <div class="pt-placeholder" style="aspect-ratio: 3/4;">画像：情報セキュリティ基本方針（案）（あとで差し替え）</div>
+        </div>
+
+      </div>
+
+      <!-- 書類グリッドのレスポンシブ用スタイル -->
+      <style>
+        @media (max-width: 639px) {
+          .pt-doc-grid { grid-template-columns: 1fr !important; }
+        }
+      </style>
+    </div>
+  </section>
+
+  <!-- ===== S6: 安心できる理由 ===== -->
+  <section style="background: #0F2557;">
+    <div class="pt-container pt-section-sm">
+      <div style="text-align: center; margin-bottom: 40px;">
+        <p style="margin: 0 0 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: #F59E0B; text-transform: uppercase;">SAFETY</p>
+        <h2 style="margin: 0; font-size: clamp(1.4rem, 3.5vw, 1.9rem); font-weight: 900; color: #FFFFFF; line-height: 1.4;">
+          勝手にいじらない、外に送らない
+        </h2>
+      </div>
+      <div class="pt-trust-grid">
+        <div class="pt-trust-card">
+          <div class="pt-trust-num">01</div>
+          <p style="margin: 0 0 8px; font-weight: 900; font-size: 15px; color: #FFFFFF; line-height: 1.5;">IPA のガイドラインをもとにした点検項目</p>
+          <p style="margin: 0; font-size: 13.5px; color: #A8BCDB; line-height: 1.85;">
+            IPA（独立行政法人情報処理推進機構）の『中小企業の情報セキュリティ対策ガイドライン 第4.0版』をもとに、点検項目を選んでいます。
+          </p>
+        </div>
+        <div class="pt-trust-card">
+          <div class="pt-trust-num">02</div>
+          <p style="margin: 0 0 8px; font-weight: 900; font-size: 15px; color: #FFFFFF; line-height: 1.5;">設定は一切変更しません</p>
+          <p style="margin: 0; font-size: 13.5px; color: #A8BCDB; line-height: 1.85;">
+            読み取って報告するだけです。常駐も監視もしません。点検が終われば、あとに何も残りません。
+          </p>
+        </div>
+        <div class="pt-trust-card">
+          <div class="pt-trust-num">03</div>
+          <p style="margin: 0 0 8px; font-weight: 900; font-size: 15px; color: #FFFFFF; line-height: 1.5;">インターネットにはつながりません</p>
+          <p style="margin: 0; font-size: 13.5px; color: #A8BCDB; line-height: 1.85;">
+            点検の結果は、そのパソコンの中だけに残ります。購入・ダウンロード以外にネットは使いません。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== S7: できないこと ===== -->
+  <section style="background: #FFFFFF; border-top: 1px solid #E8EDF5; border-bottom: 1px solid #E8EDF5;">
+    <div class="pt-container-narrow pt-section">
+      <div style="margin-bottom: 32px;">
+        <p class="pt-eyebrow">LIMITATIONS</p>
+        <h2 class="pt-h2">正直にお伝えします</h2>
+        <p class="pt-lead">
+          このツールにできないことを、あらかじめお伝えします。
+        </p>
+      </div>
+      <ul class="pt-honest-list">
+        {[
+          '「これで絶対に安全」を保証するものではありません。IPAが推奨する状態かどうかを示すものです。',
+          'ウイルスの検査（スキャン）や、脆弱性の診断はしません。',
+          'IPAの「5分でできる！情報セキュリティ自社診断」の25項目をすべて点検するものではありません（自動の6項目と、質問の5つです）。',
+          'パスワードの強さは調べません。',
+          '点検するのは、動かしたそのパソコン1台です。',
+        ].map(item => (
+          <li class="pt-honest-item">
+            <span class="pt-honest-dash">―</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== S8: 動作環境と注意 ===== -->
+  <section style="background: #F4F7FB;">
+    <div class="pt-container-narrow pt-section">
+      <p class="pt-eyebrow">ENVIRONMENT</p>
+      <h2 class="pt-h2">動作環境と使う前の注意</h2>
+
+      <!-- スペックテーブル -->
+      <div style="background: #FFFFFF; border: 1px solid #E0E8F0; border-radius: 14px; padding: 8px 28px 8px; margin-bottom: 32px; overflow-x: auto;">
+        <table class="pt-spec-table">
+          <tbody>
+            {[
+              { label: '対応OS',           value: 'Windows 11（64ビット）。Mac・Windows 10 は対象外' },
+              { label: '形式',             value: 'インストール不要の exe 1つ（約70MB）' },
+              { label: 'インターネット',   value: '購入とダウンロードのときだけ必要。点検中は使いません' },
+              { label: 'ライセンス',       value: '購入後にメールで届くキーを貼り付けて使います' },
+            ].map(row => (
+              <tr>
+                <th>{row.label}</th>
+                <td>{row.value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 使う前の注意 -->
+      <p style="margin: 0 0 16px; font-weight: 900; font-size: 15px; color: #0F2557;">使う前の注意</p>
+      <div class="pt-notice-grid">
+        <div class="pt-notice-card">
+          <div>
+            <p style="margin: 0 0 2px; font-size: 11px; font-weight: 700; color: #9C6700; letter-spacing: 0.1em; text-transform: uppercase;">起動時</p>
+            <p style="margin: 0 0 10px; font-weight: 900; font-size: 14px; color: #0F2557;">管理者の許可を求める画面が出ます</p>
+            <p style="margin: 0; font-size: 13px; color: #5F6B7A; line-height: 1.8;">
+              設定を読み取るために必要です。設定は変更しません。
+            </p>
+          </div>
+          <div class="pt-placeholder" style="aspect-ratio: 4/3;">画像：管理者許可ダイアログ（あとで差し替え）</div>
+        </div>
+        <div class="pt-notice-card">
+          <div>
+            <p style="margin: 0 0 2px; font-size: 11px; font-weight: 700; color: #9C6700; letter-spacing: 0.1em; text-transform: uppercase;">初回起動時</p>
+            <p style="margin: 0 0 10px; font-weight: 900; font-size: 14px; color: #0F2557;">Windows の確認画面（SmartScreen）が出ます</p>
+            <p style="margin: 0; font-size: 13px; color: #5F6B7A; line-height: 1.8;">
+              「詳細情報」→「実行」で起動できます。個人で開発していて、ソフトの署名の登録をしていないために出る画面です。
+            </p>
+          </div>
+          <div class="pt-placeholder" style="aspect-ratio: 4/3;">画像：SmartScreen 確認画面（あとで差し替え）</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== S9: 価格と購入 ===== -->
+  <section style="background: #FFFFFF; border-top: 1px solid #E8EDF5;" id="price">
+    <div class="pt-container-narrow pt-section">
+      <p class="pt-eyebrow">PRICE</p>
+      <h2 class="pt-h2">¥{PRODUCT.price.toLocaleString()}、買い切りです</h2>
+      <p class="pt-lead" style="margin-bottom: 36px;">
+        月額なし。インターネットに情報を送らないので、点検結果が外に出ることはありません。
+      </p>
+
+      <!-- 価格カード -->
+      <div style="border: 2px solid #0F2557; border-radius: 18px; overflow: hidden; margin-bottom: 40px;">
+        <div class="pt-price-grid">
+          <!-- 左：価格 -->
+          <div style="background: #0F2557; padding: 36px; display: flex; flex-direction: column; gap: 0;">
+            <p style="margin: 0 0 4px; font-size: 2.2rem; font-weight: 900; color: #FFFFFF;">
+              ¥{PRODUCT.price.toLocaleString()}
+            </p>
+            <p style="margin: 0 0 24px; color: #A8BCDB; font-size: 13px;">税込・月額なし・買い切り</p>
+            <ul style="list-style: none; margin: 0 0 28px; padding: 0; display: flex; flex-direction: column; gap: 10px; flex: 1;">
+              {[
+                '永続ライセンス（更新料なし）',
+                '設定を変更しません',
+                'インターネットに送信しません',
+                '不具合は無償で対応します',
+              ].map(item => (
+                <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; color: #FFFFFF;">
+                  <span style="color: #F59E0B; font-weight: 900; flex: none;">✓</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <button
+              type="button"
+              disabled
+              style="width: 100%; background: #9CA3AF; color: #fff; font-weight: 900; font-size: 15px; padding: 15px; border-radius: 999px; border: none; cursor: not-allowed;"
+            >
+              準備中
+            </button>
+          </div>
+          <!-- 右：スペック要約 -->
+          <div style="padding: 36px; background: #FFFFFF; display: flex; flex-direction: column; gap: 0;">
+            <p style="margin: 0 0 16px; font-size: 14px; font-weight: 900; color: #0F2557;">動作環境まとめ</p>
+            <ul style="list-style: none; margin: 0 0 auto; padding: 0; display: flex; flex-direction: column;">
+              {[
+                { label: '対応OS',   value: 'Windows 11（64ビット）' },
+                { label: '形式',     value: 'exe 1つ（インストール不要）' },
+                { label: 'ネット',   value: '購入・DLのみ。点検中は不要' },
+                { label: 'ライセンス', value: 'メールで届くキーを貼るだけ' },
+              ].map((row, i) => (
+                <li style={`display: flex; gap: 16px; padding: 10px 0; font-size: 13px; ${i !== 3 ? 'border-bottom: 1px dashed #E8EDF5;' : ''}`}>
+                  <span style="color: #8FA1C4; min-width: 80px; flex: none;">{row.label}</span>
+                  <span style="color: #1A2535; font-weight: 600;">{row.value}</span>
+                </li>
+              ))}
+            </ul>
+            <p style="margin: 20px 0 0; font-size: 11.5px; color: #8FA1C4; line-height: 1.85;">
+              ※ Mac・Windows 10 はお使いいただけません。<br>
+              ※ 点検するのは、動かしたパソコン1台です。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ご購入の流れ -->
+      <PurchaseFlow productType="app" />
+    </div>
+  </section>
+
+  <!-- ===== S10: よくある質問 ===== -->
+  <section style="background: #F4F7FB; border-top: 1px solid #E8EDF5;">
+    <div class="pt-container-narrow pt-section">
+      <p class="pt-eyebrow">FAQ</p>
+      <h2 class="pt-h2">よくある質問</h2>
+      <div class="pt-faq-list">
+        {faqs.map(faq => (
+          <div class="pt-faq-card">
+            <p style="margin: 0 0 10px; font-weight: 900; font-size: 15px; color: #0F2557; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: #F59E0B; flex: none;">Q</span>
+              <span>{faq.q}</span>
+            </p>
+            <p style="margin: 0; font-size: 14px; color: #4F5F77; line-height: 1.85; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: #0F2557; font-weight: 900; flex: none;">A</span>
+              <span>{faq.a}</span>
+            </p>
+          </div>
+        ))}
+      </div>
+      <p style="margin: 24px 0 0; text-align: center; font-size: 13px;">
+        <a href="/faq/" style="color: #0F2557; font-weight: 700; text-decoration: underline;">その他のよくある質問 →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== S11: 関連記事 ===== -->
+  <section style="background: #FFFFFF; border-top: 1px solid #E8EDF5;">
+    <div class="pt-container pt-section-sm">
+      <p class="pt-eyebrow">RELATED</p>
+      <h2 class="pt-h2" style="margin-bottom: 28px;">あわせて読まれています</h2>
+      <div class="pt-related-grid">
+        {relatedArticles.map(a => (
+          <a href={a.href} class="pt-related-card">
+            <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: #9C6700; text-transform: uppercase;">記事</span>
+            <span style="font-size: 14px; font-weight: 700; color: #1A2535; line-height: 1.65;">{a.title}</span>
+            <span style="font-size: 13px; color: #0F2557; font-weight: 700;">続きを読む →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
