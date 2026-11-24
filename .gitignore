@@ -1,9 +1,11 @@
 node_modules/
 dist/
 .astro/
+.wrangler/
 .env
 .env.*
 !.env.example
+.dev.vars
 
 # ローカル開発専用（本番ビルドに含めない）
 src/pages/dev/
