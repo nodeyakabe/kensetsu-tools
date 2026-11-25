@@ -60,7 +60,7 @@ tags: ["働き方改革", "2024年問題"]
 2. **36協定を見直す** — 労働者を雇っている事業者は、特別条項の有無・上限設定・休日労働の規定を社労士に相談して確認する
 3. **工期の余裕を確保する** — 新規受注時は天候不順の予備日を含め、改正建設業法を根拠に交渉する
 4. **賃金体系を見直す** — 時間ベースから成果ベース（出来高制、プロジェクト単位の報酬）への転換を検討する
-5. **業務効率化ツールを導入する** — 工程管理ツールや業務管理ソフト、ペーパーレス化への投資が長期的なコスト削減につながる
+5. **業務効率化ツールを導入する** — 工程管理ツールや業務管理ソフト、ペーパーレス化への投資が長期的なコスト削減につながる。工事ごとの原価・収支の把握から始めるなら、[Excelで使える「シンプル工事台帳」](/products/koji-daicho/)もあります。
 
 ## よくある質問
 
@@ -82,3 +82,13 @@ tags: ["働き方改革", "2024年問題"]
 - [残業規制で工期がきつい今、"どんぶり勘定"が危ない理由](/blog/genka-kanri-2024mondai/)（原価・収支管理への実務影響）
 
 > 本記事は法令解説を目的としたものです。具体的な労働時間管理や36協定の作成にあたっては、社会保険労務士等の専門家にご相談ください。
+
+<div class="not-prose my-8 p-6 border-2 border-accent-500 rounded-xl bg-slate-50">
+  <p class="text-xs font-bold text-accent-600 uppercase tracking-wider mb-2">関連商品</p>
+  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳</p>
+  <p class="text-slate-600 text-sm mb-3">一人親方向けのExcel工事台帳。工事ごとの収支を記録・集計し、確定申告サマリーを自動出力。マクロ不使用・買い切り。</p>
+  <p class="text-accent-500 font-semibold mb-4">¥5,980（税込・買い切り）</p>
+  <div class="flex justify-end mt-4">
+    <a href="/products/koji-daicho/" class="inline-block bg-accent-500 font-bold py-2 px-5 rounded-lg text-sm" style="color: white; text-decoration: none;">詳細を見る →</a>
+  </div>
+</div>

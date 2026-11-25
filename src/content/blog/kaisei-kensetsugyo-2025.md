@@ -50,7 +50,7 @@ tags: ["法令対応", "2025年"]
 ## 中小・一人親方が今すぐやるべきこと
 
 1. **見積書を見直す** — 法定福利費の内訳明示、インボイス対応（適格請求書発行事業者番号）、適正な労務費の反映を満たした見積書にする
-2. **原価を把握する** — 工事ごとの原価を正確に計算する仕組みを、Excelやアプリで作る
+2. **原価を把握する** — 工事ごとの原価を正確に計算する仕組みを、Excelやアプリで作る。工事ごとの収支をまとめるなら、[Excelで使える「シンプル工事台帳」](/products/koji-daicho/)のようなひな形を使う方法もあります。
 3. **工程表を作成する** — 「この工事には何日必要か」を見える化し、無理な工期には根拠を持って交渉する
 4. **書類対応の準備をする** — 法定福利費を明示した見積書、適正工期の工程表、インボイス対応の請求書をすぐ出せるようにしておく
 
@@ -72,3 +72,13 @@ tags: ["法令対応", "2025年"]
 - [建設業の2024年問題 — 時間外労働の上限規制を解説](/blog/kensetsu-2024-mondai-guide/)
 
 > 本記事は法令解説を目的としたものです。具体的な事案への対応は、弁護士・行政書士・社会保険労務士等の専門家にご相談ください。
+
+<div class="not-prose my-8 p-6 border-2 border-accent-500 rounded-xl bg-slate-50">
+  <p class="text-xs font-bold text-accent-600 uppercase tracking-wider mb-2">関連商品</p>
+  <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳</p>
+  <p class="text-slate-600 text-sm mb-3">一人親方向けのExcel工事台帳。工事ごとの収支を記録・集計し、確定申告サマリーを自動出力。マクロ不使用・買い切り。</p>
+  <p class="text-accent-500 font-semibold mb-4">¥5,980（税込・買い切り）</p>
+  <div class="flex justify-end mt-4">
+    <a href="/products/koji-daicho/" class="inline-block bg-accent-500 font-bold py-2 px-5 rounded-lg text-sm" style="color: white; text-decoration: none;">詳細を見る →</a>
+  </div>
+</div>

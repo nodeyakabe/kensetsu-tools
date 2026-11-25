@@ -93,6 +93,16 @@ tags: ["一人親方", "法令対応", "2025年"]
 
 > 本記事は法令解説を目的としたものです。具体的な事案への対応は、社会保険労務士・弁護士等の専門家にご相談ください。
 
+<div class="not-prose my-8 p-6 border-2 border-[#11512F] rounded-xl bg-slate-50">
+  <p class="text-xs font-bold uppercase tracking-wider mb-2" style="color: #11512F;">関連商品</p>
+  <p class="text-lg font-bold text-primary-900 mb-1">シンプル安全台帳</p>
+  <p class="text-slate-600 text-sm mb-3">資格・健康診断・労災保険の期限をひとつの台帳で管理。元請けへの書類提出の準備にも。Windows用・買い切り。</p>
+  <p class="font-semibold mb-4" style="color: #11512F;">¥9,800（税込・買い切り）</p>
+  <div class="flex justify-end mt-4">
+    <a href="/products/anzen-daicho/" class="inline-block font-bold py-2 px-5 rounded-lg text-sm" style="color: white; text-decoration: none; background-color: #11512F;">詳細を見る →</a>
+  </div>
+</div>
+
 <div class="not-prose my-8 p-6 border-2 border-accent-500 rounded-xl bg-slate-50">
   <p class="text-xs font-bold text-accent-600 uppercase tracking-wider mb-2">関連商品</p>
   <p class="text-lg font-bold text-primary-900 mb-1">シンプル工事台帳</p>

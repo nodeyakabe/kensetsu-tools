@@ -7,11 +7,21 @@ const siteUrl = 'https://kensetsu-tools.com';
 
 const anyTrialAvailable = Object.values(TRIALS).some(t => t.available);
 
+const trialProductNames: Record<string, string> = {
+  koji: 'シンプル工事台帳',
+  anzen: 'シンプル安全台帳',
+  'pc-tenken': 'PCセキュリティ点検2026年版',
+};
+const trialNames = Object.entries(TRIALS)
+  .filter(([, t]) => t.available)
+  .map(([k]) => trialProductNames[k] ?? k)
+  .join('・');
+
 // ご購入について（共通）
 const purchaseFaqs = [
   ...(anyTrialAvailable ? [{
-    q: '購入前に試してみることはできますか？',
-    a: '発売中の商品で体験版が用意されているものは、各商品ページからダウンロードできます。体験版は機能を一部制限したものですが、基本的な使い方の確認に役立ちます。',
+    q: '買う前に試せますか？',
+    a: `${trialNames}は、各商品ページから無料の体験版をダウンロードできます。体験版は一部の機能に制限があります。使い方のご質問はお問い合わせから受け付けますが、体験版の不具合への個別対応は製品版で行います。`,
   }] : []),
   faqReceive,
   faqPayment,
@@ -74,7 +84,7 @@ const anzenFaqs = [
   },
   {
     q: 'Windowsにしか対応していませんか？',
-    a: 'はい、シンプル安全台帳はWindows 10 / 11（64bit）専用です。Mac・Linux・ChromeOSではご利用いただけません。インストール不要で、ダウンロードしたファイルをダブルクリックするだけで起動します。',
+    a: 'はい、シンプル安全台帳はWindows 10 / 11（64bit）専用です。Mac・Linux・ChromeOSではご利用いただけません。インストール不要で、zipを展開したファイルを開き、メールで届くライセンスキーを貼り付ければ使えます。',
   },
   {
     q: 'データはPC内にしか保存されませんか？外部に送られませんか？',

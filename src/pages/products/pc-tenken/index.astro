@@ -133,7 +133,7 @@ const breadcrumbSchema = {
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.14em;
-      color: #9C6700;
+      color: #0E7C86;
       text-transform: uppercase;
       margin: 0 0 10px;
     }
@@ -178,8 +178,8 @@ const breadcrumbSchema = {
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: #FDF3E0;
-      color: #9C6700;
+      background: rgba(14,124,134,0.12);
+      color: #0E7C86;
       font-weight: 900;
       font-size: 17px;
       display: flex;
@@ -229,7 +229,7 @@ const breadcrumbSchema = {
       box-shadow: 0 4px 14px rgba(15,37,87,.2);
     }
     .pt-step:last-child .pt-step-num {
-      background: #F59E0B;
+      background: #0E7C86;
     }
 
     /* 自動点検カード */
@@ -319,7 +319,7 @@ const breadcrumbSchema = {
     .pt-trust-num {
       font-size: 32px;
       font-weight: 900;
-      color: #F59E0B;
+      color: #5ECFDA;
       line-height: 1;
       margin-bottom: 12px;
     }
@@ -480,7 +480,7 @@ const breadcrumbSchema = {
   </div>
 
   <!-- ===== S1: ヒーロー ===== -->
-  <section style="background: linear-gradient(170deg, #EDF3FA 0%, #FFFFFF 55%); border-bottom: 1px solid #E8EDF5;">
+  <section style="background: #0F2557;">
     <div class="pt-container pt-section">
       <div class="pt-hero-grid">
 
@@ -490,28 +490,28 @@ const breadcrumbSchema = {
           <!-- 商品バッジ -->
           <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
             <img src="/images/pc-tenken/icon.svg" alt="" aria-hidden="true"
-              style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #DDE5EF; background: #fff; padding: 4px;">
+              style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: #fff; padding: 4px;">
             <div>
-              <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #9C6700; text-transform: uppercase; margin-bottom: 2px;">建設業ツール工房</span>
-              <span style="display: block; font-size: 15px; font-weight: 900; color: #0F2557;">{PRODUCT.name}</span>
+              <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #5ECFDA; text-transform: uppercase; margin-bottom: 2px;">建設業ツール工房</span>
+              <span style="display: block; font-size: 15px; font-weight: 900; color: #FFFFFF;">{PRODUCT.name}</span>
             </div>
           </div>
 
           <!-- 見出し -->
-          <h1 style="margin: 0; font-size: clamp(1.6rem, 4.2vw, 2.4rem); font-weight: 900; line-height: 1.4; color: #1A2535;">
+          <h1 style="margin: 0; font-size: clamp(1.6rem, 4.2vw, 2.4rem); font-weight: 900; line-height: 1.4; color: #FFFFFF;">
             元請けに「セキュリティ対策は？」と聞かれて、困っていませんか。
           </h1>
 
           <!-- サブ -->
-          <p style="margin: 0; font-size: 15px; color: #4F5F77; line-height: 1.95;">
+          <p style="margin: 0; font-size: 15px; color: #A8BCDB; line-height: 1.95;">
             ボタンを押して、5つの質問に答えるだけ。<br>
             パソコンの設定を点検して、結果を書類で残せます。
           </p>
 
           <!-- 価格 -->
           <div style="display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;">
-            <span style="font-size: 2rem; font-weight: 900; color: #0F2557;">¥{PRODUCT.price.toLocaleString()}</span>
-            <span style="font-size: 14px; color: #5F6B7A;">税込・買い切り・月額なし</span>
+            <span style="font-size: 2rem; font-weight: 900; color: #FFFFFF;">¥{PRODUCT.price.toLocaleString()}</span>
+            <span style="font-size: 14px; color: #A8BCDB;">税込・買い切り・月額なし</span>
           </div>
 
           <!-- 購入ボタン（準備中） -->
@@ -519,19 +519,31 @@ const breadcrumbSchema = {
             <button
               type="button"
               disabled
-              style="background: #9CA3AF; color: #fff; font-weight: 900; font-size: 15px; padding: 14px 36px; border-radius: 999px; border: none; cursor: not-allowed;"
+              style="background: #4B5563; color: #D1D5DB; font-weight: 900; font-size: 15px; padding: 14px 36px; border-radius: 999px; border: none; cursor: not-allowed;"
             >
               準備中
             </button>
-            <span style="font-size: 12px; color: #8FA1C4;">発売時にお知らせします</span>
+            <span style="font-size: 12px; color: #A8BCDB;">発売時にお知らせします</span>
           </div>
           <TrialDownload product="pc-tenken" variant="hero" />
 
         </div>
 
-        <!-- 右：仮画像 -->
-        <div>
-          <div class="pt-placeholder" style="aspect-ratio: 4/3;">
+        <!-- 右：盾＋チェックのSVG モチーフ ＋ 仮画像 -->
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 24px;">
+          <!-- 盾とチェックのモチーフ（インラインSVG） -->
+          <svg width="200" height="218" viewBox="0 0 200 218" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- 外側の盾シルエット -->
+            <path d="M100 8 L178 44 L178 108 C178 156 140 182 100 198 C60 182 22 156 22 108 L22 44 Z"
+              fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+            <!-- 内側のティールリング -->
+            <path d="M100 22 L162 54 L162 108 C162 148 130 170 100 184 C70 170 38 148 38 108 L38 54 Z"
+              fill="none" stroke="rgba(94,207,218,0.28)" stroke-width="1.5"/>
+            <!-- チェックマーク -->
+            <path d="M68 100 L88 120 L132 80"
+              stroke="#5ECFDA" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="pt-placeholder" style="aspect-ratio: 4/3; border: 2px dashed rgba(255,255,255,0.22); background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.35); width: 100%;">
             画像：点検結果シート（あとで差し替え）
           </div>
         </div>
@@ -609,7 +621,7 @@ const breadcrumbSchema = {
       <!-- 質問で確かめる5項目 -->
       <div style="background: #FFFFFF; border: 1px solid #E0E8F0; border-radius: 16px; padding: 32px 36px;">
         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
-          <span style="background: #FDF3E0; color: #9C6700; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; padding: 5px 14px; border-radius: 999px;">質問で確かめる 5 つ</span>
+          <span style="background: rgba(14,124,134,0.1); color: #0E7C86; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; padding: 5px 14px; border-radius: 999px;">質問で確かめる 5 つ</span>
           <span style="font-size: 13px; color: #8FA1C4;">「はい／いいえ／わからない」から選ぶだけ</span>
         </div>
         <ul class="pt-q-list" style="margin-top: 16px;">
@@ -658,7 +670,7 @@ const breadcrumbSchema = {
 
         <div style="background: #F4F7FB; border-radius: 16px; padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 16px;">
           <div>
-            <p style="margin: 0 0 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: #9C6700; text-transform: uppercase;">書類 1</p>
+            <p style="margin: 0 0 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: #0E7C86; text-transform: uppercase;">書類 1</p>
             <p style="margin: 0 0 8px; font-weight: 900; font-size: 16px; color: #0F2557;">点検結果シート</p>
             <p style="margin: 0; font-size: 13.5px; color: #5F6B7A; line-height: 1.8;">
               点検日とパソコン名つきで、全項目の結果を1枚にまとめたもの。取引先に「対策は？」と聞かれたときの資料に使えます。
@@ -669,7 +681,7 @@ const breadcrumbSchema = {
 
         <div style="background: #F4F7FB; border-radius: 16px; padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 16px;">
           <div>
-            <p style="margin: 0 0 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: #9C6700; text-transform: uppercase;">書類 2</p>
+            <p style="margin: 0 0 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: #0E7C86; text-transform: uppercase;">書類 2</p>
             <p style="margin: 0 0 8px; font-weight: 900; font-size: 16px; color: #0F2557;">情報セキュリティ基本方針（案）</p>
             <p style="margin: 0; font-size: 13.5px; color: #5F6B7A; line-height: 1.8;">
               IPA のサンプルに、事業者名・代表者名・制定日を差し込んだ案です。そのまま、または書き換えて使えます。
@@ -693,7 +705,7 @@ const breadcrumbSchema = {
   <section style="background: #0F2557;">
     <div class="pt-container pt-section-sm">
       <div style="text-align: center; margin-bottom: 40px;">
-        <p style="margin: 0 0 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: #F59E0B; text-transform: uppercase;">SAFETY</p>
+        <p style="margin: 0 0 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: #5ECFDA; text-transform: uppercase;">SAFETY</p>
         <h2 style="margin: 0; font-size: clamp(1.4rem, 3.5vw, 1.9rem); font-weight: 900; color: #FFFFFF; line-height: 1.4;">
           勝手にいじらない、外に送らない
         </h2>
@@ -781,7 +793,7 @@ const breadcrumbSchema = {
       <div class="pt-notice-grid">
         <div class="pt-notice-card">
           <div>
-            <p style="margin: 0 0 2px; font-size: 11px; font-weight: 700; color: #9C6700; letter-spacing: 0.1em; text-transform: uppercase;">起動時</p>
+            <p style="margin: 0 0 2px; font-size: 11px; font-weight: 700; color: #0E7C86; letter-spacing: 0.1em; text-transform: uppercase;">起動時</p>
             <p style="margin: 0 0 10px; font-weight: 900; font-size: 14px; color: #0F2557;">管理者の許可を求める画面が出ます</p>
             <p style="margin: 0; font-size: 13px; color: #5F6B7A; line-height: 1.8;">
               設定を読み取るために必要です。設定は変更しません。
@@ -791,7 +803,7 @@ const breadcrumbSchema = {
         </div>
         <div class="pt-notice-card">
           <div>
-            <p style="margin: 0 0 2px; font-size: 11px; font-weight: 700; color: #9C6700; letter-spacing: 0.1em; text-transform: uppercase;">初回起動時</p>
+            <p style="margin: 0 0 2px; font-size: 11px; font-weight: 700; color: #0E7C86; letter-spacing: 0.1em; text-transform: uppercase;">初回起動時</p>
             <p style="margin: 0 0 10px; font-weight: 900; font-size: 14px; color: #0F2557;">Windows の確認画面（SmartScreen）が出ます</p>
             <p style="margin: 0; font-size: 13px; color: #5F6B7A; line-height: 1.8;">
               「詳細情報」→「実行」で起動できます。個人で開発していて、ソフトの署名の登録をしていないために出る画面です。
@@ -828,7 +840,7 @@ const breadcrumbSchema = {
                 'デジタル商品のため、購入後の返品・返金はできません',
               ].map(item => (
                 <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; color: #FFFFFF;">
-                  <span style="color: #F59E0B; font-weight: 900; flex: none;">✓</span>
+                  <span style="color: #5ECFDA; font-weight: 900; flex: none;">✓</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -887,7 +899,7 @@ const breadcrumbSchema = {
         {faqs.map(faq => (
           <div class="pt-faq-card">
             <p style="margin: 0 0 10px; font-weight: 900; font-size: 15px; color: #0F2557; display: flex; gap: 10px; align-items: flex-start;">
-              <span style="color: #F59E0B; flex: none;">Q</span>
+              <span style="color: #0E7C86; flex: none;">Q</span>
               <span>{faq.q}</span>
             </p>
             <p style="margin: 0; font-size: 14px; color: #4F5F77; line-height: 1.85; display: flex; gap: 10px; align-items: flex-start;">
@@ -911,7 +923,7 @@ const breadcrumbSchema = {
       <div class="pt-related-grid">
         {relatedArticles.map(a => (
           <a href={a.href} class="pt-related-card">
-            <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: #9C6700; text-transform: uppercase;">記事</span>
+            <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: #0E7C86; text-transform: uppercase;">記事</span>
             <span style="font-size: 14px; font-weight: 700; color: #1A2535; line-height: 1.65;">{a.title}</span>
             <span style="font-size: 13px; color: #0F2557; font-weight: 700;">続きを読む →</span>
           </a>
