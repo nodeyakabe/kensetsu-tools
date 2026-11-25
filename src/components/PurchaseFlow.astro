@@ -2,13 +2,18 @@
 interface Props {
   /** 'excel' | 'app' */
   productType: 'excel' | 'app';
+  /** ステップ3の説明文を上書きする場合に指定。省略時は productType に応じたデフォルト文言を使用。 */
+  step3Text?: string;
+  /** true にすると注記バッジの「永続ライセンス」を非表示にする。デフォルト: false */
+  hidePermanentLicense?: boolean;
 }
-const { productType } = Astro.props;
+const { productType, step3Text, hidePermanentLicense = false } = Astro.props;
 
 const step3 =
-  productType === 'excel'
+  step3Text ??
+  (productType === 'excel'
     ? 'ファイルをExcelで開けば、その日から使えます。インストール不要。'
-    : 'ダウンロードしたファイルをダブルクリックするだけ。インストール不要。';
+    : 'ダウンロードしたファイルをダブルクリックするだけ。インストール不要。');
 ---
 
 <div class="w-full max-w-2xl mx-auto my-6 px-2">
@@ -49,6 +54,6 @@ const step3 =
   <div class="flex flex-wrap justify-center gap-2 mt-5">
     <span class="bg-[#E4EBF6] text-[#0F2557] text-[11px] font-bold px-3 py-1 rounded-full">月額・追加費用なし</span>
     {productType === 'excel' && <span class="bg-[#E4EBF6] text-[#0F2557] text-[11px] font-bold px-3 py-1 rounded-full">マクロなし</span>}
-    <span class="bg-[#E4EBF6] text-[#0F2557] text-[11px] font-bold px-3 py-1 rounded-full">買い切り・永続ライセンス</span>
+    <span class="bg-[#E4EBF6] text-[#0F2557] text-[11px] font-bold px-3 py-1 rounded-full">{hidePermanentLicense ? '買い切り' : '買い切り・永続ライセンス'}</span>
   </div>
 </div>

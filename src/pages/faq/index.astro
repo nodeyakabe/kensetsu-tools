@@ -1,12 +1,18 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { faqReceive, faqPayment, faqBugSupport } from '@/data/faq-excerpts';
-import { PRODUCT, ANZEN_DAICHO } from '@/data/product';
+import { PRODUCT, ANZEN_DAICHO, TRIALS } from '@/data/product';
 
 const siteUrl = 'https://kensetsu-tools.com';
 
+const anyTrialAvailable = Object.values(TRIALS).some(t => t.available);
+
 // ご購入について（共通）
 const purchaseFaqs = [
+  ...(anyTrialAvailable ? [{
+    q: '購入前に試してみることはできますか？',
+    a: '発売中の商品で体験版が用意されているものは、各商品ページからダウンロードできます。体験版は機能を一部制限したものですが、基本的な使い方の確認に役立ちます。',
+  }] : []),
   faqReceive,
   faqPayment,
   {

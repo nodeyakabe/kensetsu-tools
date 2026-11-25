@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PurchaseFlow from '@/components/PurchaseFlow.astro';
+import TrialDownload from '@/components/TrialDownload.astro';
 
 const siteUrl = (import.meta.env.SITE ?? 'https://kensetsu-tools.com').replace(/\/$/, '');
 const priceValidUntil = `${new Date().getFullYear() + 1}-12-31`;
@@ -524,6 +525,7 @@ const breadcrumbSchema = {
             </button>
             <span style="font-size: 12px; color: #8FA1C4;">発売時にお知らせします</span>
           </div>
+          <TrialDownload product="pc-tenken" variant="hero" />
 
         </div>
 
@@ -701,7 +703,7 @@ const breadcrumbSchema = {
           <div class="pt-trust-num">01</div>
           <p style="margin: 0 0 8px; font-weight: 900; font-size: 15px; color: #FFFFFF; line-height: 1.5;">IPA のガイドラインをもとにした点検項目</p>
           <p style="margin: 0; font-size: 13.5px; color: #A8BCDB; line-height: 1.85;">
-            IPA（独立行政法人情報処理推進機構）の『中小企業の情報セキュリティ対策ガイドライン 第4.0版』をもとに、点検項目を選んでいます。
+            IPA（独立行政法人情報処理推進機構）の<a href="https://www.ipa.go.jp/security/guide/sme/about.html" target="_blank" rel="noopener" style="color: #A8BCDB; text-decoration: underline;">『中小企業の情報セキュリティ対策ガイドライン 第4.0版』</a>をもとに、点検項目を選んでいます。
           </p>
         </div>
         <div class="pt-trust-card">
@@ -819,12 +821,11 @@ const breadcrumbSchema = {
               ¥{PRODUCT.price.toLocaleString()}
             </p>
             <p style="margin: 0 0 24px; color: #A8BCDB; font-size: 13px;">税込・月額なし・買い切り</p>
-            <ul style="list-style: none; margin: 0 0 28px; padding: 0; display: flex; flex-direction: column; gap: 10px; flex: 1;">
+            <ul style="list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-direction: column; gap: 10px; flex: 1;">
               {[
-                '永続ライセンス（更新料なし）',
                 '設定を変更しません',
                 'インターネットに送信しません',
-                '不具合は無償で対応します',
+                'デジタル商品のため、購入後の返品・返金はできません',
               ].map(item => (
                 <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; color: #FFFFFF;">
                   <span style="color: #F59E0B; font-weight: 900; flex: none;">✓</span>
@@ -832,6 +833,9 @@ const breadcrumbSchema = {
                 </li>
               ))}
             </ul>
+            <p style="margin: 0 0 20px; font-size: 11.5px; color: #A8BCDB; line-height: 1.75;">
+              ※ 商品の不具合や、動作環境を満たすのに動かない場合の対応は、<a href="/sct/" style="color: #A8BCDB; text-decoration: underline;">特定商取引法に基づく表記</a>をご覧ください。
+            </p>
             <button
               type="button"
               disabled
@@ -839,6 +843,7 @@ const breadcrumbSchema = {
             >
               準備中
             </button>
+            <TrialDownload product="pc-tenken" variant="price" />
           </div>
           <!-- 右：スペック要約 -->
           <div style="padding: 36px; background: #FFFFFF; display: flex; flex-direction: column; gap: 0;">
@@ -865,7 +870,11 @@ const breadcrumbSchema = {
       </div>
 
       <!-- ご購入の流れ -->
-      <PurchaseFlow productType="app" />
+      <PurchaseFlow
+        productType="app"
+        step3Text="ファイルを開き、メールで届くライセンスキーを貼り付ければ使えます。起動時に管理者の許可を求める画面が出ます。インストール不要。"
+        hidePermanentLicense={true}
+      />
     </div>
   </section>
 

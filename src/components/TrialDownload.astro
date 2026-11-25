@@ -1,0 +1,88 @@
+---
+import { TRIALS } from '@/data/product';
+
+type Product = keyof typeof TRIALS;
+
+interface Props {
+  product: Product;
+  variant: 'hero' | 'price';
+}
+
+const { product, variant } = Astro.props;
+const trial = TRIALS[product];
+---
+
+{trial.available && variant === 'hero' && (
+  <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+    <a
+      href={`/api/trial?product=${product}`}
+      id={`trial-link-hero-${product}`}
+      class="trial-download-link"
+      style="font-size: 13px; color: #0F2557; font-weight: 700; text-decoration: underline; white-space: nowrap;"
+    >
+      無料体験版をダウンロード
+    </a>
+    <span
+      id={`trial-msg-hero-${product}`}
+      style="display: none; font-size: 12px; color: #11512F; font-weight: 700;"
+    >
+      ダウンロードを開始します…
+    </span>
+  </div>
+)}
+
+{trial.available && variant === 'price' && (
+  <div style="margin-top: 16px; padding: 20px 22px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; display: flex; flex-direction: column; gap: 10px;">
+    <div style="font-size: 13px; font-weight: 700; color: #FFFFFF;">無料体験版もあります</div>
+    <a
+      href={`/api/trial?product=${product}`}
+      id={`trial-link-price-${product}`}
+      class="trial-download-link"
+      style="display: inline-block; font-size: 13px; font-weight: 700; color: #BFE8D2; text-decoration: underline;"
+    >
+      無料体験版をダウンロード →
+    </a>
+    <span
+      id={`trial-msg-price-${product}`}
+      style="display: none; font-size: 12px; color: #BFE8D2; font-weight: 700;"
+    >
+      ダウンロードを開始します…
+    </span>
+    {trial.limits.length > 0 && (
+      <ul style="margin: 0; padding: 0 0 0 1.4em; font-size: 12px; color: rgba(255,255,255,0.7); display: flex; flex-direction: column; gap: 3px; line-height: 1.65;">
+        {trial.limits.map(limit => <li>{limit}</li>)}
+      </ul>
+    )}
+    {trial.smartScreen && (
+      <p style="margin: 0; font-size: 11.5px; color: rgba(255,255,255,0.6); line-height: 1.65;">
+        ※ 初回起動時にWindowsのSmartScreen警告が出ることがあります。「詳細情報」→「実行」で続けてください。
+      </p>
+    )}
+    {trial.afterPurchase && (
+      <p style="margin: 0; font-size: 11.5px; color: rgba(255,255,255,0.6);">{trial.afterPurchase}</p>
+    )}
+  </div>
+)}
+
+<script>
+  function initTrialDownload() {
+    document.querySelectorAll<HTMLAnchorElement>('.trial-download-link').forEach(link => {
+      if (link.dataset.trialInit) return;
+      link.dataset.trialInit = '1';
+      link.addEventListener('click', () => {
+        const msgId = link.id.replace('trial-link-', 'trial-msg-');
+        const msg = document.getElementById(msgId);
+        if (msg) {
+          msg.style.display = 'inline';
+          setTimeout(() => { msg.style.display = 'none'; }, 4000);
+        }
+        if (typeof (window as any).gtag === 'function') {
+          const p = new URL(link.href).searchParams.get('product');
+          (window as any).gtag('event', 'trial_download', { product: p });
+        }
+      });
+    });
+  }
+  initTrialDownload();
+  document.addEventListener('astro:page-load', initTrialDownload);
+</script>

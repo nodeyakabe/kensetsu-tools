@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { PRODUCT, ANZEN_DAICHO } from '@/data/product';
 import PurchaseFlow from '@/components/PurchaseFlow.astro';
+import TrialDownload from '@/components/TrialDownload.astro';
 
 const siteUrl = (import.meta.env.SITE ?? 'https://kensetsu-tools.com').replace(/\/$/, '');
 const priceValidUntil = `${new Date().getFullYear() + 1}-12-31`;
@@ -219,6 +220,7 @@ const comparisonRows = [
             >
               ¥{PRODUCT.price.toLocaleString()}で購入する（追加費用なし）
             </button>
+            <TrialDownload product="koji" variant="hero" />
             <p class="text-xs text-[#5A6B85] text-center lg:text-left leading-relaxed">
               ✓ 決済完了後すぐにメールでお届け<br>※ デジタル商品のため返品はできません。動作環境を満たすPCで動作しない場合は、確認のうえ修正版のご提供または返金で対応します。
             </p>
@@ -545,6 +547,7 @@ const comparisonRows = [
             <p style="font-size: 11.5px; color: #8FA1C4; text-align: center; margin: 0; line-height: 1.8;">
               ✓ 決済完了後すぐにメールでお届け<br/>※ デジタル商品のため返品はできません。動作環境を満たすPCで動作しない場合は、確認のうえ修正版のご提供または返金で対応します。
             </p>
+            <TrialDownload product="koji" variant="price" />
           </div>
           <!-- 右：REQUIREMENTS仕様カード -->
           <div style="background: #F3F6FB; border-radius: 16px; padding: 40px 36px; display: flex; flex-direction: column; gap: 4px;">

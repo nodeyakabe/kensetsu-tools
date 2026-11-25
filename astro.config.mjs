@@ -7,7 +7,8 @@ export default defineConfig({
   site: 'https://kensetsu-tools.com',
   integrations: [
     tailwind(),
-    sitemap(),
+    // 発売時に filter を外す（pc-tenken は noindex・準備中のためサイトマップから除外）
+    sitemap({ filter: (page) => !page.includes('/products/pc-tenken/') }),
   ],
   markdown: {
     remarkPlugins: [remarkCjkFriendly],

@@ -27,3 +27,32 @@ export const KENSETSU_BANTO = {
   currency: 'JPY',
   slug: '/products/kensetsu-banto/',
 } as const;
+
+/** 体験版の設定 — available: false の間はボタン非表示 */
+export type TrialConfig = {
+  available: boolean;
+  limits: string[];
+  smartScreen: boolean;
+  afterPurchase: string;
+};
+
+export const TRIALS: Record<'koji' | 'anzen' | 'pc-tenken', TrialConfig> = {
+  koji: {
+    available: false,
+    limits: [], // 各ツールのスレッドが体験版の制限を決めたら1〜3行で入れる
+    smartScreen: false,
+    afterPurchase: '購入後は、製品版のファイルをメールでお届けします。',
+  },
+  anzen: {
+    available: false,
+    limits: [],
+    smartScreen: true,
+    afterPurchase: '購入後にメールで届くライセンスキーを入れると、同じファイルのまま製品版になります。',
+  },
+  'pc-tenken': {
+    available: false,
+    limits: [],
+    smartScreen: true,
+    afterPurchase: '購入後にメールで届くライセンスキーを入れると、同じファイルのまま製品版になります。',
+  },
+};

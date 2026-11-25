@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import CharaDialogue from '@/components/CharaDialogue.astro';
 import PurchaseFlow from '@/components/PurchaseFlow.astro';
 import { PRODUCT as KOJI_PRODUCT } from '@/data/product';
+import TrialDownload from '@/components/TrialDownload.astro';
 
 const siteUrl = (import.meta.env.SITE ?? 'https://kensetsu-tools.com').replace(/\/$/, '');
 const priceValidUntil = `${new Date().getFullYear() + 1}-12-31`;
@@ -242,6 +243,7 @@ const comparisonRows = [
                 <span style="font-size: 12px; color: #5A6B85;">税込・買い切り</span>
               </div>
             </div>
+            <TrialDownload product="anzen" variant="hero" />
             <p style="font-size: 11.5px; color: #5A6B85; margin: 0; line-height: 1.8;">
               ✓ 決済完了後すぐにメールでお届け<br/>※ デジタル商品のため返品はできません。動作環境を満たすPCで動作しない場合は、確認のうえ修正版のご提供または返金で対応します。
             </p>
@@ -480,6 +482,7 @@ const comparisonRows = [
             >
               ¥{PRODUCT.price.toLocaleString()}で購入する（追加費用なし）
             </button>
+            <TrialDownload product="anzen" variant="price" />
             <p style="font-size: 11px; color: #BFE8D2; text-align: center; margin: 0; line-height: 1.8;">
               ✓ 決済完了後すぐにメールでお届け<br/>※ デジタル商品のため返品はできません。動作環境を満たすPCで動作しない場合は、確認のうえ修正版のご提供または返金で対応します。
             </p>
