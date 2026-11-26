@@ -50,3 +50,4 @@ tags: ["作業員名簿", "書き方", "一人親方", "グリーンサイト", 
 
 - [技能講習・特別教育の修了証に有効期限はある？](/blog/qualification-expiry/)
 - [建設業の健康診断は義務？種類・頻度と特殊健診をまとめて解説](/blog/kenshin-obligation/)
+- [施工体制台帳の添付書類とは？下請・一人親方が元請けに出すもの](/blog/sekou-taisei-daicho-tenpu/)
